@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "ABUtilities",
+        "repositoryURL": "https://github.com/ab492/ABUtilties.git",
+        "state": {
+          "branch": null,
+          "revision": "2bea56e3ad8f18f181372647c6b1e381b6d743f8",
+          "version": "1.0.8"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
