@@ -1,8 +1,8 @@
 //
-//  CustomSlider.swift
+//  BarSlider.swift
 //  PlaylistPlayer
 //
-//  Created by Andy Brown on 25/01/2021.
+//  Created by Andy Brown on 28/01/2021.
 //
 
 import SwiftUI
@@ -15,76 +15,75 @@ struct CustomSlider: View {
     struct Configuration {
         var knobWidth: CGFloat
         var barHeight: CGFloat
+        var knobColor: Color
         var minimumTrackTint: Color
         var maximumTrackTint: Color
-        var onDragStart: (() -> Void)?
-        var onDragFinish: (() -> Void)?
 
         init(knobWidth: CGFloat = 25,
-             barHeight: CGFloat = 6,
+             barHeight: CGFloat = 4,
+             knobColor: Color = .white,
              minimumTrackTint: Color = .accentColor,
-             maximumTrackTint: Color = .gray,
-             onDragStart: (() -> Void)? = nil,
-             onDragFinish: (() -> Void)? = nil) {
+             maximumTrackTint: Color = .gray) {
             self.knobWidth = knobWidth
             self.barHeight = barHeight
+            self.knobColor = knobColor
             self.minimumTrackTint = minimumTrackTint
             self.maximumTrackTint = maximumTrackTint
-            self.onDragStart = onDragStart
-            self.onDragFinish = onDragFinish
         }
     }
 
-    // MARK: - State and Properties
+    // MARK: - Types
 
     @Binding var value: CGFloat
-    @State private var lastOffset: CGFloat = 0
     @State private var isDragging = false
+    @State private var lastOffset: CGFloat = 0 //TODO: Make this nil
 
     private var range: ClosedRange<CGFloat>
     private let configuration: Configuration
-
+    private var onDragStart: (() -> Void)?
+    private var onDragFinish: (() -> Void)?
+    
     // MARK: - Init
 
-    init(value: Binding<CGFloat>, in range: ClosedRange<CGFloat>, configuration: Configuration = Configuration()) {
+    init(value: Binding<CGFloat>,
+         in range: ClosedRange<CGFloat>,
+         configuration: Configuration = Configuration(),
+         onDragStart: (() -> Void)? = nil,
+         onDragFinish: (() -> Void)? = nil) {
         self._value = value
         self.range = range
         self.configuration = configuration
+        self.onDragStart = onDragStart
+        self.onDragFinish = onDragFinish
     }
-
-    // MARK: - View
-
+    
     var body: some View {
-        GeometryReader { geometry in
+        GeometryReader { geo in
             ZStack {
-                HStack {
+                HStack(spacing: 0) {
                     Rectangle()
-                        .frame(width: $value.wrappedValue.map(from: range, to: sliderWidthExcludingKnob(geometry: geometry)),
-                               height: configuration.barHeight)
-                        .foregroundColor(configuration.minimumTrackTint)
+                        .fill(configuration.minimumTrackTint)
+                        .frame(width: $value.wrappedValue.map(from: range, to: 0...geo.size.width))
                     Rectangle()
-                        .frame(height: configuration.barHeight)
-                        .foregroundColor(configuration.maximumTrackTint)
+                        .fill(configuration.maximumTrackTint)
                 }
+                .frame(height: configuration.barHeight)
                 .clipShape(RoundedRectangle(cornerRadius: 16))
-                HStack {
+                HStack(spacing: 0) {
                     Circle()
+                        .fill(configuration.knobColor)
                         .frame(width: configuration.knobWidth, height: configuration.knobWidth)
-                        .foregroundColor(.white)
-                        .contentShape(Rectangle())
-                        .scaleEffect(isDragging ? 2 : 1)
-                        .animation(.interactiveSpring())
-                        .offset(x: $value.wrappedValue.map(from: range, to: sliderWidthExcludingKnob(geometry: geometry)))
+                        .offset(x: valueForKnob(geometry: geo))
                         .gesture(
                             DragGesture(minimumDistance: 0)
                                 .onChanged { value in
-
+                                    
                                     if isDragging == false {
-                                        configuration.onDragStart?()
+                                        onDragStart?()
                                         isDragging = true
                                     }
 
-                                    let sliderWidth = self.sliderWidthExcludingKnob(geometry: geometry)
+                                    let sliderWidth = 0...geo.size.width
 
                                     if abs(value.translation.width) < 0.1 {
                                         self.lastOffset = self.$value.wrappedValue.map(from: range, to: sliderWidth)
@@ -94,9 +93,10 @@ struct CustomSlider: View {
                                     let sliderValue = sliderPosition.map(from: sliderWidth, to: range)
 
                                     self.value = sliderValue
+
                                 }
                                 .onEnded { _ in
-                                    configuration.onDragFinish?()
+                                    onDragFinish?()
                                     isDragging = false
                                 }
                         )
@@ -104,12 +104,18 @@ struct CustomSlider: View {
                 }
             }
         }
+        .frame(height: max(configuration.knobWidth, configuration.barHeight))
     }
 
-    // MARK: - Helpers
-
-    private func sliderWidthExcludingKnob(geometry: GeometryProxy) -> ClosedRange<CGFloat> {
-        return 0...geometry.size.width - configuration.knobWidth
+    private func valueForKnob(geometry: GeometryProxy) -> CGFloat {
+        $value.wrappedValue.map(from: range, to: 0...geometry.size.width) - (configuration.knobWidth * valueAsPercent())
     }
+
+    private func valueAsPercent() -> CGFloat {
+        let percent = ((value - range.lowerBound) / (range.upperBound - range.lowerBound) * 100) / 100
+        return percent.clamped(to: 0...1)
+    }
+
+    
 }
 

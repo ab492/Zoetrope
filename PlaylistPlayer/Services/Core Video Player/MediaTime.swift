@@ -15,6 +15,11 @@ struct MediaTime {
         self.preferredTimescale = preferredTimescale
         cmTime = CMTime(seconds: seconds, preferredTimescale: preferredTimescale)
     }
+
+    init(time: CMTime) {
+        self.cmTime = time
+        self.preferredTimescale = time.timescale
+    }
 }
 
 extension CMTimeScale {

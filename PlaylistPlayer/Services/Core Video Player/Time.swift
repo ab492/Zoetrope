@@ -9,6 +9,7 @@
 import Foundation
 
 struct Time {
+    
 
     private let timeInSeconds: Double
 
@@ -20,4 +21,8 @@ struct Time {
     var seconds: Double {
         return timeInSeconds
     }
+}
+
+extension Time {
+    static let zero = Time(seconds: 0)
 }

@@ -13,6 +13,7 @@ import AVFoundation
 protocol VideoQueuePlayerProtocol {
     var observer: VideoPlayerObserver? { get set }
 
+    // Player Information
     var playbackRate: Float { get set }
     var duration: Time { get }
     var currentTime: Time { get }
@@ -22,6 +23,7 @@ protocol VideoQueuePlayerProtocol {
     var mediaIsReadyToPlayFastForward: Bool { get }
     var mediaIsReadyToPlayFastReverse: Bool { get }
 
+    // Player Actions
     func play()
     func pause()
     func seek(to time: MediaTime)
@@ -39,7 +41,7 @@ protocol VideoQueuePlayerProtocol {
 protocol VideoPlayerObserver: class {
     func playbackItemStatusDidChange(to status: ItemStatus)
     func playbackStateDidChange(to playbackState: PlaybackState)
-    func playbackPositionDidChange(to time: Time)
+    func playbackPositionDidChange(to time: MediaTime)
     func mediaFastForwardAbilityDidChange(to newStatus: Bool)
     func mediaFastReverseAbilityDidChange(to newStatus: Bool)
     func mediaReverseAbilityDidChange(to newStatus: Bool)
@@ -184,7 +186,7 @@ final class WrappedAVQueuePlayer: VideoQueuePlayerProtocol {
     private func observeTimeInterval() {
         let interval = CMTime(seconds: 1.0 / 60, preferredTimescale: .default)
         timeObserverToken = player.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] time in
-            let timeElapsed = Time(seconds: time.seconds)
+            let timeElapsed = MediaTime(time: time)
             self?.observer?.playbackPositionDidChange(to: timeElapsed)
         }
     }
@@ -277,6 +279,7 @@ extension WrappedAVQueuePlayer {
         set { player.rate = newValue }
     }
 
+    /// The value of this property will be reported as indefinite (NAN) until the duration of the underlying asset has been loaded. 
     var duration: Time {
         let duration = player.currentItem?.duration ?? CMTime(seconds: 0, preferredTimescale: .zero)
         let seconds = CMTimeGetSeconds(duration)
@@ -372,7 +375,7 @@ extension PlayerView {
 extension VideoPlayerObserver {
     func playbackItemStatusDidChange(to status: ItemStatus) { }
     func playbackStateDidChange(to playbackState: PlaybackState) { }
-    func playbackPositionDidChange(to time: Time) { }
+    func playbackPositionDidChange(to time: MediaTime) { }
     func mediaFastForwardAbilityDidChange(to newStatus: Bool) { }
     func mediaFastReverseAbilityDidChange(to newStatus: Bool) { }
     func mediaReverseAbilityDidChange(to newStatus: Bool) { }

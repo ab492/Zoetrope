@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-
+    
     // MARK: - State
 
     @State private var presentingPlayer = false
@@ -25,6 +25,7 @@ struct ContentView: View {
                             viewModel.skipToItem(at: index)
                             presentingPlayer.toggle()
                         }
+//                        .accessibility(addTraits: [.startsMediaSession])
                 }
             }
             .navigationTitle("Playlist Player")

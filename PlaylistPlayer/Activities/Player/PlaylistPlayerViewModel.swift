@@ -15,12 +15,17 @@ class PlaylistPlayerViewModel: ObservableObject {
 
     // MARK: - Published
     
-    @Published var isPlaying = false
-    @Published var isReadyForPlayback = false
-    @Published var canPlayFastReverse = false
-    @Published var canPlayFastForward = false
-    @Published var loopMode: PlaylistPlayer.LoopMode
+    @Published private(set) var isPlaying = false
+    @Published private(set) var isReadyForPlayback = false
+    @Published private(set) var canPlayFastReverse = false
+    @Published private(set) var canPlayFastForward = false
+    @Published private(set) var loopMode: LoopMode
 
+    @Published private(set) var currentTime: Time = .zero
+    @Published private(set) var duration: Time = .zero
+    @Published private(set) var formattedCurrentTime = "00:00"
+    @Published private(set) var formattedDuration = "00:00"
+    
     init() {
         self.player = PlaylistPlayer(items: items.map { AVPlayerItem(url: $0) })
         self.loopMode = player.loopMode
@@ -50,32 +55,48 @@ class PlaylistPlayerViewModel: ObservableObject {
     func step(byFrames frames: Int) {
         player.step(byFrames: frames)
     }
+
+    // MARK: - WIP - NEED TO TEST
+
+    func seek(to time: Time) {
+        player.seek(to: time)
+    }
     
-    func setLoopMode(to loopMode: PlaylistPlayer.LoopMode) {
+    func setLoopMode(to loopMode: LoopMode) {
         // Here we need to keep model and view in sync - need to find a nicer way to do this.
         player.loopMode = loopMode
         self.loopMode = player.loopMode
     }
 }
 
-extension PlaylistPlayerViewModel: PlaylistPlayerObserver {
+// MARK: - PlaylistPlayerObserver
 
+extension PlaylistPlayerViewModel: PlaylistPlayerObserver {
+    
     func playbackItemStatusDidChange(to status: ItemStatus) {
         switch status {
         case .readyToPlay:
             isReadyForPlayback = true
+            duration = player.currentItemDuration
+            formattedDuration = TimeFormatter.string(from: Int(player.currentItemDuration.seconds))
         case .failed, .unknown:
             isReadyForPlayback = false
         }
     }
 
     func playbackStateDidChange(to playbackState: PlaybackState) {
+        print("STATE CHANGE: \(playbackState)")
         switch playbackState {
         case .playing:
             isPlaying = true
         case .paused, .waitingToPlayAtSpecifiedRate:
             isPlaying = false
         }
+    }
+
+    func playbackPositionDidChange(to time: Time) {
+        formattedCurrentTime = TimeFormatter.string(from: Int(time.seconds))
+        currentTime = time
     }
 
     func mediaFastForwardAbilityDidChange(to newStatus: Bool) {

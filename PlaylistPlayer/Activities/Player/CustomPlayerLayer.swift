@@ -23,7 +23,7 @@ struct CustomPlayerLayer: View {
             }
         }
         .edgesIgnoringSafeArea(.all)
-        .statusBar(hidden: true)
+//        .statusBar(hidden: true)
     }
 
     private var loadingSpinner: some View {

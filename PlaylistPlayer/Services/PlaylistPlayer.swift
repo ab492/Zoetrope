@@ -8,6 +8,31 @@
 import Foundation
 import AVFoundation
 
+enum LoopMode {
+    case loopCurrent
+    case loopPlaylist
+    case playPlaylistOnce
+}
+
+protocol PlaylistPlayerProtocol {
+
+    func play()
+    func pause()
+    func playNext()
+    func playPrevious()
+    func skipToItem(at index: Int)
+    func step(byFrames count: Int)
+    func seek(to time: Time)
+    func replaceQueue(with items: [AVPlayerItem])
+
+    var loopMode: LoopMode { get set }
+    var currentItemDuration: Time { get set }
+    var volume: Float { get set }
+
+
+    var observer: PlaylistPlayerObserver { get set }
+}
+
 protocol PlaylistPlayerObserver: class {
     func playbackItemStatusDidChange(to status: ItemStatus)
     func playbackStateDidChange(to playbackState: PlaybackState)
@@ -18,16 +43,8 @@ protocol PlaylistPlayerObserver: class {
     func currentItemDidFinishPlayback()
 }
 
-/**
- Creates a video player for queuing content and navigating forward and back.
- */
+/// Creates a video player for queuing content and navigating forward and back.
 final class PlaylistPlayer {
-
-    enum LoopMode {
-        case loopCurrent
-        case loopPlaylist
-        case playPlaylistOnce
-    }
 
     // MARK: - Public Properties
 
@@ -46,6 +63,10 @@ final class PlaylistPlayer {
     var volume: Float {
         get { player.volume }
         set { player.volume = newValue }
+    }
+
+    var currentItemDuration: Time {
+        player.duration
     }
 
     // MARK: - Private Properties
@@ -151,6 +172,17 @@ final class PlaylistPlayer {
         player.step(byFrames: count)
     }
 
+    func seek(to time: Time) {
+        player.seek(to: MediaTime(seconds: time.seconds))
+    }
+
+    func replaceQueue(with items: [AVPlayerItem]) {
+        playerItems = items
+        player.queueItems(playerItems)
+        setNeedsRequeueAndPrepare()
+        requeueIfNeeded()
+    }
+
     // MARK: - Private Methods
 
     private func requeueIfNeeded() {
@@ -252,8 +284,8 @@ extension PlaylistPlayer: VideoPlayerObserver {
         observer?.playbackStateDidChange(to: playbackState)
     }
 
-    func playbackPositionDidChange(to time: Time) {
-        observer?.playbackPositionDidChange(to: time)
+    func playbackPositionDidChange(to time: MediaTime) {
+        observer?.playbackPositionDidChange(to: Time(seconds: time.seconds))
     }
 
     func mediaFastForwardAbilityDidChange(to newStatus: Bool) {

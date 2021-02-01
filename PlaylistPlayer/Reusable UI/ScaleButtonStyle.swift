@@ -15,8 +15,7 @@ struct ScaleButtonStyle: ButtonStyle {
 
     private struct ScaleButton: View {
         let configuration: ButtonStyle.Configuration
-        @Environment(\.isEnabled) private var isEnabled: Bool
-
+        
         var body: some View {
             configuration.label
                 //https://stackoverflow.com/questions/59169436/swiftui-buttonstyle-how-to-check-if-button-is-disabled-or-enabled
