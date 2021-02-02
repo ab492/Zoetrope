@@ -46,9 +46,10 @@
 		AD2F0BAD25BC0D380006306D /* CustomPlayerLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F0BAC25BC0D380006306D /* CustomPlayerLayer.swift */; };
 		AD2F0BB125BC0DD50006306D /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F0BB025BC0DD50006306D /* VideoPlayerView.swift */; };
 		AD2F0BB525BC0E0F0006306D /* UIKit-PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F0BB425BC0E0F0006306D /* UIKit-PlayerView.swift */; };
+		AD318A5325C7D7B700B62201 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD318A5225C7D7B700B62201 /* Video.swift */; };
 		AD37B5CE25BC109400B854B6 /* PlaylistPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD37B5CD25BC109400B854B6 /* PlaylistPlayerViewModel.swift */; };
-		AD4DDB3D25C08E0100F8831B /* ABUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = AD4DDB3C25C08E0100F8831B /* ABUtilities */; };
 		AD4DDB4225C08E7700F8831B /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4DDB4125C08E7700F8831B /* CGFloat+Extensions.swift */; };
+		AD75C74925C9181B0070110F /* ABUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = AD75C74825C9181B0070110F /* ABUtilities */; };
 		AD7994D725C28E070041CFC7 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7994D625C28E070041CFC7 /* CustomSlider.swift */; };
 		AD7E77FF25C58FBD00EDD01E /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7E77FE25C58FBD00EDD01E /* TimeFormatter.swift */; };
 		AD7E780425C58FEE00EDD01E /* TimeFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7E780325C58FEE00EDD01E /* TimeFormatterTests.swift */; };
@@ -109,6 +110,7 @@
 		AD2F0BAC25BC0D380006306D /* CustomPlayerLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPlayerLayer.swift; sourceTree = "<group>"; };
 		AD2F0BB025BC0DD50006306D /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		AD2F0BB425BC0E0F0006306D /* UIKit-PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIKit-PlayerView.swift"; sourceTree = "<group>"; };
+		AD318A5225C7D7B700B62201 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		AD37B5CD25BC109400B854B6 /* PlaylistPlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistPlayerViewModel.swift; sourceTree = "<group>"; };
 		AD4DDB4125C08E7700F8831B /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
 		AD7994D625C28E070041CFC7 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
@@ -122,7 +124,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD4DDB3D25C08E0100F8831B /* ABUtilities in Frameworks */,
+				AD75C74925C9181B0070110F /* ABUtilities in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,6 +202,7 @@
 			children = (
 				AD2F0AB725BC06A50006306D /* PlaylistPlayerApp.swift */,
 				AD078C5425BD598A00137941 /* Activities */,
+				AD318A5125C7D7A700B62201 /* Model */,
 				AD2F0BB825BC0E230006306D /* Reusable UI */,
 				AD2F0B2125BC07D10006306D /* Services */,
 				AD7E77FD25C58FA400EDD01E /* Utilities */,
@@ -318,6 +321,14 @@
 			path = "Reusable UI";
 			sourceTree = "<group>";
 		};
+		AD318A5125C7D7A700B62201 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AD318A5225C7D7B700B62201 /* Video.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		AD4DDB4025C08E6700F8831B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -376,7 +387,7 @@
 			);
 			name = PlaylistPlayer;
 			packageProductDependencies = (
-				AD4DDB3C25C08E0100F8831B /* ABUtilities */,
+				AD75C74825C9181B0070110F /* ABUtilities */,
 			);
 			productName = PlaylistPlayer;
 			productReference = AD2F0AB425BC06A50006306D /* PlaylistPlayer.app */;
@@ -428,7 +439,7 @@
 			);
 			mainGroup = AD2F0AAB25BC06A50006306D;
 			packageReferences = (
-				AD4DDB3B25C08E0100F8831B /* XCRemoteSwiftPackageReference "ABUtilties" */,
+				AD75C74725C9181B0070110F /* XCRemoteSwiftPackageReference "ABUtilties" */,
 			);
 			productRefGroup = AD2F0AB525BC06A50006306D /* Products */;
 			projectDirPath = "";
@@ -487,6 +498,7 @@
 				AD37B5CE25BC109400B854B6 /* PlaylistPlayerViewModel.swift in Sources */,
 				AD078C3925BC186500137941 /* PlaybackControlsBar.swift in Sources */,
 				AD13687425BD600100ACC7D0 /* TimeControlsBar.swift in Sources */,
+				AD318A5325C7D7B700B62201 /* Video.swift in Sources */,
 				AD2F0AE625BC06D20006306D /* WrappedAVQueuePlayer.swift in Sources */,
 				AD2F0BB525BC0E0F0006306D /* UIKit-PlayerView.swift in Sources */,
 				AD078C3525BC185700137941 /* VisualEffectView.swift in Sources */,
@@ -767,7 +779,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		AD4DDB3B25C08E0100F8831B /* XCRemoteSwiftPackageReference "ABUtilties" */ = {
+		AD75C74725C9181B0070110F /* XCRemoteSwiftPackageReference "ABUtilties" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ab492/ABUtilties.git";
 			requirement = {
@@ -778,9 +790,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		AD4DDB3C25C08E0100F8831B /* ABUtilities */ = {
+		AD75C74825C9181B0070110F /* ABUtilities */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = AD4DDB3B25C08E0100F8831B /* XCRemoteSwiftPackageReference "ABUtilties" */;
+			package = AD75C74725C9181B0070110F /* XCRemoteSwiftPackageReference "ABUtilties" */;
 			productName = ABUtilities;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -16,5 +16,7 @@ struct PlayerIcons {
     static let skipForwards = "forward.frame.fill"
     static let nextItem = "forward.end.fill"
     static let previousItem = "backward.end.fill"
+    static let loopPlaylist = "repeat"
+    static let loopCurrent = "repeat.1"
     static let close = "xmark"
 }

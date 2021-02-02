@@ -10,8 +10,8 @@ import SwiftUI
 
 class PlaylistPlayerViewModel: ObservableObject {
 
-    let items = ["01", "02", "03", "04", "05", "06", "07", "08"].compactMap { Bundle.main.url(forResource: $0, withExtension: "mov") }
-    let player: PlaylistPlayer
+//    let items = ["01", "02", "03", "04", "05", "06", "07", "08"].compactMap { Bundle.main.url(forResource: $0, withExtension: "mov") }
+    var player: PlaylistPlayerProtocol
 
     // MARK: - Published
     
@@ -27,7 +27,8 @@ class PlaylistPlayerViewModel: ObservableObject {
     @Published private(set) var formattedDuration = "00:00"
     
     init() {
-        self.player = PlaylistPlayer(items: items.map { AVPlayerItem(url: $0) })
+//        self.player = PlaylistPlayer(items: items.map { AVPlayerItem(url: $0) })
+        self.player = PlaylistPlayer()
         self.loopMode = player.loopMode
         self.player.observer = self
     }
@@ -66,6 +67,11 @@ class PlaylistPlayerViewModel: ObservableObject {
         // Here we need to keep model and view in sync - need to find a nicer way to do this.
         player.loopMode = loopMode
         self.loopMode = player.loopMode
+    }
+
+    func replaceQueue(with items: [Video]) {
+        let items = items.map { AVPlayerItem(url: $0.url) }
+        player.replaceQueue(with: items)
     }
 }
 

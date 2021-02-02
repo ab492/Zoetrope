@@ -41,13 +41,13 @@ struct TimeControlsBar: View {
     private var loopButton: some View {
         switch viewModel.loopMode {
         case .loopCurrent:
-            PlaybackControlsButton(systemImage: Icons.loopCurrent, onTap: { viewModel.setLoopMode(to: .playPlaylistOnce) })
+            PlaybackControlsButton(systemImage: PlayerIcons.loopCurrent, onTap: { viewModel.setLoopMode(to: .playPlaylistOnce) })
                 .foregroundColor(.white)
         case .loopPlaylist:
-            PlaybackControlsButton(systemImage: Icons.loopPlaylist, onTap: { viewModel.setLoopMode(to: .loopCurrent) })
+            PlaybackControlsButton(systemImage: PlayerIcons.loopPlaylist, onTap: { viewModel.setLoopMode(to: .loopCurrent) })
                 .foregroundColor(.white)
         case .playPlaylistOnce:
-            PlaybackControlsButton(systemImage: Icons.loopPlaylist, onTap: { viewModel.setLoopMode(to: .loopPlaylist) })
+            PlaybackControlsButton(systemImage: PlayerIcons.loopPlaylist, onTap: { viewModel.setLoopMode(to: .loopPlaylist) })
                 .foregroundColor(.gray)
         }
     }
@@ -56,10 +56,5 @@ struct TimeControlsBar: View {
         CustomSlider.Configuration(knobWidth: 25,
                                    minimumTrackTint: .white,
                                    maximumTrackTint: .gray)
-    }
-
-    private struct Icons {
-        static let loopPlaylist = "repeat"
-        static let loopCurrent = "repeat.1"
     }
 }

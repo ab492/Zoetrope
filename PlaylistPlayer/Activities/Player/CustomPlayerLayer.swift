@@ -17,7 +17,9 @@ struct CustomPlayerLayer: View {
             Color.black.edgesIgnoringSafeArea(.all)
             if viewModel.isReadyForPlayback {
                 // FIXME: Fix this force unwrap!
-                VideoPlayerView(player: viewModel.player.player as! WrappedAVQueuePlayer)
+//                VideoPlayerView(player: viewModel.player.player as! WrappedAVQueuePlayer)
+                VideoPlayerView(player: (viewModel.player as! PlaylistPlayer).player as! WrappedAVQueuePlayer)
+
             } else {
                 loadingSpinner
             }

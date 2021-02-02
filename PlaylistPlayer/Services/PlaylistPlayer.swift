@@ -15,7 +15,6 @@ enum LoopMode {
 }
 
 protocol PlaylistPlayerProtocol {
-
     func play()
     func pause()
     func playNext()
@@ -24,13 +23,12 @@ protocol PlaylistPlayerProtocol {
     func step(byFrames count: Int)
     func seek(to time: Time)
     func replaceQueue(with items: [AVPlayerItem])
-
+    
     var loopMode: LoopMode { get set }
-    var currentItemDuration: Time { get set }
+    var currentItemDuration: Time { get }
     var volume: Float { get set }
 
-
-    var observer: PlaylistPlayerObserver { get set }
+    var observer: PlaylistPlayerObserver? { get set }
 }
 
 protocol PlaylistPlayerObserver: class {
@@ -44,7 +42,7 @@ protocol PlaylistPlayerObserver: class {
 }
 
 /// Creates a video player for queuing content and navigating forward and back.
-final class PlaylistPlayer {
+final class PlaylistPlayer: PlaylistPlayerProtocol {
 
     // MARK: - Public Properties
 
@@ -91,6 +89,10 @@ final class PlaylistPlayer {
         player.observer = self
 
         player.queueItems(items)
+    }
+
+    convenience init() {
+        self.init(items: [])
     }
 
     convenience init(items: [AVPlayerItem]) {
