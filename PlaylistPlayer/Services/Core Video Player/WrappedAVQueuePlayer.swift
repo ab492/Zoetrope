@@ -22,6 +22,7 @@ protocol VideoQueuePlayerProtocol {
     var playbackState: PlaybackState { get }
     var mediaIsReadyToPlayFastForward: Bool { get }
     var mediaIsReadyToPlayFastReverse: Bool { get }
+    var actionAtItemEnd: AVPlayer.ActionAtItemEnd  { get set }
 
     // Player Actions
     func play()
@@ -286,6 +287,11 @@ extension WrappedAVQueuePlayer {
         return Time(seconds: seconds)
     }
 
+    var actionAtItemEnd: AVPlayer.ActionAtItemEnd {
+        get { player.actionAtItemEnd }
+        set { player.actionAtItemEnd = newValue }
+    }
+
     var currentTime: Time {
         let currentTime = player.currentItem?.currentTime() ?? CMTime(seconds: 0, preferredTimescale: .zero)
         let seconds = CMTimeGetSeconds(currentTime)
@@ -356,6 +362,7 @@ extension WrappedAVQueuePlayer {
         player.currentItem?.step(byCount: count)
     }
 }
+
 
 // Exposes the underlying AVPlayer to UIView's PlayerLayer.
 extension AVPlayerLayer {

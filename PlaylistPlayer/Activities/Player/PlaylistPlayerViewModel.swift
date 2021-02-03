@@ -28,7 +28,8 @@ class PlaylistPlayerViewModel: ObservableObject {
     
     init() {
 //        self.player = PlaylistPlayer(items: items.map { AVPlayerItem(url: $0) })
-        self.player = PlaylistPlayer()
+//        self.player = PlaylistPlayer()
+        self.player = NewPlaylistPlayer()
         self.loopMode = player.loopMode
         self.player.observer = self
     }
@@ -91,7 +92,6 @@ extension PlaylistPlayerViewModel: PlaylistPlayerObserver {
     }
 
     func playbackStateDidChange(to playbackState: PlaybackState) {
-        print("STATE CHANGE: \(playbackState)")
         switch playbackState {
         case .playing:
             isPlaying = true
