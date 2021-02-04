@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct VideoPlayerView: UIViewRepresentable {
-    let player: WrappedAVQueuePlayer
+    let player: WrappedAVPlayer
 
-    init(player: WrappedAVQueuePlayer) {
+    init(player: WrappedAVPlayer) {
         self.player = player
     }
 

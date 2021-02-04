@@ -9,7 +9,7 @@ import XCTest
 import AVFoundation
 @testable import PlaylistPlayer
 
-final class MockVideoPlayer: VideoQueuePlayerProtocol {
+final class MockVideoPlayer: VideoPlayerProtocol {
 
     var queuedItems: [AVPlayerItem]?
     func queueItems(_ items: [AVPlayerItem]) {

@@ -13,13 +13,11 @@ final class NewPlaylistPlayer: PlaylistPlayerProtocol {
 
     // MARK: - Public Properties
 
-    var player: VideoQueuePlayerProtocol
+    var player: VideoPlayerProtocol
     weak var observer: PlaylistPlayerObserver?
 
     /// The loop mode for the playlist. This can be changed at any time throughout playback and the player will adjust to the new value. **Default: `.playPlaylistOnce`.**
-    var loopMode: LoopMode = .playPlaylistOnce {
-        didSet { setNeedsRequeueAndPrepare() }
-    }
+    var loopMode: LoopMode = .playPlaylistOnce
 
     /// The index of the currently playing item. **This is a zero based index (i.e. the first item has an index of 0).**
     private(set) var nowPlayingIndex = 0
@@ -45,17 +43,13 @@ final class NewPlaylistPlayer: PlaylistPlayerProtocol {
     private var atEndOfQueue: Bool {
         nowPlayingIndex == playerItems.count - 1
     }
-
-    private var needsRequeue = false
-
+    
     // MARK: - Init
 
-    init(items: [AVPlayerItem], videoPlayer: VideoQueuePlayerProtocol) {
+    init(items: [AVPlayerItem], videoPlayer: VideoPlayerProtocol) {
         playerItems = items
         player = videoPlayer
         player.observer = self
-
-        player.queueItems(items)
     }
 
     convenience init() {
@@ -63,12 +57,14 @@ final class NewPlaylistPlayer: PlaylistPlayerProtocol {
     }
 
     convenience init(items: [AVPlayerItem]) {
-        self.init(items: items, videoPlayer: WrappedAVQueuePlayer())
+        self.init(items: items, videoPlayer: WrappedAVPlayer())
     }
 
-    // MARK: - Public Methods
+    // MARK: - Public
 
     func play() {
+        // Since calling `replaceCurrentItem` with the player’s current player item has no effect, it's safe to always call it.
+        player.replaceCurrentItem(with: playerItems[nowPlayingIndex])
         player.play()
     }
 
@@ -78,63 +74,43 @@ final class NewPlaylistPlayer: PlaylistPlayerProtocol {
 
     func playNext() {
 
-        defer {
-            requeueIfNeeded()
-        }
-
         switch loopMode {
 
         case .loopCurrent:
+            // We're moving to the next item to loop.
             nowPlayingIndex += 1
-            // We're moving to the next item to loop, so we need to rebuild the queue with that item.
-            setNeedsRequeueAndPrepare()
 
         case .playPlaylistOnce:
             if atEndOfQueue == false {
                 nowPlayingIndex += 1
             }
-            // We want to advance to the next item anyway, since it'll terminate the queue if we're at the end.
-            player.advanceToNextItem()
 
         case .loopPlaylist:
             if atEndOfQueue {
+                // Restart the queue
                 nowPlayingIndex = 0
-                setNeedsRequeueAndPrepare()
             } else {
                 nowPlayingIndex += 1
-                player.advanceToNextItem()
             }
         }
+        updateCurrentPlayerItem()
     }
 
     func playPrevious() {
-
-        // Because `WrappedAVQueuePlayer` doesn't support skipping to the previous item (because items are removed once they're played) we have to rebuild the queue every time the user plays previous.
-
-        defer {
-            requeueIfNeeded()
-        }
 
         if atBeginningOfQueue {
             player.seek(to: .zero)
         } else {
             nowPlayingIndex -= 1
-            setNeedsRequeueAndPrepare()
         }
+
+        updateCurrentPlayerItem()
     }
 
     func skipToItem(at index: Int) {
-        var index = index
-
-        if index < 0 {
-            index = 0
-        } else if index > playerItems.count {
-            index = playerItems.count - 1
-        }
-
+        let index = index.clamped(to: 0...playerItems.count - 1)
         nowPlayingIndex = index
-        setNeedsRequeueAndPrepare()
-        requeueIfNeeded()
+        updateCurrentPlayerItem()
     }
 
     func step(byFrames count: Int) {
@@ -145,78 +121,20 @@ final class NewPlaylistPlayer: PlaylistPlayerProtocol {
         player.seek(to: MediaTime(seconds: time.seconds))
     }
 
+
     func replaceQueue(with items: [AVPlayerItem]) {
+        // TODO: Need to use this to test behaviour!
+        // DO WE NEED TO STOP THE PLAYER?!
         playerItems = items
-        player.queueItems(playerItems)
-        setNeedsRequeueAndPrepare()
-        requeueIfNeeded()
+        nowPlayingIndex = 0
     }
 
-    // MARK: - Private Methods
+    // MARK: - Private
 
-    private func requeueIfNeeded() {
-        guard needsRequeue == true else { return }
-
-        defer {
-            needsRequeue = false
-            player.actionAtItemEnd = .advance
-        }
-
-        // Empty the queue
-        if player.items().count > 0 { player.removeAllItems() }
-
-        switch loopMode {
-
-        case .loopCurrent:
-            addTemplateItemsToLoopQueue(count: 3)
-        case .playPlaylistOnce, .loopPlaylist:
-            for index in nowPlayingIndex..<playerItems.count {
-                let item = playerItems[index]
-                item.seek(to: .zero, completionHandler: nil)
-                player.insert(item: item, after: nil)
-            }
-        }
-    }
-
-    /// Invalidates the current queue and removes all outstanding items. The currently playing item is unaffected.
-    private func setNeedsRequeueAndPrepare() {
-        needsRequeue = true
-
-        player.actionAtItemEnd = .none
-
-
-        // This is required to prevent any flickering of the next item whilst we're rebuilding the queue.
-//        removeAllItemsExceptCurrentFromQueue()
-    }
-
-    func prepareForRequeue() {
-        removeAllItemsExceptCurrentFromQueue()
-    }
-
-    private func removeAllItemsExceptCurrentFromQueue() {
-        while player.items().count > 1 {
-            player.remove(item: player.items()[1])
-        }
-    }
-
-    private func addTemplateItemsToLoopQueue(count: Int) {
-        let newItems = templateLoopItems(count: 3)
-        for item in newItems {
-            player.insert(item: item, after: player.items().last)
-        }
-    }
-
-    private func templateLoopItems(count: Int) -> [AVPlayerItem] {
-        var items = [AVPlayerItem]()
-
-        for _ in 1...count {
-            // We can't add the same instance of an item to the player more than once, so we'll make a copy.
-            let copy = playerItems[nowPlayingIndex].copy() as! AVPlayerItem
-            copy.seek(to: .zero, completionHandler: nil)
-            items.append(copy)
-        }
-
-        return items
+    private func updateCurrentPlayerItem() {
+        let item = playerItems[nowPlayingIndex]
+        item.seek(to: .zero, completionHandler: nil)
+        player.replaceCurrentItem(with: item)
     }
 }
 
@@ -225,17 +143,10 @@ extension NewPlaylistPlayer: VideoPlayerObserver {
     func currentItemDidFinishPlayback() {
         observer?.currentItemDidFinishPlayback()
 
-        defer {
-            requeueIfNeeded()
-        }
-
         switch loopMode {
 
         case .loopCurrent:
-            if player.items().count == 2 {
-                // Add more template items to the looper to prevent any stuttering.
-                addTemplateItemsToLoopQueue(count: 3)
-            }
+            break
 
         case .playPlaylistOnce:
             if atEndOfQueue {
@@ -247,11 +158,14 @@ extension NewPlaylistPlayer: VideoPlayerObserver {
         case .loopPlaylist:
             if atEndOfQueue {
                 nowPlayingIndex = 0
-                setNeedsRequeueAndPrepare()
             } else {
                 nowPlayingIndex += 1
             }
         }
+
+        let item = playerItems[nowPlayingIndex]
+        item.seek(to: .zero, completionHandler: nil)
+        player.replaceCurrentItem(with: item)
         player.play()
     }
 
@@ -264,12 +178,6 @@ extension NewPlaylistPlayer: VideoPlayerObserver {
     }
 
     func playbackPositionDidChange(to time: MediaTime) {
-//        if player.duration.seconds - time.seconds < 0.2 {
-//            if needsRequeue {
-//                print("Prepare for requeue") //A BUG - WATCH THIS PRINT FOR CHANGing to play playlist once.
-//                prepareForRequeue()
-//            }
-//        }
         observer?.playbackPositionDidChange(to: Time(seconds: time.seconds))
     }
 

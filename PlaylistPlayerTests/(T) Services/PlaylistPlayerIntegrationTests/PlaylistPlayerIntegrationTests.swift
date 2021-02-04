@@ -116,7 +116,7 @@ extension PlaylistPlayerIntegrationTests {
 //
     @discardableResult private func makeSUT(withItems items: [AVPlayerItem]) -> PlaylistPlayer {
         // Create a `WrappedAVQueuePlayer` but inject the `SpyAVPlayer` so we can observe.
-        let player = WrappedAVQueuePlayer(player: spyAvPlayer)
+        let player = WrappedAVPlayer(player: spyAvPlayer)
         return PlaylistPlayer(items: items, videoPlayer: player)
     }
 

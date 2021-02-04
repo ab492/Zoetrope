@@ -9,8 +9,8 @@
 import Foundation
 import AVFoundation
 
-/// A protocol to mirror `AVQueuePlayer`.
-protocol VideoQueuePlayerProtocol {
+/// A protocol to mirror `AVPlayer`.
+protocol VideoPlayerProtocol {
     var observer: VideoPlayerObserver? { get set }
 
     // Player Information
@@ -22,20 +22,12 @@ protocol VideoQueuePlayerProtocol {
     var playbackState: PlaybackState { get }
     var mediaIsReadyToPlayFastForward: Bool { get }
     var mediaIsReadyToPlayFastReverse: Bool { get }
-    var actionAtItemEnd: AVPlayer.ActionAtItemEnd  { get set }
 
     // Player Actions
     func play()
     func pause()
     func seek(to time: MediaTime)
-    func items() -> [AVPlayerItem]
-    func advanceToNextItem()
-    func canInsert(item: AVPlayerItem, after: AVPlayerItem?) -> Bool
-    func insert(item: AVPlayerItem, after: AVPlayerItem?)
-    func remove(item: AVPlayerItem)
-    func removeAllItems()
-    func queueItems(_ items: [AVPlayerItem])
-    func replaceCurrentItem(with url: URL)
+    func replaceCurrentItem(with item: AVPlayerItem)
     func step(byFrames count: Int)
 }
 
@@ -61,14 +53,14 @@ enum ItemStatus {
     case unknown
 }
 
-/// Provides a wrapper to make `AVQueuePlayer` player easier to work with by using a delegate instead of KVO. 
-final class WrappedAVQueuePlayer: VideoQueuePlayerProtocol {
+/// Provides a wrapper to make `AVPlayer` player easier to work with by using a delegates instead of KVO.
+final class WrappedAVPlayer: VideoPlayerProtocol {
 
     weak var observer: VideoPlayerObserver?
 
     // MARK: - Private Properties
     // FIXME: Make this private again!
-    var player: AVQueuePlayer
+    var player: AVPlayer
 
     // MARK: - Observers
     private var timeObserverToken: Any?
@@ -82,10 +74,10 @@ final class WrappedAVQueuePlayer: VideoQueuePlayerProtocol {
     // MARK: - Init
 
     convenience init() {
-        self.init(player: AVQueuePlayer())
+        self.init(player: AVPlayer())
     }
 
-    init(player: AVQueuePlayer) {
+    init(player: AVPlayer) {
         self.player = player
         setupObservers()
     }
@@ -213,44 +205,11 @@ final class WrappedAVQueuePlayer: VideoQueuePlayerProtocol {
 
 // MARK: - Public API
 
-extension WrappedAVQueuePlayer {
-    
+extension WrappedAVPlayer {
+
+    /// Calling this method with the player’s current player item has no effect.
     func replaceCurrentItem(with item: AVPlayerItem) {
         player.replaceCurrentItem(with: item)
-    }
-
-    func replaceCurrentItem(with url: URL) {
-        player.replaceCurrentItem(with: AVPlayerItem(url: url))
-    }
-
-    func queueItems(_ items: [AVPlayerItem]) {
-        items.forEach {
-            player.insert($0, after: nil)
-        }
-    }
-
-    func items() -> [AVPlayerItem] {
-        player.items()
-    }
-
-    func canInsert(item: AVPlayerItem, after: AVPlayerItem?) -> Bool {
-        player.canInsert(item, after: after)
-    }
-
-    func insert(item: AVPlayerItem, after: AVPlayerItem?) {
-        player.insert(item, after: after)
-    }
-
-    func remove(item: AVPlayerItem) {
-        player.remove(item)
-    }
-
-    func advanceToNextItem() {
-        player.advanceToNextItem()
-    }
-
-    func removeAllItems() {
-        player.removeAllItems()
     }
     
     func play() {
@@ -366,14 +325,14 @@ extension WrappedAVQueuePlayer {
 
 // Exposes the underlying AVPlayer to UIView's PlayerLayer.
 extension AVPlayerLayer {
-    func setVideoPlayer(_ wrappedPlayer: WrappedAVQueuePlayer) {
+    func setVideoPlayer(_ wrappedPlayer: WrappedAVPlayer) {
         player = wrappedPlayer.player
     }
 }
 
 // Exposes the underlying AVPlayer to our custom SwiftUI PlayerView.
 extension PlayerView {
-    func setVideoPlayer(_ wrappedPlayer: WrappedAVQueuePlayer) {
+    func setVideoPlayer(_ wrappedPlayer: WrappedAVPlayer) {
         player = wrappedPlayer.player
     }
 }

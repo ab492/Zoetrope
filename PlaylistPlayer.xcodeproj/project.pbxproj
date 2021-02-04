@@ -19,7 +19,7 @@
 		AD2F0ABA25BC06A50006306D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F0AB925BC06A50006306D /* ContentView.swift */; };
 		AD2F0ABC25BC06A60006306D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD2F0ABB25BC06A60006306D /* Assets.xcassets */; };
 		AD2F0ABF25BC06A60006306D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD2F0ABE25BC06A60006306D /* Preview Assets.xcassets */; };
-		AD2F0AE625BC06D20006306D /* WrappedAVQueuePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F0AE525BC06D20006306D /* WrappedAVQueuePlayer.swift */; };
+		AD2F0AE625BC06D20006306D /* WrappedAVPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F0AE525BC06D20006306D /* WrappedAVPlayer.swift */; };
 		AD2F0AEE25BC06D70006306D /* MediaTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F0AED25BC06D70006306D /* MediaTime.swift */; };
 		AD2F0AF325BC06DB0006306D /* PlaylistPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F0AF225BC06DB0006306D /* PlaylistPlayer.swift */; };
 		AD2F0AF925BC06FC0006306D /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F0AF825BC06FC0006306D /* Time.swift */; };
@@ -84,7 +84,7 @@
 		AD2F0AC025BC06A60006306D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD2F0AC525BC06A60006306D /* PlaylistPlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlaylistPlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD2F0ACB25BC06A60006306D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AD2F0AE525BC06D20006306D /* WrappedAVQueuePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrappedAVQueuePlayer.swift; sourceTree = "<group>"; };
+		AD2F0AE525BC06D20006306D /* WrappedAVPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrappedAVPlayer.swift; sourceTree = "<group>"; };
 		AD2F0AED25BC06D70006306D /* MediaTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaTime.swift; sourceTree = "<group>"; };
 		AD2F0AF225BC06DB0006306D /* PlaylistPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistPlayer.swift; sourceTree = "<group>"; };
 		AD2F0AF825BC06FC0006306D /* Time.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
@@ -236,7 +236,7 @@
 		AD2F0AF725BC06E00006306D /* Core Video Player */ = {
 			isa = PBXGroup;
 			children = (
-				AD2F0AE525BC06D20006306D /* WrappedAVQueuePlayer.swift */,
+				AD2F0AE525BC06D20006306D /* WrappedAVPlayer.swift */,
 				AD2F0AED25BC06D70006306D /* MediaTime.swift */,
 				AD2F0AF825BC06FC0006306D /* Time.swift */,
 			);
@@ -271,7 +271,7 @@
 		AD2F0B2125BC07D10006306D /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				AD2F0AF225BC06DB0006306D /* PlaylistPlayer.swift */,
+				AD75C78D25CA6E4C0070110F /* Maybe Old? */,
 				AD75C75025C918E50070110F /* NewPlaylistPlayer.swift */,
 				AD2F0AF725BC06E00006306D /* Core Video Player */,
 				AD2F0B1B25BC07970006306D /* Test Media */,
@@ -338,6 +338,14 @@
 				AD4DDB4125C08E7700F8831B /* CGFloat+Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		AD75C78D25CA6E4C0070110F /* Maybe Old? */ = {
+			isa = PBXGroup;
+			children = (
+				AD2F0AF225BC06DB0006306D /* PlaylistPlayer.swift */,
+			);
+			path = "Maybe Old?";
 			sourceTree = "<group>";
 		};
 		AD7E77FD25C58FA400EDD01E /* Utilities */ = {
@@ -503,7 +511,7 @@
 				AD078C3925BC186500137941 /* PlaybackControlsBar.swift in Sources */,
 				AD13687425BD600100ACC7D0 /* TimeControlsBar.swift in Sources */,
 				AD318A5325C7D7B700B62201 /* Video.swift in Sources */,
-				AD2F0AE625BC06D20006306D /* WrappedAVQueuePlayer.swift in Sources */,
+				AD2F0AE625BC06D20006306D /* WrappedAVPlayer.swift in Sources */,
 				AD2F0BB525BC0E0F0006306D /* UIKit-PlayerView.swift in Sources */,
 				AD078C3525BC185700137941 /* VisualEffectView.swift in Sources */,
 				AD2F0BAD25BC0D380006306D /* CustomPlayerLayer.swift in Sources */,
