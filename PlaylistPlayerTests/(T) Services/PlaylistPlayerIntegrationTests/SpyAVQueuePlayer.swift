@@ -7,7 +7,7 @@
 
 import AVFoundation
 
-class SpyAVPlayer: AVQueuePlayer {
+class SpyAVPlayer: AVPlayer {
 
     var replaceCurrentItemCallCount = 0
 

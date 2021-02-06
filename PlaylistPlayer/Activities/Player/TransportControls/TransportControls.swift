@@ -30,14 +30,14 @@ struct TransportControls: View {
     }
 
     private var playbackControls: some View {
-        VStack {
+        VStack(spacing: 0) {
             PlaybackControlsBar(viewModel: viewModel)
             TimeControlsBar(viewModel: viewModel)
         }
         .padding()
         .background(VisualEffectView(effect: UIBlurEffect(style: .systemThickMaterialDark)))
-        .cornerRadius(5)
-        .frame(minWidth: 400, idealWidth: 400, maxWidth: 700)
+        .cornerRadius(10)
+        .frame(width: 400)
         .offset(y: -10)
     }
 
@@ -47,7 +47,7 @@ struct TransportControls: View {
         }
         .foregroundColor(.white)
         .background(VisualEffectView(effect: UIBlurEffect(style: .systemThickMaterialDark)))
-        .cornerRadius(5)
+        .cornerRadius(10)
         .offset(x: 10, y: 10)
         .accessibility(label: Text("Close player"))
     }

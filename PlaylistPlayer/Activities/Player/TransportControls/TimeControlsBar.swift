@@ -15,10 +15,11 @@ struct TimeControlsBar: View {
 
         let currentTimeSeconds = Binding<CGFloat>(
             get: {
-                CGFloat(viewModel.currentTime.seconds)
+                return CGFloat(viewModel.currentTime.seconds)
             },
             set: {
-                viewModel.seek(to: Time(seconds: Double($0)))
+                print("SETTING SLIDER VALUE: \(Double($0))")
+                viewModel.scrubbed(to: Time(seconds: Double($0)))
             }
         )
 
@@ -28,8 +29,8 @@ struct TimeControlsBar: View {
             CustomSlider(value: currentTimeSeconds,
                          in: 0...CGFloat(viewModel.duration.seconds),
                          configuration: sliderConfiguration,
-                         onDragStart: { print("DRAG START") },
-                         onDragFinish: { print("DRAG COMPLETE") })
+                         onDragStart: { viewModel.scrubbingDidStart() },
+                         onDragFinish: { viewModel.scrubbingDidEnd() })
             Text(viewModel.formattedDuration)
                 .foregroundColor(.white)
             loopButton

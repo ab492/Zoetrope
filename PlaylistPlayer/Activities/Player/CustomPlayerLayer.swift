@@ -18,7 +18,7 @@ struct CustomPlayerLayer: View {
             if viewModel.isReadyForPlayback {
                 // FIXME: Fix this force unwrap!
 //                VideoPlayerView(player: viewModel.player.player as! WrappedAVQueuePlayer)
-                VideoPlayerView(player: (viewModel.player as! NewPlaylistPlayer).player as! WrappedAVPlayer)
+                VideoPlayerView(player: (viewModel.player as! PlaylistPlayer).player as! WrappedAVPlayer)
 //                VideoPlayerView(player: (viewModel.player as! PlaylistPlayer).player as! WrappedAVQueuePlayer)
 
             } else {

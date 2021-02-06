@@ -11,16 +11,6 @@ import AVFoundation
 
 final class MockVideoPlayer: VideoPlayerProtocol {
 
-    var queuedItems: [AVPlayerItem]?
-    func queueItems(_ items: [AVPlayerItem]) {
-        self.queuedItems = items
-    }
-
-    var advanceToNextItemCalledCount = 0
-    func advanceToNextItem() {
-        advanceToNextItemCalledCount += 1
-    }
-    
     var playCallCount = 0
     func play() {
         playCallCount += 1
@@ -36,29 +26,22 @@ final class MockVideoPlayer: VideoPlayerProtocol {
         seekToTimeCalledCount += 1
     }
 
-    var removeAllItemsCallCount = 0
-    func removeAllItems() {
-        removeAllItemsCallCount += 1
+    var lastReplacedItem: AVPlayerItem?
+    func replaceCurrentItem(with item: AVPlayerItem) {
+        lastReplacedItem = item
     }
-
-    var insertedItems = [AVPlayerItem]()
-    func insert(item: AVPlayerItem, after: AVPlayerItem?) {
-        insertedItems.append(item)
-    }
-
-    // MARK: - Not Implemented
-
-    var observer: VideoPlayerObserver? = nil
+    
+    var observer: VideoPlayerObserver?
 
     var playbackRate: Float = 0
 
-    var duration: Time = Time(seconds: 0)
+    var duration: Time = .zero
 
-    var currentTime: Time = Time(seconds: 0)
-
-    var volume: Float = 1
+    var currentTime: Time = .zero
 
     var status: ItemStatus = .readyToPlay
+
+    var volume: Float = 0
 
     var playbackState: PlaybackState = .paused
 
@@ -66,13 +49,7 @@ final class MockVideoPlayer: VideoPlayerProtocol {
 
     var mediaIsReadyToPlayFastReverse: Bool = true
 
-    func items() -> [AVPlayerItem] { [] }
 
-    func canInsert(item: AVPlayerItem, after: AVPlayerItem?) -> Bool { true }
-    
-    func remove(item: AVPlayerItem) { }
-
-    func replaceCurrentItem(with url: URL) { }
 
     func step(byFrames count: Int) { }
 }

@@ -36,12 +36,13 @@ struct CustomSlider: View {
 
     @Binding var value: CGFloat
     @State private var isDragging = false
-    @State private var lastOffset: CGFloat = 0 //TODO: Make this nil
+    @State private var lastOffset: CGFloat = 0
 
     private var range: ClosedRange<CGFloat>
     private let configuration: Configuration
     private var onDragStart: (() -> Void)?
     private var onDragFinish: (() -> Void)?
+    private let knobPadding = CGFloat(3) // This allows for a slightly larger tap area.
     
     // MARK: - Init
 
@@ -73,6 +74,8 @@ struct CustomSlider: View {
                     Circle()
                         .fill(configuration.knobColor)
                         .frame(width: configuration.knobWidth, height: configuration.knobWidth)
+                        .contentShape(Rectangle())
+                        .padding(knobPadding)
                         .offset(x: valueForKnob(geometry: geo))
                         .gesture(
                             DragGesture(minimumDistance: 0)
@@ -104,7 +107,7 @@ struct CustomSlider: View {
                 }
             }
         }
-        .frame(height: max(configuration.knobWidth, configuration.barHeight))
+        .frame(height: max(configuration.knobWidth + knobPadding, configuration.barHeight))
     }
 
     private func valueForKnob(geometry: GeometryProxy) -> CGFloat {

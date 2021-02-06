@@ -8,7 +8,7 @@
 import Foundation
 
 struct TimeFormatter {
-    /// Formats seconds into the format 00:00:00. Only displays the first set of leading zeros.
+    /// Formats seconds into the format 00:00:00. Only displays the first set of leading zeros (e.g. 23:09, 01:12:34).
     static func string(from seconds: Int) -> String {
         let hours = seconds / 3600
         let minutes = seconds / 60 % 60

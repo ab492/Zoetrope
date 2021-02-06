@@ -26,6 +26,7 @@ protocol VideoPlayerProtocol {
     // Player Actions
     func play()
     func pause()
+    func cancelPendingSeeks()
     func seek(to time: MediaTime)
     func replaceCurrentItem(with item: AVPlayerItem)
     func step(byFrames count: Int)
@@ -214,15 +215,9 @@ extension WrappedAVPlayer {
     
     func play() {
         switch player.timeControlStatus {
-
-        case .paused:
-            if itemIsAtEnd() { player.currentItem?.seek(to: .zero, completionHandler: nil) }
-            player.play()
-
+        case .paused: player.play()
         case .playing: break
-
         default: player.play()
-
         }
     }
 
@@ -303,10 +298,15 @@ extension WrappedAVPlayer {
         return player.currentItem?.canPlayFastReverse ?? false
     }
 
+    /// The seek tolerance is at its most accurate.
     func seek(to time: MediaTime) {
         player.seek(to: CMTime(seconds: time.seconds, preferredTimescale: time.preferredTimescale),
                     toleranceBefore: .zero,
                     toleranceAfter: .zero)
+    }
+
+    func cancelPendingSeeks() {
+        player.currentItem?.cancelPendingSeeks()
     }
 
     var mediaCanStepForward: Bool {

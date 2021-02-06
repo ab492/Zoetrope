@@ -8,8 +8,56 @@
 import Foundation
 import AVFoundation
 
+enum LoopMode {
+    case loopCurrent
+    case loopPlaylist
+    case playPlaylistOnce
+}
+
+protocol PlaylistPlayerProtocol {
+    func play()
+    func pause()
+    func playNext()
+    func playPrevious()
+    func skipToItem(at index: Int)
+    func step(byFrames count: Int)
+    func seek(to time: Time)
+    func replaceQueue(with items: [AVPlayerItem])
+    func scrubbingDidStart()
+    func scrubbed(to time: MediaTime)
+    func scrubbingDidEnd()
+    func playFastForward()
+    func playFastBackward()
+
+    var loopMode: LoopMode { get set }
+    var currentItemDuration: Time { get }
+    var volume: Float { get set }
+
+    var observer: PlaylistPlayerObserver? { get set }
+}
+
+protocol PlaylistPlayerObserver: class {
+    func playbackItemStatusDidChange(to status: ItemStatus)
+    func playbackStateDidChange(to playbackState: PlaybackState)
+    func playbackPositionDidChange(to time: Time)
+    func mediaFastForwardAbilityDidChange(to newStatus: Bool)
+    func mediaFastReverseAbilityDidChange(to newStatus: Bool)
+    func mediaReverseAbilityDidChange(to newStatus: Bool)
+    func currentItemDidFinishPlayback()
+}
+
 /// Creates a video player for queuing content and navigating forward and back.
-final class NewPlaylistPlayer: PlaylistPlayerProtocol {
+final class PlaylistPlayer: PlaylistPlayerProtocol {
+
+
+//    var playbackRate: PlaybackRate {
+//        get {
+//            .forward1x //TODO: - OBVIOUSLY CHANGE THIS
+//        } set {
+//            player.playbackRate = playbackRate.rawValue
+//        }
+//    }
+
 
     // MARK: - Public Properties
 
@@ -43,6 +91,9 @@ final class NewPlaylistPlayer: PlaylistPlayerProtocol {
     private var atEndOfQueue: Bool {
         nowPlayingIndex == playerItems.count - 1
     }
+
+    private var lastPlaybackRate: Float = 0
+    private var isScrubbing = false
     
     // MARK: - Init
 
@@ -59,8 +110,11 @@ final class NewPlaylistPlayer: PlaylistPlayerProtocol {
     convenience init(items: [AVPlayerItem]) {
         self.init(items: items, videoPlayer: WrappedAVPlayer())
     }
+}
 
-    // MARK: - Public
+// MARK: - Basic Playlist Playback
+
+extension PlaylistPlayer {
 
     func play() {
         // Since calling `replaceCurrentItem` with the player’s current player item has no effect, it's safe to always call it.
@@ -77,8 +131,9 @@ final class NewPlaylistPlayer: PlaylistPlayerProtocol {
         switch loopMode {
 
         case .loopCurrent:
-            // We're moving to the next item to loop.
-            nowPlayingIndex += 1
+            if atEndOfQueue == false {
+                nowPlayingIndex += 1
+            }
 
         case .playPlaylistOnce:
             if atEndOfQueue == false {
@@ -107,6 +162,7 @@ final class NewPlaylistPlayer: PlaylistPlayerProtocol {
         updateCurrentPlayerItem()
     }
 
+    /// Skips to item at the given index. **This is a zero based index (i.e. the first item has an index of 0).**
     func skipToItem(at index: Int) {
         let index = index.clamped(to: 0...playerItems.count - 1)
         nowPlayingIndex = index
@@ -120,25 +176,63 @@ final class NewPlaylistPlayer: PlaylistPlayerProtocol {
     func seek(to time: Time) {
         player.seek(to: MediaTime(seconds: time.seconds))
     }
-
-
+    
     func replaceQueue(with items: [AVPlayerItem]) {
         // TODO: Need to use this to test behaviour!
         // DO WE NEED TO STOP THE PLAYER?!
+        player.pause()
         playerItems = items
         nowPlayingIndex = 0
     }
 
-    // MARK: - Private
-
     private func updateCurrentPlayerItem() {
+        // Important to pause the player before updating the current item to prevent any
+        // weird play-pause behavior (e.g randomly becoming paused)
+        player.pause()
         let item = playerItems[nowPlayingIndex]
         item.seek(to: .zero, completionHandler: nil)
         player.replaceCurrentItem(with: item)
+        player.play()
     }
 }
 
-extension NewPlaylistPlayer: VideoPlayerObserver {
+// MARK: - Scrubbing and Seeking Through Media
+
+extension PlaylistPlayer {
+
+    func scrubbingDidStart() {
+        lastPlaybackRate = player.playbackRate
+        pause()
+    }
+
+    func scrubbed(to time: MediaTime) {
+        player.cancelPendingSeeks()
+        player.seek(to: time)
+    }
+
+    func scrubbingDidEnd() {
+        if lastPlaybackRate > 0 {
+            play()
+        }
+    }
+}
+
+// MARK: - Playback Rate
+
+extension PlaylistPlayer {
+    func playFastForward() {
+        player.playbackRate = 2.0
+    }
+
+    func playFastBackward() {
+        player.playbackRate = -2.0
+    }
+}
+
+
+
+
+extension PlaylistPlayer: VideoPlayerObserver {
 
     func currentItemDidFinishPlayback() {
         observer?.currentItemDidFinishPlayback()
@@ -163,10 +257,10 @@ extension NewPlaylistPlayer: VideoPlayerObserver {
             }
         }
 
-        let item = playerItems[nowPlayingIndex]
-        item.seek(to: .zero, completionHandler: nil)
-        player.replaceCurrentItem(with: item)
+        // TODO: Keep a local variable to store playback state?!
+        updateCurrentPlayerItem()
         player.play()
+
     }
 
     func playbackItemStatusDidChange(to status: ItemStatus) {
@@ -178,6 +272,8 @@ extension NewPlaylistPlayer: VideoPlayerObserver {
     }
 
     func playbackPositionDidChange(to time: MediaTime) {
+        // We don't want position events firing while the user is scrubbing. TEST THIS
+        guard isScrubbing == false else { return }
         observer?.playbackPositionDidChange(to: Time(seconds: time.seconds))
     }
 
@@ -193,4 +289,14 @@ extension NewPlaylistPlayer: VideoPlayerObserver {
         observer?.mediaReverseAbilityDidChange(to: newStatus)
     }
 
+}
+
+extension PlaylistPlayerObserver {
+    func playbackItemStatusDidChange(to status: ItemStatus) { }
+    func playbackStateDidChange(to playbackState: PlaybackState) { }
+    func playbackPositionDidChange(to time: Time) { }
+    func mediaFastForwardAbilityDidChange(to newStatus: Bool) { }
+    func mediaFastReverseAbilityDidChange(to newStatus: Bool) { }
+    func mediaReverseAbilityDidChange(to newStatus: Bool) { }
+    func currentItemDidFinishPlayback() { }
 }

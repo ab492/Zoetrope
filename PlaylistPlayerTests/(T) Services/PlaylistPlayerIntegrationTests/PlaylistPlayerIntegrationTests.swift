@@ -18,12 +18,33 @@ class PlaylistPlayerIntegrationTests: XCTestCase {
 
         spyAvPlayer = SpyAVPlayer()
     }
-
-    func test_queueItems_worksCorrectly() {
+    
+    func test_initialPlay_addsCorrectItemToPlayer() {
         let testItems = makeAvPlayerItems(number: 3)
-        makeSUT(withItems: testItems)
+        let playlistPlayer = makeSUT(withItems: testItems)
 
-        XCTAssertEqual(spyAvPlayer.items(), testItems)
+        playlistPlayer.play()
+
+        XCTAssertEqual(spyAvPlayer.currentItem, testItems[0])
+    }
+
+    func test_playNext_worksCorrectly() {
+        let testItems = makeAvPlayerItems(number: 3)
+        let playlistPlayer = makeSUT(withItems: testItems)
+
+        playlistPlayer.playNext()
+
+        XCTAssertEqual(spyAvPlayer.currentItem, testItems[1])
+    }
+
+    func test_playPrevious_worksCorrectly() {
+        let testItems = makeAvPlayerItems(number: 3)
+        let playlistPlayer = makeSUT(withItems: testItems)
+
+        playlistPlayer.playNext()       // Skip to item 2 (index 1)
+        playlistPlayer.playPrevious()   // Skip back to item 1 (index 0)
+
+        XCTAssertEqual(spyAvPlayer.currentItem, testItems[0])
     }
 
     func test_defaultState_isPaused() {
@@ -33,63 +54,52 @@ class PlaylistPlayerIntegrationTests: XCTestCase {
         XCTAssertEqual(spyAvPlayer.timeControlStatus, .paused)
     }
 
-    func test_playPrevious_repopulatesQueue() {
+    func test_loopPlaylist_loopsAroundOnceEndOfQueueReached() {
         let testItems = makeAvPlayerItems(number: 3)
-        let sut = makeSUT(withItems: testItems)
+        let playlistPlayer = makeSUT(withItems: testItems)
+        playlistPlayer.loopMode = .loopPlaylist
 
-        sut.playNext()
-        XCTAssertEqual(spyAvPlayer.items(), Array(testItems.dropFirst()))
-        XCTAssertEqual(spyAvPlayer.items().count, 2)
-
-
-        sut.playNext()
-        XCTAssertEqual(spyAvPlayer.items(), Array(testItems.dropFirst(2)))
-        XCTAssertEqual(spyAvPlayer.items().count, 1)
-
-        sut.playPrevious()
-        XCTAssertEqual(spyAvPlayer.items(), Array(testItems.dropFirst()))
-        XCTAssertEqual(spyAvPlayer.items().count, 2)
-
-        sut.playPrevious()
-        XCTAssertEqual(spyAvPlayer.items(), Array(testItems))
-        XCTAssertEqual(spyAvPlayer.items().count, 3)
+        playlistPlayer.playNext() // Skip to item 2 (index 1)
+        playlistPlayer.playNext() // Skip to item 3 (index 2)
+        playlistPlayer.playNext() // Loop back around to item 1 (index 0)
+        
+        XCTAssertEqual(spyAvPlayer.currentItem, testItems[0])
     }
 
-    func test_loopPlaylist_repopulatesQueueOnceEndOfQueueReached() {
-        let testItems = makeAvPlayerItems(number: 3)
-        let sut = makeSUT(withItems: testItems)
-        sut.loopMode = .loopPlaylist
-
-        sut.playNext() // second item
-        sut.playNext() // third item
-        XCTAssertEqual(spyAvPlayer.items().count, 1)
-
-        sut.playNext() // loop back around
-        XCTAssertEqual(spyAvPlayer.items(), testItems)
-    }
-
-    func test_playPlaylistOnce_doesNothingOnceEndOfQueueReached() {
-        let testItems = makeAvPlayerItems(number: 3)
-        let sut = makeSUT(withItems: testItems)
-        sut.loopMode = .playPlaylistOnce
-
-        sut.playNext() // second item
-        sut.playNext() // third item
-        sut.playNext() // skip past end of queue
-
-        XCTAssertEqual(spyAvPlayer.items(), [])
-    }
-
-    func test_skipToIndex_rebuildsQueueFromIndex() {
+    func test_skipToIndex_worksCorrectly() {
         let testItems = makeAvPlayerItems(number: 5)
-        let sut = makeSUT(withItems: testItems)
+        let playlistPlayer = makeSUT(withItems: testItems)
 
-        sut.skipToItem(at: 3)
+        playlistPlayer.skipToItem(at: 3)
 
-        // As we're skipping to the 3rd index, we expect the queue to be from the 4th item (due to 0-index array)
-        let expectedQueue = Array(testItems.dropFirst(3))
-        XCTAssertEqual(spyAvPlayer.items(), expectedQueue)
+        XCTAssertEqual(spyAvPlayer.currentItem, testItems[3])
     }
+
+//    func test_playItemDidEndNotification_addsNextItemToTheQueue() {
+//        let testItems = makeAvPlayerItems(number: 5)
+//        let playlistPlayer = makeSUT(withItems: testItems)
+//
+//        playlistPlayer.playNext()
+//
+//        NotificationCenter.default.post(name: .AVPlayerItemDidPlayToEndTime, object: nil)
+//
+//        XCTAssertEqual(spyAvPlayer.currentItem, testItems[2])
+//    }
+
+    //    func test_playPlaylistOnce_doesNothingOnceEndOfQueueReached() {
+    //        let testItems = makeAvPlayerItems(number: 3)
+    //        let sut = makeSUT(withItems: testItems)
+    //        sut.loopMode = .playPlaylistOnce
+    //
+    //        sut.playNext() // second item
+    //        sut.playNext() // third item
+    //        sut.playNext() // skip past end of queue
+    //
+    //        XCTAssertEqual(spyAvPlayer.items(), [])
+    //    }
+    //
+
+
 
 //    func test_observers() {
 //        let testItems = makeAvPlayerItems(number: 5)

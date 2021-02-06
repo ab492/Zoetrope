@@ -36,7 +36,7 @@ struct PlaybackControlsBar: View {
 
     private var fastReverseButton: some View {
         PlaybackControlsButton(systemImage: PlayerIcons.fastReverse) {
-            // TODO
+            viewModel.playFastReverse()
         }
         .disabled(fastReverseButtonDisabled)
         .foregroundColor(fastReverseButtonDisabled ? .gray : .white)
@@ -67,7 +67,7 @@ struct PlaybackControlsBar: View {
 
     private var fastForwardButton: some View {
         PlaybackControlsButton(systemImage: PlayerIcons.fastForward) {
-            // TODO
+            viewModel.playFastForward()
         }
         .disabled(fastForwardButtonDisabled)
         .accessibility(label: Text("Fast forward")) // TODO: Fix this with a speed!
