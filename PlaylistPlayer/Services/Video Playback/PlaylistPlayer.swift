@@ -46,6 +46,8 @@ protocol PlaylistPlayerObserver: class {
     func currentItemDidFinishPlayback()
 }
 
+// TODO: Make sure things can't be called when the array is empty. For example, could access everything with maybe: ?!
+
 /// Creates a video player for queuing content and navigating forward and back.
 final class PlaylistPlayer: PlaylistPlayerProtocol {
 
@@ -117,6 +119,7 @@ final class PlaylistPlayer: PlaylistPlayerProtocol {
 extension PlaylistPlayer {
 
     func play() {
+        guard playerItems.count > 0 else { return }
         // Since calling `replaceCurrentItem` with the player’s current player item has no effect, it's safe to always call it.
         player.replaceCurrentItem(with: playerItems[nowPlayingIndex])
         player.play()

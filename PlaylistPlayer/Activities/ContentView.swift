@@ -8,57 +8,31 @@
 import SwiftUI
 
 struct ContentView: View {
-    
-    // MARK: - State
 
-    @State private var videos: [Video]
-    @ObservedObject private var viewModel: PlaylistPlayerViewModel
+    @EnvironmentObject var dataController: DataController
 
     init() {
-
-        let urls = ["01", "02", "03", "04", "05", "06", "07", "08"].compactMap { Bundle.main.url(forResource: $0, withExtension: "mov") }
-
-        var videos = [Video]()
-
-        for url in urls {
-            videos.append(Video(id: UUID(), url: url))
-        }
-
-        _videos = State(wrappedValue: videos)
-
-        let viewModel = PlaylistPlayerViewModel()
-        viewModel.replaceQueue(with: videos)
-        _viewModel = ObservedObject(wrappedValue: viewModel)
+        UITableView.appearance().backgroundColor = .clear
+        UITableViewCell.appearance().backgroundColor = .clear
+//        UINavigationBar.appearance().backgroundColor = .green
+        UINavigationBar.appearance().backgroundColor = .clear
     }
 
-    @State private var presentingPlayer = false
-
-    // MARK: - View
-    
     var body: some View {
         NavigationView {
-            List {
-                ForEach(videos.indices) { index in
-                    Text(videos[index].filename)
-                        .onTapGesture {
-                            viewModel.skipToItem(at: index)
-                            presentingPlayer.toggle()
-                        }
-                }
-                .onMove(perform: moveRows)
-            }
-            .navigationBarItems(trailing: EditButton())
-            .navigationTitle("Playlist Player")
-        }
-        .navigationViewStyle(StackNavigationViewStyle())
-        .fullScreenCover(isPresented: $presentingPlayer) {
-            CustomPlayerView(viewModel: viewModel)
+            
+            // Primary view
+            PlaylistSidebarView()
+                .navigationTitle("Playlists")
+
+            // Secondary view (when nothing selected from primary)
+            Text(secondaryText)
+                .italic()
+                .foregroundColor(.secondary)
         }
     }
-
-    private func moveRows(from source: IndexSet, to destination: Int) {
-        videos.move(fromOffsets: source, toOffset: destination)
-        viewModel.replaceQueue(with: videos)
+    
+    private var secondaryText: String {
+        dataController.playlists.isEmpty ? "No playlists yet" : "Select a playlist"
     }
-
 }

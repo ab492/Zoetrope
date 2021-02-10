@@ -11,6 +11,7 @@ import SwiftUI
 class PlaylistPlayerViewModel: ObservableObject {
 
 //    let items = ["01", "02", "03", "04", "05", "06", "07", "08"].compactMap { Bundle.main.url(forResource: $0, withExtension: "mov") }
+//        .map { AVPlayerItem(url: $0)}
     var player: PlaylistPlayerProtocol
 
     // MARK: - Published
@@ -71,12 +72,13 @@ class PlaylistPlayerViewModel: ObservableObject {
     }
 
     func replaceQueue(with items: [Video]) {
+        fatalError("Don't forget to fix this!")
         // https://stackoverflow.com/questions/47158688/ios-11-avplayer-mp3-currenttime-not-accurate
         // https://github.com/jorgenhenrichsen/SwiftAudio/issues/90 maybe issue?
-        let items = items.map { AVURLAsset(url: $0.url, options: [AVURLAssetPreferPreciseDurationAndTimingKey: true])}
-        let playerItems = items.map { AVPlayerItem(asset: $0) }
+//        let items = items.map { AVURLAsset(url: $0.url, options: [AVURLAssetPreferPreciseDurationAndTimingKey: true])}
+//        let playerItems = items.map { AVPlayerItem(asset: $0) }
 //        let items = items.map { AVPlayerItem(url: $0.url) }
-        player.replaceQueue(with: playerItems)
+//        player.replaceQueue(with: playerItems)
     }
 
     // MARK: - Scrubbing

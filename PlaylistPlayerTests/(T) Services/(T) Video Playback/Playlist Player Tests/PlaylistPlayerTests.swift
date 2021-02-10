@@ -28,7 +28,7 @@ final class PlaylistPlayerTests: XCTestCase {
         XCTAssertEqual(sut.loopMode, .playPlaylistOnce)
     }
     
-    func test_play_CallsPlay() {
+    func test_playCallsPlay() {
         let sut = makeSUT()
 
         sut.play()
@@ -36,7 +36,15 @@ final class PlaylistPlayerTests: XCTestCase {
         XCTAssertEqual(mockVideoPlayer.playCallCount, 1)
     }
 
-    func test_play_replacesCurrentItemIfRequired() {
+    func test_callingPlayWithEmptyPlaylist_doesNothing() {
+        let sut = makeSUT(withItems: 0)
+
+        sut.play()
+
+
+    }
+
+    func test_playReplacesCurrentItemIfRequired() {
         let items = testItems(number: 3)
         let sut = makeSUT(withItems: items)
 
@@ -45,7 +53,7 @@ final class PlaylistPlayerTests: XCTestCase {
         XCTAssertEqual(mockVideoPlayer.lastReplacedItem, items.first)
     }
 
-    func test_pause_CallsPause() {
+    func test_pauseCallsPause() {
         let sut = makeSUT()
 
         sut.pause()
@@ -237,7 +245,7 @@ final class PlaylistPlayerTests: XCTestCase {
     // MARK: - Replacing Queue
 
     func test_replacingQueueWorksCorrectly() {
-        let items = testItems(number: 9)
+        let items = testItems(number: 8)
         let sut = makeSUT(withItems: items)
 
         let newItems = testItems(number: 3)
@@ -266,6 +274,8 @@ extension PlaylistPlayerTests {
 
     private func testItems(number: Int) -> [AVPlayerItem] {
         assert(number < 9, "Expected a maximum of 8 items.")
+
+        guard number > 0 else { return [] }
 
         let testBundle = Bundle(for: type(of: self))
 

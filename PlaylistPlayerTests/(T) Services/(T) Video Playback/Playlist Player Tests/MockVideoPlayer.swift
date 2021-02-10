@@ -10,7 +10,7 @@ import AVFoundation
 @testable import PlaylistPlayer
 
 final class MockVideoPlayer: VideoPlayerProtocol {
-
+    
     var playCallCount = 0
     func play() {
         playCallCount += 1
@@ -49,7 +49,9 @@ final class MockVideoPlayer: VideoPlayerProtocol {
 
     var mediaIsReadyToPlayFastReverse: Bool = true
 
+    func cancelPendingSeeks() {
 
+    }
 
     func step(byFrames count: Int) { }
 }
