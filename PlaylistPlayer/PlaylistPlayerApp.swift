@@ -12,7 +12,6 @@ struct PlaylistPlayerApp: App {
 
     // MARK: - State
 
-    @StateObject var dataController = DataController()
     @Environment(\.scenePhase) private var phase
 
     // MARK: - Properties
@@ -31,7 +30,8 @@ struct PlaylistPlayerApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(dataController)
+                .accentColor(.red)
+                .preferredColorScheme(.dark)
         }
         .onChange(of: phase) { _ in
             setupColorScheme()

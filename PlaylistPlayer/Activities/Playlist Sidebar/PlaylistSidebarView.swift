@@ -9,8 +9,8 @@ import SwiftUI
 
 struct PlaylistSidebarView: View {
 
-    @EnvironmentObject var dataController: DataController
-
+    @StateObject var playlistManager = Current.playlistManager
+    
     init() {
 //        UITableView.appearance().backgroundColor = .secondarySystemGroupedBackground
 //        UINavigationBar.appearance().backgroundColor = .systemRed
@@ -21,7 +21,7 @@ struct PlaylistSidebarView: View {
     var body: some View {
         ZStack {
             Color.secondarySystemGroupedBackground.edgesIgnoringSafeArea(.all)
-            if dataController.playlists.isEmpty {
+            if playlistManager.playlists.isEmpty {
                 EmptyContentView(text: "Add a playlist to get started")
             } else {
                 playlistList
@@ -38,12 +38,12 @@ struct PlaylistSidebarView: View {
 
     private var playlistList: some View {
         List {
-            ForEach(dataController.playlists) { playlist in
+            ForEach(playlistManager.playlists) { playlist in
                 NavigationLink(destination: PlaylistDetailView(playlist: playlist)) {
                     HStack {
                         Text(playlist.name)
                         Spacer()
-//                        Text(playlist.formattedCount)
+                        Text(playlist.formattedCount)
                     }
                 }
             }
@@ -57,7 +57,7 @@ struct PlaylistSidebarView: View {
 
     private var editListNavigationItem: some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
-            if dataController.playlists.count > 0 {
+            if playlistManager.playlists.count > 0 {
                 EditButton()
             }
         }
@@ -88,24 +88,24 @@ struct PlaylistSidebarView: View {
 
     private func addPlaylist() {
         withAnimation {
-            dataController.addPlaylist(Playlist(name: "My Test Playlist"))
+            playlistManager.addPlaylist(Playlist(name: "My Test Playlist"))
         }
     }
     
     private func moveRows(from source: IndexSet, to destination: Int) {
-        dataController.movePlaylist(from: source, to: destination)
+        playlistManager.movePlaylist(from: source, to: destination)
     }
 
     private func removeRows(at offsets: IndexSet) {
-        dataController.delete(playlistsAt: offsets)
+        playlistManager.delete(playlistsAt: offsets)
     }
 
     var formattedPlaylistCount: String {
-        switch dataController.playlists.count {
+        switch playlistManager.playlists.count {
         case 1:
             return "1 playlist"
         default:
-            return "\(dataController.playlists.count) playlists"
+            return "\(playlistManager.playlists.count) playlists"
         }
     }
 }

@@ -10,7 +10,7 @@ import AVKit
 
 struct PlaylistDetailView: View {
 
-    @EnvironmentObject var dataController: DataController
+    @StateObject var playlistManager = Current.playlistManager
     @ObservedObject private var viewModel = PlaylistPlayerViewModel()
     @ObservedObject private var playlist: Playlist
 
@@ -18,12 +18,9 @@ struct PlaylistDetailView: View {
     @State private var urls: [URL]?
     @State private var presentingPlayer = false
 
-
     init(playlist: Playlist) {
         self.playlist = playlist
-        self.viewModel.replaceQueue(with: playlist.videos)
-//        UINavigationBar.appearance().backgroundColor = .blue
-
+        self.viewModel.updateQueue(for: playlist)
     }
 
     var body: some View {
@@ -47,11 +44,6 @@ struct PlaylistDetailView: View {
             ForEach(playlist.videos) { video in
                 Text(video.filename)
                     .onTapGesture {
-//                        print("URL STORED \(playlist.videos.first!.url)")
-//                        let url = FileManager.default.documentsDirectory
-//                            .appendingPathComponent("Media").appendingPathComponent("01").appendingPathExtension("mov")
-//                        print("URL GENERATED \(url)")
-
                         presentingPlayer.toggle()
                     }
             }
@@ -61,9 +53,9 @@ struct PlaylistDetailView: View {
     private var fullScreenCover: some View {
         // Fixes a known bug where .fullScreenCover and .sheet modifiers can't be applied to a single view.
         Text("").hidden().fullScreenCover(isPresented: $presentingPlayer) {
-//            CustomPlayerView(viewModel: viewModel)
-            VideoPlayer(player: AVPlayer(url: FileManager.default.documentsDirectory
-                                            .appendingPathComponent("Media").appendingPathComponent("01").appendingPathExtension("mov")))
+            CustomPlayerView(viewModel: viewModel)
+//            VideoPlayer(player: AVPlayer(url: FileManager.default.documentsDirectory
+//                                            .appendingPathComponent("Media").appendingPathComponent("01").appendingPathExtension("mov")))
         }
     }
 
@@ -90,13 +82,15 @@ struct PlaylistDetailView: View {
 
     private func addMedia() {
         guard let urls = urls else { return }
-        dataController.add(urls: urls, to: playlist)
+        Current.playlistManager.addMediaAt(urls: urls, to: playlist)
         self.urls = nil
         updateViewModel()
     }
 
     private func updateViewModel() {
-        viewModel.replaceQueue(with: playlist.videos)
+        // TODO: Fix this
+//        viewModel.replaceQueue(with: playlist.videos)
+        viewModel.updateQueue(for: playlist)
     }
 
 

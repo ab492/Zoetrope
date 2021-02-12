@@ -8,13 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
-
-    @EnvironmentObject var dataController: DataController
-
+    
     init() {
         UITableView.appearance().backgroundColor = .clear
         UITableViewCell.appearance().backgroundColor = .clear
-//        UINavigationBar.appearance().backgroundColor = .green
         UINavigationBar.appearance().backgroundColor = .clear
     }
 
@@ -33,6 +30,6 @@ struct ContentView: View {
     }
     
     private var secondaryText: String {
-        dataController.playlists.isEmpty ? "No playlists yet" : "Select a playlist"
+        Current.playlistManager.playlists.isEmpty ? "No playlists yet" : "Select a playlist"
     }
 }

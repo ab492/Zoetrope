@@ -10,19 +10,19 @@ import Foundation
 
 final class VideoBuilder {
     private var b_id = UUID()
-    private var b_url: URL = URL(fileURLWithPath: NSTemporaryDirectory() + UUID().uuidString)
+    private var b_filename: String = ""
 
     @discardableResult func id(_ id: UUID) -> VideoBuilder {
         b_id = id
         return self
     }
 
-    @discardableResult func url(_ url: URL) -> VideoBuilder {
-        b_url = url
+    @discardableResult func filename(_ filename: String) -> VideoBuilder {
+        b_filename = filename
         return self
     }
 
     func build() -> Video {
-        Video(id: b_id, url: b_url)
+        Video(id: b_id, filename: b_filename)
     }
 }

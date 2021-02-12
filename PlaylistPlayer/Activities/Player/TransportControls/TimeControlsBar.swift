@@ -18,7 +18,6 @@ struct TimeControlsBar: View {
                 return CGFloat(viewModel.currentTime.seconds)
             },
             set: {
-                print("SETTING SLIDER VALUE: \(Double($0))")
                 viewModel.scrubbed(to: Time(seconds: Double($0)))
             }
         )
