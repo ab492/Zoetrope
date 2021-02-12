@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PlaylistSidebarView: View {
 
-    @StateObject var playlistManager = Current.playlistManager
+    @ObservedObject var playlistManager = Current.playlistManager
     
     init() {
 //        UITableView.appearance().backgroundColor = .secondarySystemGroupedBackground

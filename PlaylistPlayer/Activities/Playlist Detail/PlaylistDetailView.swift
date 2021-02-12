@@ -10,17 +10,20 @@ import AVKit
 
 struct PlaylistDetailView: View {
 
-    @StateObject var playlistManager = Current.playlistManager
-    @ObservedObject private var viewModel = PlaylistPlayerViewModel()
+    @ObservedObject var playlistManager = Current.playlistManager
     @ObservedObject private var playlist: Playlist
-
+    @StateObject private var viewModel = PlaylistPlayerViewModel()
+    
     @State private var showingDocumentPicker = false
     @State private var urls: [URL]?
     @State private var presentingPlayer = false
 
     init(playlist: Playlist) {
+        print("INIT?!")
         self.playlist = playlist
-        self.viewModel.updateQueue(for: playlist)
+//        let viewModel = PlaylistPlayerViewModel()
+//        viewModel.updateQueue(for: playlist)
+//        _viewModel = StateObject(wrappedValue: viewModel)
     }
 
     var body: some View {
@@ -44,18 +47,20 @@ struct PlaylistDetailView: View {
             ForEach(playlist.videos) { video in
                 Text(video.filename)
                     .onTapGesture {
+                        if let index = playlist.videos.firstIndex(of: video) {
+                            viewModel.skipToItem(at: index)
+                        }
                         presentingPlayer.toggle()
                     }
             }
         }
+        .onAppear { updateViewModel() }
     }
 
     private var fullScreenCover: some View {
         // Fixes a known bug where .fullScreenCover and .sheet modifiers can't be applied to a single view.
         Text("").hidden().fullScreenCover(isPresented: $presentingPlayer) {
             CustomPlayerView(viewModel: viewModel)
-//            VideoPlayer(player: AVPlayer(url: FileManager.default.documentsDirectory
-//                                            .appendingPathComponent("Media").appendingPathComponent("01").appendingPathExtension("mov")))
         }
     }
 
@@ -81,6 +86,7 @@ struct PlaylistDetailView: View {
     // MARK: - Helpers
 
     private func addMedia() {
+        print("Add media?!")
         guard let urls = urls else { return }
         Current.playlistManager.addMediaAt(urls: urls, to: playlist)
         self.urls = nil
@@ -88,12 +94,8 @@ struct PlaylistDetailView: View {
     }
 
     private func updateViewModel() {
-        // TODO: Fix this
-//        viewModel.replaceQueue(with: playlist.videos)
         viewModel.updateQueue(for: playlist)
     }
-
-
 }
 
 

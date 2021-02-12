@@ -64,7 +64,7 @@ struct CustomSlider: View {
                 HStack(spacing: 0) {
                     Rectangle()
                         .fill(configuration.minimumTrackTint)
-                        .frame(width: $value.wrappedValue.map(from: range, to: 0...geo.size.width))
+                        .frame(width: $value.wrappedValue.map(from: range, to: 0...geo.size.width)) // TODO: This gets reported as NAN at points!
                     Rectangle()
                         .fill(configuration.maximumTrackTint)
                 }

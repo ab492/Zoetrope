@@ -234,10 +234,20 @@ extension WrappedAVPlayer {
         set { player.rate = newValue }
     }
 
-    /// The value of this property will be reported as indefinite (NAN) until the duration of the underlying asset has been loaded. 
     var duration: Time {
+        // The duration be reported as indefinite (NAN) until the duration of the asset has
+        // been loaded, so we need to fallback to zero if indefinite.
         let duration = player.currentItem?.duration ?? CMTime(seconds: 0, preferredTimescale: .zero)
-        let seconds = CMTimeGetSeconds(duration)
+        var seconds: Double
+
+        if duration.seconds.isNaN {
+            seconds = 0
+        } else if duration.seconds.isInfinite {
+            seconds = 0
+        } else {
+            seconds = CMTimeGetSeconds(duration)
+        }
+
         return Time(seconds: seconds)
     }
 
@@ -245,10 +255,22 @@ extension WrappedAVPlayer {
         get { player.actionAtItemEnd }
         set { player.actionAtItemEnd = newValue }
     }
-
+    
     var currentTime: Time {
+        // The duration be reported as indefinite (NAN) until the duration of the asset has
+        // been loaded, so we need to fallback to zero if indefinite.
         let currentTime = player.currentItem?.currentTime() ?? CMTime(seconds: 0, preferredTimescale: .zero)
-        let seconds = CMTimeGetSeconds(currentTime)
+
+        var seconds: Double
+
+        if currentTime.seconds.isNaN {
+            seconds = 0
+        } else if currentTime.seconds.isInfinite {
+            seconds = 0
+        } else {
+            seconds = CMTimeGetSeconds(currentTime)
+        }
+
         return Time(seconds: seconds)
     }
 

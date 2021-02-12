@@ -14,18 +14,18 @@ struct CustomPlayerLayer: View {
 
     var body: some View {
         ZStack {
-            Color.black.edgesIgnoringSafeArea(.all)
+            Color.green.edgesIgnoringSafeArea(.all)
             if viewModel.isReadyForPlayback {
                 // FIXME: Fix this force unwrap!
-//                VideoPlayerView(player: viewModel.player.player as! WrappedAVQueuePlayer)
                 VideoPlayerView(player: (viewModel.player as! PlaylistPlayer).player as! WrappedAVPlayer)
-//                VideoPlayerView(player: (viewModel.player as! PlaylistPlayer).player as! WrappedAVQueuePlayer)
-
             } else {
                 loadingSpinner
             }
         }
         .edgesIgnoringSafeArea(.all)
+//        .onTapGesture {
+//            print("Tapping!")
+//        }
 //        .statusBar(hidden: true)
     }
 
@@ -33,5 +33,6 @@ struct CustomPlayerLayer: View {
         ProgressView()
             .scaleEffect(1.5, anchor: .center)
             .progressViewStyle(CircularProgressViewStyle(tint: .white))
+            .background(Color.red)
     }
 }
