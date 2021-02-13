@@ -189,13 +189,17 @@ extension PlaylistPlayer {
     }
 
     private func updateCurrentPlayerItem() {
-        // Important to pause the player before updating the current item to prevent any
-        // weird play-pause behavior (e.g randomly becoming paused)
-        player.pause()
+        lastPlaybackRate = player.playbackRate
+        // Important to pause the player before updating the current item to prevent any weird play-pause behavior (e.g randomly becoming paused).
+//        player.pause()
+        player.playbackRate = 0
         let item = playerItems[nowPlayingIndex]
         item.seek(to: .zero, completionHandler: nil)
         player.replaceCurrentItem(with: item)
-        player.play()
+        if lastPlaybackRate > 0 {
+//            player.play()
+            player.playbackRate = lastPlaybackRate
+        }
     }
 }
 

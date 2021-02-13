@@ -9,9 +9,7 @@ import AVFoundation
 import SwiftUI
 
 class PlaylistPlayerViewModel: ObservableObject {
-
-//    let items = ["01", "02", "03", "04", "05", "06", "07", "08"].compactMap { Bundle.main.url(forResource: $0, withExtension: "mov") }
-//        .map { AVPlayerItem(url: $0)}
+    
     var player: PlaylistPlayerProtocol
 
     // MARK: - Published
