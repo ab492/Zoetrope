@@ -8,20 +8,21 @@
 import Foundation
 
 class PlaylistManager: ObservableObject {
-    
+
     private var playlistStore: PlaylistStore
-    private var securityScopedBookmarkStore: SecurityScopedBookmarkStore
+    private var videoMetadataService: VideoMetadataService
 
     @Published private(set) var playlists: [Playlist]
 
-    init(playlistStore: PlaylistStore, securityScopedBookmarkStore: SecurityScopedBookmarkStore) {
+    init(playlistStore: PlaylistStore, videoModelBuilder: VideoMetadataService) {
         self.playlistStore = playlistStore
-        self.securityScopedBookmarkStore = securityScopedBookmarkStore
         self.playlists = playlistStore.fetchPlaylists()
+        self.videoMetadataService = videoModelBuilder
     }
 
     convenience init() {
-        self.init(playlistStore: PlaylistStoreImpl(), securityScopedBookmarkStore: SecurityScopedBookmarkStoreImpl())
+        self.init(playlistStore: PlaylistStoreImpl(),
+                  videoModelBuilder: VideoMetadataServiceImpl())
     }
 
     // MARK: - Public
@@ -44,17 +45,24 @@ class PlaylistManager: ObservableObject {
     // Need to be security scoped URLS
     func addMediaAt(urls: [URL], to playlist: Playlist) {
         objectWillChange.send()
-        
-        for url in urls {
-            let filename = FileManager.default.displayName(atPath: url.path)
-            let video = Video(filename: filename)
-            
-            if let bookmark = SecurityScopedBookmark(id: video.id, securityScopedURL: url) {
-                securityScopedBookmarkStore.add(bookmark: bookmark )
-            }
 
-            playlist.videos.append(video)
+        for url in urls {
+            if let video = videoMetadataService.generateVideoWithMetadataForItemAt(securityScopedURL: url) {
+                playlist.videos.append(video)
+            }
         }
+        save()
+    }
+
+    func deleteItems(fromPlaylist playlist: Playlist, at offsets: IndexSet) {
+        objectWillChange.send()
+
+        // Clear thumbnails from store first
+        offsets.forEach { index in
+//            var item = playlist.videos[index]
+            videoMetadataService.removeMetadata(for: &playlist.videos[index])
+        }
+        playlist.videos.remove(atOffsets: offsets)
         save()
     }
 
@@ -64,19 +72,11 @@ class PlaylistManager: ObservableObject {
         var urls = [URL]()
 
         for id in ids {
-            if let url = securityScopedBookmarkStore.url(for: id) {
+            if let url = Current.securityScopedBookmarkStore.url(for: id) {
                 urls.append(url)
             }
         }
         return urls
-
-
-//        let relativeURLS = playlist.videos.map { $0.relativeFilepath }
-//        var urls = [URL]()
-//        for relativeURL in relativeURLS {
-//            urls.append(mediaStore.urlForItemAt(relativePath: relativeURL))
-//        }
-//        return urls
     }
     
     // MARK: - Private

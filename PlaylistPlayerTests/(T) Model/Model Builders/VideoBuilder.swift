@@ -11,6 +11,8 @@ import Foundation
 final class VideoBuilder {
     private var b_id = UUID()
     private var b_filename: String = ""
+    private var b_duration: Time = Time(seconds: 0)
+    private var b_thumbnailFilename: String? = nil
 
     @discardableResult func id(_ id: UUID) -> VideoBuilder {
         b_id = id
@@ -22,7 +24,17 @@ final class VideoBuilder {
         return self
     }
 
+    @discardableResult func duration(_ duration: Time) -> VideoBuilder {
+        b_duration = duration
+        return self
+    }
+
+    @discardableResult func thumbnailFilename(_ thumbnailFilename: String?) -> VideoBuilder {
+        b_thumbnailFilename = thumbnailFilename
+        return self
+    }
+
     func build() -> Video {
-        Video(id: b_id, filename: b_filename)
+        Video(id: b_id, filename: b_filename, duration: b_duration, thumbnailFilename: b_thumbnailFilename)
     }
 }

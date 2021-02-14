@@ -27,6 +27,7 @@ struct SecurityScopedBookmark: Codable {
 
 protocol SecurityScopedBookmarkStore {
     func add(bookmark: SecurityScopedBookmark)
+    func removeBookmark(for id: UUID)
     func url(for id: UUID) -> URL?
 }
 
@@ -56,6 +57,11 @@ class SecurityScopedBookmarkStoreImpl: SecurityScopedBookmarkStore {
 
     func add(bookmark: SecurityScopedBookmark) {
         bookmarks.append(bookmark)
+        save()
+    }
+
+    func removeBookmark(for id: UUID) {
+        bookmarks.removeAll(where: { $0.id == id })
         save()
     }
 

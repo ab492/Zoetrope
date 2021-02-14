@@ -45,7 +45,7 @@ class PlaylistStoreTests: XCTestCase {
 
         let fetchedPlaylists = sut.fetchPlaylists()
 
-        XCTAssertEqual(playlists, fetchedPlaylists)
+        XCTAssertEqual(fetchedPlaylists, playlists)
     }
 }
 
@@ -63,11 +63,10 @@ extension PlaylistStoreTests {
     }
 
     private func testPlaylists() -> [Playlist] {
-        // TODO: How to include videos here?!
         [
-            Playlist(id: UUID(), name: "Test Playlist 1", videos: []),
-            Playlist(id: UUID(), name: "Test Playlist 2", videos: []),
-            Playlist(id: UUID(), name: "Test Playlist 3", videos: [])
+            Playlist(id: UUID(), name: "Test Playlist 1", videos: [VideoBuilder().build()]),
+            Playlist(id: UUID(), name: "Test Playlist 2", videos: [VideoBuilder().build()]),
+            Playlist(id: UUID(), name: "Test Playlist 3", videos: [VideoBuilder().build()])
         ]
     }
 }

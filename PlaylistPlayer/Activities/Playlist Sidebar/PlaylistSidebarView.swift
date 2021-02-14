@@ -12,8 +12,8 @@ struct PlaylistSidebarView: View {
     @ObservedObject var playlistManager = Current.playlistManager
     
     init() {
-//        UITableView.appearance().backgroundColor = .secondarySystemGroupedBackground
-//        UINavigationBar.appearance().backgroundColor = .systemRed
+        UITableView.appearance().backgroundColor = .clear
+        UITableViewCell.appearance().backgroundColor = .clear
     }
 
     // MARK: - Views

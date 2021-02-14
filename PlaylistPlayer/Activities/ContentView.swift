@@ -10,8 +10,8 @@ import SwiftUI
 struct ContentView: View {
     
     init() {
-        UITableView.appearance().backgroundColor = .clear
-        UITableViewCell.appearance().backgroundColor = .clear
+//        UITableView.appearance().backgroundColor = .clear
+//        UITableViewCell.appearance().backgroundColor = .clear
         UINavigationBar.appearance().backgroundColor = .clear
     }
 

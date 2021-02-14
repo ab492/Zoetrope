@@ -7,9 +7,14 @@
 
 import Foundation
 
-var Current = World(date: { Date() }, playlistManager: PlaylistManager())
+var Current = World(date: { Date() },
+                    playlistManager: PlaylistManager(),
+                    securityScopedBookmarkStore: SecurityScopedBookmarkStoreImpl(),
+                    thumbnailService: ThumbnailServiceImpl())
 
 struct World {
     var date: () -> Date
     var playlistManager: PlaylistManager
+    var securityScopedBookmarkStore: SecurityScopedBookmarkStore
+    var thumbnailService: ThumbnailService
 }

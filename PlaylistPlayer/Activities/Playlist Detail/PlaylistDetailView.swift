@@ -19,11 +19,11 @@ struct PlaylistDetailView: View {
     @State private var presentingPlayer = false
 
     init(playlist: Playlist) {
-        print("INIT?!")
         self.playlist = playlist
-//        let viewModel = PlaylistPlayerViewModel()
-//        viewModel.updateQueue(for: playlist)
-//        _viewModel = StateObject(wrappedValue: viewModel)
+
+        UITableView.appearance().backgroundColor = .clear
+        UITableViewCell.appearance().backgroundColor = .clear
+        UIToolbar.appearance().barTintColor = .secondarySystemBackground
     }
 
     var body: some View {
@@ -36,8 +36,9 @@ struct PlaylistDetailView: View {
         }
         .toolbar {
             importMediaToolbarItem
+            bottomToolbarItemCount
         }
-        .navigationTitle(playlist.name)
+        .navigationBarTitle(playlist.name, displayMode: .inline)
         fullScreenCover
         documentPicker
     }
@@ -45,7 +46,7 @@ struct PlaylistDetailView: View {
     private var videoList: some View {
         List {
             ForEach(playlist.videos) { video in
-                Text(video.filename)
+                PlaylistDetailRow(video: video)
                     .onTapGesture {
                         if let index = playlist.videos.firstIndex(of: video) {
                             viewModel.skipToItem(at: index)
@@ -53,19 +54,20 @@ struct PlaylistDetailView: View {
                         presentingPlayer.toggle()
                     }
             }
+            .onDelete(perform: removeRows)
         }
         .onAppear { updateViewModel() }
     }
 
     private var fullScreenCover: some View {
-        // Fixes a known bug where .fullScreenCover and .sheet modifiers can't be applied to a single view.
-        Text("").hidden().fullScreenCover(isPresented: $presentingPlayer) {
+        // .fullScreenCover and .sheet modifiers can't be applied to a single view, so we use an EmptyView() instead.
+        EmptyView().hidden().fullScreenCover(isPresented: $presentingPlayer) {
             CustomPlayerView(viewModel: viewModel)
         }
     }
 
     private var documentPicker: some View {
-        // Fixes a known bug where .fullScreenCover and .sheet modifiers can't be applied to a single view.
+        // .fullScreenCover and .sheet modifiers can't be applied to a single view, so we use an EmptyView() instead.
         EmptyView().hidden().sheet(isPresented: $showingDocumentPicker) {
             DocumentPicker(urls: self.$urls.onChange(addMedia))
         }
@@ -83,14 +85,23 @@ struct PlaylistDetailView: View {
         }
     }
 
+    private var bottomToolbarItemCount: some ToolbarContent {
+        ToolbarItem(placement: .bottomBar) {
+            Text(playlist.formattedCount)
+        }
+    }
+
     // MARK: - Helpers
 
     private func addMedia() {
-        print("Add media?!")
         guard let urls = urls else { return }
         Current.playlistManager.addMediaAt(urls: urls, to: playlist)
         self.urls = nil
         updateViewModel()
+    }
+
+    private func removeRows(at offsets: IndexSet) {
+        Current.playlistManager.deleteItems(fromPlaylist: playlist, at: offsets)
     }
 
     private func updateViewModel() {

@@ -8,8 +8,7 @@
 
 import Foundation
 
-struct Time {
-    
+struct Time: Codable {
 
     private let timeInSeconds: Double
 

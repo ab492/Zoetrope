@@ -50,6 +50,7 @@
 		AD2F0BB525BC0E0F0006306D /* UIKit-PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F0BB425BC0E0F0006306D /* UIKit-PlayerView.swift */; };
 		AD318A5325C7D7B700B62201 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD318A5225C7D7B700B62201 /* Video.swift */; };
 		AD37B5CE25BC109400B854B6 /* PlaylistPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD37B5CD25BC109400B854B6 /* PlaylistPlayerViewModel.swift */; };
+		AD4B08AD25D9195000088A64 /* BaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4B08AC25D9195000088A64 /* BaseTestCase.swift */; };
 		AD4DDB4225C08E7700F8831B /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4DDB4125C08E7700F8831B /* CGFloat+Extensions.swift */; };
 		AD67C7B725D3C1EC008635B8 /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD67C7B625D3C1EC008635B8 /* World.swift */; };
 		AD75C74925C9181B0070110F /* ABUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = AD75C74825C9181B0070110F /* ABUtilities */; };
@@ -68,14 +69,26 @@
 		AD7A9F4525D00C2A00118055 /* PlaylistBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7A9F4425D00C2A00118055 /* PlaylistBuilder.swift */; };
 		AD7E77FF25C58FBD00EDD01E /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7E77FE25C58FBD00EDD01E /* TimeFormatter.swift */; };
 		AD7E780425C58FEE00EDD01E /* TimeFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7E780325C58FEE00EDD01E /* TimeFormatterTests.swift */; };
-		AD7F2D7E25D504AC002735A7 /* SecurityScopedBookmarkStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7F2D7D25D504AC002735A7 /* SecurityScopedBookmarkStoreTests.swift */; };
+		AD8989EE25D7BEB20065975D /* ThumbnailGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8989ED25D7BEB20065975D /* ThumbnailGenerator.swift */; };
+		AD8989F225D7BEE30065975D /* ThumbnailStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8989F125D7BEE30065975D /* ThumbnailStore.swift */; };
+		AD8989F625D7C1F10065975D /* ThumbnailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8989F525D7C1F10065975D /* ThumbnailService.swift */; };
+		AD898A1B25D7F34F0065975D /* PlaylistDetailRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD898A1A25D7F34F0065975D /* PlaylistDetailRow.swift */; };
+		AD898A1F25D7F9B20065975D /* DurationCaclulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD898A1E25D7F9B20065975D /* DurationCaclulator.swift */; };
 		AD8B29DF25BFEB8300AAA7AC /* CGFloat+MapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8B29DE25BFEB8300AAA7AC /* CGFloat+MapTests.swift */; };
 		AD9A0D9125CE739600FF85EB /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9A0D9025CE739600FF85EB /* Playlist.swift */; };
 		AD9A0D9625CE74BF00FF85EB /* PlaylistTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9A0D9525CE74BF00FF85EB /* PlaylistTests.swift */; };
 		AD9A0D9E25CE79B800FF85EB /* PlaylistStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9A0D9D25CE79B800FF85EB /* PlaylistStore.swift */; };
 		AD9A0DA525CE7A5E00FF85EB /* PlaylistStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9A0DA425CE7A5E00FF85EB /* PlaylistStoreTests.swift */; };
 		AD9A0DB625CE877B00FF85EB /* MockPlaylistStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9A0DB525CE877B00FF85EB /* MockPlaylistStore.swift */; };
+		ADA4D74925D9121D0054B8FA /* VideoMetadataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA4D74825D9121D0054B8FA /* VideoMetadataService.swift */; };
 		ADCD4DA325D4FAA900F8A03D /* SecurityScopedBookmarkStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCD4DA225D4FAA900F8A03D /* SecurityScopedBookmarkStore.swift */; };
+		ADE058FA25D91CE7004076AC /* MockSecurityScopedBookmarkStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE058F925D91CE7004076AC /* MockSecurityScopedBookmarkStore.swift */; };
+		ADE058FE25D91CFA004076AC /* MockThumbnailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE058FD25D91CFA004076AC /* MockThumbnailService.swift */; };
+		ADE0590225D91DC9004076AC /* VideoMetadataServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE0590125D91DC9004076AC /* VideoMetadataServiceTests.swift */; };
+		ADE0590625D91E70004076AC /* MockDurationCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE0590525D91E6F004076AC /* MockDurationCalculator.swift */; };
+		ADE0590D25D92231004076AC /* ThumbnailServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE0590C25D92231004076AC /* ThumbnailServiceTests.swift */; };
+		ADE0591325D9226A004076AC /* MockThumbnailStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE0591225D9226A004076AC /* MockThumbnailStore.swift */; };
+		ADE0591725D92BC7004076AC /* ThumbnailStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE0591625D92BC7004076AC /* ThumbnailStoreTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -136,6 +149,7 @@
 		AD2F0BB425BC0E0F0006306D /* UIKit-PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIKit-PlayerView.swift"; sourceTree = "<group>"; };
 		AD318A5225C7D7B700B62201 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		AD37B5CD25BC109400B854B6 /* PlaylistPlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistPlayerViewModel.swift; sourceTree = "<group>"; };
+		AD4B08AC25D9195000088A64 /* BaseTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTestCase.swift; sourceTree = "<group>"; };
 		AD4DDB4125C08E7700F8831B /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
 		AD67C7B625D3C1EC008635B8 /* World.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = World.swift; sourceTree = "<group>"; };
 		AD75C75025C918E50070110F /* PlaylistPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistPlayer.swift; sourceTree = "<group>"; };
@@ -153,14 +167,26 @@
 		AD7A9F4425D00C2A00118055 /* PlaylistBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistBuilder.swift; sourceTree = "<group>"; };
 		AD7E77FE25C58FBD00EDD01E /* TimeFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
 		AD7E780325C58FEE00EDD01E /* TimeFormatterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeFormatterTests.swift; sourceTree = "<group>"; };
-		AD7F2D7D25D504AC002735A7 /* SecurityScopedBookmarkStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityScopedBookmarkStoreTests.swift; sourceTree = "<group>"; };
+		AD8989ED25D7BEB20065975D /* ThumbnailGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailGenerator.swift; sourceTree = "<group>"; };
+		AD8989F125D7BEE30065975D /* ThumbnailStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailStore.swift; sourceTree = "<group>"; };
+		AD8989F525D7C1F10065975D /* ThumbnailService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailService.swift; sourceTree = "<group>"; };
+		AD898A1A25D7F34F0065975D /* PlaylistDetailRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistDetailRow.swift; sourceTree = "<group>"; };
+		AD898A1E25D7F9B20065975D /* DurationCaclulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationCaclulator.swift; sourceTree = "<group>"; };
 		AD8B29DE25BFEB8300AAA7AC /* CGFloat+MapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+MapTests.swift"; sourceTree = "<group>"; };
 		AD9A0D9025CE739600FF85EB /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
 		AD9A0D9525CE74BF00FF85EB /* PlaylistTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistTests.swift; sourceTree = "<group>"; };
 		AD9A0D9D25CE79B800FF85EB /* PlaylistStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistStore.swift; sourceTree = "<group>"; };
 		AD9A0DA425CE7A5E00FF85EB /* PlaylistStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlaylistStoreTests.swift; path = "PlaylistPlayerTests/(T) Services/(T) Playlist Store/PlaylistStoreTests.swift"; sourceTree = SOURCE_ROOT; };
 		AD9A0DB525CE877B00FF85EB /* MockPlaylistStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPlaylistStore.swift; sourceTree = "<group>"; };
+		ADA4D74825D9121D0054B8FA /* VideoMetadataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMetadataService.swift; sourceTree = "<group>"; };
 		ADCD4DA225D4FAA900F8A03D /* SecurityScopedBookmarkStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecurityScopedBookmarkStore.swift; sourceTree = "<group>"; };
+		ADE058F925D91CE7004076AC /* MockSecurityScopedBookmarkStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSecurityScopedBookmarkStore.swift; sourceTree = "<group>"; };
+		ADE058FD25D91CFA004076AC /* MockThumbnailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockThumbnailService.swift; sourceTree = "<group>"; };
+		ADE0590125D91DC9004076AC /* VideoMetadataServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMetadataServiceTests.swift; sourceTree = "<group>"; };
+		ADE0590525D91E6F004076AC /* MockDurationCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDurationCalculator.swift; sourceTree = "<group>"; };
+		ADE0590C25D92231004076AC /* ThumbnailServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailServiceTests.swift; sourceTree = "<group>"; };
+		ADE0591225D9226A004076AC /* MockThumbnailStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockThumbnailStore.swift; sourceTree = "<group>"; };
+		ADE0591625D92BC7004076AC /* ThumbnailStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailStoreTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -287,6 +313,7 @@
 		AD2F0AC825BC06A60006306D /* PlaylistPlayerTests */ = {
 			isa = PBXGroup;
 			children = (
+				AD4B08AC25D9195000088A64 /* BaseTestCase.swift */,
 				AD9A0D9425CE749D00FF85EB /* (T) Model */,
 				ADADCD5125BFEE15006D689B /* (T) Services */,
 				AD7E780225C58FD800EDD01E /* (T) Utilities */,
@@ -337,8 +364,11 @@
 			isa = PBXGroup;
 			children = (
 				AD12075425D3B43F00A8AAEC /* PlaylistManager.swift */,
+				AD898A2225D7F9EB0065975D /* Duration Calculator */,
 				AD9A0DAC25CE872200FF85EB /* Playlist Store */,
 				AD12076525D3B8B100A8AAEC /* Security Scoped Bookmark Store */,
+				AD8989EC25D7BE9D0065975D /* ThumbnailService */,
+				ADA4D74C25D9122E0054B8FA /* Video Metadata Service */,
 				AD9A0D8B25CE72E200FF85EB /* Video Playback */,
 			);
 			path = Services;
@@ -399,6 +429,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		AD4B08B625D91A8C00088A64 /* (T) Video Metadata Service */ = {
+			isa = PBXGroup;
+			children = (
+				ADE0590125D91DC9004076AC /* VideoMetadataServiceTests.swift */,
+			);
+			path = "(T) Video Metadata Service";
+			sourceTree = "<group>";
+		};
 		AD4DDB4025C08E6700F8831B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -422,6 +460,7 @@
 			isa = PBXGroup;
 			children = (
 				AD7A9EE325CEB25300118055 /* PlaylistDetailView.swift */,
+				AD898A1A25D7F34F0065975D /* PlaylistDetailRow.swift */,
 			);
 			path = "Playlist Detail";
 			sourceTree = "<group>";
@@ -451,12 +490,22 @@
 			path = "(T) Utilities";
 			sourceTree = "<group>";
 		};
-		AD7F2D7C25D50467002735A7 /* (T) Security Scoped Bookmark Store */ = {
+		AD8989EC25D7BE9D0065975D /* ThumbnailService */ = {
 			isa = PBXGroup;
 			children = (
-				AD7F2D7D25D504AC002735A7 /* SecurityScopedBookmarkStoreTests.swift */,
+				AD8989F525D7C1F10065975D /* ThumbnailService.swift */,
+				AD8989ED25D7BEB20065975D /* ThumbnailGenerator.swift */,
+				AD8989F125D7BEE30065975D /* ThumbnailStore.swift */,
 			);
-			path = "(T) Security Scoped Bookmark Store";
+			path = ThumbnailService;
+			sourceTree = "<group>";
+		};
+		AD898A2225D7F9EB0065975D /* Duration Calculator */ = {
+			isa = PBXGroup;
+			children = (
+				AD898A1E25D7F9B20065975D /* DurationCaclulator.swift */,
+			);
+			path = "Duration Calculator";
 			sourceTree = "<group>";
 		};
 		AD9A0D8B25CE72E200FF85EB /* Video Playback */ = {
@@ -507,9 +556,21 @@
 		AD9A0DB425CE876500FF85EB /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
+				ADE0590525D91E6F004076AC /* MockDurationCalculator.swift */,
 				AD9A0DB525CE877B00FF85EB /* MockPlaylistStore.swift */,
+				ADE058F925D91CE7004076AC /* MockSecurityScopedBookmarkStore.swift */,
+				ADE058FD25D91CFA004076AC /* MockThumbnailService.swift */,
+				ADE0591225D9226A004076AC /* MockThumbnailStore.swift */,
 			);
 			path = Mocks;
+			sourceTree = "<group>";
+		};
+		ADA4D74C25D9122E0054B8FA /* Video Metadata Service */ = {
+			isa = PBXGroup;
+			children = (
+				ADA4D74825D9121D0054B8FA /* VideoMetadataService.swift */,
+			);
+			path = "Video Metadata Service";
 			sourceTree = "<group>";
 		};
 		ADADCD5025BFEE04006D689B /* (T) Extensions */ = {
@@ -525,11 +586,21 @@
 			children = (
 				AD12075E25D3B52600A8AAEC /* (T) PlaylistManager */,
 				AD9A0DAD25CE872B00FF85EB /* (T) Playlist Store */,
-				AD7F2D7C25D50467002735A7 /* (T) Security Scoped Bookmark Store */,
+				ADE0590B25D9220F004076AC /* (T) Thumbnail Service Tests */,
+				AD4B08B625D91A8C00088A64 /* (T) Video Metadata Service */,
 				AD9A0DA325CE7A3500FF85EB /* (T) Video Playback */,
 				AD9A0DB425CE876500FF85EB /* Mocks */,
 			);
 			path = "(T) Services";
+			sourceTree = "<group>";
+		};
+		ADE0590B25D9220F004076AC /* (T) Thumbnail Service Tests */ = {
+			isa = PBXGroup;
+			children = (
+				ADE0590C25D92231004076AC /* ThumbnailServiceTests.swift */,
+				ADE0591625D92BC7004076AC /* ThumbnailStoreTests.swift */,
+			);
+			path = "(T) Thumbnail Service Tests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -654,8 +725,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD8989F625D7C1F10065975D /* ThumbnailService.swift in Sources */,
 				AD75C75125C918E50070110F /* PlaylistPlayer.swift in Sources */,
 				AD4DDB4225C08E7700F8831B /* CGFloat+Extensions.swift in Sources */,
+				ADA4D74925D9121D0054B8FA /* VideoMetadataService.swift in Sources */,
 				AD078C3125BC180900137941 /* TransportControls.swift in Sources */,
 				AD7A9F3025CFE24C00118055 /* Playlist-Helpers.swift in Sources */,
 				AD7A9F3625CFE6B300118055 /* URL+SecurityScoped.swift in Sources */,
@@ -680,16 +753,20 @@
 				AD67C7B725D3C1EC008635B8 /* World.swift in Sources */,
 				AD7A9EF525CFC7C100118055 /* Colors.swift in Sources */,
 				AD7E77FF25C58FBD00EDD01E /* TimeFormatter.swift in Sources */,
+				AD8989F225D7BEE30065975D /* ThumbnailStore.swift in Sources */,
 				AD12074125D1173900A8AAEC /* Color+Extensions.swift in Sources */,
 				AD2F0ABA25BC06A50006306D /* ContentView.swift in Sources */,
 				AD078C3D25BC196700137941 /* ScaleButtonStyle.swift in Sources */,
 				AD2F0AB825BC06A50006306D /* PlaylistPlayerApp.swift in Sources */,
 				AD13687825BD605E00ACC7D0 /* PlaybackControlsButton.swift in Sources */,
+				AD8989EE25D7BEB20065975D /* ThumbnailGenerator.swift in Sources */,
 				AD7A9EDD25CEB1C500118055 /* PlaylistSidebarView.swift in Sources */,
+				AD898A1F25D7F9B20065975D /* DurationCaclulator.swift in Sources */,
 				AD7A9F0725CFCCEC00118055 /* EmptyContentView.swift in Sources */,
 				AD2F0BB125BC0DD50006306D /* VideoPlayerView.swift in Sources */,
 				AD12075525D3B43F00A8AAEC /* PlaylistManager.swift in Sources */,
 				AD175E1225C67FBF00B805E1 /* PlayerIcons.swift in Sources */,
+				AD898A1B25D7F34F0065975D /* PlaylistDetailRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -697,19 +774,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADE0591725D92BC7004076AC /* ThumbnailStoreTests.swift in Sources */,
+				AD4B08AD25D9195000088A64 /* BaseTestCase.swift in Sources */,
 				AD2F0B4925BC08C00006306D /* MockVideoPlayer.swift in Sources */,
 				AD9A0D9625CE74BF00FF85EB /* PlaylistTests.swift in Sources */,
+				ADE058FA25D91CE7004076AC /* MockSecurityScopedBookmarkStore.swift in Sources */,
 				AD7E780425C58FEE00EDD01E /* TimeFormatterTests.swift in Sources */,
 				AD7A9ED625CE8C2A00118055 /* VideoBuilder.swift in Sources */,
+				ADE0590225D91DC9004076AC /* VideoMetadataServiceTests.swift in Sources */,
 				AD2F0B5E25BC08D70006306D /* PlaylistPlayerIntegrationTests.swift in Sources */,
-				AD7F2D7E25D504AC002735A7 /* SecurityScopedBookmarkStoreTests.swift in Sources */,
 				AD2F0B5825BC08D40006306D /* SpyAVQueuePlayer.swift in Sources */,
+				ADE0590625D91E70004076AC /* MockDurationCalculator.swift in Sources */,
 				AD9A0DA525CE7A5E00FF85EB /* PlaylistStoreTests.swift in Sources */,
 				AD8B29DF25BFEB8300AAA7AC /* CGFloat+MapTests.swift in Sources */,
 				AD9A0DB625CE877B00FF85EB /* MockPlaylistStore.swift in Sources */,
 				AD12075925D3B50800A8AAEC /* PlaylistManagerTests.swift in Sources */,
+				ADE058FE25D91CFA004076AC /* MockThumbnailService.swift in Sources */,
 				AD7A9F4525D00C2A00118055 /* PlaylistBuilder.swift in Sources */,
+				ADE0590D25D92231004076AC /* ThumbnailServiceTests.swift in Sources */,
 				AD2F0B8B25BC0A460006306D /* PlaylistPlayerTests.swift in Sources */,
+				ADE0591325D9226A004076AC /* MockThumbnailStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
