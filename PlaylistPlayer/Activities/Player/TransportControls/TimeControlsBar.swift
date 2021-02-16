@@ -21,40 +21,26 @@ struct TimeControlsBar: View {
                 viewModel.scrubbed(to: Time(seconds: Double($0)))
             }
         )
-
-        HStack {
-            Text(viewModel.formattedCurrentTime)
-                .foregroundColor(.white)
+        
+        VStack(spacing: 0) {
             CustomSlider(value: currentTimeSeconds,
                          in: 0...CGFloat(viewModel.duration.seconds),
                          configuration: sliderConfiguration,
                          onDragStart: { viewModel.scrubbingDidStart() },
                          onDragFinish: { viewModel.scrubbingDidEnd() })
-            Text(viewModel.formattedDuration)
-                .foregroundColor(.white)
-            loopButton
-        }
-    }
-
-    // FIXME: Fix accessibility for this label.
-    @ViewBuilder
-    private var loopButton: some View {
-        switch viewModel.loopMode {
-        case .loopCurrent:
-            PlaybackControlsButton(systemImage: PlayerIcons.loopCurrent, onTap: { viewModel.setLoopMode(to: .playPlaylistOnce) })
-                .foregroundColor(.white)
-        case .loopPlaylist:
-            PlaybackControlsButton(systemImage: PlayerIcons.loopPlaylist, onTap: { viewModel.setLoopMode(to: .loopCurrent) })
-                .foregroundColor(.white)
-        case .playPlaylistOnce:
-            PlaybackControlsButton(systemImage: PlayerIcons.loopPlaylist, onTap: { viewModel.setLoopMode(to: .loopPlaylist) })
-                .foregroundColor(.gray)
+            HStack {
+                Text(viewModel.formattedCurrentTime)
+                Spacer()
+                Text(viewModel.formattedDuration)
+            }
+            .font(.subheadline)
+            .foregroundColor(.secondary)
         }
     }
     
     private var sliderConfiguration: CustomSlider.Configuration {
-        CustomSlider.Configuration(knobWidth: 25,
+        CustomSlider.Configuration(knobWidth: 20,
                                    minimumTrackTint: .white,
-                                   maximumTrackTint: .gray)
+                                   maximumTrackTint: .secondary)
     }
 }

@@ -16,7 +16,6 @@
 		AD12075525D3B43F00A8AAEC /* PlaylistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD12075425D3B43F00A8AAEC /* PlaylistManager.swift */; };
 		AD12075925D3B50800A8AAEC /* PlaylistManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD12075825D3B50800A8AAEC /* PlaylistManagerTests.swift */; };
 		AD13687425BD600100ACC7D0 /* TimeControlsBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD13687325BD600100ACC7D0 /* TimeControlsBar.swift */; };
-		AD13687825BD605E00ACC7D0 /* PlaybackControlsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD13687725BD605E00ACC7D0 /* PlaybackControlsButton.swift */; };
 		AD175E1225C67FBF00B805E1 /* PlayerIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD175E1125C67FBF00B805E1 /* PlayerIcons.swift */; };
 		AD2F0AB825BC06A50006306D /* PlaylistPlayerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F0AB725BC06A50006306D /* PlaylistPlayerApp.swift */; };
 		AD2F0ABA25BC06A50006306D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F0AB925BC06A50006306D /* ContentView.swift */; };
@@ -89,6 +88,10 @@
 		ADE0590D25D92231004076AC /* ThumbnailServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE0590C25D92231004076AC /* ThumbnailServiceTests.swift */; };
 		ADE0591325D9226A004076AC /* MockThumbnailStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE0591225D9226A004076AC /* MockThumbnailStore.swift */; };
 		ADE0591725D92BC7004076AC /* ThumbnailStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE0591625D92BC7004076AC /* ThumbnailStoreTests.swift */; };
+		ADE0593E25DA4DC5004076AC /* LoopButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE0593D25DA4DC5004076AC /* LoopButton.swift */; };
+		ADE0594225DB93E5004076AC /* Array+Maybe.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE0594125DB93E5004076AC /* Array+Maybe.swift */; };
+		ADE0594E25DBA445004076AC /* EllipsisButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE0594D25DBA445004076AC /* EllipsisButton.swift */; };
+		ADE0595225DBA4E8004076AC /* SecondaryPlayerControlsButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE0595125DBA4E8004076AC /* SecondaryPlayerControlsButtonStyle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,7 +114,6 @@
 		AD12075425D3B43F00A8AAEC /* PlaylistManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistManager.swift; sourceTree = "<group>"; };
 		AD12075825D3B50800A8AAEC /* PlaylistManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistManagerTests.swift; sourceTree = "<group>"; };
 		AD13687325BD600100ACC7D0 /* TimeControlsBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeControlsBar.swift; sourceTree = "<group>"; };
-		AD13687725BD605E00ACC7D0 /* PlaybackControlsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackControlsButton.swift; sourceTree = "<group>"; };
 		AD175E1125C67FBF00B805E1 /* PlayerIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerIcons.swift; sourceTree = "<group>"; };
 		AD2F0AB425BC06A50006306D /* PlaylistPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlaylistPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD2F0AB725BC06A50006306D /* PlaylistPlayerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistPlayerApp.swift; sourceTree = "<group>"; };
@@ -187,6 +189,10 @@
 		ADE0590C25D92231004076AC /* ThumbnailServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailServiceTests.swift; sourceTree = "<group>"; };
 		ADE0591225D9226A004076AC /* MockThumbnailStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockThumbnailStore.swift; sourceTree = "<group>"; };
 		ADE0591625D92BC7004076AC /* ThumbnailStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailStoreTests.swift; sourceTree = "<group>"; };
+		ADE0593D25DA4DC5004076AC /* LoopButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoopButton.swift; sourceTree = "<group>"; };
+		ADE0594125DB93E5004076AC /* Array+Maybe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Maybe.swift"; sourceTree = "<group>"; };
+		ADE0594D25DBA445004076AC /* EllipsisButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EllipsisButton.swift; sourceTree = "<group>"; };
+		ADE0595125DBA4E8004076AC /* SecondaryPlayerControlsButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryPlayerControlsButtonStyle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,21 +219,20 @@
 			children = (
 				AD175E1125C67FBF00B805E1 /* PlayerIcons.swift */,
 				AD078C3025BC180900137941 /* TransportControls.swift */,
-				AD078C3825BC186500137941 /* PlaybackControlsBar.swift */,
+				ADE0594C25DBA41D004076AC /* Playback Controls Bar */,
 				AD13687325BD600100ACC7D0 /* TimeControlsBar.swift */,
-				AD13687725BD605E00ACC7D0 /* PlaybackControlsButton.swift */,
 			);
 			path = TransportControls;
 			sourceTree = "<group>";
 		};
-		AD078C4F25BD595A00137941 /* UIKit */ = {
+		AD078C4F25BD595A00137941 /* UIKit Wrappers */ = {
 			isa = PBXGroup;
 			children = (
 				AD7A9EFC25CFCB6A00118055 /* DocumentPicker.swift */,
 				AD078C3425BC185700137941 /* VisualEffectView.swift */,
 				AD2F0BB425BC0E0F0006306D /* UIKit-PlayerView.swift */,
 			);
-			path = UIKit;
+			path = "UIKit Wrappers";
 			sourceTree = "<group>";
 		};
 		AD078C5425BD598A00137941 /* Activities */ = {
@@ -413,8 +418,8 @@
 				AD7994D625C28E070041CFC7 /* CustomSlider.swift */,
 				AD7A9F0625CFCCEC00118055 /* EmptyContentView.swift */,
 				AD2F0BB025BC0DD50006306D /* VideoPlayerView.swift */,
-				AD078C3C25BC196700137941 /* ScaleButtonStyle.swift */,
-				AD078C4F25BD595A00137941 /* UIKit */,
+				ADE0595525DBA50C004076AC /* Button Styles */,
+				AD078C4F25BD595A00137941 /* UIKit Wrappers */,
 			);
 			path = "Reusable UI";
 			sourceTree = "<group>";
@@ -440,6 +445,7 @@
 		AD4DDB4025C08E6700F8831B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				ADE0594125DB93E5004076AC /* Array+Maybe.swift */,
 				AD4DDB4125C08E7700F8831B /* CGFloat+Extensions.swift */,
 				AD7A9F0025CFCBDE00118055 /* Binding+OnChange.swift */,
 				AD7A9F3525CFE6B300118055 /* URL+SecurityScoped.swift */,
@@ -603,6 +609,25 @@
 			path = "(T) Thumbnail Service Tests";
 			sourceTree = "<group>";
 		};
+		ADE0594C25DBA41D004076AC /* Playback Controls Bar */ = {
+			isa = PBXGroup;
+			children = (
+				AD078C3825BC186500137941 /* PlaybackControlsBar.swift */,
+				ADE0593D25DA4DC5004076AC /* LoopButton.swift */,
+				ADE0594D25DBA445004076AC /* EllipsisButton.swift */,
+			);
+			path = "Playback Controls Bar";
+			sourceTree = "<group>";
+		};
+		ADE0595525DBA50C004076AC /* Button Styles */ = {
+			isa = PBXGroup;
+			children = (
+				AD078C3C25BC196700137941 /* ScaleButtonStyle.swift */,
+				ADE0595125DBA4E8004076AC /* SecondaryPlayerControlsButtonStyle.swift */,
+			);
+			path = "Button Styles";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -729,12 +754,15 @@
 				AD75C75125C918E50070110F /* PlaylistPlayer.swift in Sources */,
 				AD4DDB4225C08E7700F8831B /* CGFloat+Extensions.swift in Sources */,
 				ADA4D74925D9121D0054B8FA /* VideoMetadataService.swift in Sources */,
+				ADE0594225DB93E5004076AC /* Array+Maybe.swift in Sources */,
 				AD078C3125BC180900137941 /* TransportControls.swift in Sources */,
 				AD7A9F3025CFE24C00118055 /* Playlist-Helpers.swift in Sources */,
 				AD7A9F3625CFE6B300118055 /* URL+SecurityScoped.swift in Sources */,
+				ADE0593E25DA4DC5004076AC /* LoopButton.swift in Sources */,
 				AD7994D725C28E070041CFC7 /* CustomSlider.swift in Sources */,
 				AD2F0AF925BC06FC0006306D /* Time.swift in Sources */,
 				AD37B5CE25BC109400B854B6 /* PlaylistPlayerViewModel.swift in Sources */,
+				ADE0594E25DBA445004076AC /* EllipsisButton.swift in Sources */,
 				AD078C3925BC186500137941 /* PlaybackControlsBar.swift in Sources */,
 				AD9A0D9E25CE79B800FF85EB /* PlaylistStore.swift in Sources */,
 				ADCD4DA325D4FAA900F8A03D /* SecurityScopedBookmarkStore.swift in Sources */,
@@ -751,6 +779,7 @@
 				AD078C4325BC1AF500137941 /* CustomPlayerView.swift in Sources */,
 				AD7A9EFD25CFCB6A00118055 /* DocumentPicker.swift in Sources */,
 				AD67C7B725D3C1EC008635B8 /* World.swift in Sources */,
+				ADE0595225DBA4E8004076AC /* SecondaryPlayerControlsButtonStyle.swift in Sources */,
 				AD7A9EF525CFC7C100118055 /* Colors.swift in Sources */,
 				AD7E77FF25C58FBD00EDD01E /* TimeFormatter.swift in Sources */,
 				AD8989F225D7BEE30065975D /* ThumbnailStore.swift in Sources */,
@@ -758,7 +787,6 @@
 				AD2F0ABA25BC06A50006306D /* ContentView.swift in Sources */,
 				AD078C3D25BC196700137941 /* ScaleButtonStyle.swift in Sources */,
 				AD2F0AB825BC06A50006306D /* PlaylistPlayerApp.swift in Sources */,
-				AD13687825BD605E00ACC7D0 /* PlaybackControlsButton.swift in Sources */,
 				AD8989EE25D7BEB20065975D /* ThumbnailGenerator.swift in Sources */,
 				AD7A9EDD25CEB1C500118055 /* PlaylistSidebarView.swift in Sources */,
 				AD898A1F25D7F9B20065975D /* DurationCaclulator.swift in Sources */,

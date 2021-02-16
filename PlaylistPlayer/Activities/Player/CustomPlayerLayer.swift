@@ -14,7 +14,7 @@ struct CustomPlayerLayer: View {
 
     var body: some View {
         ZStack {
-            Color.green.edgesIgnoringSafeArea(.all)
+            Color.black.edgesIgnoringSafeArea(.all)
             if viewModel.isReadyForPlayback {
                 // FIXME: Fix this force unwrap!
                 VideoPlayerView(player: (viewModel.player as! PlaylistPlayer).player as! WrappedAVPlayer)

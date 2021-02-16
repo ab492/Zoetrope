@@ -42,7 +42,7 @@ struct CustomSlider: View {
     private let configuration: Configuration
     private var onDragStart: (() -> Void)?
     private var onDragFinish: (() -> Void)?
-//    private let knobPadding = CGFloat(3) TODO: Fix issue with larger tap area - this added padding to beginnging.
+    private var knobVerticalPadding: CGFloat
     
     // MARK: - Init
 
@@ -56,6 +56,9 @@ struct CustomSlider: View {
         self.configuration = configuration
         self.onDragStart = onDragStart
         self.onDragFinish = onDragFinish
+        // 35 arbitrarily chosen as it's a nice value to allow for a good tap area above and below the knob.
+        let padding = 35 - configuration.knobWidth
+        self.knobVerticalPadding = padding < 0 ? 35 : padding
     }
     
     var body: some View {
@@ -75,6 +78,8 @@ struct CustomSlider: View {
                     Circle()
                         .fill(configuration.knobColor)
                         .frame(width: configuration.knobWidth, height: configuration.knobWidth)
+                        .padding([.top, .bottom], knobVerticalPadding)
+//                        .background(Color.red)
                         .contentShape(Rectangle())
                         .offset(x: valueForKnob(geometry: geo))
 //                        .animation(isDragging ? .none : Animation.easeIn(duration: 0.1))
@@ -108,7 +113,7 @@ struct CustomSlider: View {
                 }
             }
         }
-        .frame(height: max(configuration.knobWidth, configuration.barHeight))
+        .frame(height: max(configuration.knobWidth + knobVerticalPadding, configuration.barHeight))
     }
 
     private func valueForKnob(geometry: GeometryProxy) -> CGFloat {

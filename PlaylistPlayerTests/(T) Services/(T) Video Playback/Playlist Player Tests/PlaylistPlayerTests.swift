@@ -40,8 +40,6 @@ final class PlaylistPlayerTests: XCTestCase {
         let sut = makeSUT(withItems: 0)
 
         sut.play()
-
-
     }
 
     func test_playReplacesCurrentItemIfRequired() {
@@ -204,10 +202,10 @@ final class PlaylistPlayerTests: XCTestCase {
 
         sut.playNext() // Start looping item 2 (index 1)
         sut.playNext() // Start looping item 3 (index 2) - end of playlist
-        sut.playNext() // Try to loop past end of playlist
+        sut.playNext() // Loop back around to item 1 (index 0)
 
-        XCTAssertEqual(sut.nowPlayingIndex, 2)
-        XCTAssertEqual(mockVideoPlayer.lastReplacedItem, items[2])
+        XCTAssertEqual(sut.nowPlayingIndex, 0)
+        XCTAssertEqual(mockVideoPlayer.lastReplacedItem, items[0])
     }
 
     // MARK: - Skip to Specific Index
@@ -254,6 +252,47 @@ final class PlaylistPlayerTests: XCTestCase {
         XCTAssertEqual(sut.nowPlayingIndex, 0)
     }
 
+    // MARK: - Empty Playlist Behavior
+
+    func test_callingPlayOnEmptyPlaylist_doesNothing() {
+        let sut = makeSUT(withItems: [])
+
+        sut.play()
+
+        XCTAssertEqual(mockVideoPlayer.playCallCount, 0)
+    }
+
+    func test_callingPauseOnEmptyPlaylist_doesNothing() {
+        let sut = makeSUT(withItems: [])
+
+        sut.pause()
+
+        XCTAssertEqual(mockVideoPlayer.playCallCount, 0)
+    }
+
+    func test_callingPlayNextOnEmptyPlaylist_doesNothing() {
+        let sut = makeSUT(withItems: [])
+
+        sut.playNext()
+
+        XCTAssertNil(mockVideoPlayer.lastReplacedItem)
+    }
+
+    func test_callingPlayPreviousOnEmptyPlaylist_doesNothing() {
+        let sut = makeSUT(withItems: [])
+
+        sut.playPrevious()
+
+        XCTAssertNil(mockVideoPlayer.lastReplacedItem)
+    }
+
+    func test_skipToItemOnEmptyPlaylist_doesNothing() {
+        let sut = makeSUT(withItems: [])
+
+        sut.skipToItem(at: 3)
+
+        XCTAssertNil(mockVideoPlayer.lastReplacedItem)
+    }
 }
 
 // MARK: - Helpers

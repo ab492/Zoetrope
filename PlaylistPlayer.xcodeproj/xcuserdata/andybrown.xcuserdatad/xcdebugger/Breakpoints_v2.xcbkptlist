@@ -46,8 +46,8 @@
             filePath = "PlaylistPlayer/Services/Video Playback/PlaylistPlayer.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "194"
-            endingLineNumber = "194"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
             landmarkName = "updateCurrentPlayerItem()"
             landmarkType = "7">
          </BreakpointContent>
@@ -78,8 +78,8 @@
             filePath = "PlaylistPlayerTests/(T) Services/(T) Video Playback/Playlist Player Tests/PlaylistPlayerTests.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "290"
-            endingLineNumber = "290"
+            startingLineNumber = "329"
+            endingLineNumber = "329"
             landmarkName = "testItems(number:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -94,8 +94,8 @@
             filePath = "PlaylistPlayer/Services/Video Playback/PlaylistPlayer.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "187"
-            endingLineNumber = "187"
+            startingLineNumber = "181"
+            endingLineNumber = "181"
             landmarkName = "replaceQueue(with:)"
             landmarkType = "7">
          </BreakpointContent>

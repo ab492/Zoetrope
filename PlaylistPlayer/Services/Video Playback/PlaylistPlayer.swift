@@ -46,8 +46,6 @@ protocol PlaylistPlayerObserver: class {
     func currentItemDidFinishPlayback()
 }
 
-// TODO: Make sure things can't be called when the array is empty. For example, could access everything with maybe: ?!
-
 /// Creates a video player for queuing content and navigating forward and back.
 final class PlaylistPlayer: PlaylistPlayerProtocol {
 
@@ -69,7 +67,7 @@ final class PlaylistPlayer: PlaylistPlayerProtocol {
     /// The loop mode for the playlist. This can be changed at any time throughout playback and the player will adjust to the new value. **Default: `.playPlaylistOnce`.**
     var loopMode: LoopMode = .playPlaylistOnce
 
-    /// The index of the currently playing item. **This is a zero based index (i.e. the first item has an index of 0).**
+    /// The index of the currently playing item. If there are no items, this index will be 0. **This is a zero based index (i.e. the first item has an index of 0).**
     private(set) var nowPlayingIndex = 0
 
     /// 0.0 indicates silence; 1.0 indicates full volume. The player volume is relative to the system volume, so a value of 1.0 will match the current system volume exactly. **Default: 1.0.**
@@ -119,9 +117,9 @@ final class PlaylistPlayer: PlaylistPlayerProtocol {
 extension PlaylistPlayer {
 
     func play() {
-        guard playerItems.count > 0 else { return }
+        guard let currentItem = playerItems[maybe: nowPlayingIndex] else { return }
         // Since calling `replaceCurrentItem` with the player’s current player item has no effect, it's safe to always call it.
-        player.replaceCurrentItem(with: playerItems[nowPlayingIndex])
+        player.replaceCurrentItem(with: currentItem)
         player.play()
     }
 
@@ -133,21 +131,16 @@ extension PlaylistPlayer {
 
         switch loopMode {
 
-        case .loopCurrent:
-            if atEndOfQueue == false {
+        case .loopCurrent, .loopPlaylist:
+            if atEndOfQueue {
+                // Restart the queue
+                nowPlayingIndex = 0
+            } else {
                 nowPlayingIndex += 1
             }
 
         case .playPlaylistOnce:
             if atEndOfQueue == false {
-                nowPlayingIndex += 1
-            }
-
-        case .loopPlaylist:
-            if atEndOfQueue {
-                // Restart the queue
-                nowPlayingIndex = 0
-            } else {
                 nowPlayingIndex += 1
             }
         }
@@ -167,6 +160,7 @@ extension PlaylistPlayer {
 
     /// Skips to item at the given index. **This is a zero based index (i.e. the first item has an index of 0).**
     func skipToItem(at index: Int) {
+        guard playerItems.count > 0 else { return }
         let index = index.clamped(to: 0...playerItems.count - 1)
         nowPlayingIndex = index
         updateCurrentPlayerItem()
@@ -189,15 +183,14 @@ extension PlaylistPlayer {
     }
 
     private func updateCurrentPlayerItem() {
+        guard let item = playerItems[maybe: nowPlayingIndex] else { return }
+
         lastPlaybackRate = player.playbackRate
         // Important to pause the player before updating the current item to prevent any weird play-pause behavior (e.g randomly becoming paused).
-//        player.pause()
         player.playbackRate = 0
-        let item = playerItems[nowPlayingIndex]
         item.seek(to: .zero, completionHandler: nil)
         player.replaceCurrentItem(with: item)
         if lastPlaybackRate > 0 {
-//            player.play()
             player.playbackRate = lastPlaybackRate
         }
     }

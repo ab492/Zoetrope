@@ -19,4 +19,5 @@ struct PlayerIcons {
     static let loopPlaylist = "repeat"
     static let loopCurrent = "repeat.1"
     static let close = "xmark"
+    static let showPlayerToolbar = "ellipsis.circle"
 }

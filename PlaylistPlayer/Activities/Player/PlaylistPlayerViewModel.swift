@@ -68,7 +68,6 @@ class PlaylistPlayerViewModel: ObservableObject {
     }
 
     func updateQueue(for playlist: Playlist) {
-        print("UPDATE QUEUE CALLED!")
         let urls = Current.playlistManager.mediaUrlsFor(playlist: playlist)
         let items = urls.map { AVURLAsset(url: $0, options: [AVURLAssetPreferPreciseDurationAndTimingKey: true]) }
         let playerItems = items.map { AVPlayerItem(asset: $0) }
@@ -106,6 +105,9 @@ class PlaylistPlayerViewModel: ObservableObject {
 extension PlaylistPlayerViewModel: PlaylistPlayerObserver {
     
     func playbackItemStatusDidChange(to status: ItemStatus) {
+
+        // when this returns an unknown state, set a timer for 0.1 seconds. On complete of 0.1 seconds, if the player is still reporting unknown, update the player?!
+
         switch status {
         case .readyToPlay:
             isReadyForPlayback = true

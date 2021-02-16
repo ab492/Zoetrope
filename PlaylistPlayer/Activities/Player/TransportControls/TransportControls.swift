@@ -31,19 +31,23 @@ struct TransportControls: View {
 
     private var playbackControls: some View {
         VStack(spacing: 0) {
-            PlaybackControlsBar(viewModel: viewModel)
             TimeControlsBar(viewModel: viewModel)
+            PlaybackControlsBar(viewModel: viewModel)
         }
         .padding()
-        .background(VisualEffectView(effect: UIBlurEffect(style: .systemThickMaterialDark)))
+        .background(VisualEffectView(effect: UIBlurEffect(style: .systemMaterialDark)))
         .cornerRadius(10)
-        .frame(width: 400)
+        .frame(width: 600)
         .offset(y: -10)
+        
     }
 
     private var closeButton: some View {
-        PlaybackControlsButton(systemImage: PlayerIcons.close) {
+        Button {
             presentationMode.wrappedValue.dismiss()
+        } label: {
+            Image(systemName: PlayerIcons.close)
+                .font(.largeTitle)
         }
         .foregroundColor(.white)
         .background(VisualEffectView(effect: UIBlurEffect(style: .systemThickMaterialDark)))
