@@ -52,7 +52,6 @@
 		AD4B08AD25D9195000088A64 /* BaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4B08AC25D9195000088A64 /* BaseTestCase.swift */; };
 		AD4DDB4225C08E7700F8831B /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4DDB4125C08E7700F8831B /* CGFloat+Extensions.swift */; };
 		AD67C7B725D3C1EC008635B8 /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD67C7B625D3C1EC008635B8 /* World.swift */; };
-		AD75C74925C9181B0070110F /* ABUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = AD75C74825C9181B0070110F /* ABUtilities */; };
 		AD75C75125C918E50070110F /* PlaylistPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD75C75025C918E50070110F /* PlaylistPlayer.swift */; };
 		AD7994D725C28E070041CFC7 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7994D625C28E070041CFC7 /* CustomSlider.swift */; };
 		AD7A9ED625CE8C2A00118055 /* VideoBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7A9ED525CE8C2A00118055 /* VideoBuilder.swift */; };
@@ -92,6 +91,7 @@
 		ADE0594225DB93E5004076AC /* Array+Maybe.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE0594125DB93E5004076AC /* Array+Maybe.swift */; };
 		ADE0594E25DBA445004076AC /* EllipsisButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE0594D25DBA445004076AC /* EllipsisButton.swift */; };
 		ADE0595225DBA4E8004076AC /* SecondaryPlayerControlsButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE0595125DBA4E8004076AC /* SecondaryPlayerControlsButtonStyle.swift */; };
+		ADE0599625DC416C004076AC /* ABUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = ADE0599525DC416C004076AC /* ABUtilities */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -200,7 +200,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD75C74925C9181B0070110F /* ABUtilities in Frameworks */,
+				ADE0599625DC416C004076AC /* ABUtilities in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -645,7 +645,7 @@
 			);
 			name = PlaylistPlayer;
 			packageProductDependencies = (
-				AD75C74825C9181B0070110F /* ABUtilities */,
+				ADE0599525DC416C004076AC /* ABUtilities */,
 			);
 			productName = PlaylistPlayer;
 			productReference = AD2F0AB425BC06A50006306D /* PlaylistPlayer.app */;
@@ -697,7 +697,7 @@
 			);
 			mainGroup = AD2F0AAB25BC06A50006306D;
 			packageReferences = (
-				AD75C74725C9181B0070110F /* XCRemoteSwiftPackageReference "ABUtilties" */,
+				ADE0599425DC416C004076AC /* XCRemoteSwiftPackageReference "ABUtilties" */,
 			);
 			productRefGroup = AD2F0AB525BC06A50006306D /* Products */;
 			projectDirPath = "";
@@ -1075,7 +1075,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		AD75C74725C9181B0070110F /* XCRemoteSwiftPackageReference "ABUtilties" */ = {
+		ADE0599425DC416C004076AC /* XCRemoteSwiftPackageReference "ABUtilties" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ab492/ABUtilties.git";
 			requirement = {
@@ -1086,9 +1086,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		AD75C74825C9181B0070110F /* ABUtilities */ = {
+		ADE0599525DC416C004076AC /* ABUtilities */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = AD75C74725C9181B0070110F /* XCRemoteSwiftPackageReference "ABUtilties" */;
+			package = ADE0599425DC416C004076AC /* XCRemoteSwiftPackageReference "ABUtilties" */;
 			productName = ABUtilities;
 		};
 /* End XCSwiftPackageProductDependency section */

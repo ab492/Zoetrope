@@ -13,24 +13,30 @@ struct SecondaryPlayerControlsButtonStyle: ButtonStyle {
     var primaryColor = Color.accentColor
     var secondaryColor = Color.white
 
+    private var foregroundColor: Color {
+        isSelected ? secondaryColor : primaryColor
+    }
+
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .font(.body)
+//            .overlay(Color.black)
+
             .frame(minWidth: 30, minHeight: 30)
-            .foregroundColor((isSelected ? secondaryColor : primaryColor))
-//            .foregroundColor((isSelected ? secondaryColor : primaryColor).opacity(configuration.isPressed ? 0.7: 1))
+//            .foregroundColor((configuration.isPressed ? foregroundColor.opacity(0.3) : foregroundColor))
+            .foregroundColor(foregroundColor1(configuration: configuration))
             .background(isSelected ? primaryColor : Color.clear)
             .clipShape(RoundedRectangle(cornerRadius: 6))
             .contentShape(Rectangle())
     }
 
-//    private func foregroundColor(for configuration: Configuration) -> Color {
-//        var color = isSelected ? secondaryColor : primaryColor
-//        return color.overlay(Color.black
-//                                .opacity(configuration.isPressed ? 0.3 : 0))
-//    }
-
-
-
-
+    func foregroundColor1(configuration: Configuration) -> Color {
+//        let color = Color.red.overlay(Color.black.opacity(0.3))
+//        return color
+        if configuration.isPressed {
+            return (isSelected ? secondaryColor : primaryColor).opacity(0.3)
+        } else {
+            return (isSelected ? secondaryColor : primaryColor)
+        }
+    }
 }
