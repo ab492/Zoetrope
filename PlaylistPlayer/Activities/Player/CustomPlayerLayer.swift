@@ -22,17 +22,11 @@ struct CustomPlayerLayer: View {
                 loadingSpinner
             }
         }
-        .edgesIgnoringSafeArea(.all)
-//        .onTapGesture {
-//            print("Tapping!")
-//        }
-//        .statusBar(hidden: true)
     }
 
     private var loadingSpinner: some View {
         ProgressView()
             .scaleEffect(1.5, anchor: .center)
             .progressViewStyle(CircularProgressViewStyle(tint: .white))
-            .background(Color.red)
     }
 }

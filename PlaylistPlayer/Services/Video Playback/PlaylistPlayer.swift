@@ -175,7 +175,7 @@ extension PlaylistPlayer {
     }
     
     func replaceQueue(with items: [AVPlayerItem]) {
-        // TODO: Need to use this to test behaviour!
+        // TODO: Need to use this to test behavior!
         // DO WE NEED TO STOP THE PLAYER?!
         player.pause()
         playerItems = items
@@ -184,7 +184,6 @@ extension PlaylistPlayer {
 
     private func updateCurrentPlayerItem() {
         guard let item = playerItems[maybe: nowPlayingIndex] else { return }
-
         lastPlaybackRate = player.playbackRate
         // Important to pause the player before updating the current item to prevent any weird play-pause behavior (e.g randomly becoming paused).
         player.playbackRate = 0

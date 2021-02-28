@@ -17,14 +17,20 @@ struct CustomPlayerView: View {
             videoPlaybackView.zIndex(0)
             transportControls.zIndex(1)
         }
-        .statusBar(hidden: false)
+        .ignoresSafeArea(edges: .top)
         .onAppear { viewModel.play() }
         .onDisappear { viewModel.pause() }
     }
 
     private var videoPlaybackView: some View {
         CustomPlayerLayer(viewModel: viewModel)
-            .onTapGesture { withAnimation(.easeIn(duration: 0.1)) { showTransportControls.toggle() }}
+            .onTapGesture {
+                withAnimation(.easeIn(duration: 0.1)) {
+                    showTransportControls.toggle()
+                    // Temporary fix to hide the status bar since `.statusBar(hidden: _)` is unreliable.
+                    UIApplication.shared.isStatusBarHidden = !showTransportControls
+                }
+            }
     }
 
     @ViewBuilder

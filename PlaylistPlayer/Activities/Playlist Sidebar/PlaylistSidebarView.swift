@@ -10,7 +10,8 @@ import SwiftUI
 struct PlaylistSidebarView: View {
 
     @ObservedObject var playlistManager = Current.playlistManager
-    
+    @State private var addPlaylistModalIsShowing = false
+
     init() {
         UITableView.appearance().backgroundColor = .clear
         UITableViewCell.appearance().backgroundColor = .clear
@@ -26,8 +27,12 @@ struct PlaylistSidebarView: View {
             } else {
                 playlistList
             }
-
         }
+        .sheet(isPresented: $addPlaylistModalIsShowing, content: {
+            AddPlaylistModal { playlistTitle in
+                self.addPlaylist(title: playlistTitle)
+            }
+        })
         .toolbar {
             editListNavigationItem
             bottomToolbarPlaylistCount
@@ -40,11 +45,7 @@ struct PlaylistSidebarView: View {
         List {
             ForEach(playlistManager.playlists) { playlist in
                 NavigationLink(destination: PlaylistDetailView(playlist: playlist)) {
-                    HStack {
-                        Text(playlist.name)
-                        Spacer()
-                        Text(playlist.formattedCount)
-                    }
+                    Text(playlist.name)
                 }
             }
             .onMove(perform: moveRows)
@@ -65,7 +66,9 @@ struct PlaylistSidebarView: View {
 
     private var bottomToolbarAddPlaylist: some ToolbarContent {
         ToolbarItem(placement: .bottomBar) {
-            Button(action: addPlaylist) {
+            Button {
+                addPlaylistModalIsShowing.toggle()
+            } label: {
                 Label("Add Playlist", systemImage: "folder.badge.plus")
             }
         }
@@ -86,9 +89,9 @@ struct PlaylistSidebarView: View {
 
     // MARK: - Helpers
 
-    private func addPlaylist() {
+    private func addPlaylist(title: String) {
         withAnimation {
-            playlistManager.addPlaylist(Playlist(name: "My Test Playlist"))
+            playlistManager.addPlaylist(Playlist(name: title))
         }
     }
     

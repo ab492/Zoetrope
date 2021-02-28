@@ -16,17 +16,6 @@ struct PlaylistPlayerApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @Environment(\.scenePhase) private var phase
 
-    // MARK: - Properties
-
-    private var window: UIWindow? {
-        guard let scene = UIApplication.shared.connectedScenes.first,
-              let windowSceneDelegate = scene.delegate as? UIWindowSceneDelegate,
-              let window = windowSceneDelegate.window else {
-            return nil
-        }
-        return window
-    }
-
     // MARK: - View
 
     var body: some Scene {
@@ -42,6 +31,7 @@ struct PlaylistPlayerApp: App {
 
     private func setupColorScheme() {
         // We do this via the window so we can access UIKit components too.
+        let window = UIApplication.shared.windows.first
         window?.overrideUserInterfaceStyle = .dark
         window?.tintColor = UIColor(Color.red)
     }

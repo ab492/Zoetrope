@@ -23,7 +23,7 @@ final class ThumbnailServiceTests: XCTestCase {
 
         let sut = makeSUT()
 
-        sut.removeThumbnail(for: &video)
+        sut.removeThumbnail(for: video)
 
         XCTAssertEqual(mockThumbnailStore.lastDeletedThumbnail, "test-thumbnail")
         XCTAssertNil(video.thumbnailFilename)

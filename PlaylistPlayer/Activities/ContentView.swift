@@ -10,9 +10,8 @@ import SwiftUI
 struct ContentView: View {
     
     init() {
-//        UITableView.appearance().backgroundColor = .clear
-//        UITableViewCell.appearance().backgroundColor = .clear
         UINavigationBar.appearance().backgroundColor = .clear
+        UIApplication.shared.isStatusBarHidden = false // Temporary fix to hide the status bar since `.statusBar(hidden: _)` is unreliable.
     }
 
     var body: some View {

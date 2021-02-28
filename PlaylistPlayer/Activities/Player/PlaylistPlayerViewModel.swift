@@ -105,9 +105,6 @@ class PlaylistPlayerViewModel: ObservableObject {
 extension PlaylistPlayerViewModel: PlaylistPlayerObserver {
     
     func playbackItemStatusDidChange(to status: ItemStatus) {
-
-        // when this returns an unknown state, set a timer for 0.1 seconds. On complete of 0.1 seconds, if the player is still reporting unknown, update the player?!
-
         switch status {
         case .readyToPlay:
             isReadyForPlayback = true

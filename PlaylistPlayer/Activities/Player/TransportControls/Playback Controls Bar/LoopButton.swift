@@ -11,7 +11,7 @@ struct LoopButton: View {
 
     @Binding var loopMode: LoopMode
 
-    var isSelected: Bool {
+    private var isSelected: Bool {
         loopMode == .loopCurrent || loopMode == .loopPlaylist
     }
 

@@ -49,10 +49,11 @@ struct TransportControls: View {
             Image(systemName: PlayerIcons.close)
                 .font(.largeTitle)
         }
+        .buttonStyle(ScaleButtonStyle(width: 45, height: 45))
         .foregroundColor(.white)
-        .background(VisualEffectView(effect: UIBlurEffect(style: .systemThickMaterialDark)))
+        .background(VisualEffectView(effect: UIBlurEffect(style: .systemMaterialDark)))
         .cornerRadius(10)
-        .offset(x: 10, y: 10)
+        .offset(x: 10, y: 20)
         .accessibility(label: Text("Close player"))
     }
 }

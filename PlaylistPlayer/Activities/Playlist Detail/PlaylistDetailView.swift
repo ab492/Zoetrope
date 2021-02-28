@@ -27,7 +27,7 @@ struct PlaylistDetailView: View {
     }
 
     var body: some View {
-        Group {
+        ZStack {
             if playlist.videos.isEmpty {
                 EmptyContentView(text: "Add videos to get started")
             } else {
@@ -42,7 +42,7 @@ struct PlaylistDetailView: View {
         fullScreenCover
         documentPicker
     }
-
+    
     private var videoList: some View {
         List {
             ForEach(playlist.videos) { video in
@@ -95,20 +95,19 @@ struct PlaylistDetailView: View {
 
     private func addMedia() {
         guard let urls = urls else { return }
-        Current.playlistManager.addMediaAt(urls: urls, to: playlist)
+        playlistManager.addMediaAt(urls: urls, to: playlist)
         self.urls = nil
         updateViewModel()
     }
 
     private func removeRows(at offsets: IndexSet) {
-        Current.playlistManager.deleteItems(fromPlaylist: playlist, at: offsets)
+        playlistManager.deleteItems(fromPlaylist: playlist, at: offsets)
     }
 
     private func updateViewModel() {
         viewModel.updateQueue(for: playlist)
     }
 }
-
 
 //struct PlaylistDetailView: View {
 //    // MARK: - State
