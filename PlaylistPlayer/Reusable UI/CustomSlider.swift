@@ -67,7 +67,7 @@ struct CustomSlider: View {
                 HStack(spacing: 0) {
                     Rectangle()
                         .fill(configuration.minimumTrackTint)
-                        .frame(width: $value.wrappedValue.map(from: range, to: 0...geo.size.width)) // TODO: This gets reported as NAN at points!
+                        .frame(width: $value.wrappedValue.map(from: range, to: 0...geo.size.width))
                     Rectangle()
                         .fill(configuration.maximumTrackTint)
                 }
@@ -117,14 +117,14 @@ struct CustomSlider: View {
     }
 
     private func valueForKnob(geometry: GeometryProxy) -> CGFloat {
-        $value.wrappedValue.map(from: range, to: 0...geometry.size.width) - (configuration.knobWidth * valueAsPercent())
+        let value = $value.wrappedValue.map(from: range, to: 0...geometry.size.width) - (configuration.knobWidth * valueAsPercent())
+        return value.clamped(to: 0...geometry.size.width) // TODO: Could easily just clamp to minimum of zero here.
     }
 
     private func valueAsPercent() -> CGFloat {
+        guard range.upperBound - range.lowerBound > 0 else { return 0 }
         let percent = ((value - range.lowerBound) / (range.upperBound - range.lowerBound) * 100) / 100
         return percent.clamped(to: 0...1)
     }
-
-    
 }
 

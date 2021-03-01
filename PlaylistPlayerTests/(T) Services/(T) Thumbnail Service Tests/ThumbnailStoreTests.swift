@@ -8,7 +8,7 @@
 import XCTest
 @testable import PlaylistPlayer
 
-class ThumbnailStoreTests: XCTestCase {
+final class ThumbnailStoreTests: XCTestCase {
 
     // MARK: - Properties and Setup
 

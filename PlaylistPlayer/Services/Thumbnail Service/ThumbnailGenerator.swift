@@ -8,9 +8,13 @@ import UIKit
 import AVFoundation
 import ImageIO
 
-final class ThumbnailGenerator {
+protocol ThumbnailGenerator {
+    func thumbnail(for url: URL) -> UIImage?
+}
 
-    static func thumbnail(for url: URL) -> UIImage? {
+final class ThumbnailGeneratorImpl: ThumbnailGenerator {
+
+    func thumbnail(for url: URL) -> UIImage? {
 
         guard let uiImage = generateThumbnail(for: url) else { return nil }
 
@@ -29,14 +33,7 @@ final class ThumbnailGenerator {
         return UIImage(cgImage: image)
     }
 
-    private static func generateThumbnail(for url: URL) -> UIImage? {
-        // TODO: Can probably remove the security scoped stuff here.
-        defer {
-            url.stopAccessingSecurityScopedResource()
-        }
-
-        _ = url.startAccessingSecurityScopedResource()
-
+    private func generateThumbnail(for url: URL) -> UIImage? {
         let asset = AVURLAsset(url: url)
         let imageGenerator = AVAssetImageGenerator(asset: asset)
         imageGenerator.appliesPreferredTrackTransform = true
@@ -44,7 +41,8 @@ final class ThumbnailGenerator {
         do {
             let cgImage = try imageGenerator.copyCGImage(at: CMTimeMake(value: 0, timescale: 1), actualTime: nil)
             return UIImage(cgImage: cgImage)
-        } catch {
+        } catch let error {
+            print("Error generating thumbnail: \(error.localizedDescription)")
             return nil
         }
     }

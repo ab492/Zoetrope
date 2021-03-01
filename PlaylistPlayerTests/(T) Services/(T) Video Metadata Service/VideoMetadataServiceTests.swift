@@ -18,15 +18,15 @@ final class VideoMetadataServiceTests: BaseTestCase {
         mockDurationCalculator = MockDurationCalculator()
     }
 
-    func test_removeMetadata_callsRemoveOnThumbnailServiceAndBookmarkStore() {
-        var video = VideoBuilder().thumbnailFilename("testThumbnail").build()
-        let sut = makeSUT()
-
-        sut.removeMetadata(for: &video)
-        
-        XCTAssertEqual(Current.mockThumbnailService.removeThumbnailCallCount, 1)
-        XCTAssertEqual(Current.mockSecurityScopedBookmarkStore.lastRemovedBookmarkId, video.id)
-    }
+//    func test_removeMetadata_callsRemoveOnThumbnailServiceAndBookmarkStore() {
+//        var video = VideoBuilder().thumbnailFilename("testThumbnail").build()
+//        let sut = makeSUT()
+//
+//        sut.removeMetadata(for: &video)
+//        
+//        XCTAssertEqual(Current.mockThumbnailService.removeThumbnailCallCount, 1)
+//        XCTAssertEqual(Current.mockSecurityScopedBookmarkStore.lastRemovedBookmarkId, video.id)
+//    }
 }
 
 extension VideoMetadataServiceTests {

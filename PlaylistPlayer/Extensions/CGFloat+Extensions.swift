@@ -20,6 +20,10 @@ extension CGFloat {
 
         let fromRange = from.upperBound - from.lowerBound
         let toRange = to.upperBound - to.lowerBound
+
+        // Since we're diving by `fromRange`, we must check it's not zero.
+        guard fromRange > 0 else { return 0 }
+
         let result = (((value - from.lowerBound) / fromRange) * toRange) + to.lowerBound
         return result
     }

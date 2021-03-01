@@ -13,6 +13,7 @@ class PlaylistManager: ObservableObject {
     private var videoMetadataService: VideoMetadataService
 
     @Published private(set) var playlists: [Playlist]
+//    @Published var processingPct: Double
 
     init(playlistStore: PlaylistStore, videoModelBuilder: VideoMetadataService) {
         self.playlistStore = playlistStore
@@ -42,17 +43,70 @@ class PlaylistManager: ObservableObject {
         save()
     }
 
-    // Need to be security scoped URLS
     func addMediaAt(urls: [URL], to playlist: Playlist) {
         objectWillChange.send()
-
-        for url in urls {
-            if let video = videoMetadataService.generateVideoWithMetadataForItemAt(securityScopedURL: url) {
+        for (index, url) in urls.enumerated() {
+            videoMetadataService.generateVideoWithMetadataForItemAt(securityScopedURL: url) { video in
+                guard let video = video else { return }
+                self.objectWillChange.send()
                 playlist.videos.append(video)
+                self.save()
             }
         }
-        save()
     }
+
+    // Need to be security scoped URLS
+//    func addMediaAt(urls: [URL], to playlist: Playlist) {
+//
+//        let totalAmountProcess = Double(urls.count)
+//        var remainingToProcess = totalAmountProcess
+//        processingPct = 0
+//
+//        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+//            guard let self = self else { return }
+//
+//            for (index, url) in urls.enumerated() {
+//                if let video = self.videoMetadataService.generateVideoWithMetadataForItemAt(securityScopedURL: url) {
+//
+//                    DispatchQueue.main.async {
+//                        playlist.videos.append(video)
+//                        remainingToProcess -= 1
+//                        self.processingPct = (totalAmountProcess - remainingToProcess) / totalAmountProcess
+//
+//                        if index == urls.count - 1 {
+//                            self.save()
+//                            self.processingPct = nil
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
+
+//    func addMediaAt(urls: [URL], to playlist: Playlist) {
+//
+//        let totalAmountProcess = Double(urls.count)
+//        var remainingToProcess = totalAmountProcess
+//        processingPct = 0
+//
+//        for (index, url) in urls.enumerated() {
+//            videoMetadataService.generateVideoWithMetadataForItemAt(securityScopedURL: url) { (video) in
+//                guard let video = video else { return }
+//                playlist.videos.append(video)
+//                remainingToProcess -= 1
+//                self.processingPct = (totalAmountProcess - remainingToProcess) / totalAmountProcess
+//
+//                if index == urls.count - 1 {
+//                    self.save()
+//                    self.processingPct = nil
+//                }
+//            }
+//
+//        }
+//    }
+
+
+
 
     func deleteItems(fromPlaylist playlist: Playlist, at offsets: IndexSet) {
         objectWillChange.send()
@@ -81,7 +135,7 @@ class PlaylistManager: ObservableObject {
     
     // MARK: - Private
 
-    private func save() {
+    func save() {
         playlistStore.save(playlists)
     }
     

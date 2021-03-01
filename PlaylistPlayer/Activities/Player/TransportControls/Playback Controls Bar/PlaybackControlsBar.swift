@@ -42,7 +42,6 @@ struct PlaybackControlsBar: View {
             fastForwardButton
             nextItemButton
         }
-        .foregroundColor(.white)
     }
 
     private var previousItemButton: some View {
@@ -65,7 +64,6 @@ struct PlaybackControlsBar: View {
         }
         .buttonStyle(ScaleButtonStyle())
         .disabled(fastReverseButtonDisabled)
-        .foregroundColor(fastReverseButtonDisabled ? .secondary : .white)
         .accessibility(label: Text("Fast backward")) // TODO: Fix this with a speed!
     }
 
@@ -111,7 +109,6 @@ struct PlaybackControlsBar: View {
         }
         .buttonStyle(ScaleButtonStyle())
         .disabled(fastForwardButtonDisabled)
-        .foregroundColor(fastForwardButtonDisabled ? .secondary : .white)
         .accessibility(label: Text("Fast forward")) // TODO: Fix this with a speed!
     }
 

@@ -31,13 +31,15 @@ protocol SecurityScopedBookmarkStore {
     func url(for id: UUID) -> URL?
 }
 
-/// An object for storing security scoped bookmarks to the files within the filesystem (persisting the user's granted permissions to a given file).
+/// An object for storing security scoped bookmarks to the files within the filesystem (persisting the user's granted permissions to a given file). **This object is thread safe.**
 class SecurityScopedBookmarkStoreImpl: SecurityScopedBookmarkStore {
 
     // MARK: - Properties
 
     private let location: URL
     private var bookmarks = [SecurityScopedBookmark]()
+
+    private let queue = DispatchQueue(label: "com.playlistplayer.securityscopedbookmarkstore", attributes: .concurrent)
 
     // MARK: - Init
 
@@ -55,21 +57,39 @@ class SecurityScopedBookmarkStoreImpl: SecurityScopedBookmarkStore {
 
     // MARK: - Public
 
+    // Using a barrier for writing means we wait until running operations are done, execute
+    // the write task, proceed executing tasks. The block will act as a barrier: all other
+    // blocks that were submitted before the barrier will finish and only then will the
+    // barrier block execute. All blocks submitted after the barrier will not start
+    // until the barrier has finished.
+
+
+    // think async means you can add/remove loads of times at it'll return to the caller. If you then request a URL for one of the bookmarks, that'll block the queue.
     func add(bookmark: SecurityScopedBookmark) {
-        bookmarks.append(bookmark)
-        save()
+        queue.sync(flags: .barrier) {
+            self.bookmarks.append(bookmark)
+            self.save()
+        }
     }
 
     func removeBookmark(for id: UUID) {
-        bookmarks.removeAll(where: { $0.id == id })
-        save()
+        queue.sync(flags: .barrier) {
+            self.bookmarks.removeAll(where: { $0.id == id })
+            self.save()
+        }
     }
 
     func url(for id: UUID) -> URL? {
-        guard let bookmark = bookmarks.first(where: { $0.id == id }) else { return nil }
+        var url: URL?
 
-        var isStale = false // TODO: What to do about this stale flag?
-        guard let url = try? URL(resolvingBookmarkData: bookmark.data, bookmarkDataIsStale: &isStale) else { return nil }
+
+        queue.sync {
+            if let bookmark = bookmarks.first(where: { $0.id == id }) {
+
+                var isStale = false // TODO: What to do about this stale flag?
+                url = try? URL(resolvingBookmarkData: bookmark.data, bookmarkDataIsStale: &isStale)
+            }
+        }
         return url
     }
     

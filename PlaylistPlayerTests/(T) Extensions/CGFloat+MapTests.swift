@@ -54,4 +54,13 @@ class CGFloat_MapTests: XCTestCase {
 
         XCTAssertEqual(mappedValue, 1000)
     }
+
+    func test_fromRangeOfZero_returns0() {
+        let fromRange: ClosedRange<CGFloat> = 0.0...0.0
+        let toRange: ClosedRange<CGFloat> = 0...1000
+
+        let mappedValue = CGFloat(0).map(from: fromRange, to: toRange)
+
+        XCTAssertEqual(mappedValue, 0)
+    }
 }

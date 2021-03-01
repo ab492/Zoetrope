@@ -34,6 +34,7 @@ struct TransportControls: View {
             TimeControlsBar(viewModel: viewModel)
             PlaybackControlsBar(viewModel: viewModel)
         }
+        .disabled(viewModel.isReadyForPlayback == false)
         .padding()
         .background(VisualEffectView(effect: UIBlurEffect(style: .systemMaterialDark)))
         .cornerRadius(10)
@@ -47,13 +48,12 @@ struct TransportControls: View {
             presentationMode.wrappedValue.dismiss()
         } label: {
             Image(systemName: PlayerIcons.close)
-                .font(.largeTitle)
+                .font(.title)
         }
         .buttonStyle(ScaleButtonStyle(width: 45, height: 45))
-        .foregroundColor(.white)
         .background(VisualEffectView(effect: UIBlurEffect(style: .systemMaterialDark)))
         .cornerRadius(10)
-        .offset(x: 10, y: 20)
+        .offset(x: 10, y: 25)
         .accessibility(label: Text("Close player"))
     }
 }

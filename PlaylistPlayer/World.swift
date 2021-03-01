@@ -12,9 +12,10 @@ var Current = World(date: { Date() },
                     securityScopedBookmarkStore: SecurityScopedBookmarkStoreImpl(),
                     thumbnailService: ThumbnailServiceImpl())
 
-struct World {
+//https://stackoverflow.com/questions/48048190/how-to-inject-protocol-with-associated-types?rq=1
+struct World<T: ThumbnailService> {
     var date: () -> Date
     var playlistManager: PlaylistManager
     var securityScopedBookmarkStore: SecurityScopedBookmarkStore
-    var thumbnailService: ThumbnailService
+    var thumbnailService: T
 }
