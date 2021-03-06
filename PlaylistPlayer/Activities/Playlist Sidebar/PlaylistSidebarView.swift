@@ -9,7 +9,9 @@ import SwiftUI
 
 struct PlaylistSidebarView: View {
 
-    @ObservedObject var playlistManager = Current.playlistManager
+    // MARK: - State and Init
+
+    @StateObject private var viewModel = ViewModel()
     @State private var addPlaylistModalIsShowing = false
 
     init() {
@@ -17,12 +19,12 @@ struct PlaylistSidebarView: View {
         UITableViewCell.appearance().backgroundColor = .clear
     }
 
-    // MARK: - Views
+    // MARK: - View
 
     var body: some View {
         ZStack {
             Color.secondarySystemGroupedBackground.edgesIgnoringSafeArea(.all)
-            if playlistManager.playlists.isEmpty {
+            if viewModel.playlistStoreIsEmpty {
                 EmptyContentView(text: "Add a playlist to get started")
             } else {
                 playlistList
@@ -43,7 +45,7 @@ struct PlaylistSidebarView: View {
 
     private var playlistList: some View {
         List {
-            ForEach(playlistManager.playlists) { playlist in
+            ForEach(viewModel.playlists) { playlist in
                 NavigationLink(destination: PlaylistDetailView(playlist: playlist)) {
                     Text(playlist.name)
                 }
@@ -58,7 +60,7 @@ struct PlaylistSidebarView: View {
 
     private var editListNavigationItem: some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
-            if playlistManager.playlists.count > 0 {
+            if viewModel.playlistStoreIsEmpty == false {
                 EditButton()
             }
         }
@@ -76,7 +78,7 @@ struct PlaylistSidebarView: View {
 
     private var bottomToolbarPlaylistCount: some ToolbarContent {
         ToolbarItem(placement: .bottomBar) {
-            Text(formattedPlaylistCount)
+            Text(viewModel.playlistCount)
         }
     }
 
@@ -91,24 +93,15 @@ struct PlaylistSidebarView: View {
 
     private func addPlaylist(title: String) {
         withAnimation {
-            playlistManager.addPlaylist(Playlist(name: title))
+            viewModel.addPlaylist(title)
         }
     }
     
     private func moveRows(from source: IndexSet, to destination: Int) {
-        playlistManager.movePlaylist(from: source, to: destination)
+        viewModel.movePlaylist(from: source, to: destination)
     }
 
     private func removeRows(at offsets: IndexSet) {
-        playlistManager.delete(playlistsAt: offsets)
-    }
-
-    var formattedPlaylistCount: String {
-        switch playlistManager.playlists.count {
-        case 1:
-            return "1 playlist"
-        default:
-            return "\(playlistManager.playlists.count) playlists"
-        }
+        viewModel.removePlaylists(at: offsets)
     }
 }

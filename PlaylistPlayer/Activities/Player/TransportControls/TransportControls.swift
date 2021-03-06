@@ -34,7 +34,6 @@ struct TransportControls: View {
             TimeControlsBar(viewModel: viewModel)
             PlaybackControlsBar(viewModel: viewModel)
         }
-        .disabled(viewModel.isReadyForPlayback == false)
         .padding()
         .background(VisualEffectView(effect: UIBlurEffect(style: .systemMaterialDark)))
         .cornerRadius(10)

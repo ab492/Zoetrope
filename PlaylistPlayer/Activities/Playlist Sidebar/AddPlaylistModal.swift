@@ -50,7 +50,7 @@ struct AddPlaylistModal: View {
     private var doneNavigationItem: some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
             Button {
-                onCreate(text)
+                onCreate(text.trimmingCharacters(in: .whitespaces))
                 presentationMode.wrappedValue.dismiss()
             } label: {
                 Text("Create")

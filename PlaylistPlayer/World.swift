@@ -8,14 +8,11 @@
 import Foundation
 
 var Current = World(date: { Date() },
-                    playlistManager: PlaylistManager(),
-                    securityScopedBookmarkStore: SecurityScopedBookmarkStoreImpl(),
+                    playlistManager: PlaylistManagerImpl(),
                     thumbnailService: ThumbnailServiceImpl())
 
-//https://stackoverflow.com/questions/48048190/how-to-inject-protocol-with-associated-types?rq=1
-struct World<T: ThumbnailService> {
+struct World {
     var date: () -> Date
     var playlistManager: PlaylistManager
-    var securityScopedBookmarkStore: SecurityScopedBookmarkStore
-    var thumbnailService: T
+    var thumbnailService: ThumbnailService
 }

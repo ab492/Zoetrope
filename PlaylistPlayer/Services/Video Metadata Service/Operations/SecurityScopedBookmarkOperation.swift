@@ -13,7 +13,7 @@ protocol URLProvider {
 
 final class SecurityScopedBookmarkOperation: Operation {
 
-    private let bookmarkStore = Current.securityScopedBookmarkStore
+    private let bookmarkStore: SecurityScopedBookmarkStore
     private let id: UUID
     private let securityScopedURL: URL
 
@@ -23,7 +23,8 @@ final class SecurityScopedBookmarkOperation: Operation {
     var onComplete: ((URL?) -> Void)?
 
 
-    init(id: UUID, securityScopedURL: URL) {
+    init(securityScopedBookmarkStore: SecurityScopedBookmarkStore, id: UUID, securityScopedURL: URL) {
+        self.bookmarkStore = securityScopedBookmarkStore
         self.id = id
         self.securityScopedURL = securityScopedURL
         super.init()
@@ -38,9 +39,9 @@ final class SecurityScopedBookmarkOperation: Operation {
             return
         }
 
-        Current.securityScopedBookmarkStore.add(bookmark: bookmark)
+        bookmarkStore.add(bookmark: bookmark)
 
-        guard let actualURL = Current.securityScopedBookmarkStore.url(for: id) else {
+        guard let actualURL = bookmarkStore.url(for: id) else {
             print("Unable to retrieve a valid URL for security scoped bookmark")
             DispatchQueue.main.async { [weak self] in
                 self?.onComplete?(nil)

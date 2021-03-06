@@ -9,26 +9,33 @@ import SwiftUI
 
 struct PlaylistDetailRow: View {
     
-    var video: Video
+    @StateObject private var viewModel: PlaylistDetailRow.ViewModel
+    @StateObject private var videoThumbnailViewModel: VideoThumbnailView.ViewModel
+
+    init(video: Video) {
+        _viewModel = StateObject(wrappedValue: ViewModel(video: video))
+        _videoThumbnailViewModel = StateObject(wrappedValue: VideoThumbnailView.ViewModel(video: video))
+    }
 
     var body: some View {
         HStack {
             HStack(spacing: 10) {
-            VideoThumbnailView(video: video)
+                VideoThumbnailView(viewModel: videoThumbnailViewModel)
                 .frame(width: 100, height: 56)
                 .clipShape(
                     RoundedRectangle(cornerRadius: 3)
                 )
                 .overlay(RoundedRectangle(cornerRadius: 3).stroke(Color.white.opacity(0.2), lineWidth: 1))
-            Text(video.filename)
+                Text(viewModel.titleLabel)
                 .foregroundColor(.primary)
             }
             Spacer()
-            Text(TimeFormatter.string(from: Int(video.duration.seconds)))
+            Text(viewModel.durationLabel)
                 .foregroundColor(.secondary)
         }
         .contentShape(Rectangle())
     }
+
 }
 
 fileprivate extension View {

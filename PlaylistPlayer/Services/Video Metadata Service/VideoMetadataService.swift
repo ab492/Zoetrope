@@ -9,6 +9,7 @@ import Foundation
 
 protocol VideoMetadataService {
     func generateVideoWithMetadataForItemAt(securityScopedURL: URL, completion: @escaping (Video?) -> Void)
+    func url(for video: Video) -> URL?
     func removeMetadata(for video: inout Video)
     func cleanupStore(currentVideos: [Video])
 }
@@ -20,18 +21,21 @@ class VideoMetadataServiceImpl: VideoMetadataService {
     // MARK: - Properties
 
     private var durationCalculator: DurationCalculator
+    private var securityScopedBookmarkStore: SecurityScopedBookmarkStore
     private let operationQueue = OperationQueue()
 
     // MARK: - Init
 
-    init(durationCalculator: DurationCalculator) {
+    init(durationCalculator: DurationCalculator, securityScopedBookmarkStore: SecurityScopedBookmarkStore) {
         self.durationCalculator = durationCalculator
+        self.securityScopedBookmarkStore = securityScopedBookmarkStore
         operationQueue.qualityOfService = .userInitiated
         operationQueue.maxConcurrentOperationCount = 1
     }
 
     convenience init() {
-        self.init(durationCalculator: DurationCalculatorImpl())
+        self.init(durationCalculator: DurationCalculatorImpl(),
+                  securityScopedBookmarkStore: SecurityScopedBookmarkStoreImpl())
     }
 
     // MARK: - Public
@@ -42,13 +46,17 @@ class VideoMetadataServiceImpl: VideoMetadataService {
 
         // Try just bookmark operation and look at start time vs finish time. Then add in duration operation.
 
-        let securityScopedBookmarkOperation = SecurityScopedBookmarkOperation(id: id, securityScopedURL: securityScopedURL)
+        let securityScopedBookmarkOperation = SecurityScopedBookmarkOperation(securityScopedBookmarkStore: securityScopedBookmarkStore,
+                                                                              id: id,
+                                                                              securityScopedURL: securityScopedURL)
         let durationCalculatorOperation = DurationCalculatorOperation()
         durationCalculatorOperation.addDependency(securityScopedBookmarkOperation)
 
-        durationCalculatorOperation.onComplete = { duration in
+        durationCalculatorOperation.onComplete = { [weak self] duration in
+            guard let self = self else { return }
+
             let video = Video(id: id, filename: filename, duration: duration)
-            if let url = Current.securityScopedBookmarkStore.url(for: id) {
+            if let url = self.securityScopedBookmarkStore.url(for: id) {
                 Current.thumbnailService.generateThumbnail(for: video, at: url)
             }
             completion(video)
@@ -57,6 +65,11 @@ class VideoMetadataServiceImpl: VideoMetadataService {
         operationQueue.addOperation(securityScopedBookmarkOperation)
         operationQueue.addOperation(durationCalculatorOperation)
     }
+
+    func url(for video: Video) -> URL? {
+        securityScopedBookmarkStore.url(for: video.id)
+    }
+
 
 // This is for testing.
 //    func generateVideoWithMetadataForItemAt(securityScopedURL: URL, completion: @escaping (Video?) -> Void) {
@@ -76,7 +89,7 @@ class VideoMetadataServiceImpl: VideoMetadataService {
 //    }
 
     func removeMetadata(for video: inout Video) {
-        Current.securityScopedBookmarkStore.removeBookmark(for: video.id)
+        securityScopedBookmarkStore.removeBookmark(for: video.id)
         Current.thumbnailService.removeThumbnail(for: video)
     }
 

@@ -15,7 +15,7 @@ class BaseTestCase: XCTestCase {
 
         // TODO: Remove the production `playlistManager` from here and control the date.
         let test = World(date: { Date() },
-                         playlistManager: PlaylistManager(),
+                         playlistManager: PlaylistManagerImpl(),
                          securityScopedBookmarkStore: MockSecurityScopedBookmarkStore(),
                          thumbnailService: MockThumbnailService())
 

@@ -6,29 +6,34 @@
 //
 
 import SwiftUI
-import AVKit
+import Combine
 
 struct PlaylistDetailView: View {
 
-    @ObservedObject var playlistManager = Current.playlistManager
-    @ObservedObject private var playlist: Playlist
-    @StateObject private var viewModel = PlaylistPlayerViewModel()
-    
+    // MARK: - State
+
+    @StateObject private var playlistPlayerViewModel = PlaylistPlayerViewModel()
+    @StateObject var playlistDetailViewModel: ViewModel
+
     @State private var showingDocumentPicker = false
     @State private var urls: [URL]?
     @State private var presentingPlayer = false
 
-    init(playlist: Playlist) {
-        self.playlist = playlist
+    // MARK: - Init
 
+    init(playlist: Playlist) {
         UITableView.appearance().backgroundColor = .clear
         UITableViewCell.appearance().backgroundColor = .clear
         UIToolbar.appearance().barTintColor = .secondarySystemBackground
+
+        _playlistDetailViewModel = StateObject(wrappedValue: ViewModel(playlist: playlist))
     }
+
+    // MARK: - Views
 
     var body: some View {
         ZStack {
-            if playlist.videos.isEmpty {
+            if playlistDetailViewModel.playlistIsEmpty {
                 EmptyContentView(text: "Add videos to get started")
             } else {
                 videoList
@@ -38,31 +43,29 @@ struct PlaylistDetailView: View {
             importMediaToolbarItem
             bottomToolbarItemCount
         }
-        .navigationBarTitle(playlist.name, displayMode: .inline)
+        .navigationBarTitle(playlistDetailViewModel.playlist.name, displayMode: .inline)
         fullScreenCover
         documentPicker
     }
     
     private var videoList: some View {
         List {
-            ForEach(playlist.videos) { video in
+            ForEach(playlistDetailViewModel.playlist.videos) { video in
                 PlaylistDetailRow(video: video)
                     .onTapGesture {
-                        if let index = playlist.videos.firstIndex(of: video) {
-                            viewModel.skipToItem(at: index)
-                        }
+                        updateViewModel()
+                        playlistPlayerViewModel.skipToItem(at: playlistDetailViewModel.index(of: video))
                         presentingPlayer.toggle()
                     }
             }
             .onDelete(perform: removeRows)
         }
-        .onAppear { updateViewModel() }
     }
 
     private var fullScreenCover: some View {
         // .fullScreenCover and .sheet modifiers can't be applied to a single view, so we use an EmptyView() instead.
         EmptyView().hidden().fullScreenCover(isPresented: $presentingPlayer) {
-            CustomPlayerView(viewModel: viewModel)
+            CustomPlayerView(viewModel: playlistPlayerViewModel)
         }
     }
 
@@ -87,7 +90,7 @@ struct PlaylistDetailView: View {
 
     private var bottomToolbarItemCount: some ToolbarContent {
         ToolbarItem(placement: .bottomBar) {
-            Text(playlist.formattedCount)
+            Text(playlistDetailViewModel.playlist.formattedCount)
         }
     }
 
@@ -95,17 +98,17 @@ struct PlaylistDetailView: View {
 
     private func addMedia() {
         guard let urls = urls else { return }
-        playlistManager.addMediaAt(urls: urls, to: playlist)
+        playlistDetailViewModel.addMedia(at: urls)
         self.urls = nil
         updateViewModel()
     }
 
     private func removeRows(at offsets: IndexSet) {
-        playlistManager.deleteItems(fromPlaylist: playlist, at: offsets)
+        playlistDetailViewModel.removeRows(at: offsets)
     }
 
     private func updateViewModel() {
-        viewModel.updateQueue(for: playlist)
+        playlistPlayerViewModel.updateQueue(for: playlistDetailViewModel.playlist)
     }
 }
 
