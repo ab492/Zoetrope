@@ -43,7 +43,7 @@ struct CustomSlider: View {
     private var onDragStart: (() -> Void)?
     private var onDragFinish: (() -> Void)?
     private var knobVerticalPadding: CGFloat
-    
+
     // MARK: - Init
 
     init(value: Binding<CGFloat>,
@@ -60,7 +60,7 @@ struct CustomSlider: View {
         let padding = 35 - configuration.knobWidth
         self.knobVerticalPadding = padding < 0 ? 35 : padding
     }
-    
+
     var body: some View {
         GeometryReader { geo in
             ZStack {
@@ -86,7 +86,7 @@ struct CustomSlider: View {
                         .gesture(
                             DragGesture(minimumDistance: 0)
                                 .onChanged { value in
-                                    
+
                                     if isDragging == false {
                                         onDragStart?()
                                         isDragging = true
@@ -127,4 +127,3 @@ struct CustomSlider: View {
         return percent.clamped(to: 0...1)
     }
 }
-

@@ -56,4 +56,3 @@ extension PlaylistSidebarView.ViewModel: PlaylistManagerObserver {
         objectWillChange.send()
     }
 }
-

@@ -22,6 +22,17 @@ struct CustomPlayerView: View {
         .onDisappear { viewModel.pause() }
     }
 
+//    private var controlsBar: some View {
+//        HStack(spacing: 0) {
+//            Text("Button")
+//        }
+//        .padding()
+//        .background(VisualEffectView(effect: UIBlurEffect(style: .systemMaterialDark)))
+//        .cornerRadius(10)
+//        .frame(height: 600)
+//        .offset(y: -10)
+//    }
+
     private var videoPlaybackView: some View {
         CustomPlayerLayer(viewModel: viewModel)
             .onTapGesture {

@@ -35,7 +35,7 @@ struct AddPlaylistModal: View {
                 doneNavigationItem
             }
         }
-        
+
     }
 
     // MARK: - Private

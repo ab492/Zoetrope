@@ -37,9 +37,7 @@ struct PlaylistSidebarView: View {
         })
         .toolbar {
             editListNavigationItem
-            bottomToolbarPlaylistCount
-            bottomToolbarSpacer
-            bottomToolbarAddPlaylist
+            bottomToolbar
         }
     }
 
@@ -66,26 +64,15 @@ struct PlaylistSidebarView: View {
         }
     }
 
-    private var bottomToolbarAddPlaylist: some ToolbarContent {
-        ToolbarItem(placement: .bottomBar) {
+    private var bottomToolbar: some ToolbarContent {
+        ToolbarItemGroup(placement: .bottomBar) {
+            Text(viewModel.playlistCount)
+            Spacer()
             Button {
                 addPlaylistModalIsShowing.toggle()
             } label: {
                 Label("Add Playlist", systemImage: "folder.badge.plus")
             }
-        }
-    }
-
-    private var bottomToolbarPlaylistCount: some ToolbarContent {
-        ToolbarItem(placement: .bottomBar) {
-            Text(viewModel.playlistCount)
-        }
-    }
-
-    // Due to a SwiftUI bug, the bottom toolbar requires an empty spacer to layout multiple correctly.
-    private var bottomToolbarSpacer: some ToolbarContent {
-        ToolbarItem(placement: .bottomBar) {
-            Spacer()
         }
     }
 
@@ -96,7 +83,7 @@ struct PlaylistSidebarView: View {
             viewModel.addPlaylist(title)
         }
     }
-    
+
     private func moveRows(from source: IndexSet, to destination: Int) {
         viewModel.movePlaylist(from: source, to: destination)
     }

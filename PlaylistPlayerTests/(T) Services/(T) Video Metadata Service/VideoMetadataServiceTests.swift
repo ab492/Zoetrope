@@ -11,11 +11,13 @@ import XCTest
 final class VideoMetadataServiceTests: BaseTestCase {
 
     private var mockDurationCalculator: MockDurationCalculator!
+    private var mockSecurityScopedBookmarkStore: MockSecurityScopedBookmarkStore!
 
     override func setUp() {
         super.setUp()
 
         mockDurationCalculator = MockDurationCalculator()
+        mockSecurityScopedBookmarkStore = MockSecurityScopedBookmarkStore()
     }
 
 //    func test_removeMetadata_callsRemoveOnThumbnailServiceAndBookmarkStore() {
@@ -30,10 +32,9 @@ final class VideoMetadataServiceTests: BaseTestCase {
 }
 
 extension VideoMetadataServiceTests {
-    
+
     private func makeSUT() -> VideoMetadataService {
-        VideoMetadataServiceImpl(durationCalculator: mockDurationCalculator)
+        VideoMetadataServiceImpl(durationCalculator: mockDurationCalculator, securityScopedBookmarkStore: mockSecurityScopedBookmarkStore)
     }
 
 }
-

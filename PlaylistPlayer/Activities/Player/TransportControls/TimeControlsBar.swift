@@ -10,7 +10,7 @@ import SwiftUI
 struct TimeControlsBar: View {
 
     @StateObject var viewModel: PlaylistPlayerViewModel
-    
+
     var body: some View {
 
         let currentTimeSeconds = Binding<CGFloat>(
@@ -21,7 +21,7 @@ struct TimeControlsBar: View {
                 viewModel.scrubbed(to: Time(seconds: Double($0)))
             }
         )
-        
+
         VStack(spacing: 0) {
             CustomSlider(value: currentTimeSeconds,
                          in: 0...CGFloat(viewModel.duration.seconds),
@@ -37,7 +37,7 @@ struct TimeControlsBar: View {
             .foregroundColor(.secondary)
         }
     }
-    
+
     private var sliderConfiguration: CustomSlider.Configuration {
         CustomSlider.Configuration(knobWidth: 20,
                                    minimumTrackTint: .white,

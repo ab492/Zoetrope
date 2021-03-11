@@ -10,7 +10,7 @@ import AVFoundation
 @testable import PlaylistPlayer
 
 final class MockVideoPlayer: VideoPlayerProtocol {
-    
+
     var playCallCount = 0
     func play() {
         playCallCount += 1
@@ -30,7 +30,7 @@ final class MockVideoPlayer: VideoPlayerProtocol {
     func replaceCurrentItem(with item: AVPlayerItem) {
         lastReplacedItem = item
     }
-    
+
     var observer: VideoPlayerObserver?
 
     var playbackRate: Float = 0
@@ -55,5 +55,3 @@ final class MockVideoPlayer: VideoPlayerProtocol {
 
     func step(byFrames count: Int) { }
 }
-
-

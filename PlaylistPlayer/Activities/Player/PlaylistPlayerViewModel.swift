@@ -9,11 +9,11 @@ import AVFoundation
 import SwiftUI
 
 class PlaylistPlayerViewModel: ObservableObject {
-    
+
     var player: PlaylistPlayerProtocol
 
     // MARK: - Published
-    
+
     @Published private(set) var isPlaying = false
     @Published private(set) var isReadyForPlayback = false
     @Published private(set) var canPlayFastReverse = false
@@ -24,7 +24,7 @@ class PlaylistPlayerViewModel: ObservableObject {
     @Published private(set) var duration: Time = .zero
     @Published private(set) var formattedCurrentTime = "00:00"
     @Published private(set) var formattedDuration = "00:00"
-    
+
     init() {
         self.player = PlaylistPlayer()
         self.loopMode = player.loopMode
@@ -46,7 +46,7 @@ class PlaylistPlayerViewModel: ObservableObject {
     func previousItem() {
         player.playPrevious()
     }
-    
+
     func skipToItem(at index: Int) {
         player.skipToItem(at: index)
     }
@@ -60,7 +60,7 @@ class PlaylistPlayerViewModel: ObservableObject {
     func seek(to time: Time) {
         player.seek(to: time)
     }
-    
+
     func setLoopMode(to loopMode: LoopMode) {
         // Here we need to keep model and view in sync - need to find a nicer way to do this.
         player.loopMode = loopMode
@@ -97,13 +97,13 @@ class PlaylistPlayerViewModel: ObservableObject {
     func playFastReverse() {
         player.playFastBackward()
     }
-    
+
 }
 
 // MARK: - PlaylistPlayerObserver
 
 extension PlaylistPlayerViewModel: PlaylistPlayerObserver {
-    
+
     func playbackItemStatusDidChange(to status: ItemStatus) {
         switch status {
         case .readyToPlay:

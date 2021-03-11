@@ -18,7 +18,7 @@ class PlaylistPlayerIntegrationTests: XCTestCase {
 
         spyAvPlayer = SpyAVPlayer()
     }
-    
+
     func test_initialPlay_addsCorrectItemToPlayer() {
         let testItems = makeAvPlayerItems(number: 3)
         let playlistPlayer = makeSUT(withItems: testItems)
@@ -62,7 +62,7 @@ class PlaylistPlayerIntegrationTests: XCTestCase {
         playlistPlayer.playNext() // Skip to item 2 (index 1)
         playlistPlayer.playNext() // Skip to item 3 (index 2)
         playlistPlayer.playNext() // Loop back around to item 1 (index 0)
-        
+
         XCTAssertEqual(spyAvPlayer.currentItem, testItems[0])
     }
 
@@ -99,8 +99,6 @@ class PlaylistPlayerIntegrationTests: XCTestCase {
     //    }
     //
 
-
-
 //    func test_observers() {
 //        let testItems = makeAvPlayerItems(number: 5)
 //        var sut: PlaylistPlayer? = makeSUT(withItems: testItems)
@@ -109,7 +107,7 @@ class PlaylistPlayerIntegrationTests: XCTestCase {
 //
 //    }
 
-    //Could test things like requeuing, how many times the playlist is emptied etc. Not sure how valuable that would be?
+    // Could test things like requeuing, how many times the playlist is emptied etc. Not sure how valuable that would be?
 }
 
 // MARK: - Helpers
@@ -143,11 +141,9 @@ extension PlaylistPlayerIntegrationTests {
 
         var itemsToReturn = [AVPlayerItem]()
 
-        for index in 0...number - 1  {
+        for index in 0...number - 1 {
             itemsToReturn.append(avItems[index])
         }
         return itemsToReturn
     }
 }
-
-

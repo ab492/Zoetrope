@@ -1,4 +1,3 @@
-
 //  VideoPlayer.swift
 //  QFS
 //
@@ -82,7 +81,6 @@ final class WrappedAVPlayer: VideoPlayerProtocol {
         self.player = player
         setupObservers()
     }
-
 
     // MARK: - Observers
 
@@ -212,7 +210,7 @@ extension WrappedAVPlayer {
     func replaceCurrentItem(with item: AVPlayerItem) {
         player.replaceCurrentItem(with: item)
     }
-    
+
     func play() {
         switch player.timeControlStatus {
         case .paused: player.play()
@@ -255,7 +253,7 @@ extension WrappedAVPlayer {
         get { player.actionAtItemEnd }
         set { player.actionAtItemEnd = newValue }
     }
-    
+
     var currentTime: Time {
         // The duration be reported as indefinite (NAN) until the duration of the asset has
         // been loaded, so we need to fallback to zero if indefinite.
@@ -344,7 +342,6 @@ extension WrappedAVPlayer {
     }
 }
 
-
 // Exposes the underlying AVPlayer to UIView's PlayerLayer.
 extension AVPlayerLayer {
     func setVideoPlayer(_ wrappedPlayer: WrappedAVPlayer) {
@@ -358,7 +355,6 @@ extension PlayerView {
         player = wrappedPlayer.player
     }
 }
-
 
 extension VideoPlayerObserver {
     func playbackItemStatusDidChange(to status: ItemStatus) { }

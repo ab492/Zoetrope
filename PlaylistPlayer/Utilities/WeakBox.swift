@@ -11,7 +11,7 @@ import Foundation
 struct WeakBox<T> {
     private weak var _value: AnyObject?
 
-    var value: T?   {
+    var value: T? {
         _value as? T
     }
 

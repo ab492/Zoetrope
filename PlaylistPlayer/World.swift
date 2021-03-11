@@ -9,10 +9,12 @@ import Foundation
 
 var Current = World(date: { Date() },
                     playlistManager: PlaylistManagerImpl(),
-                    thumbnailService: ThumbnailServiceImpl())
+                    thumbnailService: ThumbnailServiceImpl(),
+                    userPreferencesManager: UserPreferencesManagerImpl())
 
 struct World {
     var date: () -> Date
     var playlistManager: PlaylistManager
     var thumbnailService: ThumbnailService
+    var userPreferencesManager: UserPreferencesManager
 }

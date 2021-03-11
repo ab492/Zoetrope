@@ -9,10 +9,9 @@ import UIKit
 @testable import PlaylistPlayer
 
 final class MockThumbnailStore: ThumbnailStore {
-    var allThumbnails: [String] {
-        fatalError("Not implemented")
-    }
-    
+
+    var allThumbnailFilenames: [String] = []
+
     func save(image: UIImage, filename: String) throws {
         fatalError("Not implemented")
     }
@@ -21,10 +20,9 @@ final class MockThumbnailStore: ThumbnailStore {
         fatalError("Not implemented")
     }
 
-    var lastDeletedThumbnail: String?
+    var deletedThumbnails = [String]()
     func delete(thumbnailName filename: String) throws {
-        lastDeletedThumbnail = filename
+        deletedThumbnails.append(filename)
     }
 
-    
 }

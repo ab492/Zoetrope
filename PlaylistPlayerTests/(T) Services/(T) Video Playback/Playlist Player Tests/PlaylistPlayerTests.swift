@@ -27,7 +27,7 @@ final class PlaylistPlayerTests: XCTestCase {
         XCTAssertEqual(sut.nowPlayingIndex, 0)
         XCTAssertEqual(sut.loopMode, .playPlaylistOnce)
     }
-    
+
     func test_playCallsPlay() {
         let sut = makeSUT()
 
@@ -87,7 +87,7 @@ final class PlaylistPlayerTests: XCTestCase {
 
         XCTAssertEqual(mockVideoPlayer.lastReplacedItem, items[1])
     }
-    
+
     // MARK: - Play Previous Item
 
     func test_playPreviousItem() {
@@ -326,11 +326,9 @@ extension PlaylistPlayerTests {
 
         var itemsToReturn = [AVPlayerItem]()
 
-        for index in 0...number - 1  {
+        for index in 0...number - 1 {
             itemsToReturn.append(avItems[index])
         }
         return itemsToReturn
     }
 }
-
-

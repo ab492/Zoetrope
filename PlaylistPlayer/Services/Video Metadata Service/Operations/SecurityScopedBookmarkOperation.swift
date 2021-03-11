@@ -22,14 +22,13 @@ final class SecurityScopedBookmarkOperation: Operation {
     /// This callback will be run **on the main thread** when the operation completes.
     var onComplete: ((URL?) -> Void)?
 
-
     init(securityScopedBookmarkStore: SecurityScopedBookmarkStore, id: UUID, securityScopedURL: URL) {
         self.bookmarkStore = securityScopedBookmarkStore
         self.id = id
         self.securityScopedURL = securityScopedURL
         super.init()
     }
-    
+
     override func main() {
         guard let bookmark = SecurityScopedBookmark(id: id, securityScopedURL: securityScopedURL) else {
             print("Unable to generate security scoped bookmark")
@@ -62,4 +61,3 @@ final class SecurityScopedBookmarkOperation: Operation {
 extension SecurityScopedBookmarkOperation: URLProvider {
     var url: URL? { return outputURL }
 }
-

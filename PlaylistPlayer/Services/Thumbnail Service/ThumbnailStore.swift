@@ -12,7 +12,7 @@ import UIKit
 protocol ThumbnailStore {
 
     /// Returns all filenames for the thumbnails stored on disk. **These do not contain extensions.**
-    var allThumbnails: [String] { get }
+    var allThumbnailFilenames: [String] { get }
 
     /// Saves an image with a given filename.
     /// - Parameters:
@@ -52,7 +52,7 @@ final class ThumbnailStoreImpl: ThumbnailStore {
 
     // MARK: - Public
 
-    var allThumbnails: [String] {
+    var allThumbnailFilenames: [String] {
         do {
             let files = try fileManager.contentsOfDirectory(at: location, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])
             let imageFilenames = files

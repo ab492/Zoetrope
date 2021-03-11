@@ -9,7 +9,7 @@ import SwiftUI
 struct PlaybackControlsBar: View {
 
     @StateObject var viewModel: PlaylistPlayerViewModel
-    
+
     // MARK: - View
 
     var body: some View {
@@ -135,5 +135,5 @@ extension PlaybackControlsBar {
     private var fastForwardButtonDisabled: Bool {
         viewModel.canPlayFastForward == false
     }
-    
+
 }

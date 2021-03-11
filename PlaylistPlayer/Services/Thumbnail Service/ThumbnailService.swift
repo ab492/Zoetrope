@@ -9,12 +9,12 @@ import Foundation
 import UIKit
 
 protocol ThumbnailServiceObserver: class {
-    func processingThumbnailsDidUpdate(thumbnails: [Video])
+    func processingThumbnailsDidUpdate()
     func didFinishProcessingThumbnails()
 }
 
 extension ThumbnailServiceObserver {
-    func processingThumbnailsDidUpdate(thumbnails: [Video]) { }
+    func processingThumbnailsDidUpdate() { }
     func didFinishProcessingThumbnails() { }
 }
 
@@ -23,6 +23,7 @@ protocol ThumbnailService {
     func generateThumbnail(for video: Video, at url: URL)
     func thumbnail(for video: Video) -> UIImage?
     func removeThumbnail(for video: Video)
+    func cleanupStoreOfAllExcept(requiredVideos: [Video])
 
     // Observable
     var observations: [ObjectIdentifier: WeakBox<ThumbnailServiceObserver>] { get set }
@@ -31,8 +32,8 @@ protocol ThumbnailService {
 }
 
 final class ThumbnailServiceImpl: ThumbnailService {
-    
-    var processingThumbnails = [Video]()
+
+    private(set) var processingThumbnails = [Video]()
 
     // MARK: - Properties
 
@@ -64,7 +65,7 @@ final class ThumbnailServiceImpl: ThumbnailService {
 
             self.processingThumbnails.removeAll(where: { $0.id == video.id })
             self.thumbnailsDidUpdate()
-            
+
             guard let thumbnail = image else { return }
             let filename = UUID().uuidString
 
@@ -91,12 +92,25 @@ final class ThumbnailServiceImpl: ThumbnailService {
         do {
             try thumbnailStore.delete(thumbnailName: name)
             video.thumbnailFilename = nil
-            // TODO: Need to save this when things change!
         } catch let error {
             print("Unable to save image: \(error)")
         }
     }
 
+    func cleanupStoreOfAllExcept(requiredVideos: [Video]) {
+        let filenamesToKeep = Set(requiredVideos.compactMap { $0.thumbnailFilename })
+        let allFilenamesInStore = Set(thumbnailStore.allThumbnailFilenames)
+        let filenamesToDelete = allFilenamesInStore.subtracting(filenamesToKeep)
+
+        for filename in filenamesToDelete {
+            do {
+                try thumbnailStore.delete(thumbnailName: filename)
+            } catch let error {
+                print("Unable to remove image: \(error)")
+            }
+        }
+    }
+    
     // MARK: - Observable
 
     private func thumbnailsDidUpdate() {
@@ -105,7 +119,7 @@ final class ThumbnailServiceImpl: ThumbnailService {
                 observations.removeValue(forKey: id)
                 continue
             }
-            observer.processingThumbnailsDidUpdate(thumbnails: processingThumbnails)
+            observer.processingThumbnailsDidUpdate()
         }
     }
 
@@ -125,7 +139,7 @@ final class ThumbnailServiceImpl: ThumbnailService {
         let id = ObjectIdentifier(observer)
         observations[id] = WeakBox(observer)
     }
-    
+
     func removeObserver(_ observer: ThumbnailServiceObserver) {
         let id = ObjectIdentifier(observer)
         observations.removeValue(forKey: id)

@@ -49,7 +49,6 @@ protocol PlaylistPlayerObserver: class {
 /// Creates a video player for queuing content and navigating forward and back.
 final class PlaylistPlayer: PlaylistPlayerProtocol {
 
-
 //    var playbackRate: PlaybackRate {
 //        get {
 //            .forward1x //TODO: - OBVIOUSLY CHANGE THIS
@@ -57,7 +56,6 @@ final class PlaylistPlayer: PlaylistPlayerProtocol {
 //            player.playbackRate = playbackRate.rawValue
 //        }
 //    }
-
 
     // MARK: - Public Properties
 
@@ -94,7 +92,7 @@ final class PlaylistPlayer: PlaylistPlayerProtocol {
 
     private var lastPlaybackRate: Float = 0
     private var isScrubbing = false
-    
+
     // MARK: - Init
 
     init(items: [AVPlayerItem], videoPlayer: VideoPlayerProtocol) {
@@ -173,7 +171,7 @@ extension PlaylistPlayer {
     func seek(to time: Time) {
         player.seek(to: MediaTime(seconds: time.seconds))
     }
-    
+
     func replaceQueue(with items: [AVPlayerItem]) {
         // TODO: Need to use this to test behavior!
         // DO WE NEED TO STOP THE PLAYER?!
@@ -227,9 +225,6 @@ extension PlaylistPlayer {
         player.playbackRate = -2.0
     }
 }
-
-
-
 
 extension PlaylistPlayer: VideoPlayerObserver {
 

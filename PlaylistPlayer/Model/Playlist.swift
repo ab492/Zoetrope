@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class Playlist: ObservableObject, Identifiable, Codable {
+final class Playlist: Identifiable, Codable {
 
     let id: UUID
     var name: String
@@ -45,11 +45,3 @@ extension Playlist: Equatable {
         lhs.id == rhs.id && lhs.name == rhs.name && lhs.videos == rhs.videos
     }
 }
-
-extension Playlist: CustomStringConvertible {
-    var description: String {
-        "ID:\(id), Name: \(name), Videos: \(videos)"
-    }
-}
-
-

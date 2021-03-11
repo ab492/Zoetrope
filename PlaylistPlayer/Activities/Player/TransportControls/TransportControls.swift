@@ -14,7 +14,7 @@ struct TransportControls: View {
 
     @StateObject var viewModel: PlaylistPlayerViewModel
     @Environment(\.presentationMode) var presentationMode
-    
+
     // MARK: - View
 
     var body: some View {
@@ -39,7 +39,7 @@ struct TransportControls: View {
         .cornerRadius(10)
         .frame(width: 600)
         .offset(y: -10)
-        
+
     }
 
     private var closeButton: some View {

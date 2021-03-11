@@ -9,6 +9,11 @@ import Foundation
 @testable import PlaylistPlayer
 
 final class MockSecurityScopedBookmarkStore: SecurityScopedBookmarkStore {
+    func cleanupStore(requiredIds: [UUID]) {
+        fatalError("Not implemented yet")
+
+    }
+
     func add(bookmark: SecurityScopedBookmark) {
         fatalError("Not implemented yet")
     }

@@ -13,7 +13,7 @@ extension PlaylistDetailView {
     class ViewModel: ObservableObject {
 
         // MARK: - Properties
-
+        // TODO: Make this private so noone else can sort it.
         private(set) var playlist: Playlist
 
         // MARK: - Init
@@ -37,10 +37,72 @@ extension PlaylistDetailView {
             Current.playlistManager.deleteItems(fromPlaylist: playlist, at: offsets)
         }
 
+//        func removeItems(withIds ids: [UUID]) {
+//            for id in ids {
+//                if let index = playlist.videos.lastIndex(where: { $0.id == id }) {
+//                    playlist.videos.remove(at: index)
+//                }
+//            }
+//            objectWillChange.send()
+//            Current.playlistManager.save()
+//        }
+
+        var videos: [Video] {
+            playlist.videos
+        }
+
+        var playlistCount: String {
+            playlist.formattedCount
+        }
+
+        var playlistTitle: String {
+            playlist.name
+        }
+
         func index(of video: Video) -> Int {
             playlist.videos.firstIndex(of: video) ?? 0
         }
 
+        func moveVideo(from: IndexSet, to: Int) {
+            objectWillChange.send()
+            playlist.videos.move(fromOffsets: from, toOffset: to)
+            Current.playlistManager.save()
+        }
+        
+        var sortByTitleSortOrder: SortOrder {
+            get {
+                Current.userPreferencesManager.sortByTitleOrder
+            }
+            set {
+                objectWillChange.send()
+                Current.userPreferencesManager.sortByTitleOrder = newValue
+                switch newValue {
+                case .ascending:
+                    playlist.videos = playlist.videos.sorted(by: \.filename, using: <)
+                case .descending:
+                    playlist.videos = playlist.videos.sorted(by: \.filename, using: >)
+                }
+                Current.playlistManager.save()
+            }
+        }
+
+        var sortByDurationSortOrder: SortOrder {
+            get {
+                Current.userPreferencesManager.sortByDurationOrder
+            }
+            set {
+                objectWillChange.send()
+                Current.userPreferencesManager.sortByDurationOrder = newValue
+                switch newValue {
+                case .ascending:
+                    // TODO: Make time comparable
+                    playlist.videos = playlist.videos.sorted(by: \.duration.seconds, using: <)
+                case .descending:
+                    playlist.videos = playlist.videos.sorted(by: \.duration.seconds, using: >)
+                }
+                Current.playlistManager.save()
+            }
+        }
     }
 }
 
@@ -51,4 +113,3 @@ extension PlaylistDetailView.ViewModel: PlaylistManagerObserver {
         objectWillChange.send()
     }
 }
-

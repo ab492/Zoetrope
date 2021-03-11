@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol PlaylistManagerObserver: class {
     func playlistManagerDidUpdate()
@@ -24,6 +25,8 @@ protocol PlaylistManager {
     func deleteItems(fromPlaylist playlist: Playlist, at offsets: IndexSet)
     func mediaUrlsFor(playlist: Playlist) -> [URL]
 
+    func save()
+
     // Observable
     var observations: [ObjectIdentifier: WeakBox<PlaylistManagerObserver>] { get set }
     func addObserver(_ observer: PlaylistManagerObserver)
@@ -37,10 +40,15 @@ class PlaylistManagerImpl: PlaylistManager {
 
     private(set) var playlists: [Playlist]
 
-    init(playlistStore: PlaylistStore, videoModelBuilder: VideoMetadataService) {
+    init(playlistStore: PlaylistStore, videoModelBuilder: VideoMetadataService, notificationCenter: NotificationCenter) {
         self.playlistStore = playlistStore
         self.playlists = playlistStore.fetchPlaylists()
         self.videoMetadataService = videoModelBuilder
+
+        notificationCenter.addObserver(self,
+                                       selector: #selector(applicationWillResignActive),
+                                       name: UIApplication.willResignActiveNotification,
+                                       object: nil)
 
         DispatchQueue.main.async {
             Current.thumbnailService.addObserver(self)
@@ -49,7 +57,8 @@ class PlaylistManagerImpl: PlaylistManager {
 
     convenience init() {
         self.init(playlistStore: PlaylistStoreImpl(),
-                  videoModelBuilder: VideoMetadataServiceImpl())
+                  videoModelBuilder: VideoMetadataServiceImpl(),
+                  notificationCenter: NotificationCenter.default)
     }
 
     // MARK: - Public
@@ -67,17 +76,16 @@ class PlaylistManagerImpl: PlaylistManager {
     }
 
     func delete(playlistsAt indexSet: IndexSet) {
+        // TODO: Remove metadata of images here!
         playlists.remove(atOffsets: indexSet)
         playlistManagerDidUpdate()
         save()
     }
 
     func addMediaAt(urls: [URL], to playlist: Playlist) {
-//        objectWillChange.send()
         for url in urls {
             videoMetadataService.generateVideoWithMetadataForItemAt(securityScopedURL: url) { video in
                 guard let video = video else { return }
-//                self.objectWillChange.send()
                 playlist.videos.append(video)
                 self.playlistManagerDidUpdate()
                 self.save()
@@ -86,12 +94,9 @@ class PlaylistManagerImpl: PlaylistManager {
     }
 
     func deleteItems(fromPlaylist playlist: Playlist, at offsets: IndexSet) {
-//        objectWillChange.send()
-
-        // Clear thumbnails from store first
-        offsets.forEach { index in
-//            var item = playlist.videos[index]
-            videoMetadataService.removeMetadata(for: &playlist.videos[index])
+        for index in offsets {
+            // Clear up all store metadata first.
+            videoMetadataService.removeMetadata(for: playlist.videos[index])
         }
         playlist.videos.remove(atOffsets: offsets)
         playlistManagerDidUpdate()
@@ -101,10 +106,16 @@ class PlaylistManagerImpl: PlaylistManager {
     func mediaUrlsFor(playlist: Playlist) -> [URL] {
         playlist.videos.compactMap { videoMetadataService.url(for: $0) }
     }
-    
+
     // MARK: - Private
 
-    private func save() {
+    @objc private func applicationWillResignActive() {
+        // If you switch to use scenes, `applicationWillResignActive` isn't called.
+        let allVideos = playlists.map { $0.videos }.flatMap { $0 }
+        videoMetadataService.cleanupStore(currentVideos: allVideos)
+    }
+
+    func save() {
         playlistStore.save(playlists)
     }
 
@@ -131,17 +142,18 @@ class PlaylistManagerImpl: PlaylistManager {
         let id = ObjectIdentifier(observer)
         observations.removeValue(forKey: id)
     }
-    
+
 }
 
 extension PlaylistManagerImpl: ThumbnailServiceObserver {
     func didFinishProcessingThumbnails() {
-        print("SAVE CALLED FROM THUMBNAIL SERVICE!!")
         save()
     }
 
-    func processingThumbnailsDidUpdate(thumbnails: [Video]) {
-        //
-    }
-}
+//    func processingThumbnailsDidUpdate() {
+//        print("SAVE CALLED FROM THUMBNAIL SERVICE!!")
+//        save()
+//    }
 
+    
+}

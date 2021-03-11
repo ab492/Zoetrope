@@ -55,4 +55,3 @@ struct VideoThumbnailView: View {
             .progressViewStyle(CircularProgressViewStyle(tint: .white))
     }
 }
-

@@ -10,7 +10,7 @@ import Foundation
 protocol VideoMetadataService {
     func generateVideoWithMetadataForItemAt(securityScopedURL: URL, completion: @escaping (Video?) -> Void)
     func url(for video: Video) -> URL?
-    func removeMetadata(for video: inout Video)
+    func removeMetadata(for video: Video)
     func cleanupStore(currentVideos: [Video])
 }
 
@@ -70,32 +70,13 @@ class VideoMetadataServiceImpl: VideoMetadataService {
         securityScopedBookmarkStore.url(for: video.id)
     }
 
-
-// This is for testing.
-//    func generateVideoWithMetadataForItemAt(securityScopedURL: URL, completion: @escaping (Video?) -> Void) {
-//        let filename = FileManager.default.displayName(atPath: securityScopedURL.path)
-//        let id = UUID()
-//
-//        // Try just bookmark operation and look at start time vs finish time. Then add in duration operation.
-//
-//        let securityScopedBookmarkOperation = SecurityScopedBookmarkOperation(id: id, securityScopedURL: securityScopedURL)
-//
-//        securityScopedBookmarkOperation.onComplete = { url in
-//            print("Bookmark operation complete :\(id)")
-//            completion(nil)
-//        }
-//
-//        operationQueue.addOperation(securityScopedBookmarkOperation)
-//    }
-
-    func removeMetadata(for video: inout Video) {
+    func removeMetadata(for video: Video) {
         securityScopedBookmarkStore.removeBookmark(for: video.id)
         Current.thumbnailService.removeThumbnail(for: video)
     }
 
     func cleanupStore(currentVideos: [Video]) {
-        fatalError("Not implemented")
-        // Clear any thumbnails out that aren't in current
-        // Clear any bookmarks out that aren't in current
+        Current.thumbnailService.cleanupStoreOfAllExcept(requiredVideos: currentVideos)
+        securityScopedBookmarkStore.cleanupStore(requiredIds: currentVideos.map { $0.id })
     }
 }

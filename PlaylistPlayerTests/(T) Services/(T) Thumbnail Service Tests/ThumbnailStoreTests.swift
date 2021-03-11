@@ -47,9 +47,9 @@ final class ThumbnailStoreTests: XCTestCase {
 
         try? sut.save(image: testImage, filename: "test-thumbnail")
 
-        XCTAssertEqual(sut.allThumbnails, ["test-thumbnail"])
+        XCTAssertEqual(sut.allThumbnailFilenames, ["test-thumbnail"])
     }
-    
+
     // MARK: - Getting All Thumbnail Filenames
 
     func test_gettingAllThumbnails_returnsAllJpegs() {
@@ -57,7 +57,7 @@ final class ThumbnailStoreTests: XCTestCase {
 
         let sut = makeSUT()
 
-        XCTAssertEqual(sut.allThumbnails, ["test-thumbnail-1", "test-thumbnail-2", "test-thumbnail-3"])
+        XCTAssertEqual(sut.allThumbnailFilenames, ["test-thumbnail-1", "test-thumbnail-2", "test-thumbnail-3"])
     }
 
     func test_gettingAllThumbnails_doesntReturnAnyOtherFileTypes() {
@@ -66,9 +66,8 @@ final class ThumbnailStoreTests: XCTestCase {
 
         let sut = makeSUT()
 
-        XCTAssertEqual(sut.allThumbnails, ["test-thumbnail-1", "test-thumbnail-2", "test-thumbnail-3"])
+        XCTAssertEqual(sut.allThumbnailFilenames, ["test-thumbnail-1", "test-thumbnail-2", "test-thumbnail-3"])
     }
-
 
 }
 
@@ -113,7 +112,6 @@ extension ThumbnailStoreTests {
         let fakeVideo = Data()
         let fakeVideoUrl = temporaryDirectory.appendingPathComponent("test-video").appendingPathExtension("mov")
         try? fakeVideo.write(to: fakeVideoUrl)
-
 
         let fakePng = Data()
         let fakePngUrl = temporaryDirectory.appendingPathComponent("test-png").appendingPathExtension("mov")

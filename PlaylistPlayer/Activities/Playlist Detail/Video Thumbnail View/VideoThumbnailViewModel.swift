@@ -40,7 +40,7 @@ extension VideoThumbnailView {
 // MARK: - ThumbnailServiceObserver
 
 extension VideoThumbnailView.ViewModel: ThumbnailServiceObserver {
-    func processingThumbnailsDidUpdate(thumbnails: [Video]) {
+    func processingThumbnailsDidUpdate() {
         objectWillChange.send()
     }
 }

@@ -10,11 +10,15 @@ import Combine
 
 struct PlaylistDetailView: View {
 
+    // FIXME: For multi selection deletion
+    //https://stackoverflow.com/questions/57784859/swiftui-how-to-perform-action-when-editmode-changes
+
     // MARK: - State
 
     @StateObject private var playlistPlayerViewModel = PlaylistPlayerViewModel()
     @StateObject var playlistDetailViewModel: ViewModel
 
+    @State var editMode: EditMode = .inactive
     @State private var showingDocumentPicker = false
     @State private var urls: [URL]?
     @State private var presentingPlayer = false
@@ -29,7 +33,7 @@ struct PlaylistDetailView: View {
         _playlistDetailViewModel = StateObject(wrappedValue: ViewModel(playlist: playlist))
     }
 
-    // MARK: - Views
+    // MARK: - Main View
 
     var body: some View {
         ZStack {
@@ -39,18 +43,21 @@ struct PlaylistDetailView: View {
                 videoList
             }
         }
+        .animation(.default)
         .toolbar {
             importMediaToolbarItem
+            trailingToolbar
             bottomToolbarItemCount
         }
-        .navigationBarTitle(playlistDetailViewModel.playlist.name, displayMode: .inline)
+        .navigationBarTitle(playlistDetailViewModel.playlistTitle, displayMode: .inline)
+        .environment(\.editMode, self.$editMode)
         fullScreenCover
         documentPicker
     }
-    
+
     private var videoList: some View {
-        List {
-            ForEach(playlistDetailViewModel.playlist.videos) { video in
+        List() {
+            ForEach(playlistDetailViewModel.videos) { video in
                 PlaylistDetailRow(video: video)
                     .onTapGesture {
                         updateViewModel()
@@ -59,8 +66,11 @@ struct PlaylistDetailView: View {
                     }
             }
             .onDelete(perform: removeRows)
+            .onMove(perform: moveRows)
         }
     }
+
+    // MARK: - Modals
 
     private var fullScreenCover: some View {
         // .fullScreenCover and .sheet modifiers can't be applied to a single view, so we use an EmptyView() instead.
@@ -78,8 +88,45 @@ struct PlaylistDetailView: View {
 
     // MARK: - Toolbar
 
+    private var trailingToolbar: some ToolbarContent {
+        ToolbarItemGroup(placement: .navigationBarTrailing) {
+            sortMenu
+            editButton
+        }
+    }
+
+    private var editButton: some View {
+        Button(action: {
+            self.editMode.toggle()
+            }) {
+                Text(self.editMode == .active ? "Done" : "Edit")
+        }
+    }
+
+    private var sortMenu: some View {
+        Menu {
+            Button {
+                playlistDetailViewModel.sortByTitleSortOrder.toggle()
+            } label: {
+                let icon = playlistDetailViewModel.sortByTitleSortOrder == .ascending ? "chevron.down" : "chevron.up"
+                MenuItemView(title: "Sort by title", iconSystemName: icon)
+            }
+            Button {
+                playlistDetailViewModel.sortByDurationSortOrder.toggle()
+            } label: {
+                let icon = playlistDetailViewModel.sortByDurationSortOrder == .ascending ? "chevron.down" : "chevron.up"
+                MenuItemView(title: "Sort by duration", iconSystemName: icon)
+            }
+
+        } label: {
+            Label("Sort Playlist", systemImage: "arrow.up.arrow.down")
+                .frame(width: 50)
+        }
+        
+    }
+    
     private var importMediaToolbarItem: some ToolbarContent {
-        ToolbarItem(placement: .navigationBarTrailing) {
+        ToolbarItem(placement: .navigationBarLeading) {
             Button {
                 self.showingDocumentPicker = true
             } label: {
@@ -90,7 +137,7 @@ struct PlaylistDetailView: View {
 
     private var bottomToolbarItemCount: some ToolbarContent {
         ToolbarItem(placement: .bottomBar) {
-            Text(playlistDetailViewModel.playlist.formattedCount)
+            Text(playlistDetailViewModel.playlistCount)
         }
     }
 
@@ -100,7 +147,10 @@ struct PlaylistDetailView: View {
         guard let urls = urls else { return }
         playlistDetailViewModel.addMedia(at: urls)
         self.urls = nil
-        updateViewModel()
+    }
+
+    private func moveRows(from source: IndexSet, to destination: Int) {
+        playlistDetailViewModel.moveVideo(from: source, to: destination)
     }
 
     private func removeRows(at offsets: IndexSet) {
@@ -111,57 +161,3 @@ struct PlaylistDetailView: View {
         playlistPlayerViewModel.updateQueue(for: playlistDetailViewModel.playlist)
     }
 }
-
-//struct PlaylistDetailView: View {
-//    // MARK: - State
-//
-//    @State private var videos: [Video]
-//    @ObservedObject private var viewModel: PlaylistPlayerViewModel
-//
-//    init() {
-//
-//        let urls = ["01", "02", "03", "04", "05", "06", "07", "08"].compactMap { Bundle.main.url(forResource: $0, withExtension: "mov") }
-//
-//        var videos = [Video]()
-//
-//        for url in urls {
-//            videos.append(Video(id: UUID(), url: url))
-//        }
-//
-//        _videos = State(wrappedValue: videos)
-//
-//        let viewModel = PlaylistPlayerViewModel()
-//        viewModel.replaceQueue(with: videos)
-//        _viewModel = ObservedObject(wrappedValue: viewModel)
-//    }
-//
-//    @State private var presentingPlayer = false
-//
-//    // MARK: - View
-//
-//    var body: some View {
-//        NavigationView {
-//            List {
-//                ForEach(videos.indices) { index in
-//                    Text(videos[index].filename)
-//                        .onTapGesture {
-//                            viewModel.skipToItem(at: index)
-//                            presentingPlayer.toggle()
-//                        }
-//                }
-//                .onMove(perform: moveRows)
-//            }
-//            .navigationBarItems(trailing: EditButton())
-//            .navigationTitle("Playlist Player")
-//        }
-//        .navigationViewStyle(StackNavigationViewStyle())
-//        .fullScreenCover(isPresented: $presentingPlayer) {
-//            CustomPlayerView(viewModel: viewModel)
-//        }
-//    }
-//
-//    private func moveRows(from source: IndexSet, to destination: Int) {
-//        videos.move(fromOffsets: source, toOffset: destination)
-//        viewModel.replaceQueue(with: videos)
-//    }
-//}

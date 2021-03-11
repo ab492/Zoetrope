@@ -60,5 +60,3 @@ final class GenerateThumbnailOperationTests: XCTestCase {
         return image
     }
 }
-
-

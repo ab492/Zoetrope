@@ -17,7 +17,6 @@ final class DurationCalculatorOperation: Operation {
     /// This callback will be run **on the main thread** when the operation completes.
     var onComplete: ((Time) -> Void)?
 
-
     init(url: URL? = nil) {
         self.inputUrl = url
         super.init()
