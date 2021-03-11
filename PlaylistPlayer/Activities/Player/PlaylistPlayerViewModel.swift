@@ -25,6 +25,13 @@ class PlaylistPlayerViewModel: ObservableObject {
     @Published private(set) var formattedCurrentTime = "00:00"
     @Published private(set) var formattedDuration = "00:00"
 
+    // When the user skips between videos, the change of playback state (i.e. from
+    // playing to loading) causes the play button to flicker between play-pause-play.
+    // To prevent this, we start a short timer on skip to provide a very small window
+    // where we don't respond to playback state updates.
+    private var isWithinPlaylistSkipCompletionTime = false
+    private var playlistSkipCompletionTimer: Timer?
+
     init() {
         self.player = PlaylistPlayer()
         self.loopMode = player.loopMode
@@ -40,10 +47,12 @@ class PlaylistPlayerViewModel: ObservableObject {
     }
 
     func nextItem() {
+        invalidateAndRestartPlaylistSkipTimer()
         player.playNext()
     }
 
     func previousItem() {
+        invalidateAndRestartPlaylistSkipTimer()
         player.playPrevious()
     }
 
@@ -98,6 +107,27 @@ class PlaylistPlayerViewModel: ObservableObject {
         player.playFastBackward()
     }
 
+    // MARK: - Private
+
+    private func invalidateAndRestartPlaylistSkipTimer() {
+        playlistSkipCompletionTimer?.invalidate()
+        playlistSkipCompletionTimer = nil
+
+        isWithinPlaylistSkipCompletionTime = true
+        playlistSkipCompletionTimer = Timer.scheduledTimer(timeInterval: 0.5,
+                                                         target: self,
+                                                         selector: #selector(playlistSkipTimerComplete),
+                                                         userInfo: nil,
+                                                         repeats: false)
+    }
+
+    @objc private func playlistSkipTimerComplete() {
+        isWithinPlaylistSkipCompletionTime = false
+        playlistSkipCompletionTimer?.invalidate()
+        playlistSkipCompletionTimer = nil
+    }
+
+
 }
 
 // MARK: - PlaylistPlayerObserver
@@ -107,15 +137,27 @@ extension PlaylistPlayerViewModel: PlaylistPlayerObserver {
     func playbackItemStatusDidChange(to status: ItemStatus) {
         switch status {
         case .readyToPlay:
-            isReadyForPlayback = true
             duration = player.currentItemDuration
             formattedDuration = TimeFormatter.string(from: Int(player.currentItemDuration.seconds))
+
+            // Don't update playback state if we're in the small window after the user has skipped in the playlist.
+            if isWithinPlaylistSkipCompletionTime == false {
+                isReadyForPlayback = true
+            }
+
         case .failed, .unknown:
-            isReadyForPlayback = false
+
+            // Don't update playback state if we're in the small window after the user has skipped in the playlist.
+            if isWithinPlaylistSkipCompletionTime == false {
+                isReadyForPlayback = false
+            }
         }
     }
 
     func playbackStateDidChange(to playbackState: PlaybackState) {
+        // Don't update playback state if we're in the small window after the user has skipped in the playlist.
+        guard isWithinPlaylistSkipCompletionTime == false else { return }
+
         switch playbackState {
         case .playing:
             isPlaying = true
@@ -130,10 +172,12 @@ extension PlaylistPlayerViewModel: PlaylistPlayerObserver {
     }
 
     func mediaFastForwardAbilityDidChange(to newStatus: Bool) {
+        guard isWithinPlaylistSkipCompletionTime == false else { return }
         canPlayFastForward = newStatus
     }
 
     func mediaFastReverseAbilityDidChange(to newStatus: Bool) {
+        guard isWithinPlaylistSkipCompletionTime == false else { return }
         canPlayFastReverse = newStatus
     }
 }
