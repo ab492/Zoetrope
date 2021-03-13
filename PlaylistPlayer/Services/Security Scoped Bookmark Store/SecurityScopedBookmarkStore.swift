@@ -29,12 +29,17 @@ protocol SecurityScopedBookmarkStore {
     func add(bookmark: SecurityScopedBookmark)
     func removeBookmark(for id: UUID)
     func url(for id: UUID) -> URL?
+    func cleanupStore(requiredIds: [UUID])
 }
 
 /// An object for storing security scoped bookmarks to the files within the filesystem (persisting the user's granted permissions to a given file). **This object is thread safe.**
 class SecurityScopedBookmarkStoreImpl: SecurityScopedBookmarkStore {
 
     // MARK: - Properties
+
+    private let fileManager = FileManager.default
+    private let newStorageLocation: URL
+
 
     private let location: URL
     private var bookmarks = [SecurityScopedBookmark]()
@@ -45,6 +50,7 @@ class SecurityScopedBookmarkStoreImpl: SecurityScopedBookmarkStore {
 
     init(location: URL) {
         self.location = location
+        self.newStorageLocation = FileManager.default.documentsDirectory.appendingPathComponent("Bookmarks")
         self.bookmarks = fetchBookmarks()
     }
 
@@ -52,6 +58,7 @@ class SecurityScopedBookmarkStoreImpl: SecurityScopedBookmarkStore {
         let defaultLocation = FileManager.default.documentsDirectory
             .appendingPathComponent("SecurityScopedBookmarks")
             .appendingPathExtension("json")
+        
         self.init(location: defaultLocation)
     }
 
@@ -63,12 +70,22 @@ class SecurityScopedBookmarkStoreImpl: SecurityScopedBookmarkStore {
     // barrier block execute. All blocks submitted after the barrier will not start
     // until the barrier has finished.
 
-
     // think async means you can add/remove loads of times at it'll return to the caller. If you then request a URL for one of the bookmarks, that'll block the queue.
     func add(bookmark: SecurityScopedBookmark) {
         queue.sync(flags: .barrier) {
+
+            createStorageDirectoryIfRequired()
+
+            try? URL.writeBookmarkData(bookmark.data, to: newStorageLocation.appendingPathComponent(bookmark.id.uuidString))
+
             self.bookmarks.append(bookmark)
             self.save()
+        }
+    }
+
+    private func createStorageDirectoryIfRequired() {
+        if fileManager.fileExists(atPath: newStorageLocation.relativePath) == false {
+            try? fileManager.createDirectory(at: newStorageLocation, withIntermediateDirectories: true, attributes: nil)
         }
     }
 
@@ -82,17 +99,38 @@ class SecurityScopedBookmarkStoreImpl: SecurityScopedBookmarkStore {
     func url(for id: UUID) -> URL? {
         var url: URL?
 
-
         queue.sync {
-            if let bookmark = bookmarks.first(where: { $0.id == id }) {
 
-                var isStale = false // TODO: What to do about this stale flag?
-                url = try? URL(resolvingBookmarkData: bookmark.data, bookmarkDataIsStale: &isStale)
-            }
+            let newUrl = newStorageLocation.appendingPathComponent(id.uuidString)
+            let data = try! URL.bookmarkData(withContentsOf: newUrl)
+            print("DATA: \(data)")
+            var isStale = false // TODO: What to do about this stale flag?
+            url = try? URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)
+            print("URL:\(url)")
+//            if let bookmark = bookmarks.first(where: { $0.id == id }) {
+//
+//                var isStale = false // TODO: What to do about this stale flag?
+//                url = try? URL(resolvingBookmarkData: bookmark.data, bookmarkDataIsStale: &isStale)
+//            }
         }
         return url
     }
-    
+
+    func cleanupStore(requiredIds: [UUID]) {
+        queue.sync {
+            let allBookmarksInStore = Set(bookmarks.map { $0.id })
+            let bookmarksToKeep = Set(requiredIds)
+            let bookmarksToDelete = allBookmarksInStore.subtracting(bookmarksToKeep)
+
+            for id in bookmarksToDelete {
+                self.bookmarks.removeAll(where: { $0.id == id })
+            }
+            save()
+        }
+    }
+
+    // MARK: - Private
+
     private func save() {
         let encoder = JSONEncoder()
         guard let data = try? encoder.encode(bookmarks) else { return }

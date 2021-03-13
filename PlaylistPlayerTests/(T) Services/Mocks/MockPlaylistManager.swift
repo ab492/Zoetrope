@@ -9,8 +9,15 @@ import Foundation
 @testable import PlaylistPlayer
 
 final class MockPlaylistManager: PlaylistManager {
+
+    var addObserverCallCount = 0
+    func addObserver(_ observer: PlaylistManagerObserver) {
+        addObserverCallCount += 1
+    }
+
+    var saveCallCount = 0
     func save() {
-        fatalError()
+        saveCallCount += 1
     }
 
     var playlists: [Playlist] = []
@@ -46,14 +53,8 @@ final class MockPlaylistManager: PlaylistManager {
 
     var observations = [ObjectIdentifier: WeakBox<PlaylistManagerObserver>]()
 
-    func addObserver(_ observer: PlaylistManagerObserver) {
-        fatalError()
-
-    }
-
     func removeObserver(_ observer: PlaylistManagerObserver) {
         fatalError()
-
     }
 
 }

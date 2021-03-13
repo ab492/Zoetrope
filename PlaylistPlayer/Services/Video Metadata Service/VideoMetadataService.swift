@@ -44,26 +44,25 @@ class VideoMetadataServiceImpl: VideoMetadataService {
         let filename = FileManager.default.displayName(atPath: securityScopedURL.path)
         let id = UUID()
 
-        // Try just bookmark operation and look at start time vs finish time. Then add in duration operation.
+        securityScopedURL.startAccessingSecurityScopedResource()
+        let video = Video(id: id, url: securityScopedURL, filename: filename, duration: durationCalculator.durationForAsset(at: securityScopedURL))
+        Current.thumbnailService.generateThumbnail(for: video)
 
-        let securityScopedBookmarkOperation = SecurityScopedBookmarkOperation(securityScopedBookmarkStore: securityScopedBookmarkStore,
-                                                                              id: id,
-                                                                              securityScopedURL: securityScopedURL)
-        let durationCalculatorOperation = DurationCalculatorOperation()
-        durationCalculatorOperation.addDependency(securityScopedBookmarkOperation)
+        securityScopedURL.stopAccessingSecurityScopedResource()
+        completion(video)
 
-        durationCalculatorOperation.onComplete = { [weak self] duration in
-            guard let self = self else { return }
 
-            let video = Video(id: id, filename: filename, duration: duration)
-            if let url = self.securityScopedBookmarkStore.url(for: id) {
-                Current.thumbnailService.generateThumbnail(for: video, at: url)
-            }
-            completion(video)
-        }
+//        let durationCalculatorOperation = DurationCalculatorOperation(url: securityScopedURL)
+//
+//        durationCalculatorOperation.onComplete = { [weak self] duration in
+//            guard let self = self else { return }
+//            let video = Video(id: id, url: securityScopedURL, filename: filename, duration: duration)
+//            Current.thumbnailService.generateThumbnail(for: video)
+//            completion(video)
+//        }
+//        operationQueue.addOperation(durationCalculatorOperation)
 
-        operationQueue.addOperation(securityScopedBookmarkOperation)
-        operationQueue.addOperation(durationCalculatorOperation)
+
     }
 
     func url(for video: Video) -> URL? {

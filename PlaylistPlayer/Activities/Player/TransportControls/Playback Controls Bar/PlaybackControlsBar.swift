@@ -19,7 +19,7 @@ struct PlaybackControlsBar: View {
                 return viewModel.loopMode
             },
             set: {
-                viewModel.setLoopMode(to: $0)
+                viewModel.loopMode = $0
             }
         )
 

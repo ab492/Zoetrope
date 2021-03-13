@@ -9,6 +9,11 @@ import UIKit
 @testable import PlaylistPlayer
 
 final class MockThumbnailService: ThumbnailService {
+    func generateThumbnail(for video: Video) {
+        fatalError("Not implemented yet")
+
+    }
+
     
     var processingThumbnails: [Video] = []
 
@@ -32,6 +37,7 @@ final class MockThumbnailService: ThumbnailService {
     var observations = [ObjectIdentifier: WeakBox<ThumbnailServiceObserver>]()
 
     func addObserver(_ observer: ThumbnailServiceObserver) {
+        
         fatalError("Not implemented yet")
     }
 

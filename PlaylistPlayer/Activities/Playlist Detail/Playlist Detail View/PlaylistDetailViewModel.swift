@@ -68,15 +68,11 @@ extension PlaylistDetailView {
             playlist.videos.move(fromOffsets: from, toOffset: to)
             Current.playlistManager.save()
         }
-        
-        var sortByTitleSortOrder: SortOrder {
-            get {
-                Current.userPreferencesManager.sortByTitleOrder
-            }
-            set {
+
+        var sortByTitleSortOrder: SortOrder = .descending {
+            didSet {
                 objectWillChange.send()
-                Current.userPreferencesManager.sortByTitleOrder = newValue
-                switch newValue {
+                switch sortByTitleSortOrder {
                 case .ascending:
                     playlist.videos = playlist.videos.sorted(by: \.filename, using: <)
                 case .descending:
@@ -86,14 +82,10 @@ extension PlaylistDetailView {
             }
         }
 
-        var sortByDurationSortOrder: SortOrder {
-            get {
-                Current.userPreferencesManager.sortByDurationOrder
-            }
-            set {
+        var sortByDurationSortOrder: SortOrder = .descending {
+            didSet {
                 objectWillChange.send()
-                Current.userPreferencesManager.sortByDurationOrder = newValue
-                switch newValue {
+                switch sortByDurationSortOrder {
                 case .ascending:
                     // TODO: Make time comparable
                     playlist.videos = playlist.videos.sorted(by: \.duration.seconds, using: <)

@@ -8,7 +8,7 @@
 import Foundation
 import AVFoundation
 
-enum LoopMode {
+enum LoopMode: Int {
     case loopCurrent
     case loopPlaylist
     case playPlaylistOnce

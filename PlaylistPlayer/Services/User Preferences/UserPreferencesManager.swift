@@ -19,6 +19,7 @@ enum SortOrder: Int {
 protocol UserPreferencesManager {
     var sortByTitleOrder: SortOrder { get set }
     var sortByDurationOrder: SortOrder { get set }
+    var loopMode: LoopMode { get set }
 }
 
 final class UserPreferencesManagerImpl: UserPreferencesManager {
@@ -28,6 +29,7 @@ final class UserPreferencesManagerImpl: UserPreferencesManager {
     struct Keys {
         static let sortByTitleOrder = "sortByTitleOrder"
         static let sortByDurationOrder = "sortByDurationOrder"
+        static let loopMode = "loopMode"
     }
 
     // MARK: - Properties
@@ -71,6 +73,21 @@ final class UserPreferencesManagerImpl: UserPreferencesManager {
         }
         set {
             userPreferences.set(newValue.rawValue, forKey: Keys.sortByDurationOrder)
+        }
+    }
+
+    var loopMode: LoopMode {
+        get {
+            if let loopModeRawValue = userPreferences.integer(forKey: Keys.loopMode),
+               let loopMode = LoopMode(rawValue: loopModeRawValue) {
+                // TODO: This is called a lot when the transport controls are showing - is this normal
+                return loopMode
+            } else {
+                return .playPlaylistOnce
+            }
+        }
+        set {
+            userPreferences.set(newValue.rawValue, forKey: Keys.loopMode)
         }
     }
 }

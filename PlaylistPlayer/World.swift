@@ -7,13 +7,13 @@
 
 import Foundation
 
-var Current = World(date: { Date() },
+var Current = World(dateTimeService: DateTimeServiceImpl(),
                     playlistManager: PlaylistManagerImpl(),
                     thumbnailService: ThumbnailServiceImpl(),
                     userPreferencesManager: UserPreferencesManagerImpl())
 
 struct World {
-    var date: () -> Date
+    var dateTimeService: DateTimeService
     var playlistManager: PlaylistManager
     var thumbnailService: ThumbnailService
     var userPreferencesManager: UserPreferencesManager

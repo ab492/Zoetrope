@@ -21,6 +21,7 @@ extension ThumbnailServiceObserver {
 protocol ThumbnailService {
     var processingThumbnails: [Video] { get }
     func generateThumbnail(for video: Video, at url: URL)
+    func generateThumbnail(for video: Video)
     func thumbnail(for video: Video) -> UIImage?
     func removeThumbnail(for video: Video)
     func cleanupStoreOfAllExcept(requiredVideos: [Video])
@@ -59,6 +60,34 @@ final class ThumbnailServiceImpl: ThumbnailService {
         thumbnailsDidUpdate()
 
         let generateThumbnailOperation = GenerateThumbnailOperation(url: url)
+
+        generateThumbnailOperation.onComplete = { [weak self] image in
+            guard let self = self else { return }
+
+            self.processingThumbnails.removeAll(where: { $0.id == video.id })
+            self.thumbnailsDidUpdate()
+
+            guard let thumbnail = image else { return }
+            let filename = UUID().uuidString
+
+            do {
+                try self.thumbnailStore.save(image: thumbnail, filename: filename)
+                video.thumbnailFilename = filename
+                if self.processingThumbnails.isEmpty {
+                    self.didFinishProcessingThumbnails()
+                }
+            } catch let error {
+                print("Unable to save image: \(error.localizedDescription)")
+            }
+        }
+        operationQueue.addOperation(generateThumbnailOperation)
+    }
+
+    func generateThumbnail(for video: Video) {
+        processingThumbnails.append(video)
+        thumbnailsDidUpdate()
+
+        let generateThumbnailOperation = GenerateThumbnailOperation(url: video.url)
 
         generateThumbnailOperation.onComplete = { [weak self] image in
             guard let self = self else { return }

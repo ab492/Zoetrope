@@ -88,7 +88,7 @@ class PlaylistManagerImpl: PlaylistManager {
                 guard let video = video else { return }
                 playlist.videos.append(video)
                 self.playlistManagerDidUpdate()
-                self.save()
+//                self.save()
             }
         }
     }
@@ -104,7 +104,8 @@ class PlaylistManagerImpl: PlaylistManager {
     }
 
     func mediaUrlsFor(playlist: Playlist) -> [URL] {
-        playlist.videos.compactMap { videoMetadataService.url(for: $0) }
+//        playlist.videos.compactMap { videoMetadataService.url(for: $0) }
+        playlist.videos.map { $0.url }
     }
 
     // MARK: - Private

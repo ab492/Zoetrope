@@ -13,6 +13,7 @@ final class VideoBuilder {
     private var b_filename: String = ""
     private var b_duration: Time = Time(seconds: 0)
     private var b_thumbnailFilename: String?
+    private var b_url = URL(string: "test_url")!
 
     @discardableResult func id(_ id: UUID) -> VideoBuilder {
         b_id = id
@@ -34,7 +35,12 @@ final class VideoBuilder {
         return self
     }
 
+    @discardableResult func url(_ url: URL) -> VideoBuilder {
+        b_url = url
+        return self
+    }
+
     func build() -> Video {
-        Video(id: b_id, filename: b_filename, duration: b_duration, thumbnailFilename: b_thumbnailFilename)
+        Video(id: b_id, url: b_url, filename: b_filename, duration: b_duration, thumbnailFilename: b_thumbnailFilename)
     }
 }

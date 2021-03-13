@@ -10,16 +10,15 @@ import SwiftUI
 
 class PlaylistPlayerViewModel: ObservableObject {
 
-    var player: PlaylistPlayerProtocol
+    // MARK: - Properties
 
-    // MARK: - Published
+    var player: PlaylistPlayerProtocol
 
     @Published private(set) var isPlaying = false
     @Published private(set) var isReadyForPlayback = false
     @Published private(set) var canPlayFastReverse = false
     @Published private(set) var canPlayFastForward = false
-    @Published private(set) var loopMode: LoopMode
-
+    
     @Published private(set) var currentTime: Time = .zero
     @Published private(set) var duration: Time = .zero
     @Published private(set) var formattedCurrentTime = "00:00"
@@ -27,16 +26,42 @@ class PlaylistPlayerViewModel: ObservableObject {
 
     // When the user skips between videos, the change of playback state (i.e. from
     // playing to loading) causes the play button to flicker between play-pause-play.
-    // To prevent this, we start a short timer on skip to provide a very small window
+    // To prevent this, we take a time stamp on skip to provide a very small window
     // where we don't respond to playback state updates.
-    private var isWithinPlaylistSkipCompletionTime = false
-    private var playlistSkipCompletionTimer: Timer?
+    private var playlistSkipTimestamp: Double?
 
-    init() {
-        self.player = PlaylistPlayer()
-        self.loopMode = player.loopMode
+    private var isWithinPlaylistSkipCompletionTime: Bool {
+        if let previousTimestamp = playlistSkipTimestamp {
+            return (Current.dateTimeService.absoluteTime - previousTimestamp >= 0.3) ? false : true
+        } else {
+            return false
+        }
+    }
+
+    var loopMode: LoopMode {
+        get {
+//            player.loopMode
+            Current.userPreferencesManager.loopMode
+        }
+        set {
+            objectWillChange.send()
+            player.loopMode = newValue
+            Current.userPreferencesManager.loopMode = newValue
+        }
+    }
+
+    // MARK: - Init
+
+    init(playlistPlayer: PlaylistPlayerProtocol) {
+        self.player = playlistPlayer
         self.player.observer = self
     }
+
+    convenience init() {
+        self.init(playlistPlayer: PlaylistPlayer())
+    }
+
+    // MARK: - Public
 
     func play() {
         player.play()
@@ -47,12 +72,12 @@ class PlaylistPlayerViewModel: ObservableObject {
     }
 
     func nextItem() {
-        invalidateAndRestartPlaylistSkipTimer()
+        playlistSkipTimestamp = Current.dateTimeService.absoluteTime
         player.playNext()
     }
 
     func previousItem() {
-        invalidateAndRestartPlaylistSkipTimer()
+        playlistSkipTimestamp = Current.dateTimeService.absoluteTime
         player.playPrevious()
     }
 
@@ -68,12 +93,6 @@ class PlaylistPlayerViewModel: ObservableObject {
 
     func seek(to time: Time) {
         player.seek(to: time)
-    }
-
-    func setLoopMode(to loopMode: LoopMode) {
-        // Here we need to keep model and view in sync - need to find a nicer way to do this.
-        player.loopMode = loopMode
-        self.loopMode = player.loopMode
     }
 
     func updateQueue(for playlist: Playlist) {
@@ -106,28 +125,6 @@ class PlaylistPlayerViewModel: ObservableObject {
     func playFastReverse() {
         player.playFastBackward()
     }
-
-    // MARK: - Private
-
-    private func invalidateAndRestartPlaylistSkipTimer() {
-        playlistSkipCompletionTimer?.invalidate()
-        playlistSkipCompletionTimer = nil
-
-        isWithinPlaylistSkipCompletionTime = true
-        playlistSkipCompletionTimer = Timer.scheduledTimer(timeInterval: 0.5,
-                                                         target: self,
-                                                         selector: #selector(playlistSkipTimerComplete),
-                                                         userInfo: nil,
-                                                         repeats: false)
-    }
-
-    @objc private func playlistSkipTimerComplete() {
-        isWithinPlaylistSkipCompletionTime = false
-        playlistSkipCompletionTimer?.invalidate()
-        playlistSkipCompletionTimer = nil
-    }
-
-
 }
 
 // MARK: - PlaylistPlayerObserver
@@ -139,18 +136,23 @@ extension PlaylistPlayerViewModel: PlaylistPlayerObserver {
         case .readyToPlay:
             duration = player.currentItemDuration
             formattedDuration = TimeFormatter.string(from: Int(player.currentItemDuration.seconds))
+            isReadyForPlayback = true
 
             // Don't update playback state if we're in the small window after the user has skipped in the playlist.
-            if isWithinPlaylistSkipCompletionTime == false {
-                isReadyForPlayback = true
-            }
+//            if isWithinPlaylistSkipCompletionTime == false {
+//                isReadyForPlayback = true
+//            }
 
-        case .failed, .unknown:
+        case .failed:
+            isReadyForPlayback = false
 
-            // Don't update playback state if we're in the small window after the user has skipped in the playlist.
-            if isWithinPlaylistSkipCompletionTime == false {
-                isReadyForPlayback = false
-            }
+        case .unknown:
+            isReadyForPlayback = false
+
+//            // Don't update playback state if we're in the small window after the user has skipped in the playlist.
+//            if isWithinPlaylistSkipCompletionTime == false {
+//                isReadyForPlayback = false
+//            }
         }
     }
 
@@ -173,11 +175,13 @@ extension PlaylistPlayerViewModel: PlaylistPlayerObserver {
 
     func mediaFastForwardAbilityDidChange(to newStatus: Bool) {
         guard isWithinPlaylistSkipCompletionTime == false else { return }
+
         canPlayFastForward = newStatus
     }
 
     func mediaFastReverseAbilityDidChange(to newStatus: Bool) {
         guard isWithinPlaylistSkipCompletionTime == false else { return }
+
         canPlayFastReverse = newStatus
     }
 }

@@ -13,21 +13,28 @@ class BaseTestCase: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        // TODO: Remove the production `userPreferencesManager` from here and control the date.
-        Current = World(date: { Date() },
-                         playlistManager: MockPlaylistManager(),
-                         thumbnailService: MockThumbnailService(),
-                         userPreferencesManager: UserPreferencesManagerImpl())
+        Current = World(dateTimeService: MockDateTimeService(),
+                        playlistManager: MockPlaylistManager(),
+                        thumbnailService: MockThumbnailService(),
+                        userPreferencesManager: MockUserPreferencesManager())
 
     }
 }
 
-// extension World {
-//    var mockSecurityScopedBookmarkStore: MockSecurityScopedBookmarkStore {
-//        self.securityScopedBookmarkStore as! MockSecurityScopedBookmarkStore
-//    }
-//
-//    var mockThumbnailService: MockThumbnailService {
-//        self.thumbnailService as! MockThumbnailService
-//    }
-// }
+ extension World {
+    var mockDateTimeService: MockDateTimeService {
+        self.dateTimeService as! MockDateTimeService
+    }
+
+    var mockPlaylistManager: MockPlaylistManager {
+        self.playlistManager as! MockPlaylistManager
+    }
+
+    var mockThumbnailService: MockThumbnailService {
+        self.thumbnailService as! MockThumbnailService
+    }
+
+    var mockUserPreferencesManager: MockUserPreferencesManager {
+        self.userPreferencesManager as! MockUserPreferencesManager
+    }
+ }
