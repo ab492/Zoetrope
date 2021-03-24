@@ -15,6 +15,7 @@ final class Video: Identifiable, Codable {
     let filename: String
     let duration: Time
     var thumbnailFilename: String?
+    private var unorderedBookmarks: [Bookmark] //The master list of bookmarks. Exposed via `bookmarks`.
 
     var url: URL
     private var bookmarkData: Data?
@@ -28,9 +29,16 @@ final class Video: Identifiable, Codable {
         self.duration = duration
         self.thumbnailFilename = thumbnailFilename
         self.url = url
-
+        self.unorderedBookmarks = [Bookmark]()
+        
         isSecurityScoped = url.startAccessingSecurityScopedResource()
         self.bookmarkData = try? url.bookmarkData(options: .suitableForBookmarkFile, includingResourceValuesForKeys: nil, relativeTo: nil)
+    }
+
+    // MARK: - Public
+
+    func addBookmark(_ bookmark: Bookmark) {
+        unorderedBookmarks.append(bookmark)
     }
 
     // MARK: - Codable
@@ -42,6 +50,7 @@ final class Video: Identifiable, Codable {
         case thumbnailFilename
         case url
         case bookmarkData
+        case bookmarks
     }
 
     init(from decoder: Decoder) throws {
@@ -49,6 +58,7 @@ final class Video: Identifiable, Codable {
         id = try values.decode(UUID.self, forKey: .id)
         filename = try values.decode(String.self, forKey: .filename)
         duration = try values.decode(Time.self, forKey: .duration)
+        unorderedBookmarks = try values.decode([Bookmark].self, forKey: .bookmarks)
         thumbnailFilename = try? values.decode(String.self, forKey: .thumbnailFilename)
 
         var isStale = false
@@ -61,15 +71,6 @@ final class Video: Identifiable, Codable {
         } else {
             url = try values.decode(URL.self, forKey: .url)
         }
-
-
-//        url = try URL(resolvingBookmarkData: bookmarkData!, options: .withoutUI, relativeTo: nil, bookmarkDataIsStale: &isStale)
-//        url.startAccessingSecurityScopedResource()
-//
-//
-//        url = try values.decode(URL.self, forKey: .url)
-//        print("URL: \(url)")
-
     }
 
     enum VideoError: Error {
@@ -77,19 +78,18 @@ final class Video: Identifiable, Codable {
     }
 
     func encode(to encoder: Encoder) throws {
-        print("ENCODE START")
-
         var container = encoder.container(keyedBy: CodingKeys.self)
+
         try container.encode(id, forKey: .id)
         try container.encode(filename, forKey: .filename)
         try container.encode(duration, forKey: .duration)
         try container.encode(thumbnailFilename, forKey: .thumbnailFilename)
         try container.encode(url, forKey: .url)
+        try container.encode(unorderedBookmarks, forKey: .bookmarks)
 
-//        url.startAccessingSecurityScopedResource()
-        bookmarkData = try url.bookmarkData(options: .suitableForBookmarkFile, includingResourceValuesForKeys: nil, relativeTo: nil)
+        bookmarkData = try url.bookmarkData(options: .suitableForBookmarkFile,
+                                            includingResourceValuesForKeys: nil, relativeTo: nil)
         try container.encode(bookmarkData, forKey: .bookmarkData)
-        print("ENCODE SUCCESS?")
     }
 
     deinit {
@@ -98,7 +98,17 @@ final class Video: Identifiable, Codable {
 }
 
 extension Video: Equatable {
+    // TODO: Update this equatable conformance!!
     static func == (lhs: Video, rhs: Video) -> Bool {
         lhs.id == rhs.id && lhs.filename == rhs.filename && lhs.thumbnailFilename == rhs.thumbnailFilename
+    }
+}
+
+// MARK: - Helpers
+
+extension Video {
+    var bookmarks: [Bookmark] {
+        let sortedBookmarks = unorderedBookmarks.sorted(by: \.timeIn, using: <)
+        return sortedBookmarks
     }
 }

@@ -22,32 +22,18 @@ final class UserPreferencesManagerTests: XCTestCase {
 
     // MARK: - Tests
 
-    func test_settingSortByDurationOrder_addsValueToPreferences() {
+    func test_settingLoopMode_addsValueToPreferences() {
         let sut = makeSUT()
 
-        sut.sortByDurationOrder = .descending
+        sut.loopMode = .loopCurrent
 
-        XCTAssertEqual(mockUserPreferences.integer(forKey: "sortByDurationOrder"), SortOrder.descending.rawValue)
+        XCTAssertEqual(mockUserPreferences.integer(forKey: "loopMode"), LoopMode.loopCurrent.rawValue)
     }
 
-    func test_sortByDurationOrder_defaultsToAscending() {
+    func test_loopMode_defaultsToPlayPlaylistOnce() {
         let sut = makeSUT()
 
-        XCTAssertEqual(sut.sortByDurationOrder, .descending)
-    }
-
-    func test_settingSortByTitleOrder_addsValueToPreferences() {
-        let sut = makeSUT()
-
-        sut.sortByTitleOrder = .descending
-
-        XCTAssertEqual(mockUserPreferences.integer(forKey: "sortByTitleOrder"), SortOrder.descending.rawValue)
-    }
-
-    func test_sortByTitleOrder_defaultsToAscending() {
-        let sut = makeSUT()
-
-        XCTAssertEqual(sut.sortByTitleOrder, .descending)
+        XCTAssertEqual(sut.loopMode, .playPlaylistOnce)
     }
 
     // MARK: - Helpers

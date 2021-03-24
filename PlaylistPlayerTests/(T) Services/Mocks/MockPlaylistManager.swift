@@ -22,6 +22,11 @@ final class MockPlaylistManager: PlaylistManager {
 
     var playlists: [Playlist] = []
 
+    var mediaUrlsToReturn: [URL]?
+    func mediaUrlsFor(playlist: Playlist) -> [URL] {
+        mediaUrlsToReturn ?? []
+    }
+
     func addPlaylist(_ playlist: Playlist) {
         fatalError()
     }
@@ -42,11 +47,6 @@ final class MockPlaylistManager: PlaylistManager {
     }
 
     func deleteItems(fromPlaylist playlist: Playlist, at offsets: IndexSet) {
-        fatalError()
-
-    }
-
-    func mediaUrlsFor(playlist: Playlist) -> [URL] {
         fatalError()
 
     }

@@ -8,6 +8,8 @@
 import Foundation
 
 struct PlayerIcons {
+
+    // Playback
     static let play = "play.fill"
     static let pause = "pause.fill"
     static let fastReverse = "backward.fill"
@@ -20,4 +22,8 @@ struct PlayerIcons {
     static let loopCurrent = "repeat.1"
     static let close = "xmark"
     static let showPlayerToolbar = "ellipsis.circle"
+
+    // Player Options
+    static let annotate = "scribble"
+    static let bookmarks = "bookmark.fill"
 }

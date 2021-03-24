@@ -29,7 +29,7 @@ struct PlaylistDetailView: View {
         UITableView.appearance().backgroundColor = .clear
         UITableViewCell.appearance().backgroundColor = .clear
         UIToolbar.appearance().barTintColor = .secondarySystemBackground
-
+        
         _playlistDetailViewModel = StateObject(wrappedValue: ViewModel(playlist: playlist))
     }
 
@@ -37,6 +37,8 @@ struct PlaylistDetailView: View {
 
     var body: some View {
         ZStack {
+//            Colors.darkGrey.edgesIgnoringSafeArea(.all)
+//            Color.blue.edgesIgnoringSafeArea(.all)
             if playlistDetailViewModel.playlistIsEmpty {
                 EmptyContentView(text: "Add videos to get started")
             } else {

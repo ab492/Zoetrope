@@ -22,9 +22,13 @@ struct ContentView: View {
                 .navigationTitle("Playlists")
 
             // Secondary view (when nothing selected from primary)
-            Text(secondaryText)
-                .italic()
-                .foregroundColor(.secondary)
+            ZStack {
+                Color.black.edgesIgnoringSafeArea(.all)
+                Text(secondaryText)
+                    .italic()
+                    .foregroundColor(.secondary)
+            }
+
         }
     }
     

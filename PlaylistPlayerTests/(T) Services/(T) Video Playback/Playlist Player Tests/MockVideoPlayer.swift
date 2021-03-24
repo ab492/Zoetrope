@@ -22,8 +22,10 @@ final class MockVideoPlayer: VideoPlayerProtocol {
     }
 
     var seekToTimeCalledCount = 0
+    var lastSeekedToTime: MediaTime?
     func seek(to time: MediaTime) {
         seekToTimeCalledCount += 1
+        lastSeekedToTime = time
     }
 
     var lastReplacedItem: AVPlayerItem?
@@ -35,9 +37,9 @@ final class MockVideoPlayer: VideoPlayerProtocol {
 
     var playbackRate: Float = 0
 
-    var duration: Time = .zero
+    var duration: MediaTime = .zero
 
-    var currentTime: Time = .zero
+    var currentTime: MediaTime = .zero
 
     var status: ItemStatus = .readyToPlay
 

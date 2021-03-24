@@ -75,6 +75,21 @@ class PlaylistPlayerIntegrationTests: XCTestCase {
         XCTAssertEqual(spyAvPlayer.currentItem, testItems[3])
     }
 
+    // MARK: - Seeking
+
+    func test_seekToTime_correctlyMapsToCmTimeOnAvPlayer() {
+        let testItems = makeAvPlayerItems(number: 5)
+        let playlistPlayer = makeSUT(withItems: testItems)
+        let expectedCmTime = CMTime(seconds: 1.765343, preferredTimescale: 6000)
+
+        playlistPlayer.seek(to: MediaTime(seconds: 1.765343, preferredTimescale: 6000))
+
+        XCTAssertEqual(spyAvPlayer.lastSeek?.time, expectedCmTime)
+        XCTAssertEqual(spyAvPlayer.lastSeek?.toleranceBefore, .zero)
+        XCTAssertEqual(spyAvPlayer.lastSeek?.toleranceAfter, .zero)
+    }
+
+
 //    func test_playItemDidEndNotification_addsNextItemToTheQueue() {
 //        let testItems = makeAvPlayerItems(number: 5)
 //        let playlistPlayer = makeSUT(withItems: testItems)
@@ -113,15 +128,7 @@ class PlaylistPlayerIntegrationTests: XCTestCase {
 // MARK: - Helpers
 
 extension PlaylistPlayerIntegrationTests {
-//    @discardableResult private func makeSUT() -> PlaylistPlayer {
-//        makeSUT(withItems: 3)
-//    }
-//
-//    @discardableResult private func makeSUT(withItems number: Int) -> PlaylistPlayer {
-//        let items = testItems(number: number)
-//        return PlaylistPlayer(items: items, videoPlayer: mockVideoPlayer)
-//    }
-//
+
     @discardableResult private func makeSUT(withItems items: [AVPlayerItem]) -> PlaylistPlayer {
         // Create a `WrappedAVQueuePlayer` but inject the `SpyAVPlayer` so we can observe.
         let player = WrappedAVPlayer(player: spyAvPlayer)

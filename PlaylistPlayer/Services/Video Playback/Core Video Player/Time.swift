@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Time: Codable {
+struct Time: Equatable {
 
     private let timeInSeconds: Double
 
@@ -21,6 +21,20 @@ struct Time: Codable {
         return timeInSeconds
     }
 }
+
+// MARK: - Comparable
+
+extension Time: Comparable {
+    static func < (lhs: Time, rhs: Time) -> Bool {
+        lhs.seconds < rhs.seconds
+    }
+}
+
+// MARK: - Codable
+
+extension Time: Codable { }
+
+// MARK: - Static Constants
 
 extension Time {
     static let zero = Time(seconds: 0)

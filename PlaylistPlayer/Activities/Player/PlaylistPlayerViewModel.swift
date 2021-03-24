@@ -8,7 +8,41 @@
 import AVFoundation
 import SwiftUI
 
-class PlaylistPlayerViewModel: ObservableObject {
+protocol PlaylistPlayerViewModelProtocol {
+
+    var player: PlaylistPlayerProtocol { get } // Not sure about this one
+
+    var isPlaying: Bool { get }
+    var isReadyForPlayback: Bool { get }
+    var canPlayFastReverse: Bool { get }
+    var canPlayFastForward: Bool { get }
+
+    var currentTime: MediaTime { get }
+    var duration: MediaTime { get }
+    var formattedCurrentTime: String { get }
+    var formattedDuration: String { get }
+
+    var currentlyPlayingVideo: Video? { get }
+    var videoTitle: String { get }
+    var loopMode: LoopMode { get }
+
+    func play()
+    func pause()
+    func nextItem()
+    func previousItem()
+    func skipToItem(at index: Int)
+    func step(byFrames frames: Int)
+    func seek(to time: MediaTime)
+    func updateQueue(for playlist: Playlist)
+    func scrubbingDidStart()
+    func scrubbingDidEnd()
+    func scrubbed(to time: MediaTime)
+    func playFastForward()
+    func playFastReverse()
+}
+
+
+class PlaylistPlayerViewModel: PlaylistPlayerViewModelProtocol, ObservableObject {
 
     // MARK: - Properties
 
@@ -19,10 +53,21 @@ class PlaylistPlayerViewModel: ObservableObject {
     @Published private(set) var canPlayFastReverse = false
     @Published private(set) var canPlayFastForward = false
     
-    @Published private(set) var currentTime: Time = .zero
-    @Published private(set) var duration: Time = .zero
+    @Published private(set) var currentTime: MediaTime = .zero
+    @Published private(set) var duration: MediaTime = .zero
     @Published private(set) var formattedCurrentTime = "00:00"
     @Published private(set) var formattedDuration = "00:00"
+
+    private var playlist: Playlist?
+
+    // TODO: Test this
+    var currentlyPlayingVideo: Video? {
+        playlist?.videos[player.nowPlayingIndex]
+    }
+
+    var videoTitle: String {
+        currentlyPlayingVideo?.filename ?? ""
+    }
 
     // When the user skips between videos, the change of playback state (i.e. from
     // playing to loading) causes the play button to flicker between play-pause-play.
@@ -40,8 +85,7 @@ class PlaylistPlayerViewModel: ObservableObject {
 
     var loopMode: LoopMode {
         get {
-//            player.loopMode
-            Current.userPreferencesManager.loopMode
+            player.loopMode
         }
         set {
             objectWillChange.send()
@@ -54,6 +98,7 @@ class PlaylistPlayerViewModel: ObservableObject {
 
     init(playlistPlayer: PlaylistPlayerProtocol) {
         self.player = playlistPlayer
+        self.loopMode = Current.userPreferencesManager.loopMode
         self.player.observer = self
     }
 
@@ -91,11 +136,12 @@ class PlaylistPlayerViewModel: ObservableObject {
 
     // MARK: - WIP - NEED TO TEST
 
-    func seek(to time: Time) {
+    func seek(to time: MediaTime) {
         player.seek(to: time)
     }
 
     func updateQueue(for playlist: Playlist) {
+        self.playlist = playlist
         let urls = Current.playlistManager.mediaUrlsFor(playlist: playlist)
         let items = urls.map { AVURLAsset(url: $0, options: [AVURLAssetPreferPreciseDurationAndTimingKey: true]) }
         let playerItems = items.map { AVPlayerItem(asset: $0) }
@@ -112,8 +158,8 @@ class PlaylistPlayerViewModel: ObservableObject {
         player.scrubbingDidEnd()
     }
 
-    func scrubbed(to time: Time) {
-        player.scrubbed(to: MediaTime(seconds: time.seconds))
+    func scrubbed(to time: MediaTime) {
+        player.scrubbed(to: time)
     }
 
     // MARK: - Playback Rate
@@ -138,21 +184,8 @@ extension PlaylistPlayerViewModel: PlaylistPlayerObserver {
             formattedDuration = TimeFormatter.string(from: Int(player.currentItemDuration.seconds))
             isReadyForPlayback = true
 
-            // Don't update playback state if we're in the small window after the user has skipped in the playlist.
-//            if isWithinPlaylistSkipCompletionTime == false {
-//                isReadyForPlayback = true
-//            }
-
-        case .failed:
+        case .failed, .unknown:
             isReadyForPlayback = false
-
-        case .unknown:
-            isReadyForPlayback = false
-
-//            // Don't update playback state if we're in the small window after the user has skipped in the playlist.
-//            if isWithinPlaylistSkipCompletionTime == false {
-//                isReadyForPlayback = false
-//            }
         }
     }
 
@@ -168,7 +201,7 @@ extension PlaylistPlayerViewModel: PlaylistPlayerObserver {
         }
     }
 
-    func playbackPositionDidChange(to time: Time) {
+    func playbackPositionDidChange(to time: MediaTime) {
         formattedCurrentTime = TimeFormatter.string(from: Int(time.seconds))
         currentTime = time
     }

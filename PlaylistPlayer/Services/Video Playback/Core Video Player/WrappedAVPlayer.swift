@@ -14,8 +14,8 @@ protocol VideoPlayerProtocol {
 
     // Player Information
     var playbackRate: Float { get set }
-    var duration: Time { get }
-    var currentTime: Time { get }
+    var duration: MediaTime { get }
+    var currentTime: MediaTime { get }
     var status: ItemStatus { get }
     var volume: Float { get set }
     var playbackState: PlaybackState { get }
@@ -232,21 +232,20 @@ extension WrappedAVPlayer {
         set { player.rate = newValue }
     }
 
-    var duration: Time {
+    var duration: MediaTime {
         // The duration be reported as indefinite (NAN) until the duration of the asset has
         // been loaded, so we need to fallback to zero if indefinite.
         let duration = player.currentItem?.duration ?? CMTime(seconds: 0, preferredTimescale: .zero)
-        var seconds: Double
+        var mediaTime: MediaTime
 
         if duration.seconds.isNaN {
-            seconds = 0
+            mediaTime = .zero
         } else if duration.seconds.isInfinite {
-            seconds = 0
+            mediaTime = .zero
         } else {
-            seconds = CMTimeGetSeconds(duration)
+            mediaTime = MediaTime(time: duration)
         }
-
-        return Time(seconds: seconds)
+        return mediaTime
     }
 
     var actionAtItemEnd: AVPlayer.ActionAtItemEnd {
@@ -254,22 +253,20 @@ extension WrappedAVPlayer {
         set { player.actionAtItemEnd = newValue }
     }
 
-    var currentTime: Time {
+    var currentTime: MediaTime {
         // The duration be reported as indefinite (NAN) until the duration of the asset has
         // been loaded, so we need to fallback to zero if indefinite.
         let currentTime = player.currentItem?.currentTime() ?? CMTime(seconds: 0, preferredTimescale: .zero)
-
-        var seconds: Double
+        var mediaTime: MediaTime
 
         if currentTime.seconds.isNaN {
-            seconds = 0
+            mediaTime = .zero
         } else if currentTime.seconds.isInfinite {
-            seconds = 0
+            mediaTime = .zero
         } else {
-            seconds = CMTimeGetSeconds(currentTime)
+            mediaTime = MediaTime(time: currentTime)
         }
-
-        return Time(seconds: seconds)
+        return mediaTime
     }
 
     var playbackState: PlaybackState {
@@ -320,7 +317,10 @@ extension WrappedAVPlayer {
 
     /// The seek tolerance is at its most accurate.
     func seek(to time: MediaTime) {
-        player.seek(to: CMTime(seconds: time.seconds, preferredTimescale: time.preferredTimescale),
+        let cmTime = CMTime(seconds: time.seconds, preferredTimescale: time.preferredTimescale)
+//        print("SEEKING TO TIME: \(cmTime.seconds)")
+
+        player.seek(to: cmTime,
                     toleranceBefore: .zero,
                     toleranceAfter: .zero)
     }

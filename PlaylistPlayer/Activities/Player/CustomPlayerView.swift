@@ -6,32 +6,49 @@
 //
 
 import SwiftUI
+import PencilKit
 
 struct CustomPlayerView: View {
 
     @StateObject var viewModel: PlaylistPlayerViewModel
-    @State private var showTransportControls = false
+    @State private var showTransportControls = true
+
+    @State private var showViewerOptions = false
+
+    @State private var isInDrawingMode = false
+    @State private var drawing = PKCanvasView()
+
+    @State private var isShowingBookmarkPanel = false
+
 
     var body: some View {
         ZStack {
             videoPlaybackView.zIndex(0)
-            transportControls.zIndex(1)
+            if isInDrawingMode { drawingView.zIndex(1) }
+            transportControls.zIndex(2)
+            viewerOptions.zIndex(2)
         }
         .ignoresSafeArea(edges: .top)
         .onAppear { viewModel.play() }
         .onDisappear { viewModel.pause() }
     }
 
-//    private var controlsBar: some View {
-//        HStack(spacing: 0) {
-//            Text("Button")
-//        }
-//        .padding()
-//        .background(VisualEffectView(effect: UIBlurEffect(style: .systemMaterialDark)))
-//        .cornerRadius(10)
-//        .frame(height: 600)
-//        .offset(y: -10)
-//    }
+    private var controlsBar: some View {
+        VStack(spacing: 10) {
+            ViewerOptionsButton(systemImage: PlayerIcons.annotate, isSelected: $isInDrawingMode)
+            ViewerOptionsButton(systemImage: PlayerIcons.bookmarks, isSelected: $isShowingBookmarkPanel)
+//                .popover(isPresented: $isShowingBookmarkPanel,
+//                         attachmentAnchor: .point(UnitPoint.center),
+//                         arrowEdge: .trailing, content: {
+//                            BookmarkEditorView(playlistPlayer: viewModel)
+//                })
+        }
+        .padding()
+        .frame(height: 300)
+        .background(VisualEffectView(effect: UIBlurEffect(style: .systemMaterialDark)))
+        .cornerRadius(10)
+        .offset(x: -10)
+    }
 
     private var videoPlaybackView: some View {
         CustomPlayerLayer(viewModel: viewModel)
@@ -44,8 +61,35 @@ struct CustomPlayerView: View {
             }
     }
 
+    private var drawingView: some View {
+        DrawingView(canvasView: $drawing)
+    }
+
     @ViewBuilder
     private var transportControls: some View {
-        if showTransportControls { TransportControls(viewModel: viewModel) }
+        if showTransportControls { TransportControls(playerOptionsIsSelected: $showViewerOptions, viewModel: viewModel) }
+    }
+
+    @ViewBuilder
+    private var viewerOptions: some View {
+        if showTransportControls && showViewerOptions  {
+            HStack {
+                Spacer()
+                bookmarkPanel
+                controlsBar // Push controls to right hand side
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var bookmarkPanel: some View {
+        if showTransportControls && showViewerOptions && isShowingBookmarkPanel {
+            BookmarkEditorView(playlistPlayer: viewModel)
+                .padding()
+                .frame(width: 300)
+                .background(VisualEffectView(effect: UIBlurEffect(style: .systemMaterialDark)))
+                .cornerRadius(10)
+                .offset(x: -10)
+        }
     }
 }

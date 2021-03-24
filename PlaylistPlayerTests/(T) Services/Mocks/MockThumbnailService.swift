@@ -37,8 +37,7 @@ final class MockThumbnailService: ThumbnailService {
     var observations = [ObjectIdentifier: WeakBox<ThumbnailServiceObserver>]()
 
     func addObserver(_ observer: ThumbnailServiceObserver) {
-        
-        fatalError("Not implemented yet")
+        // TODO: What to do here?!
     }
 
     func removeObserver(_ observer: ThumbnailServiceObserver) {

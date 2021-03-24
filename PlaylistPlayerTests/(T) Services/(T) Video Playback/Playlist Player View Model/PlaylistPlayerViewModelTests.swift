@@ -44,9 +44,39 @@ class PlaylistPlayerViewModelTests: BaseTestCase {
         XCTAssertEqual(Current.mockUserPreferencesManager.lastUpdatedLoopMode, .loopCurrent)
     }
 
+    // MARK: - Video Title
 
-    
+    func test_videoTitle_isReportedCorrectly() {
+        // Given we have 2 videos queued
+        let video1 = VideoBuilder().filename("Test Filename 1").build()
+        let video2 = VideoBuilder().filename("Test Filename 2").build()
+        let sut = makeSUT_andQueueVideos([video1, video2])
+
+        // When the player is on the second video
+        mockPlaylistPlayer.nowPlayingIndex = 1
+
+        // The video title is correct
+        XCTAssertEqual(sut.videoTitle, "Test Filename 2")
+    }
+
+    func test_whenNoPlaylistHasBeenQueued_titleIsReportedAsEmptyString() {
+        let sut = makeSUT()
+
+        XCTAssertEqual(sut.videoTitle, "")
+    }
+
+    // MARK: - Helpers
+
     func makeSUT() -> PlaylistPlayerViewModel {
         PlaylistPlayerViewModel(playlistPlayer: mockPlaylistPlayer)
+    }
+
+    func makeSUT_andQueueVideos(_ videos: [Video]) -> PlaylistPlayerViewModel {
+        let playlist = PlaylistBuilder().videos(videos).build()
+
+        let sut = makeSUT()
+        sut.updateQueue(for: playlist)
+
+        return sut
     }
 }

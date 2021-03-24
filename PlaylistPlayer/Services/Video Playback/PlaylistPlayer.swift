@@ -21,7 +21,7 @@ protocol PlaylistPlayerProtocol {
     func playPrevious()
     func skipToItem(at index: Int)
     func step(byFrames count: Int)
-    func seek(to time: Time)
+    func seek(to time: MediaTime)
     func replaceQueue(with items: [AVPlayerItem])
     func scrubbingDidStart()
     func scrubbed(to time: MediaTime)
@@ -29,8 +29,9 @@ protocol PlaylistPlayerProtocol {
     func playFastForward()
     func playFastBackward()
 
+    var nowPlayingIndex: Int { get }
     var loopMode: LoopMode { get set }
-    var currentItemDuration: Time { get }
+    var currentItemDuration: MediaTime { get }
     var volume: Float { get set }
 
     var observer: PlaylistPlayerObserver? { get set }
@@ -39,7 +40,7 @@ protocol PlaylistPlayerProtocol {
 protocol PlaylistPlayerObserver: class {
     func playbackItemStatusDidChange(to status: ItemStatus)
     func playbackStateDidChange(to playbackState: PlaybackState)
-    func playbackPositionDidChange(to time: Time)
+    func playbackPositionDidChange(to time: MediaTime)
     func mediaFastForwardAbilityDidChange(to newStatus: Bool)
     func mediaFastReverseAbilityDidChange(to newStatus: Bool)
     func mediaReverseAbilityDidChange(to newStatus: Bool)
@@ -74,7 +75,7 @@ final class PlaylistPlayer: PlaylistPlayerProtocol {
         set { player.volume = newValue }
     }
 
-    var currentItemDuration: Time {
+    var currentItemDuration: MediaTime {
         player.duration
     }
 
@@ -168,8 +169,8 @@ extension PlaylistPlayer {
         player.step(byFrames: count)
     }
 
-    func seek(to time: Time) {
-        player.seek(to: MediaTime(seconds: time.seconds))
+    func seek(to time: MediaTime) {
+        player.seek(to: time)
     }
 
     func replaceQueue(with items: [AVPlayerItem]) {
@@ -268,7 +269,7 @@ extension PlaylistPlayer: VideoPlayerObserver {
     func playbackPositionDidChange(to time: MediaTime) {
         // We don't want position events firing while the user is scrubbing. TEST THIS
         guard isScrubbing == false else { return }
-        observer?.playbackPositionDidChange(to: Time(seconds: time.seconds))
+        observer?.playbackPositionDidChange(to: time)
     }
 
     func mediaFastForwardAbilityDidChange(to newStatus: Bool) {

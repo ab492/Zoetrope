@@ -252,6 +252,17 @@ final class PlaylistPlayerTests: XCTestCase {
         XCTAssertEqual(sut.nowPlayingIndex, 0)
     }
 
+    // MARK: - Seeking
+
+    func test_seekingCorrectlyPreservesMediaTime() {
+        let sut = makeSUT(withItems: 1)
+
+        sut.seek(to: MediaTime(seconds: 1.7653))
+
+        XCTAssertEqual(mockVideoPlayer.lastSeekedToTime, MediaTime(seconds: 1.7653))
+    }
+
+
     // MARK: - Empty Playlist Behavior
 
     func test_callingPlayOnEmptyPlaylist_doesNothing() {

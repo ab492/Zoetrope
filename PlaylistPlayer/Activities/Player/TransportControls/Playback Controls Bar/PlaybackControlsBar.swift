@@ -8,6 +8,7 @@ import SwiftUI
 
 struct PlaybackControlsBar: View {
 
+    @Binding var playerOptionsIsSelected: Bool
     @StateObject var viewModel: PlaylistPlayerViewModel
 
     // MARK: - View
@@ -28,7 +29,7 @@ struct PlaybackControlsBar: View {
             Spacer()
             corePlaybackControls
             Spacer()
-            EllipsisButton()
+            PlayerSecondaryButton(systemImage: PlayerIcons.showPlayerToolbar, isSelected: $playerOptionsIsSelected)
         }
     }
 

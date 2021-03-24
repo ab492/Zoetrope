@@ -7,14 +7,15 @@
 
 import SwiftUI
 
-struct EllipsisButton: View {
-    @State var isSelected = false
-
+struct PlayerSecondaryButton: View {
+    var systemImage: String
+    @Binding var isSelected: Bool
+    
     var body: some View {
         Button {
             isSelected.toggle()
         } label: {
-            Image(systemName: PlayerIcons.showPlayerToolbar)
+            Image(systemName: systemImage)
         }
         .buttonStyle(SecondaryPlayerControlsButtonStyle(isSelected: isSelected))
     }

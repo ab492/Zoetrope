@@ -18,7 +18,7 @@ struct TimeControlsBar: View {
                 return CGFloat(viewModel.currentTime.seconds)
             },
             set: {
-                viewModel.scrubbed(to: Time(seconds: Double($0)))
+                viewModel.scrubbed(to: MediaTime(seconds: Double($0)))
             }
         )
 

@@ -10,9 +10,14 @@ import AVFoundation
 class SpyAVPlayer: AVPlayer {
 
     var replaceCurrentItemCallCount = 0
-
     override func replaceCurrentItem(with item: AVPlayerItem?) {
-        super.replaceCurrentItem(with: item)
         replaceCurrentItemCallCount += 1
+        super.replaceCurrentItem(with: item)
+    }
+
+    var lastSeek: (time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime)?
+    override func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime) {
+        lastSeek = (time, toleranceBefore, toleranceAfter)
+        super.seek(to: time, toleranceBefore: toleranceBefore, toleranceAfter: toleranceAfter)
     }
 }

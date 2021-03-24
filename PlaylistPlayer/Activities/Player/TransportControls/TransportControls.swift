@@ -12,34 +12,43 @@ struct TransportControls: View {
 
     // MARK: - State
 
+    @Binding var playerOptionsIsSelected: Bool
     @StateObject var viewModel: PlaylistPlayerViewModel
     @Environment(\.presentationMode) var presentationMode
+
 
     // MARK: - View
 
     var body: some View {
         VStack {
-            HStack {
-                closeButton
-                Spacer()
-            }
+            topBar
+                .offset(y: 25)
             Spacer()
             playbackControls
-
         }
     }
 
     private var playbackControls: some View {
         VStack(spacing: 0) {
             TimeControlsBar(viewModel: viewModel)
-            PlaybackControlsBar(viewModel: viewModel)
+            PlaybackControlsBar(playerOptionsIsSelected: $playerOptionsIsSelected, viewModel: viewModel)
         }
         .padding()
+        .frame(width: 600)
         .background(VisualEffectView(effect: UIBlurEffect(style: .systemMaterialDark)))
         .cornerRadius(10)
-        .frame(width: 600)
         .offset(y: -10)
+    }
 
+    private var topBar: some View {
+        HStack(alignment: .center) {
+            closeButton
+                .offset(x: 10)
+            Spacer()
+            Text(viewModel.videoTitle)
+                .font(.headline)
+            Spacer()
+        }
     }
 
     private var closeButton: some View {
@@ -52,7 +61,6 @@ struct TransportControls: View {
         .buttonStyle(ScaleButtonStyle(width: 45, height: 45))
         .background(VisualEffectView(effect: UIBlurEffect(style: .systemMaterialDark)))
         .cornerRadius(10)
-        .offset(x: 10, y: 25)
         .accessibility(label: Text("Close player"))
     }
 }

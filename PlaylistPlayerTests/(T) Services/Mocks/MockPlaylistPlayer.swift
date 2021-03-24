@@ -28,6 +28,13 @@ final class MockPlaylistPlayer: PlaylistPlayerProtocol {
         playPreviousCallCount += 1
     }
 
+    var replaceQueueWasCalled = false
+    func replaceQueue(with items: [AVPlayerItem]) {
+        replaceQueueWasCalled = true
+    }
+
+    var nowPlayingIndex: Int = 0
+    
     func play() {
         fatalError("Not implemented")
     }
@@ -44,11 +51,7 @@ final class MockPlaylistPlayer: PlaylistPlayerProtocol {
         fatalError("Not implemented")
     }
 
-    func seek(to time: Time) {
-        fatalError("Not implemented")
-    }
-
-    func replaceQueue(with items: [AVPlayerItem]) {
+    func seek(to time: MediaTime) {
         fatalError("Not implemented")
     }
 
@@ -72,7 +75,7 @@ final class MockPlaylistPlayer: PlaylistPlayerProtocol {
         fatalError("Not implemented")
     }
 
-    var currentItemDuration: Time = .zero
+    var currentItemDuration: MediaTime = .zero
 
     var volume: Float = 1
 

@@ -28,16 +28,17 @@ class PlaylistDetailViewModelTests: BaseTestCase {
         XCTAssertEqual(Current.mockPlaylistManager.addObserverCallCount, 1)
     }
 
-    func test_defaultSortByTitleOrder_isAscending() {
+    // The default is descending, meaning the button will show ascending.
+    func test_defaultSortByTitleOrder_isDescending() {
         let sut = makeSUT(playlist: playlist)
 
-        XCTAssertEqual(sut.sortByTitleSortOrder, .ascending)
+        XCTAssertEqual(sut.sortByTitleSortOrder, .descending)
     }
 
     func test_updatingSortByTitleOrder_callsSaveOnPlaylistManager() {
         let sut = makeSUT(playlist: playlist)
 
-        sut.sortByTitleSortOrder = .descending
+        sut.sortByTitleSortOrder = .ascending
 
         XCTAssertEqual(Current.mockPlaylistManager.saveCallCount, 1)
     }
