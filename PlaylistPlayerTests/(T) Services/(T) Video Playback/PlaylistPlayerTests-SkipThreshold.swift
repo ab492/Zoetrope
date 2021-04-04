@@ -15,74 +15,7 @@ extension PlaylistPlayerTests {
     // play button to flick to paused while the next item is loaded, and then very
     // quickly it flicks back to playing. These tests verify that we have a small
     // window where state changes aren't reported.
-
-    // MARK: - Playback Item Status
-
-    func test_playbackItemStatusChangeFromSkipNext_isNotReportedIfWithinSkipThreshold() {
-        let sut = makeSUT()
-
-        given_playerIsReadyForPlayback()
-        XCTAssertEqual(sut.isReadyForPlayback, true)
-
-        // Simulate user skipping to next
-        Current.mockDateTimeService.absoluteTime = 0
-        sut.nextItem()
-
-        // Simulate player reloading next item (unknown status)
-        given_playerReportsUnknownStatusAt(time: 0.1)
-
-        XCTAssertEqual(sut.isReadyForPlayback, true)
-    }
-
-    func test_playbackItemStatusChangeFromSkipPrevious_isNotReportedIfWithinSkipThreshold() {
-        let sut = makeSUT()
-
-        given_playerIsReadyForPlayback()
-        XCTAssertEqual(sut.isReadyForPlayback, true)
-
-        // Simulate user skipping to previous
-        Current.mockDateTimeService.absoluteTime = 0
-        sut.previousItem()
-
-        // Simulate player reloading next item (unknown status)
-        given_playerReportsUnknownStatusAt(time: 0.1)
-
-        XCTAssertEqual(sut.isReadyForPlayback, true)
-    }
-
-    func test_playbackItemStatusChangeFromSkipNext_isReportedIfOutsideOfSkipThreshold() {
-        let sut = makeSUT()
-
-        given_playerIsReadyForPlayback()
-        XCTAssertEqual(sut.isReadyForPlayback, true)
-
-        // Simulate user skipping to next
-        Current.mockDateTimeService.absoluteTime = 0
-        sut.nextItem()
-
-        // Simulate player reloading next item (unknown status)
-        given_playerReportsUnknownStatusAt(time: 0.6)
-
-        XCTAssertEqual(sut.isReadyForPlayback, false)
-    }
-
-    func test_playbackItemStatusChangeFromSkipPrevious_isReportedIfOutsideOfSkipThreshold() {
-        let sut = makeSUT()
-
-        given_playerIsReadyForPlayback()
-        XCTAssertEqual(sut.isReadyForPlayback, true)
-
-        // Simulate user skipping to previous
-        Current.mockDateTimeService.absoluteTime = 0
-        sut.previousItem()
-
-        // Simulate player reloading next item (unknown status)
-        given_playerReportsUnknownStatusAt(time: 0.6)
-
-        XCTAssertEqual(sut.isReadyForPlayback, false)
-    }
-
-
+    
     // MARK: - Play Pause State
 
     func test_playPauseStatusChangeFromSkipNext_isNotReportedIfWithinSkipThreshold() {

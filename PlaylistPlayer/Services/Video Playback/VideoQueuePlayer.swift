@@ -153,12 +153,22 @@ extension VideoQueuePlayer {
 
     func playPrevious() {
 
-        if atBeginningOfQueue {
-            player.seek(to: .zero)
-        } else {
-            nowPlayingIndex -= 1
+        switch loopMode {
+        case .loopCurrent, .loopPlaylist:
+            if atBeginningOfQueue {
+                // If we're at the beginning, loop around to the last item in the array.
+                nowPlayingIndex = playerItems.count - 1
+            } else {
+                nowPlayingIndex -= 1
+            }
+            
+        case .playPlaylistOnce:
+            if atBeginningOfQueue {
+                player.seek(to: .zero)
+            } else {
+                nowPlayingIndex -= 1
+            }
         }
-
         updateCurrentPlayerItem()
     }
 

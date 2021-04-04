@@ -9,7 +9,7 @@ import SwiftUI
 struct PlaybackControlsBar: View {
 
     @Binding var playerOptionsIsSelected: Bool
-    @StateObject var viewModel: PlaylistPlayerViewModel
+    @ObservedObject var viewModel: PlaylistPlayerViewModel
 
     // MARK: - View
 
@@ -29,7 +29,7 @@ struct PlaybackControlsBar: View {
             Spacer()
             corePlaybackControls
             Spacer()
-            PlayerSecondaryButton(systemImage: PlayerIcons.showPlayerToolbar, isSelected: $playerOptionsIsSelected)
+            PlayerSecondaryButton(systemImage: PlayerIcons.Playback.showPlayerToolbar, isSelected: $playerOptionsIsSelected)
         }
     }
 
@@ -49,7 +49,7 @@ struct PlaybackControlsBar: View {
         Button {
             viewModel.previousItem()
         } label: {
-            Image(systemName: PlayerIcons.previousItem)
+            Image(systemName: PlayerIcons.Playback.previousItem)
                 .font(.largeTitle)
         }
         .buttonStyle(ScaleButtonStyle())
@@ -60,7 +60,7 @@ struct PlaybackControlsBar: View {
         Button {
             viewModel.playFastReverse()
         } label: {
-            Image(systemName: PlayerIcons.fastReverse)
+            Image(systemName: PlayerIcons.Playback.fastReverse)
                 .font(.largeTitle)
         }
         .buttonStyle(ScaleButtonStyle())
@@ -72,7 +72,7 @@ struct PlaybackControlsBar: View {
         Button {
             viewModel.step(byFrames: -1)
         } label: {
-            Image(systemName: PlayerIcons.skipBackwards)
+            Image(systemName: PlayerIcons.Playback.skipBackwards)
                 .font(.largeTitle)
         }
         .buttonStyle(ScaleButtonStyle())
@@ -83,7 +83,7 @@ struct PlaybackControlsBar: View {
         Button {
             viewModel.isPlaying ? viewModel.pause() : viewModel.play()
         } label: {
-            Image(systemName: viewModel.isPlaying ? PlayerIcons.pause : PlayerIcons.play)
+            Image(systemName: viewModel.isPlaying ? PlayerIcons.Playback.pause : PlayerIcons.Playback.play)
                 .font(.system(size: 52))
         }
         .buttonStyle(ScaleButtonStyle())
@@ -94,7 +94,7 @@ struct PlaybackControlsBar: View {
         Button {
             viewModel.step(byFrames: 1)
         } label: {
-            Image(systemName: PlayerIcons.skipForwards)
+            Image(systemName: PlayerIcons.Playback.skipForwards)
                 .font(.largeTitle)
         }
         .buttonStyle(ScaleButtonStyle())
@@ -105,7 +105,7 @@ struct PlaybackControlsBar: View {
         Button {
             viewModel.playFastForward()
         } label: {
-            Image(systemName: PlayerIcons.fastForward)
+            Image(systemName: PlayerIcons.Playback.fastForward)
                 .font(.largeTitle)
         }
         .buttonStyle(ScaleButtonStyle())
@@ -117,7 +117,7 @@ struct PlaybackControlsBar: View {
         Button {
             viewModel.nextItem()
         } label: {
-            Image(systemName: PlayerIcons.nextItem)
+            Image(systemName: PlayerIcons.Playback.nextItem)
                 .font(.largeTitle)
         }
         .buttonStyle(ScaleButtonStyle())

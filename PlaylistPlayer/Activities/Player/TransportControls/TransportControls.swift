@@ -13,7 +13,7 @@ struct TransportControls: View {
     // MARK: - State
 
     @Binding var playerOptionsIsSelected: Bool
-    @StateObject var viewModel: PlaylistPlayerViewModel
+    @ObservedObject var viewModel: PlaylistPlayerViewModel
     @Environment(\.presentationMode) var presentationMode
 
 
@@ -35,6 +35,7 @@ struct TransportControls: View {
         }
         .padding()
         .frame(width: 600)
+        .drawingGroup() // Added to boost rendering. Must occur before the background blur.
         .background(VisualEffectView(effect: UIBlurEffect(style: .systemMaterialDark)))
         .cornerRadius(10)
         .offset(y: -10)
@@ -55,7 +56,7 @@ struct TransportControls: View {
         Button {
             presentationMode.wrappedValue.dismiss()
         } label: {
-            Image(systemName: PlayerIcons.close)
+            Image(systemName: PlayerIcons.Playback.close)
                 .font(.title)
         }
         .buttonStyle(ScaleButtonStyle(width: 45, height: 45))

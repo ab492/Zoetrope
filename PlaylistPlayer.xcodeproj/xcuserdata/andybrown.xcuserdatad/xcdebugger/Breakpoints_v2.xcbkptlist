@@ -62,8 +62,8 @@
             filePath = "PlaylistPlayer/Services/Video Playback/Core Video Player/WrappedAVPlayer.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "213"
-            endingLineNumber = "213"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
             landmarkName = "WrappedAVPlayer"
             landmarkType = "21">
          </BreakpointContent>
@@ -103,49 +103,17 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "DBCE26C9-3ED7-443D-ADC1-B146411357EB"
+            uuid = "D3BC0CE2-E57B-4B55-A37A-B7E2102AF2D5"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PlaylistPlayer/Activities/Player/CustomPlayerView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
             landmarkName = "body"
             landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "DBCE26C9-3ED7-443D-ADC1-B146411357EB - 7dad50878792b820"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PlaylistPlayer.CustomPlayerView.body.getter : some"
-                  moduleName = "PlaylistPlayer"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/andybrown/Programming/Quickfire/PlaylistPlayer/PlaylistPlayer/Activities/Player/CustomPlayerView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "25"
-                  endingLineNumber = "25"
-                  offsetFromSymbolStart = "936">
-               </Location>
-               <Location
-                  uuid = "DBCE26C9-3ED7-443D-ADC1-B146411357EB - 36c1a1441ddea31b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.zIndex(Swift.Double) -&gt; some&gt;&gt;.0, Swift.Optional&lt;&lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.zIndex(Swift.Double) -&gt; some&gt;&gt;.0&gt;, &lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.zIndex(Swift.Double) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.zIndex(Swift.Double) -&gt; some&gt;&gt;.0)&gt; in PlaylistPlayer.CustomPlayerView.body.getter : some"
-                  moduleName = "PlaylistPlayer"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/andybrown/Programming/Quickfire/PlaylistPlayer/PlaylistPlayer/Activities/Player/CustomPlayerView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "25"
-                  endingLineNumber = "25"
-                  offsetFromSymbolStart = "904">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

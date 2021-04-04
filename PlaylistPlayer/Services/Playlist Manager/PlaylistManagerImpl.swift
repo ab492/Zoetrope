@@ -88,7 +88,6 @@ class PlaylistManagerImpl: PlaylistManager {
                 guard let video = video else { return }
                 playlist.videos.append(video)
                 self.playlistManagerDidUpdate()
-//                self.save()
             }
         }
     }
@@ -104,7 +103,6 @@ class PlaylistManagerImpl: PlaylistManager {
     }
 
     func mediaUrlsFor(playlist: Playlist) -> [URL] {
-//        playlist.videos.compactMap { videoMetadataService.url(for: $0) }
         playlist.videos.map { $0.url }
     }
 
@@ -150,11 +148,4 @@ extension PlaylistManagerImpl: ThumbnailServiceObserver {
     func didFinishProcessingThumbnails() {
         save()
     }
-
-//    func processingThumbnailsDidUpdate() {
-//        print("SAVE CALLED FROM THUMBNAIL SERVICE!!")
-//        save()
-//    }
-
-    
 }

@@ -15,7 +15,7 @@ final class Video: Identifiable, Codable {
     let filename: String
     let duration: Time
     var thumbnailFilename: String?
-    private var unorderedBookmarks: [Bookmark] //The master list of bookmarks. Exposed via `bookmarks`.
+    private var unorderedBookmarks: [Bookmark] //The master list of bookmarks. Exposed publicly via `bookmarks`.
 
     var url: URL
     private var bookmarkData: Data?
@@ -39,6 +39,11 @@ final class Video: Identifiable, Codable {
 
     func addBookmark(_ bookmark: Bookmark) {
         unorderedBookmarks.append(bookmark)
+    }
+
+    // TODO: Test this!
+    func removeBookmark(_ bookmark: Bookmark) {
+        unorderedBookmarks.removeAll(where: { $0 == bookmark })
     }
 
     // MARK: - Codable

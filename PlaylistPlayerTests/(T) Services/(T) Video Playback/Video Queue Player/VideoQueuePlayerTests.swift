@@ -59,7 +59,7 @@ final class VideoQueuePlayerTests: XCTestCase {
         XCTAssertEqual(mockVideoPlayer.pauseCallCount, 1)
     }
 
-    // MARK: - Play Next Item (Default Loop Mode)
+    // MARK: - Play Next Item (Default Loop Mode - Play Playlist Once)
 
     func test_playNext_incrementsNowPlayingIndexAndReplacesCurrentItem() {
         let items = testItems(number: 3)
@@ -88,7 +88,7 @@ final class VideoQueuePlayerTests: XCTestCase {
         XCTAssertEqual(mockVideoPlayer.lastReplacedItem, items[1])
     }
 
-    // MARK: - Play Previous Item
+    // MARK: - Play Previous Item (Default Loop Mode - Play Playlist Once)
 
     func test_playPreviousItem() {
         let items = testItems(number: 3)
@@ -145,6 +145,17 @@ final class VideoQueuePlayerTests: XCTestCase {
 
         XCTAssertEqual(sut.nowPlayingIndex, 0)
         XCTAssertEqual(mockVideoPlayer.lastReplacedItem, items[0])
+    }
+
+    func test_loopWholePlaylist_playPreviousAtBeginningOfQueue_loopsBackwardsToLastItem() {
+        let items = testItems(number: 3)
+        let sut = makeSUT(withItems: items)
+        sut.loopMode = .loopPlaylist
+
+        sut.playPrevious()
+
+        XCTAssertEqual(sut.nowPlayingIndex, 2)
+        XCTAssertEqual(mockVideoPlayer.lastReplacedItem, items[2])
     }
 
     // MARK: - Playing Playlist Once
@@ -206,6 +217,17 @@ final class VideoQueuePlayerTests: XCTestCase {
 
         XCTAssertEqual(sut.nowPlayingIndex, 0)
         XCTAssertEqual(mockVideoPlayer.lastReplacedItem, items[0])
+    }
+
+    func test_loopCurrent_playPreviousAtBeginningOfQueue_loopsBackwardsToLastItem() {
+        let items = testItems(number: 3)
+        let sut = makeSUT(withItems: items)
+        sut.loopMode = .loopCurrent
+
+        sut.playPrevious()
+
+        XCTAssertEqual(sut.nowPlayingIndex, 2)
+        XCTAssertEqual(mockVideoPlayer.lastReplacedItem, items[2])
     }
 
     // MARK: - Skip to Specific Index

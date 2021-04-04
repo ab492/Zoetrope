@@ -122,9 +122,7 @@ final class PlaylistPlayerImpl: PlaylistPlayer {
     func step(byFrames frames: Int) {
         player.step(byFrames: frames)
     }
-
-    // MARK: - WIP - NEED TO TEST
-
+    
     func seek(to time: MediaTime) {
         player.seek(to: time)
     }

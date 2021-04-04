@@ -10,7 +10,7 @@ import XCTest
 
 final class VideoTests: XCTestCase {
 
-    func testSomething() throws {
+    func testInitVideo() throws {
         let url = createTempDataAndReturnURL()
         
         let video = Video(id: UUID(), url: url, filename: "test-filename", duration: Time(seconds: 20), thumbnailFilename: nil)
@@ -25,7 +25,7 @@ final class VideoTests: XCTestCase {
 
         XCTAssertEqual(video, decodedVideo)
     }
-
+    
     private func createTempDataAndReturnURL() -> URL {
         let tempPath = NSTemporaryDirectory() + UUID().uuidString
         try? FileManager.default.removeItem(atPath: tempPath)

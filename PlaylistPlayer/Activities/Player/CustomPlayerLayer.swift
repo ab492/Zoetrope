@@ -10,14 +10,13 @@ import SwiftUI
 /// Represents the actual video player (without transport controls) content.
 struct CustomPlayerLayer: View {
 
-    @StateObject var viewModel: PlaylistPlayerViewModel
+    @ObservedObject var viewModel: PlaylistPlayerViewModel
 
     var body: some View {
         ZStack {
             Color.black.edgesIgnoringSafeArea(.all)
             if viewModel.isReadyForPlayback {
-                // FIXME: Fix this force unwrap!
-                VideoPlayerView(player: (viewModel.player as! PlaylistPlayer).player as! WrappedAVPlayer)
+                VideoPlayerView(player: viewModel)
             } else {
                 loadingSpinner
             }

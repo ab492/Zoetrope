@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct VideoPlayerView: UIViewRepresentable {
-    let player: WrappedAVPlayer
+    let player: PlaylistPlayerViewModel
 
-    init(player: WrappedAVPlayer) {
+    init(player: PlaylistPlayerViewModel) {
         self.player = player
     }
-
+    
     func makeUIView(context: Context) -> PlayerView {
         let view = PlayerView()
-        view.setVideoPlayer(player)
+        player.setVideoPlayer(view: view)
         return view
     }
 

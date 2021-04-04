@@ -30,6 +30,7 @@ struct PlaylistSidebarView: View {
                 playlistList
             }
         }
+        .ignoresSafeArea(.keyboard, edges: .bottom)
         .sheet(isPresented: $addPlaylistModalIsShowing, content: {
             AddPlaylistModal { playlistTitle in
                 self.addPlaylist(title: playlistTitle)

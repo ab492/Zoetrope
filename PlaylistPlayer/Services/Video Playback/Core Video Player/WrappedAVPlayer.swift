@@ -29,6 +29,9 @@ protocol VideoPlayerProtocol {
     func seek(to time: MediaTime)
     func replaceCurrentItem(with item: AVPlayerItem)
     func step(byFrames count: Int)
+
+    // PlayerView
+    func setVideoPlayer(view: PlayerView)
 }
 
 protocol VideoPlayerObserver: class {
@@ -59,8 +62,8 @@ final class WrappedAVPlayer: VideoPlayerProtocol {
     weak var observer: VideoPlayerObserver?
 
     // MARK: - Private Properties
-    // FIXME: Make this private again!
-    var player: AVPlayer
+
+    private var player: AVPlayer
 
     // MARK: - Observers
     private var timeObserverToken: Any?
@@ -318,7 +321,6 @@ extension WrappedAVPlayer {
     /// The seek tolerance is at its most accurate.
     func seek(to time: MediaTime) {
         let cmTime = CMTime(seconds: time.seconds, preferredTimescale: time.preferredTimescale)
-//        print("SEEKING TO TIME: \(cmTime.seconds)")
 
         player.seek(to: cmTime,
                     toleranceBefore: .zero,
@@ -340,19 +342,9 @@ extension WrappedAVPlayer {
     func step(byFrames count: Int) {
         player.currentItem?.step(byCount: count)
     }
-}
 
-// Exposes the underlying AVPlayer to UIView's PlayerLayer.
-extension AVPlayerLayer {
-    func setVideoPlayer(_ wrappedPlayer: WrappedAVPlayer) {
-        player = wrappedPlayer.player
-    }
-}
-
-// Exposes the underlying AVPlayer to our custom SwiftUI PlayerView.
-extension PlayerView {
-    func setVideoPlayer(_ wrappedPlayer: WrappedAVPlayer) {
-        player = wrappedPlayer.player
+    func setVideoPlayer(view: PlayerView) {
+        view.player = player
     }
 }
 

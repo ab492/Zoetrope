@@ -88,7 +88,7 @@ class BookmarkTests: XCTestCase {
     // MARK: - Helpers
 
     private func createBookmark(timeIn: MediaTime, timeOut: MediaTime) -> Video.Bookmark {
-        Video.Bookmark(id: UUID(), timeIn: timeIn, timeOut: timeOut, noteType: .text(""))
+        Video.Bookmark(id: UUID(), timeIn: timeIn, timeOut: timeOut)
     }
 
     private func createVideoWithBookmarks(_ bookmarks: [Video.Bookmark]) -> Video {

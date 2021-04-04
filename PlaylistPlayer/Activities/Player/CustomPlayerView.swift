@@ -10,23 +10,54 @@ import PencilKit
 
 struct CustomPlayerView: View {
 
-    @StateObject var viewModel: PlaylistPlayerViewModel
+    // MARK: - State
+
+    @ObservedObject private var viewModel: PlaylistPlayerViewModel
+    @ObservedObject private var bookmarkListViewModel: BookmarkListView.ViewModel
+
+    @State private var viewerOptionsSelected = false
+    @State private var bookmarkPanelSelected = false
     @State private var showTransportControls = true
-
-    @State private var showViewerOptions = false
-
-    @State private var isInDrawingMode = false
+    @State private var drawingModeIsSelected = false
     @State private var drawing = PKCanvasView()
 
-    @State private var isShowingBookmarkPanel = false
+    init(playlistPlayer: PlaylistPlayer) {
+        _viewModel = ObservedObject(wrappedValue: PlaylistPlayerViewModel(playlistPlayer: playlistPlayer))
+        _bookmarkListViewModel = ObservedObject(wrappedValue: BookmarkListView.ViewModel(playlistPlayer: playlistPlayer))
+    }
 
+    private var shouldShowBookmarkPanel: Bool {
+        showTransportControls && viewerOptionsSelected && bookmarkPanelSelected
+    }
+
+    private var shouldShowViewerOptions: Bool {
+        showTransportControls && viewerOptionsSelected
+    }
+
+    // MARK: - View
 
     var body: some View {
-        ZStack {
-            videoPlaybackView.zIndex(0)
-            if isInDrawingMode { drawingView.zIndex(1) }
-            transportControls.zIndex(2)
-            viewerOptions.zIndex(2)
+        HStack(spacing: 0) {
+            ZStack {
+                ZStack {
+                    videoPlaybackView.zIndex(0)
+//                    if drawingModeIsSelected { drawingView.zIndex(1) }
+                }.zIndex(0)
+
+                if showTransportControls {
+                    transportControls.zIndex(1)
+                }
+            }
+            Group {
+                if shouldShowBookmarkPanel {
+                    bookmarkPanel
+                        .transition(.move(edge: .trailing))
+                }
+                if shouldShowViewerOptions {
+                    controlsBar
+                        .transition(.move(edge: .trailing))
+                }
+            }
         }
         .ignoresSafeArea(edges: .top)
         .onAppear { viewModel.play() }
@@ -34,62 +65,44 @@ struct CustomPlayerView: View {
     }
 
     private var controlsBar: some View {
-        VStack(spacing: 10) {
-            ViewerOptionsButton(systemImage: PlayerIcons.annotate, isSelected: $isInDrawingMode)
-            ViewerOptionsButton(systemImage: PlayerIcons.bookmarks, isSelected: $isShowingBookmarkPanel)
-//                .popover(isPresented: $isShowingBookmarkPanel,
-//                         attachmentAnchor: .point(UnitPoint.center),
-//                         arrowEdge: .trailing, content: {
-//                            BookmarkEditorView(playlistPlayer: viewModel)
-//                })
+        VStack(spacing: 20) {
+            ViewerOptionsButton(systemImage: PlayerIcons.PlayerOptions.annotate, isSelected: $drawingModeIsSelected)
+            ViewerOptionsButton(systemImage: PlayerIcons.PlayerOptions.bookmarks, isSelected: $bookmarkPanelSelected.animation())
         }
-        .padding()
-        .frame(height: 300)
+        .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
         .background(VisualEffectView(effect: UIBlurEffect(style: .systemMaterialDark)))
         .cornerRadius(10)
-        .offset(x: -10)
     }
 
     private var videoPlaybackView: some View {
         CustomPlayerLayer(viewModel: viewModel)
+            .background(Color.red)
             .onTapGesture {
                 withAnimation(.easeIn(duration: 0.1)) {
                     showTransportControls.toggle()
+//                    visibleControlsConfigurator.isShowingTransportControls.toggle()
                     // Temporary fix to hide the status bar since `.statusBar(hidden: _)` is unreliable.
                     UIApplication.shared.isStatusBarHidden = !showTransportControls
                 }
             }
     }
 
-    private var drawingView: some View {
-        DrawingView(canvasView: $drawing)
-    }
-
-    @ViewBuilder
     private var transportControls: some View {
-        if showTransportControls { TransportControls(playerOptionsIsSelected: $showViewerOptions, viewModel: viewModel) }
+        TransportControls(playerOptionsIsSelected: $viewerOptionsSelected.animation(), viewModel: viewModel)
     }
 
-    @ViewBuilder
-    private var viewerOptions: some View {
-        if showTransportControls && showViewerOptions  {
-            HStack {
-                Spacer()
-                bookmarkPanel
-                controlsBar // Push controls to right hand side
-            }
-        }
-    }
+//    private var drawingView: some View {
+//        DrawingView(viewModel: viewModel)
+//    }
 
-    @ViewBuilder
     private var bookmarkPanel: some View {
-        if showTransportControls && showViewerOptions && isShowingBookmarkPanel {
-            BookmarkEditorView(playlistPlayer: viewModel)
-                .padding()
-                .frame(width: 300)
-                .background(VisualEffectView(effect: UIBlurEffect(style: .systemMaterialDark)))
-                .cornerRadius(10)
-                .offset(x: -10)
-        }
+//        BookmarkListView(viewModel: bookmarkEditorViewModel)
+//        BookmarkListView(bookmarkController: bookmarkController)
+        BookmarkListView(viewModel: bookmarkListViewModel)
+            .padding()
+            .background(Color.green)
+//            .frame(maxWidth: .infinity, maxHeight: .infinity)
+//            .background(VisualEffectView(effect: UIBlurEffect(style: .systemMaterialDark)))
+
     }
 }

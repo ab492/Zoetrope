@@ -11,13 +11,22 @@ struct ViewerOptionsButton: View {
     var systemImage: String
     @Binding var isSelected: Bool
 
+    init(systemImage: String, isSelected: Binding<Bool>) {
+        self.systemImage = systemImage
+        _isSelected = isSelected
+    }
+
     var body: some View {
         VStack(spacing: 5) {
             Button {
-                isSelected.toggle()
+                // TODO: Should the animation live here?
+                withAnimation {
+                    isSelected.toggle()
+                }
             } label: {
                 VStack {
                     Image(systemName: systemImage)
+                        .font(.title2)
                     Circle()
                         .frame(width: 5, height: 5)
                         .opacity(isSelected ? 1 : 0)

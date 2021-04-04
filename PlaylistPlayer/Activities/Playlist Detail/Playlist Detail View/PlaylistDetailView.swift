@@ -14,10 +14,8 @@ struct PlaylistDetailView: View {
     //https://stackoverflow.com/questions/57784859/swiftui-how-to-perform-action-when-editmode-changes
 
     // MARK: - State
-
-    @StateObject private var playlistPlayerViewModel = PlaylistPlayerViewModel()
     @StateObject var playlistDetailViewModel: ViewModel
-
+    @State private var playlistPlayer = PlaylistPlayerImpl()
     @State var editMode: EditMode = .inactive
     @State private var showingDocumentPicker = false
     @State private var urls: [URL]?
@@ -29,7 +27,6 @@ struct PlaylistDetailView: View {
         UITableView.appearance().backgroundColor = .clear
         UITableViewCell.appearance().backgroundColor = .clear
         UIToolbar.appearance().barTintColor = .secondarySystemBackground
-        
         _playlistDetailViewModel = StateObject(wrappedValue: ViewModel(playlist: playlist))
     }
 
@@ -37,8 +34,6 @@ struct PlaylistDetailView: View {
 
     var body: some View {
         ZStack {
-//            Colors.darkGrey.edgesIgnoringSafeArea(.all)
-//            Color.blue.edgesIgnoringSafeArea(.all)
             if playlistDetailViewModel.playlistIsEmpty {
                 EmptyContentView(text: "Add videos to get started")
             } else {
@@ -53,8 +48,9 @@ struct PlaylistDetailView: View {
         }
         .navigationBarTitle(playlistDetailViewModel.playlistTitle, displayMode: .inline)
         .environment(\.editMode, self.$editMode)
-        fullScreenCover
-        documentPicker
+        .fullScreenCover(isPresented: $presentingPlayer) {
+            CustomPlayerView(playlistPlayer: playlistPlayer)
+        }
     }
 
     private var videoList: some View {
@@ -63,7 +59,7 @@ struct PlaylistDetailView: View {
                 PlaylistDetailRow(video: video)
                     .onTapGesture {
                         updateViewModel()
-                        playlistPlayerViewModel.skipToItem(at: playlistDetailViewModel.index(of: video))
+                        playlistPlayer.skipToItem(at: playlistDetailViewModel.index(of: video))
                         presentingPlayer.toggle()
                     }
             }
@@ -71,23 +67,7 @@ struct PlaylistDetailView: View {
             .onMove(perform: moveRows)
         }
     }
-
-    // MARK: - Modals
-
-    private var fullScreenCover: some View {
-        // .fullScreenCover and .sheet modifiers can't be applied to a single view, so we use an EmptyView() instead.
-        EmptyView().hidden().fullScreenCover(isPresented: $presentingPlayer) {
-            CustomPlayerView(viewModel: playlistPlayerViewModel)
-        }
-    }
-
-    private var documentPicker: some View {
-        // .fullScreenCover and .sheet modifiers can't be applied to a single view, so we use an EmptyView() instead.
-        EmptyView().hidden().sheet(isPresented: $showingDocumentPicker) {
-            DocumentPicker(urls: self.$urls.onChange(addMedia))
-        }
-    }
-
+    
     // MARK: - Toolbar
 
     private var trailingToolbar: some ToolbarContent {
@@ -134,6 +114,9 @@ struct PlaylistDetailView: View {
             } label: {
                 Label("Add Media", systemImage: "plus")
             }
+            .sheet(isPresented: $showingDocumentPicker) {
+                DocumentPicker(urls: self.$urls.onChange(addMedia))
+            }
         }
     }
 
@@ -160,6 +143,6 @@ struct PlaylistDetailView: View {
     }
 
     private func updateViewModel() {
-        playlistPlayerViewModel.updateQueue(for: playlistDetailViewModel.playlist)
+        playlistPlayer.updateQueue(for: playlistDetailViewModel.playlist)
     }
 }
