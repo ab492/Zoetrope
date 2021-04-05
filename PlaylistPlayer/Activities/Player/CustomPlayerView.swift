@@ -12,8 +12,8 @@ struct CustomPlayerView: View {
 
     // MARK: - State
 
-    @ObservedObject private var viewModel: PlaylistPlayerViewModel
-    @ObservedObject private var bookmarkListViewModel: BookmarkListView.ViewModel
+    @StateObject private var viewModel: PlaylistPlayerViewModel
+    @StateObject private var bookmarkListViewModel: BookmarkListView.ViewModel
 
     @State private var viewerOptionsSelected = false
     @State private var bookmarkPanelSelected = false
@@ -22,8 +22,8 @@ struct CustomPlayerView: View {
     @State private var drawing = PKCanvasView()
 
     init(playlistPlayer: PlaylistPlayer) {
-        _viewModel = ObservedObject(wrappedValue: PlaylistPlayerViewModel(playlistPlayer: playlistPlayer))
-        _bookmarkListViewModel = ObservedObject(wrappedValue: BookmarkListView.ViewModel(playlistPlayer: playlistPlayer))
+        _viewModel = StateObject(wrappedValue: PlaylistPlayerViewModel(playlistPlayer: playlistPlayer))
+        _bookmarkListViewModel = StateObject(wrappedValue: BookmarkListView.ViewModel(playlistPlayer: playlistPlayer))
     }
 
     private var shouldShowBookmarkPanel: Bool {

@@ -11,13 +11,13 @@ struct EditBookmarkView: View {
 
     // MARK: - State
 
-    @ObservedObject var viewModel: ViewModel
+    @StateObject var viewModel: ViewModel
     @Binding var isPresenting: Bool
 
     // MARK: - Init
 
     init(viewModel: ViewModel, isPresenting: Binding<Bool>) {
-        _viewModel = ObservedObject(wrappedValue: viewModel)
+        _viewModel = StateObject(wrappedValue: viewModel)
         _isPresenting = isPresenting
 
         UITextView.appearance().backgroundColor = .clear
@@ -34,8 +34,8 @@ struct EditBookmarkView: View {
                 SetInOutView(title: "Set Start", timecodeLabel: viewModel.timeInLabel) { viewModel.setTimeIn() }
                 SetInOutView(title: "Set End", timecodeLabel: viewModel.timeOutLabel) { viewModel.setTimeOut() }
             }
-            .navigationBarTitle("Edit Bookmark")
         }
+        .navigationBarTitle("Edit Bookmark")
         .listStyle(GroupedListStyle())
         .toolbar {
             leadingToolbar
@@ -53,15 +53,20 @@ struct EditBookmarkView: View {
                     Text("Add a note")
                         .italic()
                         .foregroundColor(.secondary)
-                        .padding(.all, 0)
+                        .padding(EdgeInsets(top: 10, leading: 8, bottom: 10, trailing: 10))
                     Spacer()
                 }
             }
 
             // This makes sure the `TextEditor` is correctly sized over multiple lines.
             // https://stackoverflow.com/questions/62620613/dynamic-row-hight-containing-texteditor-inside-a-list-in-swiftui
-            TextEditor(text: $viewModel.note ?? "").padding(.all, 0)
-            Text(viewModel.note ?? "").opacity(0).padding(.all, 8)
+            TextEditor(text: $viewModel.note ?? "")
+                .padding(.all, 0)
+//                .background(Color.red)
+            Text(viewModel.note ?? "")
+                .opacity(0)
+                .padding(.all, 10)
+//                .padding(.all, 8)
         }
     }
 
@@ -69,30 +74,29 @@ struct EditBookmarkView: View {
 
     private var trailingToolbar: some ToolbarContent {
         ToolbarItemGroup(placement: .navigationBarTrailing) {
-            resetButton
+            saveButton
         }
     }
 
     private var leadingToolbar: some ToolbarContent {
         ToolbarItemGroup(placement: .navigationBarLeading) {
-//            resetButton
+            resetButton
         }
     }
 
     private var saveButton: some View {
         Button {
-            viewModel.save()
+//            viewModel.save()
             isPresenting.toggle()
         } label: {
             Text("Done")
         }
-        .disabled(viewModel.changesMade ? false : true)
+//        .disabled(viewModel.changesMade ? false : true)
     }
 
     private var resetButton: some View {
         Button {
             viewModel.reset()
-//            isPresenting.toggle()
         } label: {
             Text("Reset")
         }

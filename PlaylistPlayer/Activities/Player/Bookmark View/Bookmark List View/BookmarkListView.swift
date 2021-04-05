@@ -9,10 +9,10 @@ import SwiftUI
 
 struct BookmarkListView: View {
 
-    @ObservedObject var viewModel: ViewModel
+    @StateObject var viewModel: ViewModel
 
     init(viewModel: ViewModel) {
-        _viewModel = ObservedObject(wrappedValue: viewModel)
+        _viewModel = StateObject(wrappedValue: viewModel)
     }
     
     @State var selectedBookmark: Video.Bookmark?
@@ -40,16 +40,23 @@ struct BookmarkListView: View {
                                     timeOut: viewModel.formattedTimeOutForBookmark(bookmark),
                                     note: bookmark.note ?? "No note",
                                     onEditTapped: {
-//                                        selectedBookmark = bookmark
-//                                        presentEditMode.toggle()
+                                        selectedBookmark = bookmark
+                                        presentEditMode.toggle()
                                     },
                                     onGoToStart: { viewModel.goToStartOfBookmark(bookmark) },
                                     onGoToEnd: { viewModel.goToEndOfBookmark(bookmark) })
-                        NavigationLink(destination: EditBookmarkView(viewModel: viewModel.editBookmarkViewModel(for: bookmark),
-                                                                     isPresenting: $presentEditMode), label: {
-                                                                        Text("Edit")
-                                                                            .background(Color.red)
-                                                                     })
+//                        NavigationLink(destination: EditBookmarkView(viewModel: viewModel.editBookmarkViewModel(for: bookmark),
+//                                                                     isPresenting: $presentEditMode), label: {
+//                                                                        Text("Edit")
+//                                                                            .background(Color.red)
+//                                                                     })
+
+//                        NavigationLink(destination: EditBookmarkView(viewModel: viewModel.editBookmarkViewModel(for: bookmark),
+//                                                                     isPresenting: $presentEditMode),
+//                                       isActive: $presentEditMode, label: {
+//                                        Text("Edit")
+//                                            .background(Color.red)
+//                                       })
                     .buttonStyle(PlainButtonStyle())
                 }
             }
