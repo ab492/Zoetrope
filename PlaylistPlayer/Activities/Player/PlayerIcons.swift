@@ -29,6 +29,7 @@ struct PlayerIcons {
     }
     
     struct BookmarkPanel {
+        static let addBookmark = "plus"
         static let nextBookmark = "chevron.down"
         static let previousBookmark = "chevron.up"
         static let startOfBookmark = "backward.end.fill"

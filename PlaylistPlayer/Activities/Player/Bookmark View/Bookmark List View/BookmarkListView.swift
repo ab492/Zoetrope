@@ -81,7 +81,7 @@ struct BookmarkListView: View {
                 viewModel.addBookmark()
             }
         } label: {
-            Image(systemName: "plus")
+            Image(systemName: PlayerIcons.BookmarkPanel.addBookmark)
                 .clipShape(Rectangle())
         }
     }
