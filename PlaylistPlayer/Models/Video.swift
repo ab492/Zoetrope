@@ -13,6 +13,8 @@ final class Video: Identifiable, Codable {
 
     let id: UUID
     let filename: String
+
+    /// The approximate duration for the video (in seconds, rather that as `MediaTime`).
     let duration: Time
     var thumbnailFilename: String?
     private var unorderedBookmarks: [Bookmark] //The master list of bookmarks. Exposed publicly via `bookmarks`.

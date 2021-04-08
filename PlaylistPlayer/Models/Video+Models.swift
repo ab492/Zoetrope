@@ -16,6 +16,10 @@ extension Video {
         var note: String?
         var drawing: Data?
 
+        var isOneFrameLong: Bool {
+            timeOut.seconds - timeIn.seconds == 0
+        }
+
         init(id: UUID, timeIn: MediaTime, timeOut: MediaTime, note: String? = nil, drawing: Data? = nil) {
             let constrainedTimeIn = timeIn.constrained(min: MediaTime(seconds: 0))
             let constrainedTimeOut = timeOut.constrained(min: constrainedTimeIn)
@@ -28,13 +32,28 @@ extension Video {
         }
 
         func setTimeIn(_ timeIn: MediaTime) {
-            // Don't let time in be greater than the time out.
-            self.timeIn = timeIn.constrained(max: timeOut)
+            if timeIn > timeOut {
+                // If new timeIn is greater than timeOut, update both to match the new timeIn.
+                self.timeIn = timeIn
+                self.timeOut = timeIn
+            } else {
+                // If not, just update the timeIn.
+                self.timeIn = timeIn
+            }
         }
 
         func setTimeOut(_ timeOut: MediaTime) {
             // Don't let time out be less than time in.
             self.timeOut = timeOut.constrained(min: timeIn)
+
+            if timeOut < timeIn {
+                // If new timeOut is less than timeIn, update both to match the new timeOut.
+                self.timeIn = timeOut
+                self.timeOut = timeOut
+            } else {
+                // If not, just update the timeOut.
+                self.timeOut = timeOut
+            }
         }
     }
 }

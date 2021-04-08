@@ -37,16 +37,6 @@ extension PlaylistDetailView {
             Current.playlistManager.deleteItems(fromPlaylist: playlist, at: offsets)
         }
 
-//        func removeItems(withIds ids: [UUID]) {
-//            for id in ids {
-//                if let index = playlist.videos.lastIndex(where: { $0.id == id }) {
-//                    playlist.videos.remove(at: index)
-//                }
-//            }
-//            objectWillChange.send()
-//            Current.playlistManager.save()
-//        }
-
         var videos: [Video] {
             playlist.videos
         }
@@ -87,10 +77,9 @@ extension PlaylistDetailView {
                 objectWillChange.send()
                 switch sortByDurationSortOrder {
                 case .ascending:
-                    // TODO: Make time comparable
-                    playlist.videos = playlist.videos.sorted(by: \.duration.seconds, using: <)
+                    playlist.videos = playlist.videos.sorted(by: \.duration, using: <)
                 case .descending:
-                    playlist.videos = playlist.videos.sorted(by: \.duration.seconds, using: >)
+                    playlist.videos = playlist.videos.sorted(by: \.duration, using: >)
                 }
                 Current.playlistManager.save()
             }

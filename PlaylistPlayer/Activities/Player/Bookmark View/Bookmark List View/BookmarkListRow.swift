@@ -11,68 +11,111 @@ struct BookmarkListRow: View {
 
     // MARK: - Properties
 
-    let timeIn: String
-    let timeOut: String
+    let timeLabel: String
     let note: String
+    let isCurrent: Bool
+    let isLooping: Bool
     let onEditTapped: () -> Void
     let onGoToStart: () -> Void
     let onGoToEnd: () -> Void
+    let onLoopTapped: () -> Void
 
-    // MARK: - View
+    // MARK: - Body
 
     var body: some View {
+        HStack(spacing: 0) {
+            timeInfoAndNotesVStack
+            Spacer(minLength: 0)
+            optionsMenu
+        }
+    }
 
+    // MARK: - Information and Note Views
+
+    private var timeInfoAndNotesVStack: some View {
         VStack(alignment: .leading, spacing: 0) {
-            // Time labels
-            HStack {
-                Text(timeIn)
-                Text("/")
-                Text(timeOut)
-                Spacer()
-                editButton
-            }
-            .font(.system(size: 17, weight: .medium, design: .default))
+            secondaryInformationHStack
+            noteHStack
+        }
+    }
 
-            // Note label
+    private var secondaryInformationHStack: some View {
+        HStack(alignment: .center) {
+            isCurrentCircularIndicator
+                .foregroundColor(isCurrent ? .green : .clear)
+            timeLabels
+            maybeIsLoopingIndicator
+        }
+    }
+
+    private var noteHStack: some View {
+        HStack {
+            isCurrentCircularIndicator
+                .foregroundColor(.clear) // Added as clear to match the spacing with the green indicator above.
+
             Text(note)
-                .font(.system(size: 17, weight: .regular, design: .default))
-
-            // Action buttons
-            HStack {
-                goToStartButton
-                goToEndButton
-            }
+                .font(.system(size: 15, weight: .regular, design: .default))
         }
     }
 
-    private var goToStartButton: some View {
-        Button {
-            onGoToStart()
-        } label: {
-            Image(systemName: PlayerIcons.BookmarkPanel.startOfBookmark)
-                .font(.title)
-                .clipShape(Rectangle())
-        }
-        .buttonStyle(PlainButtonStyle())
+    private var timeLabels: some View {
+        Text(timeLabel)
+            .font(.system(size: 17, weight: .regular, design: .default))
+            .foregroundColor(.secondary)
     }
 
-    private var goToEndButton: some View {
-        Button {
-            onGoToEnd()
-        } label: {
-            Image(systemName: PlayerIcons.BookmarkPanel.endOfBookmark)
-                .font(.title)
-                .clipShape(Rectangle())
+    private var isCurrentCircularIndicator: some View {
+        Circle()
+            .frame(width: 10, height: 10)
+    }
+
+    @ViewBuilder
+    private var maybeIsLoopingIndicator: some View {
+        if isLooping {
+            Image(systemName: PlayerIcons.BookmarkPanel.loopBookmark)
+                .font(.system(size: 15, weight: .bold, design: .default))
+                .foregroundColor(.tertiarySystemBackground)
+        } else {
+            EmptyView()
         }
-        .buttonStyle(PlainButtonStyle())
+    }
+
+    // MARK: - Options Menu
+
+    private var optionsMenu: some View {
+        Menu {
+            editButton
+            loopButton
+            goToFirstFrameButton
+            goToLastFrameButton
+        } label: {
+            Image(systemName: "ellipsis.circle")
+                .font(.title2)
+                .frame(width: 44, height: 44)
+        }
     }
 
     private var editButton: some View {
         Button(action: onEditTapped) {
-            Text("Edit")
-                .bold()
+            Label("Edit Bookmark", systemImage: "note.text")
         }
-        .buttonStyle(PlainButtonStyle())
     }
 
+    private var loopButton: some View {
+        Button(action: onLoopTapped) {
+            Label(isLooping ? "Unloop Bookmark" : "Loop Bookmark", systemImage: PlayerIcons.BookmarkPanel.loopBookmark)
+        }
+    }
+
+    private var goToFirstFrameButton: some View {
+        Button(action: onGoToStart) {
+            Label("Go to First Frame", systemImage: PlayerIcons.BookmarkPanel.startOfBookmark)
+        }
+    }
+
+    private var goToLastFrameButton: some View {
+        Button(action: onGoToEnd) {
+            Label("Go to Last Frame", systemImage: PlayerIcons.BookmarkPanel.endOfBookmark)
+        }
+    }
 }

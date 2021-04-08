@@ -16,7 +16,6 @@ struct TransportControls: View {
     @ObservedObject var viewModel: PlaylistPlayerViewModel
     @Environment(\.presentationMode) var presentationMode
 
-
     // MARK: - View
 
     var body: some View {

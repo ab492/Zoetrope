@@ -84,11 +84,17 @@ final class MockPlaylistPlayer: PlaylistPlayer {
         fatalError("Not implemented")
     }
 
+    // MARK: - Observers
+
     var observations = [ObjectIdentifier : WeakBox<PlaylistPlayerObserver>]()
 
-    func addObserver(_ observer: PlaylistPlayerObserver) { }
+    func addObserver(_ observer: PlaylistPlayerObserver) {
+        let id = ObjectIdentifier(observer)
+        observations[id] = WeakBox(observer)
+    }
 
-    func removeObserver(_ observer: PlaylistPlayerObserver) { }
-
-
+    func removeObserver(_ observer: PlaylistPlayerObserver) {
+        let id = ObjectIdentifier(observer)
+        observations.removeValue(forKey: id)
+    }
 }

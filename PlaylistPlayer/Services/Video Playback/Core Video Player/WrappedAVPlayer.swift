@@ -320,8 +320,8 @@ extension WrappedAVPlayer {
 
     /// The seek tolerance is at its most accurate.
     func seek(to time: MediaTime) {
-        let cmTime = CMTime(seconds: time.seconds, preferredTimescale: time.preferredTimescale)
-
+        let cmTime = CMTime(mediaTime: time)
+        
         player.seek(to: cmTime,
                     toleranceBefore: .zero,
                     toleranceAfter: .zero)

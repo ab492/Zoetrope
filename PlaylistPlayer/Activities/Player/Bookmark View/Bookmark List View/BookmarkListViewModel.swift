@@ -23,14 +23,30 @@ extension BookmarkListView {
         var currentBookmarks: [Video.Bookmark] {
             var currentBookmarks = [Video.Bookmark]()
             for bookmark in bookmarks {
-                let bookmarkRange = bookmark.timeIn...bookmark.timeOut
-                if bookmarkRange.contains(playlistPlayer.currentTime) {
+                // Here we use a buffer time (+/- 0.1 seconds) to make up for the fact that the
+                // player doesn't report an update every single frame (which causes some current
+                // bookmarks to flicker).
+                let adjustedTimeIn = bookmark.timeIn.seconds - 0.1
+                let adjustedTimeOut = bookmark.timeOut.seconds + 0.1
+
+                let bookmarkRange = adjustedTimeIn...adjustedTimeOut
+                if bookmarkRange.contains(playlistPlayer.currentTime.seconds) {
                     currentBookmarks.append(bookmark)
                 }
             }
             return currentBookmarks
         }
 
+        var bookmarkOnLoop: Video.Bookmark? {
+            willSet {
+                objectWillChange.send()
+            }
+            didSet {
+                guard let bookmark = bookmarkOnLoop else { return }
+                playlistPlayer.seek(to: bookmark.timeIn)
+            }
+        }
+        
         // Internal variable kept to track when the current bookmarks actually change. Only
         // at that point will we notify observers. This prevents `objectWillChange` being
         // sent on every frame update as that causes slow animations.
@@ -50,20 +66,27 @@ extension BookmarkListView {
 
         // MARK: - Public
 
-        func formattedTimeInForBookmark(_ bookmark: Video.Bookmark) -> String {
-            TimeFormatter.string(from: Int(bookmark.timeIn.seconds))
+        func formattedTimeForBookmark(_ bookmark: Video.Bookmark) -> String {
+            if bookmark.isOneFrameLong {
+                // If the bookmark is only one frame, just return the timeIn (00:23)
+                return TimeFormatter.string(from: Int(bookmark.timeIn.seconds))
+            } else {
+                // Otherwise return timeIn-timeOut (00:23-00:40)
+                return "\(TimeFormatter.string(from: Int(bookmark.timeIn.seconds)))-\(TimeFormatter.string(from: Int(bookmark.timeOut.seconds)))"
+            }
         }
 
-        func formattedTimeOutForBookmark(_ bookmark: Video.Bookmark) -> String {
-            // TODO: How to format doubles?
-            TimeFormatter.string(from: Int(bookmark.timeOut.seconds))
+        func formattedNoteForBookmark(_ bookmark: Video.Bookmark) -> String {
+            bookmark.note ?? "No Note"
         }
 
         func goToStartOfBookmark(_ bookmark: Video.Bookmark) {
+            objectWillChange.send()
             playlistPlayer.seek(to: bookmark.timeIn)
         }
 
         func goToEndOfBookmark(_ bookmark: Video.Bookmark) {
+            objectWillChange.send()
             playlistPlayer.seek(to: bookmark.timeOut)
         }
 
@@ -95,7 +118,11 @@ extension BookmarkListView {
 
             let indexes = Array(indexSet)
             for index in indexes.reversed() {
-                currentVideo.removeBookmark(bookmarks[index])
+                let bookmarkToRemove = bookmarks[index]
+                currentVideo.removeBookmark(bookmarkToRemove)
+                if bookmarkOnLoop == bookmarkToRemove {
+                    bookmarkOnLoop = nil
+                }
             }
 
             Current.playlistManager.save()
@@ -106,16 +133,24 @@ extension BookmarkListView {
         }
 
         // MARK: - PlaylistPlayerObserver
-
+        
         func playbackPositionDidChange(to time: MediaTime) {
             // Here we use an internal variable to track when the current bookmarks actually
             // change. This prevents `objectWillChange` being sent on every frame update as
             // that causes slow animation.
             _currentBookmarks = currentBookmarks
+
+            // Bookmark Looping Behaviour
+            guard let loopingBookmark = bookmarkOnLoop else { return }
+            
+            if abs(time.seconds - loopingBookmark.timeOut.seconds) < 0.1 {
+                playlistPlayer.seek(to: loopingBookmark.timeIn)
+            }
         }
 
         func playbackDurationDidChange(to time: MediaTime) {
             objectWillChange.send()
+            bookmarkOnLoop = nil
         }
     }
 }

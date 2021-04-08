@@ -67,22 +67,36 @@ class BookmarkTests: XCTestCase {
         XCTAssertEqual(bookmark.timeOut, MediaTime(seconds: 9))
     }
 
-    func test_updatingTimeInToGreaterThanTimeOut_defaultsToTimeOut() {
+    func test_updatingTimeInToGreaterThanTimeOut_updatesTimeOutToMatchNewTimeIn() {
         let bookmark = createBookmark(timeIn: MediaTime(seconds: 10), timeOut: MediaTime(seconds: 20))
 
         bookmark.setTimeIn(MediaTime(seconds: 25))
 
-        XCTAssertEqual(bookmark.timeIn, MediaTime(seconds: 20))
-        XCTAssertEqual(bookmark.timeOut, MediaTime(seconds: 20))
+        XCTAssertEqual(bookmark.timeIn, MediaTime(seconds: 25))
+        XCTAssertEqual(bookmark.timeOut, MediaTime(seconds: 25))
     }
 
-    func test_updatingTimeOutToLessThanTimeIn_defaultsToTimeIn() {
+    func test_updatingTimeOutToLessThanTimeIn_updatesTimeInToMatchNewTimeOut() {
         let bookmark = createBookmark(timeIn: MediaTime(seconds: 10), timeOut: MediaTime(seconds: 20))
 
         bookmark.setTimeOut(MediaTime(seconds: 5))
 
-        XCTAssertEqual(bookmark.timeIn, MediaTime(seconds: 10))
-        XCTAssertEqual(bookmark.timeOut, MediaTime(seconds: 10))
+        XCTAssertEqual(bookmark.timeIn, MediaTime(seconds: 5))
+        XCTAssertEqual(bookmark.timeOut, MediaTime(seconds: 5))
+    }
+
+    // MARK: - Bookmark Is One Frame Long
+
+    func test_bookmarkIsOneFrameLong_correctlyReportedOnOneFrameBookmark() {
+        let bookmark = createBookmark(timeIn: MediaTime(seconds: 10.2), timeOut: MediaTime(seconds: 10.2))
+
+        XCTAssertTrue(bookmark.isOneFrameLong)
+    }
+
+    func test_bookmarkIsOneFrameLong_correctlyReportedOnBookmarkRange() {
+        let bookmark = createBookmark(timeIn: MediaTime(seconds: 10), timeOut: MediaTime(seconds: 15))
+
+        XCTAssertFalse(bookmark.isOneFrameLong)
     }
 
     // MARK: - Helpers

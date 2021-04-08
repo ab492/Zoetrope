@@ -12,6 +12,7 @@ final class BookmarkListViewModelTests: BaseTestCase {
 
     // MARK: - Properties and Setup
 
+    private var sut: BookmarkListView.ViewModel!
     private var mockPlaylistPlayer: MockPlaylistPlayer!
 
     override func setUp() {
@@ -30,7 +31,7 @@ final class BookmarkListViewModelTests: BaseTestCase {
         given_currentlyPlayingVideoHasBookmarks([bookmark1, bookmark2, bookmark3, bookmark4])
         given_playerIsAtTime(MediaTime(seconds: 21))
 
-        let sut = makeSUT()
+        makeSUT()
 
         XCTAssertEqual(sut.currentBookmarks, [bookmark1, bookmark2])
     }
@@ -43,7 +44,53 @@ final class BookmarkListViewModelTests: BaseTestCase {
         given_currentlyPlayingVideoHasBookmarks([bookmark1, bookmark2, bookmark3, bookmark4])
         given_playerIsAtTime(MediaTime(seconds: 60))
 
-        let sut = makeSUT()
+        makeSUT()
+
+        XCTAssertEqual(sut.currentBookmarks, [])
+    }
+
+    // MARK: - Current Bookmark Thresholds
+
+    // Here we use a buffer time (+/- 0.1 seconds) to make up for the fact that the
+    // player doesn't report an update every single frame (which causes some current
+    // bookmarks to flicker).
+
+    func test_viewModelCorrectlyReportsBookmarksWithinThresholdBelowCurrentTime() {
+        let bookmark = createBookmark(timeIn: MediaTime(seconds: 20), timeOut: MediaTime(seconds: 30))
+        given_currentlyPlayingVideoHasBookmarks([bookmark])
+        given_playerIsAtTime(MediaTime(seconds: 19.9))
+
+        makeSUT()
+
+        XCTAssertEqual(sut.currentBookmarks, [bookmark])
+    }
+
+    func test_viewModelCorrectlyReportsNoBookmarksJustBelowThreshold() {
+        let bookmark = createBookmark(timeIn: MediaTime(seconds: 20), timeOut: MediaTime(seconds: 30))
+        given_currentlyPlayingVideoHasBookmarks([bookmark])
+        given_playerIsAtTime(MediaTime(seconds: 19.8))
+
+        makeSUT()
+
+        XCTAssertEqual(sut.currentBookmarks, [])
+    }
+
+    func test_viewModelCorrectlyReportsBookmarksWithinThresholdAboveCurrentTime() {
+        let bookmark = createBookmark(timeIn: MediaTime(seconds: 20), timeOut: MediaTime(seconds: 30))
+        given_currentlyPlayingVideoHasBookmarks([bookmark])
+        given_playerIsAtTime(MediaTime(seconds: 30.1))
+
+        makeSUT()
+
+        XCTAssertEqual(sut.currentBookmarks, [bookmark])
+    }
+
+    func test_viewModelCorrectlyReportsNoBookmarksJustAboveThreshold() {
+        let bookmark = createBookmark(timeIn: MediaTime(seconds: 20), timeOut: MediaTime(seconds: 30))
+        given_currentlyPlayingVideoHasBookmarks([bookmark])
+        given_playerIsAtTime(MediaTime(seconds: 30.2))
+
+        makeSUT()
 
         XCTAssertEqual(sut.currentBookmarks, [])
     }
@@ -54,10 +101,38 @@ final class BookmarkListViewModelTests: BaseTestCase {
         let bookmark = createBookmark(timeIn: MediaTime(seconds: 21), timeOut: MediaTime(seconds: 30.2))
         given_currentlyPlayingVideoHasBookmarks([bookmark])
 
-        let sut = makeSUT()
+        makeSUT()
 
-        XCTAssertEqual(sut.formattedTimeInForBookmark(bookmark), "00:21")
-        XCTAssertEqual(sut.formattedTimeOutForBookmark(bookmark), "00:30")
+        XCTAssertEqual(sut.formattedTimeForBookmark(bookmark), "00:21-00:30")
+    }
+
+    func test_viewModelCorrectlyFormatsTimeWhenBookmarkIsOnlyOneFrame() {
+        let bookmark = createBookmark(timeIn: MediaTime(seconds: 21), timeOut: MediaTime(seconds: 21))
+        given_currentlyPlayingVideoHasBookmarks([bookmark])
+
+        makeSUT()
+
+        XCTAssertEqual(sut.formattedTimeForBookmark(bookmark), "00:21")
+    }
+
+    // MARK: - Note Formatting
+
+    func test_viewModelCorrectlyReturnsNote_ifBookmarkHasOne() {
+        let bookmark = createBookmarkWith(note: "This is a test note")
+        given_currentlyPlayingVideoHasBookmarks([bookmark])
+
+        makeSUT()
+
+        XCTAssertEqual(sut.formattedNoteForBookmark(bookmark), "This is a test note")
+    }
+
+    func test_viewModelCorrectlyReturnsPlaceholder_ifBookmarkHasNoNote() {
+        let bookmark = createBookmarkWith(note: nil)
+        given_currentlyPlayingVideoHasBookmarks([bookmark])
+
+        makeSUT()
+
+        XCTAssertEqual(sut.formattedNoteForBookmark(bookmark), "No Note")
     }
 
     // MARK: - Jumping to Start and End
@@ -66,8 +141,8 @@ final class BookmarkListViewModelTests: BaseTestCase {
         let bookmark = createBookmark(timeIn: MediaTime(seconds: 40), timeOut: MediaTime(seconds: 50))
         given_currentlyPlayingVideoHasBookmarks([bookmark])
         given_playerIsAtTime(MediaTime(seconds: 21))
+        makeSUT()
 
-        let sut = makeSUT()
         sut.goToStartOfBookmark(bookmark)
 
         XCTAssertEqual(mockPlaylistPlayer.lastSeekedToTime, bookmark.timeIn)
@@ -77,8 +152,8 @@ final class BookmarkListViewModelTests: BaseTestCase {
         let bookmark = createBookmark(timeIn: MediaTime(seconds: 40), timeOut: MediaTime(seconds: 50))
         given_currentlyPlayingVideoHasBookmarks([bookmark])
         given_playerIsAtTime(MediaTime(seconds: 21))
+        makeSUT()
 
-        let sut = makeSUT()
         sut.goToEndOfBookmark(bookmark)
 
         XCTAssertEqual(mockPlaylistPlayer.lastSeekedToTime, bookmark.timeOut)
@@ -89,8 +164,7 @@ final class BookmarkListViewModelTests: BaseTestCase {
     func test_addingBookmark_addsNewBookmarkWithCurrentPlayerTime() {
         given_thereIsACurrentlyPlayingVideo()
         given_playerIsAtTime(MediaTime(seconds: 21))
-
-        let sut = makeSUT()
+        makeSUT()
 
         XCTAssertEqual(sut.bookmarks.count, 0)
         sut.addBookmark()
@@ -103,19 +177,64 @@ final class BookmarkListViewModelTests: BaseTestCase {
     func test_addingBookmark_callsSaveOnPlaylistManager() {
         given_thereIsACurrentlyPlayingVideo()
         given_playerIsAtTime(MediaTime(seconds: 21))
+        makeSUT()
 
-        let sut = makeSUT()
         sut.addBookmark()
 
         XCTAssertEqual(Current.mockPlaylistManager.saveCallCount, 1)
+    }
+
+    // MARK: - Looping Bookmark
+
+    func test_settingLoopOnBookmark_isReturnedCorrectly() {
+        let bookmark = createBookmark(timeIn: MediaTime(seconds: 40), timeOut: MediaTime(seconds: 50))
+        given_currentlyPlayingVideoHasBookmarks([bookmark])
+        makeSUT()
+
+        sut.bookmarkOnLoop = bookmark
+
+        XCTAssertEqual(sut.bookmarkOnLoop, bookmark)
+    }
+
+    func test_deletingCurrentlyLoopingBookmark_setsBookmarkOnLoopToNil() {
+        let bookmark = createBookmark(timeIn: MediaTime(seconds: 40), timeOut: MediaTime(seconds: 50))
+        given_currentlyPlayingVideoHasBookmarks([bookmark])
+        makeSUT()
+        given_currentlyPlayingVideoHasBookmarkOnLoop(bookmark: bookmark)
+
+        sut.remove(bookmarksAt: IndexSet(integer: 0)) // We've only got one bookmark so it must be index 0.
+
+        XCTAssertNil(sut.bookmarkOnLoop)
+    }
+
+    func test_whenSettingABookmarkToLoop_playerJumpsToStartFrame() {
+        let bookmark = createBookmark(timeIn: MediaTime(seconds: 40), timeOut: MediaTime(seconds: 50))
+        given_currentlyPlayingVideoHasBookmarks([bookmark])
+        makeSUT()
+
+        sut.bookmarkOnLoop = bookmark
+
+        XCTAssertEqual(mockPlaylistPlayer.lastSeekedToTime, MediaTime(seconds: 40))
+    }
+
+    func test_whenCurrentlyPlayingVideoDidChange_bookmarkSetToNil() {
+        let bookmark = createBookmark(timeIn: MediaTime(seconds: 40), timeOut: MediaTime(seconds: 50))
+        given_currentlyPlayingVideoHasBookmarks([bookmark])
+        makeSUT()
+        given_currentlyPlayingVideoHasBookmarkOnLoop(bookmark: bookmark)
+
+        // This would normally be done via the observers of `PlaylistPlayer` but as this is a simple test, I've just forced it.
+        sut.playbackDurationDidChange(to: MediaTime(seconds: 10))
+
+        XCTAssertNil(sut.bookmarkOnLoop)
     }
 }
 
 // MARK: - MakeSUT and Givens
 
 extension BookmarkListViewModelTests {
-    func makeSUT() -> BookmarkListView.ViewModel {
-        BookmarkListView.ViewModel(playlistPlayer: mockPlaylistPlayer)
+    func makeSUT() {
+        sut = BookmarkListView.ViewModel(playlistPlayer: mockPlaylistPlayer)
     }
 
     private func given_thereIsACurrentlyPlayingVideo() {
@@ -129,6 +248,16 @@ extension BookmarkListViewModelTests {
 
     private func given_playerIsAtTime(_ time: MediaTime) {
         mockPlaylistPlayer.currentTime = time
+    }
+
+    private func given_currentlyPlayingVideoHasBookmarkOnLoop(bookmark: Video.Bookmark) {
+        sut.bookmarkOnLoop = bookmark
+    }
+
+    private func createBookmarkWith(note: String?) -> Video.Bookmark {
+        let bookmark = createBookmark(timeIn: MediaTime(seconds: 10), timeOut: MediaTime(seconds: 15))
+        bookmark.note = note
+        return bookmark
     }
 
     private func createBookmark(timeIn: MediaTime, timeOut: MediaTime) -> Video.Bookmark {

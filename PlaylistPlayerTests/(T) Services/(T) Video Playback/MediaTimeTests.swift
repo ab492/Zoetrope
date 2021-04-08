@@ -16,7 +16,7 @@ class MediaTimeTests: XCTestCase {
         let mediaTime = MediaTime(seconds: 0.9789111111111111)
         let expectedCmTime = CMTime(seconds: 0.9789111111111111, preferredTimescale: 600)
 
-        XCTAssertEqual(CMTime(seconds: mediaTime.seconds, preferredTimescale: mediaTime.preferredTimescale), expectedCmTime)
+        XCTAssertEqual(CMTime(mediaTime: mediaTime), expectedCmTime)
     }
 
     func test_mediaTimeIsComparable() {

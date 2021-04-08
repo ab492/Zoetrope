@@ -9,15 +9,20 @@ import SwiftUI
 
 struct BookmarkListView: View {
 
+    // MARK: - State Properties
+
     @StateObject var viewModel: ViewModel
+    @State var selectedBookmark: Video.Bookmark?
+    @State private var presentEditMode = false
+
+    // MARK: - Init
 
     init(viewModel: ViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
     
-    @State var selectedBookmark: Video.Bookmark?
-    @State private var presentEditMode = false
-    
+    // MARK: - View
+
     var body: some View {
         NavigationView {
             if presentEditMode,
@@ -32,33 +37,18 @@ struct BookmarkListView: View {
     private var bookmarkList: some View {
         List {
             ForEach(viewModel.bookmarks) { bookmark in
-                HStack(alignment: .center) {
-                    Circle()
-                        .frame(width: 10, height: 10)
-                        .foregroundColor(viewModel.currentBookmarks.contains(bookmark) ? .green : .clear)
-                    BookmarkListRow(timeIn: viewModel.formattedTimeInForBookmark(bookmark) ,
-                                    timeOut: viewModel.formattedTimeOutForBookmark(bookmark),
-                                    note: bookmark.note ?? "No note",
-                                    onEditTapped: {
-                                        selectedBookmark = bookmark
-                                        presentEditMode.toggle()
-                                    },
-                                    onGoToStart: { viewModel.goToStartOfBookmark(bookmark) },
-                                    onGoToEnd: { viewModel.goToEndOfBookmark(bookmark) })
-//                        NavigationLink(destination: EditBookmarkView(viewModel: viewModel.editBookmarkViewModel(for: bookmark),
-//                                                                     isPresenting: $presentEditMode), label: {
-//                                                                        Text("Edit")
-//                                                                            .background(Color.red)
-//                                                                     })
-
-//                        NavigationLink(destination: EditBookmarkView(viewModel: viewModel.editBookmarkViewModel(for: bookmark),
-//                                                                     isPresenting: $presentEditMode),
-//                                       isActive: $presentEditMode, label: {
-//                                        Text("Edit")
-//                                            .background(Color.red)
-//                                       })
+                BookmarkListRow(timeLabel: viewModel.formattedTimeForBookmark(bookmark),
+                                note: viewModel.formattedNoteForBookmark(bookmark),
+                                isCurrent: viewModel.currentBookmarks.contains(bookmark),
+                                isLooping: viewModel.bookmarkOnLoop == bookmark,
+                                onEditTapped: {
+                                    selectedBookmark = bookmark
+                                    presentEditMode.toggle()
+                                },
+                                onGoToStart: { viewModel.goToStartOfBookmark(bookmark) },
+                                onGoToEnd: { viewModel.goToEndOfBookmark(bookmark) },
+                                onLoopTapped: { toggleLoopMode(for: bookmark) })
                     .buttonStyle(PlainButtonStyle())
-                }
             }
             .onDelete(perform: removeRows)
         }
@@ -70,9 +60,7 @@ struct BookmarkListView: View {
         }
     }
 
-    private func removeRows(at offsets: IndexSet) {
-        viewModel.remove(bookmarksAt: offsets)
-    }
+    // MARK: - Toolbar
 
     private var trailingToolbar: some ToolbarContent {
         ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -99,20 +87,30 @@ struct BookmarkListView: View {
     }
 
     private var previousButton: some View {
-        Button {
-            viewModel.previousBookmark()
-        } label: {
+        Button(action: viewModel.previousBookmark) {
             Image(systemName: PlayerIcons.BookmarkPanel.previousBookmark)
                 .clipShape(Rectangle())
         }
     }
 
     private var nextButton: some View {
-        Button {
-            viewModel.nextBookmark()
-        } label: {
+        Button(action: viewModel.nextBookmark) {
             Image(systemName: PlayerIcons.BookmarkPanel.nextBookmark)
                 .clipShape(Rectangle())
+        }
+    }
+
+    // MARK: - Helpers
+
+    private func removeRows(at offsets: IndexSet) {
+        viewModel.remove(bookmarksAt: offsets)
+    }
+
+    private func toggleLoopMode(for bookmark: Video.Bookmark) {
+        if viewModel.bookmarkOnLoop == bookmark {
+            viewModel.bookmarkOnLoop = nil
+        } else {
+            viewModel.bookmarkOnLoop = bookmark
         }
     }
 }

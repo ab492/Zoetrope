@@ -91,20 +91,19 @@ struct PlaylistDetailView: View {
                 playlistDetailViewModel.sortByTitleSortOrder.toggle()
             } label: {
                 let icon = playlistDetailViewModel.sortByTitleSortOrder == .ascending ? "chevron.down" : "chevron.up"
-                MenuItemView(title: "Sort by title", iconSystemName: icon)
+                MenuItemView(title: "Sort by Title", iconSystemName: icon)
             }
             Button {
                 playlistDetailViewModel.sortByDurationSortOrder.toggle()
             } label: {
                 let icon = playlistDetailViewModel.sortByDurationSortOrder == .ascending ? "chevron.down" : "chevron.up"
-                MenuItemView(title: "Sort by duration", iconSystemName: icon)
+                MenuItemView(title: "Sort by Duration", iconSystemName: icon)
             }
 
         } label: {
             Label("Sort Playlist", systemImage: "arrow.up.arrow.down")
                 .frame(width: 50)
         }
-        
     }
     
     private var importMediaToolbarItem: some ToolbarContent {
