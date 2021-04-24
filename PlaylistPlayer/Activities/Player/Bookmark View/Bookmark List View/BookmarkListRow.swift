@@ -15,6 +15,7 @@ struct BookmarkListRow: View {
     let note: String
     let isCurrent: Bool
     let isLooping: Bool
+    let hasDrawings: Bool
     let onEditTapped: () -> Void
     let onGoToStart: () -> Void
     let onGoToEnd: () -> Void
@@ -44,6 +45,7 @@ struct BookmarkListRow: View {
             isCurrentCircularIndicator
                 .foregroundColor(isCurrent ? .green : .clear)
             timeLabels
+            maybeHasDrawingsIndicator
             maybeIsLoopingIndicator
         }
     }
@@ -73,6 +75,17 @@ struct BookmarkListRow: View {
     private var maybeIsLoopingIndicator: some View {
         if isLooping {
             Image(systemName: PlayerIcons.BookmarkPanel.loopBookmark)
+                .font(.system(size: 15, weight: .bold, design: .default))
+                .foregroundColor(.tertiarySystemBackground)
+        } else {
+            EmptyView()
+        }
+    }
+
+    @ViewBuilder
+    private var maybeHasDrawingsIndicator: some View {
+        if hasDrawings {
+            Image(systemName: PlayerIcons.BookmarkPanel.bookmarkHasDrawings)
                 .font(.system(size: 15, weight: .bold, design: .default))
                 .foregroundColor(.tertiarySystemBackground)
         } else {

@@ -87,7 +87,10 @@ final class PlaylistPlayerImpl: PlaylistPlayer {
 
     init(videoQueuePlayer: VideoQueuePlayerProtocol) {
         self.player = videoQueuePlayer
-        self.loopMode = Current.userPreferencesManager.loopMode
+        DispatchQueue.main.async {
+            // TODO: Could do this is a setup function (maybe using mirroring?!)
+            self.loopMode = Current.userPreferencesManager.loopMode
+        }
         self.player.observer = self
     }
 

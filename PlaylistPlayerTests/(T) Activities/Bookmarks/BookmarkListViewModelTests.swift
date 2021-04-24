@@ -173,17 +173,7 @@ final class BookmarkListViewModelTests: BaseTestCase {
         XCTAssertEqual(newlyAddedBookmark.timeIn, MediaTime(seconds: 21))
         XCTAssertEqual(newlyAddedBookmark.timeOut, MediaTime(seconds: 21))
     }
-
-    func test_addingBookmark_callsSaveOnPlaylistManager() {
-        given_thereIsACurrentlyPlayingVideo()
-        given_playerIsAtTime(MediaTime(seconds: 21))
-        makeSUT()
-
-        sut.addBookmark()
-
-        XCTAssertEqual(Current.mockPlaylistManager.saveCallCount, 1)
-    }
-
+    
     // MARK: - Looping Bookmark
 
     func test_settingLoopOnBookmark_isReturnedCorrectly() {
@@ -239,6 +229,7 @@ extension BookmarkListViewModelTests {
 
     private func given_thereIsACurrentlyPlayingVideo() {
         mockPlaylistPlayer.currentlyPlayingVideo = createVideoWithBookmarks([])
+        mockPlaylistPlayer.isPlaying = true
     }
 
     private func given_currentlyPlayingVideoHasBookmarks(_ bookmarks: [Video.Bookmark]) {

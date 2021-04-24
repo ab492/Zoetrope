@@ -24,7 +24,7 @@ struct PlayerIcons {
     }
 
     struct PlayerOptions {
-        static let annotate = "scribble"
+        static let annotate = "pencil.and.outline"
         static let bookmarks = "bookmark.fill"
     }
     
@@ -35,6 +35,7 @@ struct PlayerIcons {
         static let startOfBookmark = "backward.end.fill"
         static let endOfBookmark = "forward.end.fill"
         static let loopBookmark = "repeat"
+        static let bookmarkHasDrawings = "pencil.and.outline"
     }
 }
 

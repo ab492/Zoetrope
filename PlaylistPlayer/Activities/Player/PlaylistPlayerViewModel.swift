@@ -24,6 +24,8 @@ final class PlaylistPlayerViewModel: ObservableObject {
     @Published private(set) var formattedCurrentTime = "00:00"
     @Published private(set) var formattedDuration = "00:00"
 
+    var videoSize: (() -> CGRect)?
+
     private var playlist: Playlist?
 
     var currentlyPlayingVideo: Video? {

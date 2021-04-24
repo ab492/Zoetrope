@@ -62,8 +62,8 @@
             filePath = "PlaylistPlayer/Services/Video Playback/Core Video Player/WrappedAVPlayer.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216"
+            startingLineNumber = "218"
+            endingLineNumber = "218"
             landmarkName = "WrappedAVPlayer"
             landmarkType = "21">
          </BreakpointContent>
@@ -103,17 +103,176 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D3BC0CE2-E57B-4B55-A37A-B7E2102AF2D5"
+            uuid = "0DB1BAB8-EF12-40FA-99D3-5A16668DF4DA"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PlaylistPlayer/Activities/Player/CustomPlayerView.swift"
+            filePath = "PlaylistPlayer/Services/Video Playback/Core Video Player/WrappedAVPlayer.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
-            landmarkName = "body"
+            startingLineNumber = "278"
+            endingLineNumber = "278"
+            landmarkName = "playbackState"
             landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5627AF07-80E5-4AEE-85F7-D0CB4A7A1672"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PlaylistPlayer/Services/Video Playback/Core Video Player/WrappedAVPlayer.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "228"
+            endingLineNumber = "228"
+            landmarkName = "pause()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "5627AF07-80E5-4AEE-85F7-D0CB4A7A1672 - 9ecbe1b5e6b4fc0"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PlaylistPlayer.PlaylistPlayerImpl.pause() -&gt; ()"
+                  moduleName = "PlaylistPlayer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andybrown/Programming/Quickfire/PlaylistPlayer/PlaylistPlayer/Services/Video%20Playback/Core%20Video%20Player/WrappedAVPlayer.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "226"
+                  endingLineNumber = "226"
+                  offsetFromSymbolStart = "104">
+               </Location>
+               <Location
+                  uuid = "5627AF07-80E5-4AEE-85F7-D0CB4A7A1672 - a79765246a078253"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PlaylistPlayer.VideoQueuePlayer.replaceQueue(with: Swift.Array&lt;__C.AVPlayerItem&gt;) -&gt; ()"
+                  moduleName = "PlaylistPlayer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andybrown/Programming/Quickfire/PlaylistPlayer/PlaylistPlayer/Services/Video%20Playback/Core%20Video%20Player/WrappedAVPlayer.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "226"
+                  endingLineNumber = "226"
+                  offsetFromSymbolStart = "80">
+               </Location>
+               <Location
+                  uuid = "5627AF07-80E5-4AEE-85F7-D0CB4A7A1672 - 939de4b3dda562e"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PlaylistPlayer.VideoQueuePlayer.scrubbingDidStart() -&gt; ()"
+                  moduleName = "PlaylistPlayer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andybrown/Programming/Quickfire/PlaylistPlayer/PlaylistPlayer/Services/Video%20Playback/Core%20Video%20Player/WrappedAVPlayer.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "226"
+                  endingLineNumber = "226"
+                  offsetFromSymbolStart = "184">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "458DCF87-B6CD-4848-8EBA-A0B031B54D09"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PlaylistPlayer/Services/Video Playback/Core Video Player/WrappedAVPlayer.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "220"
+            endingLineNumber = "220"
+            landmarkName = "play()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "458DCF87-B6CD-4848-8EBA-A0B031B54D09 - f0f5ac8640ef2a3b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PlaylistPlayer.VideoQueuePlayer.play() -&gt; ()"
+                  moduleName = "PlaylistPlayer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andybrown/Programming/Quickfire/PlaylistPlayer/PlaylistPlayer/Services/Video%20Playback/Core%20Video%20Player/WrappedAVPlayer.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "220"
+                  endingLineNumber = "220"
+                  offsetFromSymbolStart = "252">
+               </Location>
+               <Location
+                  uuid = "458DCF87-B6CD-4848-8EBA-A0B031B54D09 - 9416d2b643bb62c8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PlaylistPlayer.VideoQueuePlayer.currentItemDidFinishPlayback() -&gt; ()"
+                  moduleName = "PlaylistPlayer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andybrown/Programming/Quickfire/PlaylistPlayer/PlaylistPlayer/Services/Video%20Playback/Core%20Video%20Player/WrappedAVPlayer.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "220"
+                  endingLineNumber = "220"
+                  offsetFromSymbolStart = "376">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8EA80ADF-FA07-4AA2-B720-6A346CF3A4C3"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PlaylistPlayer/Services/Video Playback/Core Video Player/WrappedAVPlayer.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "219"
+            endingLineNumber = "219"
+            landmarkName = "play()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "8EA80ADF-FA07-4AA2-B720-6A346CF3A4C3 - f0f5ac8640ef2b9c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PlaylistPlayer.VideoQueuePlayer.play() -&gt; ()"
+                  moduleName = "PlaylistPlayer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andybrown/Programming/Quickfire/PlaylistPlayer/PlaylistPlayer/Services/Video%20Playback/Core%20Video%20Player/WrappedAVPlayer.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "217"
+                  endingLineNumber = "217"
+                  offsetFromSymbolStart = "224">
+               </Location>
+               <Location
+                  uuid = "8EA80ADF-FA07-4AA2-B720-6A346CF3A4C3 - 9416d2b643bb636f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PlaylistPlayer.VideoQueuePlayer.currentItemDidFinishPlayback() -&gt; ()"
+                  moduleName = "PlaylistPlayer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andybrown/Programming/Quickfire/PlaylistPlayer/PlaylistPlayer/Services/Video%20Playback/Core%20Video%20Player/WrappedAVPlayer.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "217"
+                  endingLineNumber = "217"
+                  offsetFromSymbolStart = "348">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

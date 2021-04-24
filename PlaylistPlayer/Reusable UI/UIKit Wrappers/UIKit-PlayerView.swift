@@ -19,11 +19,25 @@ class PlayerView: UIView {
         }
     }
 
+    private var videoRectObserver: NSKeyValueObservation?
+
     // MARK: - Init
 
     init(player: AVPlayer) {
         super.init(frame: .zero)
         self.player = player
+
+        videoRectObserver = player.currentItem?.observe(\.status, changeHandler: { item, _ in
+            DispatchQueue.main.async {
+                print("CHANGE!")
+            }
+        })
+
+//        videoRectObserver = playerLayer.observe(\.videoRect) { [weak self] layer, newRect in
+//            DispatchQueue.main.async {
+//                print("PLAYER: \(newRect)")
+//            }
+//        }
     }
 
     init() {
@@ -44,4 +58,6 @@ class PlayerView: UIView {
     override static var layerClass: AnyClass {
         return AVPlayerLayer.self
     }
+
+
 }

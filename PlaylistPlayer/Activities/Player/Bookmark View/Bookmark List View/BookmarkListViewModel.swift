@@ -109,7 +109,21 @@ extension BookmarkListView {
                                           timeIn: playlistPlayer.currentTime,
                                           timeOut: playlistPlayer.currentTime)
             currentVideo.addBookmark(bookmark)
-            Current.playlistManager.save()
+        }
+
+        func addBookmarkForDrawing(data: Data) {
+            objectWillChange.send()
+            guard let currentVideo = playlistPlayer.currentlyPlayingVideo else { return }
+
+            if let currentBookmark = bookmarks.first(where: { $0.timeIn == playlistPlayer.currentTime && $0.timeOut == playlistPlayer.currentTime }) {
+                currentBookmark.drawing = data
+            } else {
+                let bookmark = Video.Bookmark(id: UUID(),
+                                              timeIn: playlistPlayer.currentTime,
+                                              timeOut: playlistPlayer.currentTime,
+                                              drawing: data)
+                currentVideo.addBookmark(bookmark)
+            }
         }
 
         func remove(bookmarksAt indexSet: IndexSet) {
@@ -124,12 +138,14 @@ extension BookmarkListView {
                     bookmarkOnLoop = nil
                 }
             }
-
-            Current.playlistManager.save()
         }
 
         func editBookmarkViewModel(for selectedBookmark: Video.Bookmark) -> EditBookmarkView.ViewModel {
             EditBookmarkView.ViewModel(playlistPlayer: playlistPlayer, selectedBookmark: selectedBookmark)
+        }
+
+        func save() {
+            Current.playlistManager.save()
         }
 
         // MARK: - PlaylistPlayerObserver

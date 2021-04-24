@@ -13,17 +13,25 @@ struct CanvasView: UIViewRepresentable {
     class Coordinator: NSObject, PKCanvasViewDelegate {
         var canvasView: Binding<PKCanvasView>
         let onChange: () -> Void
-        private let toolPicker: PKToolPicker
+        let onDrawingStarted: () -> Void
+        let onDrawingComplete: () -> Void
+        var toolPicker: Binding<PKToolPicker>
 
         deinit {
-            toolPicker.setVisible(false, forFirstResponder: canvasView.wrappedValue)
-            toolPicker.removeObserver(canvasView.wrappedValue)
+            toolPicker.wrappedValue.setVisible(false, forFirstResponder: canvasView.wrappedValue)
+            toolPicker.wrappedValue.removeObserver(canvasView.wrappedValue)
         }
 
-        init(canvasView: Binding<PKCanvasView>, toolPicker: PKToolPicker, onChange: @escaping () -> Void) {
+        init(canvasView: Binding<PKCanvasView>,
+             toolPicker: Binding<PKToolPicker>,
+             onChange: @escaping () -> Void,
+             onDrawingStarted: @escaping () -> Void,
+             onDrawingComplete: @escaping () -> Void) {
             self.canvasView = canvasView
             self.onChange = onChange
             self.toolPicker = toolPicker
+            self.onDrawingStarted = onDrawingStarted
+            self.onDrawingComplete = onDrawingComplete
         }
 
         func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
@@ -31,13 +39,23 @@ struct CanvasView: UIViewRepresentable {
                 onChange()
             }
         }
+
+        func canvasViewDidBeginUsingTool(_ canvasView: PKCanvasView) {
+            onDrawingStarted()
+        }
+
+        func canvasViewDidEndUsingTool(_ canvasView: PKCanvasView) {
+            onDrawingComplete()
+        }
     }
 
     @Binding var canvasView: PKCanvasView
     @Binding var toolPickerIsActive: Bool
-    private let toolPicker = PKToolPicker()
+    @Binding var toolPicker: PKToolPicker
 
     let onChange: () -> Void
+    let onDrawingStarted: () -> Void
+    let onDrawingComplete: () -> Void
 
     func makeUIView(context: Context) -> PKCanvasView {
         canvasView.backgroundColor = .clear
@@ -59,6 +77,10 @@ struct CanvasView: UIViewRepresentable {
     }
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(canvasView: $canvasView, toolPicker: toolPicker, onChange: onChange)
+        Coordinator(canvasView: $canvasView,
+                    toolPicker: $toolPicker,
+                    onChange: onChange,
+                    onDrawingStarted: onDrawingStarted,
+                    onDrawingComplete: onDrawingComplete)
     }
 }

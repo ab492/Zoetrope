@@ -73,7 +73,7 @@ final class WrappedAVPlayer: VideoPlayerProtocol {
     private var playerItemFastReverseObserver: NSKeyValueObservation?
     private var playerItemStatusObserver: NSKeyValueObservation?
     private var playerItemReverseObserver: NSKeyValueObservation?
-
+    
     // MARK: - Init
 
     convenience init() {
@@ -188,6 +188,8 @@ final class WrappedAVPlayer: VideoPlayerProtocol {
 
     @objc private func itemDidFinishPlaying() {
         DispatchQueue.main.async { [weak self] in
+
+            // TODO: ERROR HERE WITH RETAINING THE PLAYER!
             self?.observer?.currentItemDidFinishPlayback()
         }
     }

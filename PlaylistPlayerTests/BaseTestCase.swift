@@ -15,6 +15,7 @@ class BaseTestCase: XCTestCase {
 
         Current = World(dateTimeService: MockDateTimeService(),
                         playlistManager: MockPlaylistManager(),
+                        playlistPlayer: MockPlaylistPlayer(),
                         thumbnailService: MockThumbnailService(),
                         userPreferencesManager: MockUserPreferencesManager())
 

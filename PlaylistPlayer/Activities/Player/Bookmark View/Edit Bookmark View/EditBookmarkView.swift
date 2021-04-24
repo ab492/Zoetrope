@@ -16,6 +16,12 @@ struct EditBookmarkView: View {
 
     // MARK: - Init
 
+//    init(viewModel: ViewModel) {
+//        _viewModel = StateObject(wrappedValue: viewModel)
+//
+//        UITextView.appearance().backgroundColor = .clear
+//    }
+
     init(viewModel: ViewModel, isPresenting: Binding<Bool>) {
         _viewModel = StateObject(wrappedValue: viewModel)
         _isPresenting = isPresenting

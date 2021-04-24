@@ -34,7 +34,7 @@ struct ContentView: View {
                 }
             }
             .ignoresSafeArea(.keyboard, edges: .bottom) // Prevents the view moving up when the keyboard appears.
-            .navigationBarTitle("") // Required to hide the navigation bar to allow the text to be centred.
+            .navigationBarTitle("") // Required to hide the navigation bar to allow the text to be centered.
             .navigationBarHidden(true)
         }
     }

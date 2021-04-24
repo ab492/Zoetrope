@@ -20,6 +20,10 @@ extension Video {
             timeOut.seconds - timeIn.seconds == 0
         }
 
+        var hasDrawing: Bool {
+            drawing != nil
+        }
+
         init(id: UUID, timeIn: MediaTime, timeOut: MediaTime, note: String? = nil, drawing: Data? = nil) {
             let constrainedTimeIn = timeIn.constrained(min: MediaTime(seconds: 0))
             let constrainedTimeOut = timeOut.constrained(min: constrainedTimeIn)
@@ -43,9 +47,6 @@ extension Video {
         }
 
         func setTimeOut(_ timeOut: MediaTime) {
-            // Don't let time out be less than time in.
-            self.timeOut = timeOut.constrained(min: timeIn)
-
             if timeOut < timeIn {
                 // If new timeOut is less than timeIn, update both to match the new timeOut.
                 self.timeIn = timeOut

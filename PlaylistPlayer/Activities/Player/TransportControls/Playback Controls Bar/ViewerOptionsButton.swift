@@ -9,20 +9,22 @@ import SwiftUI
 
 struct ViewerOptionsButton: View {
     var systemImage: String
-    @Binding var isSelected: Bool
+    var isSelected: Bool
+    var onTap: () -> Void
 
-    init(systemImage: String, isSelected: Binding<Bool>) {
-        self.systemImage = systemImage
-        _isSelected = isSelected
-    }
+//    init(systemImage: String, isSelected: Bool) {
+//        self.systemImage = systemImage
+//        _isSelected = isSelected
+//    }
 
     var body: some View {
         VStack(spacing: 5) {
             Button {
                 // TODO: Should the animation live here?
-                withAnimation {
-                    isSelected.toggle()
-                }
+//                withAnimation {
+//                    isSelected.toggle()
+//                }
+                onTap()
             } label: {
                 VStack {
                     Image(systemName: systemImage)
@@ -38,22 +40,22 @@ struct ViewerOptionsButton: View {
     }
 }
 
-struct ViewerOptionsButton_Previews: PreviewProvider {
-    static var previews: some View {
-        ViewerOptionsButton(systemImage: "scribble.variable",
-                            isSelected: .constant(true))
-            .accentColor(.red)
-            .previewLayout(PreviewLayout.sizeThatFits)
-            .padding()
-            .background(Color.gray)
-            .previewDisplayName("Selected State")
-
-        ViewerOptionsButton(systemImage: "scribble.variable",
-                            isSelected: .constant(true))
-            .accentColor(.red)
-            .previewLayout(PreviewLayout.sizeThatFits)
-            .padding()
-            .background(Color.gray)
-            .previewDisplayName("Unselected State")
-    }
-}
+//struct ViewerOptionsButton_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ViewerOptionsButton(systemImage: "scribble.variable",
+//                            isSelected: .constant(true))
+//            .accentColor(.red)
+//            .previewLayout(PreviewLayout.sizeThatFits)
+//            .padding()
+//            .background(Color.gray)
+//            .previewDisplayName("Selected State")
+//
+//        ViewerOptionsButton(systemImage: "scribble.variable",
+//                            isSelected: .constant(true))
+//            .accentColor(.red)
+//            .previewLayout(PreviewLayout.sizeThatFits)
+//            .padding()
+//            .background(Color.gray)
+//            .previewDisplayName("Unselected State")
+//    }
+//}

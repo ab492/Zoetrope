@@ -14,7 +14,7 @@ struct CustomPlayerLayer: View {
 
     var body: some View {
         ZStack {
-            Color.black.edgesIgnoringSafeArea(.all)
+            Color.clear.edgesIgnoringSafeArea(.all)
             if viewModel.isReadyForPlayback {
                 VideoPlayerView(player: viewModel)
             } else {
@@ -22,7 +22,7 @@ struct CustomPlayerLayer: View {
             }
         }
     }
-
+    
     private var loadingSpinner: some View {
         ProgressView()
             .scaleEffect(1.5, anchor: .center)

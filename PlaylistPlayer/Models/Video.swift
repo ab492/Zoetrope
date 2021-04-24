@@ -22,7 +22,7 @@ final class Video: Identifiable, Codable {
     var url: URL
     private var bookmarkData: Data?
     private var isSecurityScoped = false
-
+    
     // MARK: - Init
 
     init(id: UUID = UUID(), url: URL, filename: String, duration: Time, thumbnailFilename: String? = nil) {

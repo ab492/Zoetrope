@@ -15,7 +15,7 @@ struct PlaylistDetailView: View {
 
     // MARK: - State
     @StateObject var playlistDetailViewModel: ViewModel
-    @State private var playlistPlayer = PlaylistPlayerImpl()
+//    private var playlistPlayer = PlaylistPlayerImpl()
     @State var editMode: EditMode = .inactive
     @State private var showingDocumentPicker = false
     @State private var urls: [URL]?
@@ -49,7 +49,7 @@ struct PlaylistDetailView: View {
         .navigationBarTitle(playlistDetailViewModel.playlistTitle, displayMode: .inline)
         .environment(\.editMode, self.$editMode)
         .fullScreenCover(isPresented: $presentingPlayer) {
-            CustomPlayerView(playlistPlayer: playlistPlayer)
+            CustomPlayerView(playlistPlayer: Current.playlistPlayer)
         }
     }
 
@@ -59,7 +59,7 @@ struct PlaylistDetailView: View {
                 PlaylistDetailRow(video: video)
                     .onTapGesture {
                         updateViewModel()
-                        playlistPlayer.skipToItem(at: playlistDetailViewModel.index(of: video))
+                        Current.playlistPlayer.skipToItem(at: playlistDetailViewModel.index(of: video))
                         presentingPlayer.toggle()
                     }
             }
@@ -142,6 +142,6 @@ struct PlaylistDetailView: View {
     }
 
     private func updateViewModel() {
-        playlistPlayer.updateQueue(for: playlistDetailViewModel.playlist)
+        Current.playlistPlayer.updateQueue(for: playlistDetailViewModel.playlist)
     }
 }
