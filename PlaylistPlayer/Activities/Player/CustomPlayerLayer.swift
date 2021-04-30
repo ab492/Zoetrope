@@ -11,12 +11,13 @@ import SwiftUI
 struct CustomPlayerLayer: View {
 
     @ObservedObject var viewModel: PlaylistPlayerViewModel
+    @ObservedObject var bookmarkListViewModel: BookmarkListView.ViewModel
 
     var body: some View {
         ZStack {
             Color.clear.edgesIgnoringSafeArea(.all)
             if viewModel.isReadyForPlayback {
-                VideoPlayerView(player: viewModel)
+                VideoPlayerView(playerViewModel: viewModel, bookmarkListViewModel: bookmarkListViewModel)
             } else {
                 loadingSpinner
             }

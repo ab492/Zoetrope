@@ -46,6 +46,21 @@ extension BookmarkListView {
                 playlistPlayer.seek(to: bookmark.timeIn)
             }
         }
+
+        var currentNotesFormattedForOverlay: String {
+            var overlayString = String()
+            for bookmark in currentBookmarks {
+                if let note = bookmark.note {
+                    overlayString.append(note)
+
+                    // Don't add a carriage return if this is the last note.
+                    if bookmark != currentBookmarks.last {
+                        overlayString.append("\n")
+                    }
+                }
+            }
+            return overlayString
+        }
         
         // Internal variable kept to track when the current bookmarks actually change. Only
         // at that point will we notify observers. This prevents `objectWillChange` being
@@ -115,9 +130,11 @@ extension BookmarkListView {
             objectWillChange.send()
             guard let currentVideo = playlistPlayer.currentlyPlayingVideo else { return }
 
+            // If there's already a drawing, update it.
             if let currentBookmark = bookmarks.first(where: { $0.timeIn == playlistPlayer.currentTime && $0.timeOut == playlistPlayer.currentTime }) {
                 currentBookmark.drawing = data
             } else {
+            // Otherwise, create a new one.
                 let bookmark = Video.Bookmark(id: UUID(),
                                               timeIn: playlistPlayer.currentTime,
                                               timeOut: playlistPlayer.currentTime,

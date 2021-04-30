@@ -35,7 +35,7 @@ struct PlaylistDetailView: View {
     var body: some View {
         ZStack {
             if playlistDetailViewModel.playlistIsEmpty {
-                EmptyContentView(text: "Add videos to get started")
+                EmptyContentView(text: "Add videos to get started.")
             } else {
                 videoList
             }

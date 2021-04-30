@@ -7,20 +7,6 @@
 
 import SwiftUI
 
-struct NavigationConfigurator: UIViewControllerRepresentable {
-    var configure: (UINavigationController) -> Void = { _ in }
-
-    func makeUIViewController(context: UIViewControllerRepresentableContext<NavigationConfigurator>) -> UIViewController {
-        UIViewController()
-    }
-    func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<NavigationConfigurator>) {
-        if let nc = uiViewController.navigationController {
-            self.configure(nc)
-        }
-    }
-
-}
-
 struct BookmarkListView: View {
 
     // MARK: - State Properties
@@ -60,11 +46,6 @@ struct BookmarkListView: View {
                                     isCurrent: viewModel.currentBookmarks.contains(bookmark),
                                     isLooping: viewModel.bookmarkOnLoop == bookmark,
                                     hasDrawings: bookmark.hasDrawing,
-                                    onEditTapped: {
-                                        // TODO: Remove this!
-                                        selectedBookmark = bookmark
-                                        presentEditMode.toggle()
-                                    },
                                     onGoToStart: { viewModel.goToStartOfBookmark(bookmark) },
                                     onGoToEnd: { viewModel.goToEndOfBookmark(bookmark) },
                                     onLoopTapped: { toggleLoopMode(for: bookmark) })

@@ -24,8 +24,31 @@ final class PlaylistPlayerViewModel: ObservableObject {
     @Published private(set) var formattedCurrentTime = "00:00"
     @Published private(set) var formattedDuration = "00:00"
 
-    var videoSize: (() -> CGRect)?
+    @Published var isInDrawingMode = false
+//    @Published var overlayNotes = false
+//    @Published var noteColor = Color.white
+//    @Published var noteColorString: String = "Red"
 
+    var overlayNotes: Bool {
+        get {
+            Current.userPreferencesManager.overlayNotes
+        }
+        set {
+            objectWillChange.send()
+            Current.userPreferencesManager.overlayNotes = newValue
+        }
+    }
+
+    var noteColor: Color {
+        get {
+            Color(Current.userPreferencesManager.noteColor)
+        }
+        set {
+            objectWillChange.send()
+            Current.userPreferencesManager.noteColor = UIColor(newValue)
+        }
+    }
+    
     private var playlist: Playlist?
 
     var currentlyPlayingVideo: Video? {

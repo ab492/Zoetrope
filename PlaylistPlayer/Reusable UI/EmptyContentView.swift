@@ -14,5 +14,7 @@ struct EmptyContentView: View {
 
     var body: some View {
         Text(text)
+            .foregroundColor(.secondary)
+            .font(.body)
     }
 }

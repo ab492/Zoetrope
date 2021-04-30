@@ -7,44 +7,57 @@
 
 import SwiftUI
 import Combine
+import PencilKit
 
 struct VideoPlayerView: UIViewRepresentable {
-    let player: PlaylistPlayerViewModel
 
+    // MARK: - Coordinator
 
-    private var cancellables = Set<AnyCancellable>()
+    class Coordinator: NSObject, PlayerViewDelegate {
 
-//    private var canc: AnyCancellable!
+        var parent: VideoPlayerView
 
+        init(_ parent: VideoPlayerView) {
+            self.parent = parent
+        }
 
-    init(player: PlaylistPlayerViewModel) {
-        self.player = player
+        func drawingDidStart() {
+            parent.playerViewModel.pause()
+        }
 
-        // https://stackoverflow.com/questions/59689442/passing-an-observableobject-model-through-another-obobject
-
-        self.player.objectWillChange.sink {
-//            print("HERE?: \(player.videoSize?())")
-        }.store(in: &cancellables)
-
-
-
+        func drawingDidComplete(drawing: PKDrawing) {
+            parent.bookmarkListViewModel.addBookmarkForDrawing(data: drawing.dataRepresentation())
+        }
     }
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+
+    // MARK: - Properties
+
+    @ObservedObject var playerViewModel: PlaylistPlayerViewModel
+    @ObservedObject var bookmarkListViewModel: BookmarkListView.ViewModel
+
+    // MARK: - UIViewRepresentable
     
     func makeUIView(context: Context) -> PlayerView {
         let view = PlayerView()
-        player.setVideoPlayer(view: view)
-        player.videoSize = {
-            view.playerLayer.videoRect
-        }
-//        view.playerLayer.backgroundColor = UIColor.lightGray.cgColor
-
-//        self.player.objectWillChange.sink {
-//            print("HERE?")
-//            print(view.playerLayer.videoRect)
-//        }
-
+        playerViewModel.setVideoPlayer(view: view)
+        view.delegate = context.coordinator
         return view
     }
 
-    func updateUIView(_ uiView: PlayerView, context: Context) { }
+    func updateUIView(_ uiView: PlayerView, context: Context) {
+        uiView.isInDrawingMode = playerViewModel.isInDrawingMode
+        uiView.overlayNotes = playerViewModel.overlayNotes
+        uiView.overlayNoteColor = UIColor(playerViewModel.noteColor)
+        uiView.updateTextLayer(with: bookmarkListViewModel.currentNotesFormattedForOverlay)
+        
+        if let bookmarks = bookmarkListViewModel.currentBookmarks.first,
+           let data = bookmarks.drawing,
+           let drawing = try? PKDrawing(data: data) {
+            uiView.updateDrawing(with: drawing)
+        }
+    }
 }

@@ -16,7 +16,6 @@ struct BookmarkListRow: View {
     let isCurrent: Bool
     let isLooping: Bool
     let hasDrawings: Bool
-    let onEditTapped: () -> Void
     let onGoToStart: () -> Void
     let onGoToEnd: () -> Void
     let onLoopTapped: () -> Void
@@ -97,7 +96,6 @@ struct BookmarkListRow: View {
 
     private var optionsMenu: some View {
         Menu {
-            editButton
             loopButton
             goToFirstFrameButton
             goToLastFrameButton
@@ -105,12 +103,6 @@ struct BookmarkListRow: View {
             Image(systemName: "ellipsis.circle")
                 .font(.title2)
                 .frame(width: 44, height: 44)
-        }
-    }
-
-    private var editButton: some View {
-        Button(action: onEditTapped) {
-            Label("Edit Bookmark", systemImage: "note.text")
         }
     }
 

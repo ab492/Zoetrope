@@ -8,77 +8,6 @@
 import SwiftUI
 import PencilKit
 
-class DrawingModeViewModel: ObservableObject {
-
-    // MARK: - Types
-
-    enum CurrentDrawingState: Equatable {
-        case hasDrawing(PKDrawing)
-        case hasNoDrawing
-    }
-
-    private var playlistPlayer: PlaylistPlayer
-    private var bookmarkListViewModel: BookmarkListView.ViewModel
-//    private var videoSize: () -> CGRect
-
-    private var _currentDrawingState: CurrentDrawingState = .hasNoDrawing {
-        didSet {
-            guard _currentDrawingState != oldValue else { return }
-            switch _currentDrawingState {
-            case .hasDrawing(let drawing):
-//                let drawingResized = drawing.transformed(using: CGAffineTransform(scaleX: 1, y: 1))
-                canvasView.drawing = drawing
-                drawingImageRepresentation = drawing.image(from: CGRect(x: 0, y: 0, width: 800, height: 800), scale: 0.5)
-
-//                let transformScale = CGAffineTransform(scaleX: 0.5, y: 0.5)
-//                canvasView.backgroundColor = UIColor.blue.withAlphaComponent(0.5)
-//                canvasView.frame = canvasView.frame.applying(transformScale)
-//                canvasView.drawing.transform(using: transformScale)
-
-            case .hasNoDrawing:
-                canvasView.drawing = PKDrawing()
-                drawingImageRepresentation = nil
-            }
-        }
-    }
-
-    var canvasView = PKCanvasView()
-    var drawingImageRepresentation: UIImage?
-
-    init(playlistPlayer: PlaylistPlayer, bookmarkListViewModel: BookmarkListView.ViewModel) {
-        self.playlistPlayer = playlistPlayer
-        self.bookmarkListViewModel = bookmarkListViewModel
-//        self.videoSize = videoSize
-        self.playlistPlayer.addObserver(self)
-    }
-
-    func drawingDidStart() {
-        playlistPlayer.pause()
-    }
-
-    func drawingDidComplete() {
-        withAnimation {
-            bookmarkListViewModel.addBookmarkForDrawing(data: canvasView.drawing.dataRepresentation())
-        }
-    }
-
-}
-
-extension DrawingModeViewModel: PlaylistPlayerObserver {
-
-    func playbackPositionDidChange(to time: MediaTime) {
-
-        if let bookmarkWithDrawing = bookmarkListViewModel.currentBookmarks.first(where: { $0.hasDrawing }),
-           let drawingData = bookmarkWithDrawing.drawing,
-           let pkDrawing = try? PKDrawing(data: drawingData) {
-            _currentDrawingState = .hasDrawing(pkDrawing)
-        } else {
-            _currentDrawingState = .hasNoDrawing
-        }
-    }
-}
-
-
 struct CustomPlayerView: View {
 
     // MARK: - Types
@@ -86,6 +15,7 @@ struct CustomPlayerView: View {
     enum ViewerOption {
         case drawing
         case bookmarks
+        case settings
         case none
     }
 
@@ -93,7 +23,6 @@ struct CustomPlayerView: View {
 
     @StateObject private var playlistPlayerViewModel: PlaylistPlayerViewModel
     @StateObject private var bookmarkListViewModel: BookmarkListView.ViewModel
-    @StateObject private var drawingModeViewModel: DrawingModeViewModel
 
     @State private var viewerOptionsSelected = false
     @State private var showTransportControls = true
@@ -112,6 +41,10 @@ struct CustomPlayerView: View {
         shouldShowViewerOptions && selectedViewerOption == .drawing
     }
 
+    private var shouldShowPlayerSettings: Bool {
+        shouldShowViewerOptions && selectedViewerOption == .settings
+    }
+
     // MARK: - Init
 
     init(playlistPlayer: PlaylistPlayer) {
@@ -119,9 +52,6 @@ struct CustomPlayerView: View {
         _playlistPlayerViewModel = playlistPlayerViewModel
         let viewModel = BookmarkListView.ViewModel(playlistPlayer: playlistPlayer)
         _bookmarkListViewModel = StateObject(wrappedValue: viewModel)
-//        let closure = playlistPlayerViewModel.videoSize?() ?? CGRect.zero
-        _drawingModeViewModel = StateObject(wrappedValue: DrawingModeViewModel(playlistPlayer: playlistPlayer,
-                                                                               bookmarkListViewModel: viewModel))
     }
 
     // MARK: - View
@@ -131,8 +61,6 @@ struct CustomPlayerView: View {
             ZStack {
                 ZStack {
                     videoPlaybackView.zIndex(0)
-                    if shouldShowDrawingView { drawingView.zIndex(1) }
-//                    if shouldShowBookmarkPanel { bookmarkDrawingView.zIndex(1) }
                 }.zIndex(0)
 
                 if showTransportControls {
@@ -142,6 +70,10 @@ struct CustomPlayerView: View {
             Group {
                 if shouldShowBookmarkPanel {
                     bookmarkPanel
+                        .transition(.move(edge: .trailing))
+                }
+                if shouldShowPlayerSettings {
+                    settingsPanel
                         .transition(.move(edge: .trailing))
                 }
                 if shouldShowViewerOptions {
@@ -163,6 +95,9 @@ struct CustomPlayerView: View {
             ViewerOptionsButton(systemImage: PlayerIcons.PlayerOptions.bookmarks,
                                 isSelected: selectedViewerOption == .bookmarks,
                                 onTap: toggleBookmarks)
+            ViewerOptionsButton(systemImage: "gearshape.fill",
+                                isSelected: selectedViewerOption == .settings,
+                                onTap: toggleSettings)
         }
         .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
         .background(Color.secondarySystemBackground)
@@ -171,7 +106,7 @@ struct CustomPlayerView: View {
     }
 
     private var videoPlaybackView: some View {
-        CustomPlayerLayer(viewModel: playlistPlayerViewModel)
+        CustomPlayerLayer(viewModel: playlistPlayerViewModel, bookmarkListViewModel: bookmarkListViewModel)
             .onTapGesture {
                 withAnimation(.easeIn(duration: 0.1)) {
                     // Disable taps while drawing mode is active.
@@ -189,39 +124,17 @@ struct CustomPlayerView: View {
         TransportControls(playerOptionsIsSelected: $viewerOptionsSelected.animation(), viewModel: playlistPlayerViewModel)
     }
 
-    private var drawingView: some View {
-        let videoSize = playlistPlayerViewModel.videoSize?() ?? CGRect(x: 0, y: 0, width: 0, height: 0)
-
-        return Group {
-            Spacer()
-            DrawingView(viewModel: drawingModeViewModel)
-                .frame(width: videoSize.width, height: videoSize.height)
-            Spacer()
-        }
-    }
-
-    private var bookmarkDrawingView: some View {
-        let videoSize = playlistPlayerViewModel.videoSize?() ?? CGRect(x: 0, y: 0, width: 0, height: 0)
-
-        return Group {
-            Spacer()
-//            Color.blue
-            StaticDrawingOverlay(viewModel: drawingModeViewModel)
-                .frame(height: videoSize.height)
-//                .frame(width: videoSize.width, height: videoSize.height)
-            Spacer()
-        }
-    }
-
     private var bookmarkPanel: some View {
         BookmarkListView(viewModel: bookmarkListViewModel)
             .cornerRadius(10)
             .padding([.leading, .trailing], 4)
-//            .padding(20)
+    }
 
-//            .padding()
-//            .frame(maxWidth: .infinity, maxHeight: .infinity)
-//            .background(VisualEffectView(effect: UIBlurEffect(style: .systemMaterialDark)))
+    private var settingsPanel: some View {
+        PlayerSettingsView(playerViewModel: playlistPlayerViewModel)
+            .cornerRadius(10)
+            .padding([.leading, .trailing], 4)
+            .frame(width: 350)
     }
 
     // MARK: - Helpers
@@ -238,11 +151,25 @@ struct CustomPlayerView: View {
     private func toggleDrawing() {
         withAnimation {
             switch selectedViewerOption {
-            case .drawing: selectedViewerOption = .none
-            default: selectedViewerOption = .drawing
+            case .drawing:
+                selectedViewerOption = .none
+                playlistPlayerViewModel.isInDrawingMode = false
+            default:
+                selectedViewerOption = .drawing
+                playlistPlayerViewModel.isInDrawingMode = true
             }
         }
     }
 
+    private func toggleSettings() {
+        withAnimation {
+            switch selectedViewerOption {
+            case .settings:
+                selectedViewerOption = .none
+            default:
+                selectedViewerOption = .settings
+            }
+        }
+    }
 
 }

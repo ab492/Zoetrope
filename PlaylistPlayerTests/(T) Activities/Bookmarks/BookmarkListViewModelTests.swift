@@ -218,6 +218,30 @@ final class BookmarkListViewModelTests: BaseTestCase {
 
         XCTAssertNil(sut.bookmarkOnLoop)
     }
+
+    // MARK: - Formatted Notes For Overlay
+
+    func test_multipleNotesOnSameTimecode_areFormattedOverMultipleLines() {
+        let bookmark1 = createBookmark(timeIn: MediaTime(seconds: 40), timeOut: MediaTime(seconds: 50), note: "Test note!")
+        let bookmark2 = createBookmark(timeIn: MediaTime(seconds: 40), timeOut: MediaTime(seconds: 40), note: "Second test note.")
+        let bookmark3 = createBookmark(timeIn: MediaTime(seconds: 40), timeOut: MediaTime(seconds: 41), note: "This is a third test note.")
+        given_currentlyPlayingVideoHasBookmarks([bookmark1, bookmark2, bookmark3])
+        makeSUT()
+
+        given_playerIsAtTime(MediaTime(seconds: 40))
+
+        let formattedNote = sut.currentNotesFormattedForOverlay
+
+        XCTAssertEqual(formattedNote, "Test note!\nSecond test note.\nThis is a third test note.")
+    }
+
+    func test_noNotes_areFormattedAsEmptyString() {
+        makeSUT()
+
+        let formattedNote = sut.currentNotesFormattedForOverlay
+
+        XCTAssertEqual(formattedNote, "")
+    }
 }
 
 // MARK: - MakeSUT and Givens
@@ -251,8 +275,8 @@ extension BookmarkListViewModelTests {
         return bookmark
     }
 
-    private func createBookmark(timeIn: MediaTime, timeOut: MediaTime) -> Video.Bookmark {
-        Video.Bookmark(id: UUID(), timeIn: timeIn, timeOut: timeOut)
+    private func createBookmark(timeIn: MediaTime, timeOut: MediaTime, note: String? = nil) -> Video.Bookmark {
+        Video.Bookmark(id: UUID(), timeIn: timeIn, timeOut: timeOut, note: note)
     }
 
     private func createVideoWithBookmarks(_ bookmarks: [Video.Bookmark]) -> Video {

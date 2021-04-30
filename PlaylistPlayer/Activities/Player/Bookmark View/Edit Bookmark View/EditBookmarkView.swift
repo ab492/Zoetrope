@@ -27,20 +27,26 @@ struct EditBookmarkView: View {
         _isPresenting = isPresenting
 
         UITextView.appearance().backgroundColor = .clear
+//        UITableView.appearance().backgroundColor = .clear
+//        UITableViewCell.appearance().backgroundColor = .clear
     }
 
     // MARK: - View
 
     var body: some View {
         List {
-            Section {
-                noteTextEditor
+            Group {
+                Section {
+                    noteTextEditor
+                }
+                Section {
+                    SetInOutView(title: "Set Start", timecodeLabel: viewModel.timeInLabel) { viewModel.setTimeIn() }
+                    SetInOutView(title: "Set End", timecodeLabel: viewModel.timeOutLabel) { viewModel.setTimeOut() }
+                }
             }
-            Section {
-                SetInOutView(title: "Set Start", timecodeLabel: viewModel.timeInLabel) { viewModel.setTimeIn() }
-                SetInOutView(title: "Set End", timecodeLabel: viewModel.timeOutLabel) { viewModel.setTimeOut() }
-            }
+            .listRowBackground(Color.tertiarySystemBackground)
         }
+        .background(Color.secondarySystemBackground)
         .navigationBarTitle("Edit Bookmark")
         .listStyle(GroupedListStyle())
         .toolbar {
@@ -123,10 +129,13 @@ extension EditBookmarkView {
             } label: {
                 HStack {
                     Text(title)
+                        .font(.system(size: 17, weight: .medium, design: .default))
+                        .foregroundColor(.primary)
                     Spacer()
                     Text(timecodeLabel)
+                        .font(.system(size: 17, weight: .regular, design: .default))
+                        .foregroundColor(.secondary)
                 }
-                .foregroundColor(.primary)
             }
         }
     }
