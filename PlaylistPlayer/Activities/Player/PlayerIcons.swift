@@ -26,6 +26,7 @@ struct PlayerIcons {
     struct PlayerOptions {
         static let annotate = "pencil.and.outline"
         static let bookmarks = "bookmark.fill"
+        static let settings = "gearshape.fill"
     }
     
     struct BookmarkPanel {

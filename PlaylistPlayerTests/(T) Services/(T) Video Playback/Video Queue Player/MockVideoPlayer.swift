@@ -37,9 +37,10 @@ final class MockVideoPlayer: VideoPlayerProtocol {
         lastReplacedItem = item
     }
 
+    var playbackRate: Float = 0
+
     var observer: VideoPlayerObserver?
 
-    var playbackRate: Float = 0
 
     var duration: MediaTime = .zero
 

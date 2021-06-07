@@ -10,11 +10,14 @@ import Foundation
 extension Video {
 
     final class Bookmark: NSObject, Codable, Identifiable {
+
+        // MARK: - Properties
+
         var id: UUID
         private(set) var timeIn: MediaTime
         private(set) var timeOut: MediaTime
         var note: String?
-        var drawing: Data?
+        var drawing: Drawing?
 
         var isOneFrameLong: Bool {
             timeOut.seconds - timeIn.seconds == 0
@@ -24,7 +27,9 @@ extension Video {
             drawing != nil
         }
 
-        init(id: UUID, timeIn: MediaTime, timeOut: MediaTime, note: String? = nil, drawing: Data? = nil) {
+        // MARK: - Init
+
+        init(id: UUID, timeIn: MediaTime, timeOut: MediaTime, note: String? = nil, drawing: Drawing? = nil) {
             let constrainedTimeIn = timeIn.constrained(min: MediaTime(seconds: 0))
             let constrainedTimeOut = timeOut.constrained(min: constrainedTimeIn)
 
@@ -35,6 +40,8 @@ extension Video {
             self.drawing = drawing
         }
 
+        // MARK: - Public
+        
         func setTimeIn(_ timeIn: MediaTime) {
             if timeIn > timeOut {
                 // If new timeIn is greater than timeOut, update both to match the new timeIn.

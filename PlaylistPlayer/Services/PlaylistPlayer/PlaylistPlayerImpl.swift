@@ -49,7 +49,7 @@ final class PlaylistPlayerImpl: PlaylistPlayer {
             notifyPlaybackDurationDidChange(to: duration)
         }
     }
-
+    
     private var playlist: Playlist?
 
     var currentlyPlayingVideo: Video? {
@@ -80,6 +80,15 @@ final class PlaylistPlayerImpl: PlaylistPlayer {
             player.loopMode = newValue
             Current.userPreferencesManager.loopMode = newValue
             notifyLoopModeDidUpdate(newValue: newValue)
+        }
+    }
+
+    var playbackRate: Float {
+        get {
+            player.playbackRate
+        }
+        set {
+            player.playbackRate = newValue
         }
     }
 

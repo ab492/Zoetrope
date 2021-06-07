@@ -188,8 +188,6 @@ final class WrappedAVPlayer: VideoPlayerProtocol {
 
     @objc private func itemDidFinishPlaying() {
         DispatchQueue.main.async { [weak self] in
-
-            // TODO: ERROR HERE WITH RETAINING THE PLAYER!
             self?.observer?.currentItemDidFinishPlayback()
         }
     }

@@ -8,11 +8,11 @@
 import Foundation
 import PencilKit
 
-struct Drawing: Codable {
+struct Drawing: Codable, Equatable {
 
     // MARK: - Properties
 
-    private let pkDrawing: PKDrawing
+    let pkDrawing: PKDrawing // TODO: Make this private again
     private let originalCanvasBounds: CGRect
 
     // MARK: - Init

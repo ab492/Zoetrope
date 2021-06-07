@@ -11,18 +11,17 @@ import PencilKit
 
 protocol PlayerViewDelegate: class {
     func drawingDidStart()
-    func drawingDidComplete(drawing: PKDrawing)
+    func drawingDidChange(drawing: Drawing)
+    func drawingDidEnd(drawing: Drawing)
 }
 
 final class PlayerView: UIView {
 
     // MARK: - Properties
 
-    private let foregroundView = UIView()
-    private let noteLabel = UILabel()
-    private var canvasView = PKCanvasView()
-    private let toolPicker = PKToolPicker()
-    private var previousCanvasHeight: CGFloat = .zero
+    private let foregroundView = UIView(frame: .zero)
+    private let noteLabel = UILabel(frame: .zero)
+    private let drawingView = DrawingView(frame: .zero)
 
     // Here we use property observers to only update the label if the text has changed.
     // This prevents triggering unnecessary layout passes.
@@ -35,11 +34,16 @@ final class PlayerView: UIView {
         }
     }
 
-    private var drawing: PKDrawing? {
+    private(set) var drawing: Drawing? {
         didSet {
             guard drawing != oldValue else { return }
+            print("UPDATE DRAWING WITHIN VIEW")
+
             if let drawing = drawing {
-                canvasView.drawing = drawing
+                drawingView.drawing = drawing
+            } else {
+                print("NOT HERE")
+                drawingView.drawing = Drawing()
             }
         }
     }
@@ -56,13 +60,14 @@ final class PlayerView: UIView {
         }
     }
 
-    var isInDrawingMode = false {
+    var drawingMode: DrawingView.Configuration = .none  {
         didSet {
-            guard isInDrawingMode != oldValue else { return }
-            updateCanvasView()
-            setNeedsLayout()
+            guard drawingMode != oldValue else { return }
+            updateDrawingDisplayMode()
+            setNeedsLayout() // TODO: Set needs layout required?
         }
     }
+
 
     var player: AVPlayer? {
         get {
@@ -102,12 +107,11 @@ final class PlayerView: UIView {
         noteLabel.layer.shadowColor = UIColor.black.cgColor
         noteLabel.layer.shadowRadius = 2
 
-        // Canvas view
-        foregroundView.addSubview(canvasView)
-        canvasView.isOpaque = false
-        canvasView.delegate = self
-        toolPicker.addObserver(canvasView)
-        updateCanvasView()
+        // Drawing view
+        foregroundView.addSubview(drawingView)
+        drawingView.delegate = self
+        
+        updateDrawingDisplayMode()
     }
 
     // MARK: - PlayerLayer Overrides
@@ -136,22 +140,8 @@ final class PlayerView: UIView {
         noteLabel.frame.origin.x = xPos
         noteLabel.frame.origin.y = 10
 
-        // Canvas view
-        canvasView.frame = CGRect(x: 0, y: 0, width: videoBounds.width, height: videoBounds.height)
-        canvasView.contentSize = playerLayer.videoRect.size // Content size is the actual part we can draw on.
-        scaleDrawing(canvasHeight: playerLayer.videoRect.height)
-    }
-
-    private func scaleDrawing(canvasHeight : CGFloat) {
-        let scaleFactor = canvasHeight / previousCanvasHeight
-
-        let transform = CGAffineTransform(scaleX: scaleFactor, y: scaleFactor)
-        canvasView.drawing = canvasView.drawing.transformed(using: transform)
-
-
-//        canvasView.drawing.transform(using: transform)
-
-        previousCanvasHeight = canvasHeight
+        // Drawing view
+        drawingView.frame = CGRect(x: 0, y: 0, width: videoBounds.width, height: videoBounds.height)
     }
 
     // MARK: - Public
@@ -160,36 +150,28 @@ final class PlayerView: UIView {
         textString = text
     }
 
-    func updateDrawing(with drawing: PKDrawing) {
-//        self.drawing = drawing
+    func updateDrawing(with drawing: Drawing?) {
+//        print("DRAWING: \(drawing)")
+        self.drawing = drawing
     }
 
-    // MARK: - Private
-
-    private func updateCanvasView() {
-        if isInDrawingMode {
-            canvasView.backgroundColor = UIColor.green.withAlphaComponent(0.3)
-            canvasView.isHidden = false
-            toolPicker.setVisible(true, forFirstResponder: canvasView)
-            canvasView.becomeFirstResponder()
-        } else {
-            canvasView.backgroundColor = UIColor.red.withAlphaComponent(0.3)
-            canvasView.isHidden = true
-            toolPicker.setVisible(false, forFirstResponder: canvasView)
-            canvasView.resignFirstResponder()
-        }
+    private func updateDrawingDisplayMode() {
+        drawingView.drawingDisplayMode = drawingMode
     }
 }
 
-extension PlayerView: PKCanvasViewDelegate {
-    func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) { }
-
-    func canvasViewDidBeginUsingTool(_ canvasView: PKCanvasView) {
-            delegate?.drawingDidStart()
+extension PlayerView: DrawingViewDelegate {
+    func drawingDidStart() {
+        delegate?.drawingDidStart()
     }
 
-    func canvasViewDidEndUsingTool(_ canvasView: PKCanvasView) {
-        delegate?.drawingDidComplete(drawing: canvasView.drawing)
+    func drawingDidEnd(drawing: Drawing) {
+        print("DRAWING DID END")
+        delegate?.drawingDidEnd(drawing: drawing)
+    }
+
+    func drawingDidChange(drawing: Drawing) {
+        delegate?.drawingDidChange(drawing: drawing)
     }
 }
 

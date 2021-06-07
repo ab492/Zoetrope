@@ -126,19 +126,19 @@ extension BookmarkListView {
             currentVideo.addBookmark(bookmark)
         }
 
-        func addBookmarkForDrawing(data: Data) {
-            objectWillChange.send()
+        func addBookmarkForDrawing(drawing: Drawing) {
             guard let currentVideo = playlistPlayer.currentlyPlayingVideo else { return }
 
+            objectWillChange.send()
+
             // If there's already a drawing, update it.
-            if let currentBookmark = bookmarks.first(where: { $0.timeIn == playlistPlayer.currentTime && $0.timeOut == playlistPlayer.currentTime }) {
-                currentBookmark.drawing = data
+            if let currentBookmark = currentBookmarks.first(where: { $0.hasDrawing == true }) {
+                currentBookmark.drawing = drawing
             } else {
-            // Otherwise, create a new one.
                 let bookmark = Video.Bookmark(id: UUID(),
                                               timeIn: playlistPlayer.currentTime,
                                               timeOut: playlistPlayer.currentTime,
-                                              drawing: data)
+                                              drawing: drawing)
                 currentVideo.addBookmark(bookmark)
             }
         }

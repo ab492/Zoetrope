@@ -10,6 +10,18 @@ import SwiftUI
 
 final class PlaylistPlayerViewModel: ObservableObject {
 
+    // MARK: - Types
+
+    enum PlaybackRate: Int {
+        case x1 = 1
+        case x2 = 2
+        case x3 = 3
+
+        var displayName: String {
+            "\(self.rawValue)x"
+        }
+    }
+
     // MARK: - Properties
     
     private var playlistPlayer: PlaylistPlayer
@@ -24,10 +36,7 @@ final class PlaylistPlayerViewModel: ObservableObject {
     @Published private(set) var formattedCurrentTime = "00:00"
     @Published private(set) var formattedDuration = "00:00"
 
-    @Published var isInDrawingMode = false
-//    @Published var overlayNotes = false
-//    @Published var noteColor = Color.white
-//    @Published var noteColorString: String = "Red"
+    @Published var drawingOverlayMode: DrawingView.Configuration = .none
 
     var overlayNotes: Bool {
         get {
@@ -69,11 +78,22 @@ final class PlaylistPlayerViewModel: ObservableObject {
         }
     }
 
+    // TODO: Add playback rate here
+//    var playbackRate: PlaybackRate {
+//        get {
+//            if playlistPlayer.playbackRate == Float(0)
+//        }
+//        set {
+//            playlistPlayer.playbackRate = Float(newValue.rawValue)
+//        }
+//    }
+    
     // MARK: - Init
 
     init(playlistPlayer: PlaylistPlayer) {
         self.playlistPlayer = playlistPlayer
         self.loopMode = Current.userPreferencesManager.loopMode
+//        self.playbackRate = .x2
         self.playlistPlayer.addObserver(self)
     }
 

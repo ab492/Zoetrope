@@ -12,14 +12,11 @@ enum NoteOverlayPosition: String, CaseIterable {
     case bottom = "Bottom"
 }
 
-struct PlayerSettingsView: View {
-
-    let colors = ["Pink", "Purple", "Red", "Orange", "Gold", "Green", "Teal", "Light Blue", "Dark Blue", "Midnight", "Dark Gray", "Gray"]
+struct ViewerOptionsScreen: View {
 
     // MARK: - State Properties
 
     @StateObject var playerViewModel: PlaylistPlayerViewModel
-//    @State private var color: String = "Red"
 
     // MARK: - Init
 
@@ -27,11 +24,7 @@ struct PlayerSettingsView: View {
         _playerViewModel = StateObject(wrappedValue: playerViewModel)
     }
 
-    // MARK: - View
-
-    let colorColumns = [
-        GridItem(.adaptive(minimum: 44))
-    ]
+    // MARK: - Body
 
     var body: some View {
         NavigationView {

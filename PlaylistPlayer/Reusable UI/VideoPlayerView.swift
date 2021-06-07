@@ -22,11 +22,17 @@ struct VideoPlayerView: UIViewRepresentable {
         }
 
         func drawingDidStart() {
+            guard Current.featureFlags.drawingModeEnabled else { return }
             parent.playerViewModel.pause()
         }
 
-        func drawingDidComplete(drawing: PKDrawing) {
-            parent.bookmarkListViewModel.addBookmarkForDrawing(data: drawing.dataRepresentation())
+        func drawingDidChange(drawing: Drawing) {
+//            parent.bookmarkListViewModel.addBookmarkForDrawing(data: drawing.dataRepresentation())
+        }
+
+        func drawingDidEnd(drawing: Drawing) {
+            guard Current.featureFlags.drawingModeEnabled else { return }
+            parent.bookmarkListViewModel.addBookmarkForDrawing(drawing: drawing)
         }
     }
 
@@ -49,15 +55,31 @@ struct VideoPlayerView: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: PlayerView, context: Context) {
-        uiView.isInDrawingMode = playerViewModel.isInDrawingMode
         uiView.overlayNotes = playerViewModel.overlayNotes
         uiView.overlayNoteColor = UIColor(playerViewModel.noteColor)
         uiView.updateTextLayer(with: bookmarkListViewModel.currentNotesFormattedForOverlay)
+
+        // Note: Only drawing related code after this.
+        guard Current.featureFlags.drawingModeEnabled else { return }
+        uiView.drawingMode = playerViewModel.drawingOverlayMode
+
+        guard let bookmark = bookmarkListViewModel.currentBookmarks.first,
+              let drawing = bookmark.drawing else {
+            print("NIL")
+            uiView.updateDrawing(with: nil)
+            return }
+
+        guard drawing != uiView.drawing else { return }
+        print("DID UPDATE")
+        uiView.updateDrawing(with: drawing)
         
-        if let bookmarks = bookmarkListViewModel.currentBookmarks.first,
-           let data = bookmarks.drawing,
-           let drawing = try? PKDrawing(data: data) {
-            uiView.updateDrawing(with: drawing)
-        }
+//        if let bookmarks = bookmarkListViewModel.currentBookmarks.first,
+//           let data = bookmarks.drawing,
+//           let drawing = Drawing(data: data) {
+//            print("UPDATE DRAWING IN UI VIEW")
+//            uiView.updateDrawing(with: drawing)
+//        } else {
+//            uiView.updateDrawing(with: nil)
+//        }
     }
 }

@@ -34,6 +34,7 @@ protocol VideoQueuePlayerProtocol {
     // Player Information
     var nowPlayingIndex: Int { get }
     var loopMode: LoopMode { get set }
+    var playbackRate: Float { get set }
     var currentItemDuration: MediaTime { get }
     var volume: Float { get set }
     var observer: VideoQueuePlayerObserver? { get set }
@@ -55,14 +56,6 @@ protocol VideoQueuePlayerObserver: class {
 /// Creates a video player for queuing content and navigating forward and back.
 final class VideoQueuePlayer: VideoQueuePlayerProtocol {
 
-//    var playbackRate: PlaybackRate {
-//        get {
-//            .forward1x //TODO: - OBVIOUSLY CHANGE THIS
-//        } set {
-//            player.playbackRate = playbackRate.rawValue
-//        }
-//    }
-
     // MARK: Properties
 
     private var player: VideoPlayerProtocol
@@ -70,6 +63,12 @@ final class VideoQueuePlayer: VideoQueuePlayerProtocol {
 
     /// The loop mode for the playlist. This can be changed at any time throughout playback and the player will adjust to the new value. **Default: `.playPlaylistOnce`.**
     var loopMode: LoopMode = .playPlaylistOnce
+
+    /// The rate of playback.
+    var playbackRate: Float {
+        get { player.playbackRate }
+        set { player.playbackRate = newValue }
+    }
 
     /// The index of the currently playing item. If there are no items, this index will be 0. **This is a zero based index (i.e. the first item has an index of 0).**
     private(set) var nowPlayingIndex = 0

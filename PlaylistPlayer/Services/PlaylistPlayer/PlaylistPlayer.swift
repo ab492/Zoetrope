@@ -23,7 +23,8 @@ protocol PlaylistPlayer {
     var duration: MediaTime { get }
     var currentlyPlayingVideo: Video? { get }
     var loopMode: LoopMode { get set }
-
+    var playbackRate: Float { get set }
+    
     // Player Actions
     func play()
     func pause()

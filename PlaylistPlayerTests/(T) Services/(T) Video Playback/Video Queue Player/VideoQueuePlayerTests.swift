@@ -326,6 +326,27 @@ final class VideoQueuePlayerTests: XCTestCase {
 
         XCTAssertNil(mockVideoPlayer.lastReplacedItem)
     }
+
+    // MARK: - Playback Rate
+
+    func test_playbackRate_isSetCorrectly() {
+        let items = testItems(number: 3)
+        let sut = makeSUT(withItems: items)
+
+        sut.playbackRate = 1.5
+
+        XCTAssertEqual(sut.playbackRate, 1.5)
+        XCTAssertEqual(mockVideoPlayer.playbackRate, 1.5)
+    }
+
+    func test_playbackRate_isFetchedCorrectly() {
+        let items = testItems(number: 3)
+        let sut = makeSUT(withItems: items)
+        mockVideoPlayer.playbackRate = 1.75
+
+        XCTAssertEqual(sut.playbackRate, 1.75)
+    }
+
 }
 
 // MARK: - Helpers

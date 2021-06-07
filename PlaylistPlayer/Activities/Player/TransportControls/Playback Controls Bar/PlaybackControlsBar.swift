@@ -60,8 +60,14 @@ struct PlaybackControlsBar: View {
         Button {
             viewModel.playFastReverse()
         } label: {
-            Image(systemName: PlayerIcons.Playback.fastReverse)
-                .font(.largeTitle)
+            ZStack {
+                Image(systemName: PlayerIcons.Playback.fastReverse)
+                    .font(.largeTitle)
+//                Circle()
+//                    .fill(Color.red)
+//                    .frame(width: 30, height: 30, alignment: .topTrailing)
+            }
+
         }
         .buttonStyle(ScaleButtonStyle())
         .disabled(fastReverseButtonDisabled)

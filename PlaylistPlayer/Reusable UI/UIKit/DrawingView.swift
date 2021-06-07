@@ -10,7 +10,7 @@ import PencilKit
 
 protocol DrawingViewDelegate: class {
     func drawingDidStart()
-    func drawingDidEnd()
+    func drawingDidEnd(drawing: Drawing)
     func drawingDidChange(drawing: Drawing)
 }
 
@@ -23,6 +23,9 @@ class DrawingView: UIView {
 
         /// A static display of the drawing which can not be edited.
         case display
+
+        /// Turns drawing and display of the layer off (including hiding the tool picker).
+        case none
     }
 
     // MARK: - Private Properties
@@ -42,7 +45,7 @@ class DrawingView: UIView {
 
     // MARK: - Public Properties
 
-    var configuration: Configuration = .drawing {
+    var drawingDisplayMode: Configuration = .drawing {
         didSet {
             updateConfiguration()
         }
@@ -54,8 +57,10 @@ class DrawingView: UIView {
         }
         set {
             _internalDrawing = newValue
-            let scaledDrawing = newValue.scaledDrawingForHeight(height: bounds.height)
-            canvasView.drawing = scaledDrawing
+            setNeedsLayout()
+            layoutIfNeeded()
+//            let scaledDrawing = newValue.scaledDrawingForHeight(height: bounds.height)
+//            canvasView.drawing = newValue.pkDrawing // TODO: Put this back!
         }
     }
 
@@ -122,7 +127,7 @@ class DrawingView: UIView {
     }
 
     private func updateConfiguration() {
-        switch configuration {
+        switch drawingDisplayMode {
         case .display:
             canvasView.isHidden = true
             imageView.isHidden = false
@@ -131,24 +136,40 @@ class DrawingView: UIView {
             canvasView.isHidden = false
             imageView.isHidden = true
             toolPickerIsVisible = true
+        case .none:
+            canvasView.isHidden = true
+            imageView.isHidden = true
+            toolPickerIsVisible = false
         }
     }
+
+    var manuallyChangedDrawing = false
 }
 
 // MARK: - PKCanvasViewDelegate
 
 extension DrawingView: PKCanvasViewDelegate {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
+        // Don't report any changes if we're not in drawing mode.
+        guard drawingDisplayMode == .drawing,
+//              manuallyChangedDrawing == true,
+              canvasView.drawing.strokes.isEmpty == false else { return }
         _internalDrawing = Drawing(pkDrawing: canvasView.drawing, originalCanvasBounds: bounds)
         delegate?.drawingDidChange(drawing: drawing)
     }
 
     func canvasViewDidBeginUsingTool(_ canvasView: PKCanvasView) {
+//        manuallyChangedDrawing = true
+
+//        guard configuration == .drawing else { return }
         delegate?.drawingDidStart()
     }
 
     func canvasViewDidEndUsingTool(_ canvasView: PKCanvasView) {
-        delegate?.drawingDidEnd()
+//        manuallyChangedDrawing = false
+
+//        guard configuration == .drawing else { return }
+        delegate?.drawingDidEnd(drawing: drawing)
     }
 }
 

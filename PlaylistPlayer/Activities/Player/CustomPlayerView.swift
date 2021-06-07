@@ -38,7 +38,8 @@ struct CustomPlayerView: View {
     }
 
     private var shouldShowDrawingView: Bool {
-        shouldShowViewerOptions && selectedViewerOption == .drawing
+        guard Current.featureFlags.drawingModeEnabled else { return false }
+        return shouldShowViewerOptions && selectedViewerOption == .drawing
     }
 
     private var shouldShowPlayerSettings: Bool {
@@ -89,19 +90,20 @@ struct CustomPlayerView: View {
 
     private var controlsBar: some View {
         VStack(spacing: 20) {
-            ViewerOptionsButton(systemImage: PlayerIcons.PlayerOptions.annotate,
-                                isSelected: selectedViewerOption == .drawing,
-                                onTap: toggleDrawing)
+            if Current.featureFlags.drawingModeEnabled {
+                ViewerOptionsButton(systemImage: PlayerIcons.PlayerOptions.annotate,
+                                    isSelected: selectedViewerOption == .drawing,
+                                    onTap: toggleDrawing)
+            }
             ViewerOptionsButton(systemImage: PlayerIcons.PlayerOptions.bookmarks,
                                 isSelected: selectedViewerOption == .bookmarks,
                                 onTap: toggleBookmarks)
-            ViewerOptionsButton(systemImage: "gearshape.fill",
+            ViewerOptionsButton(systemImage: PlayerIcons.PlayerOptions.settings,
                                 isSelected: selectedViewerOption == .settings,
                                 onTap: toggleSettings)
         }
         .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
         .background(Color.secondarySystemBackground)
-//        .background(VisualEffectView(effect: UIBlurEffect(style: .systemMaterialDark)))
         .cornerRadius(10)
     }
 
@@ -131,7 +133,7 @@ struct CustomPlayerView: View {
     }
 
     private var settingsPanel: some View {
-        PlayerSettingsView(playerViewModel: playlistPlayerViewModel)
+        ViewerOptionsScreen(playerViewModel: playlistPlayerViewModel)
             .cornerRadius(10)
             .padding([.leading, .trailing], 4)
             .frame(width: 350)
@@ -140,6 +142,9 @@ struct CustomPlayerView: View {
     // MARK: - Helpers
 
     private func toggleBookmarks() {
+        if Current.featureFlags.drawingModeEnabled {
+            playlistPlayerViewModel.drawingOverlayMode = .display
+        }
         withAnimation {
             switch selectedViewerOption {
             case .bookmarks: selectedViewerOption = .none
@@ -149,19 +154,26 @@ struct CustomPlayerView: View {
     }
 
     private func toggleDrawing() {
+        guard Current.featureFlags.drawingModeEnabled else { return }
         withAnimation {
             switch selectedViewerOption {
             case .drawing:
+//                playlistPlayerViewModel.isInDrawingMode = false
+                playlistPlayerViewModel.drawingOverlayMode = .display
                 selectedViewerOption = .none
-                playlistPlayerViewModel.isInDrawingMode = false
             default:
                 selectedViewerOption = .drawing
-                playlistPlayerViewModel.isInDrawingMode = true
+                playlistPlayerViewModel.drawingOverlayMode = .drawing
+//                playlistPlayerViewModel.isInDrawingMode = true
             }
         }
     }
 
     private func toggleSettings() {
+        if Current.featureFlags.drawingModeEnabled {
+            playlistPlayerViewModel.drawingOverlayMode = .display
+        }
+        
         withAnimation {
             switch selectedViewerOption {
             case .settings:
