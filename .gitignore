@@ -1,0 +1,50 @@
+
+.DS_Store
+
+*.xcuserstate
+
+*.xcbkptlist
+
+*.xccheckout
+sonar-reports
+compile_commands.json
+Unit Tests/ITV_Player-Swift.h
+
+xcuserdata
+Gemfile.lock
+
+*.generated.swift
+DeveloperSettings/*
+!DeveloperSettings/*.example.*
+
+# Swift Package Manager
+.build
+Package.resolved
+
+# Carthage
+Carthage/Build/Mac/
+Carthage/Build/watchOS/
+Carthage/Checkouts/*
+.gitmodules
+
+apollo.tar.gz
+Scripts/apollo/apollo/*
+
+# fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+
+# Jenkins
+rvm.env
+
+# Build variables
+BUILD_VARIABLES
+
+  
+# Python
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
