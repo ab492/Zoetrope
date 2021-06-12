@@ -39,6 +39,8 @@ final class MockVideoQueuePlayer: VideoQueuePlayerProtocol {
     }
 
     var nowPlayingIndex: Int = 0
+
+    var playbackRate: Float = 1
     
     func play() {
         fatalError("Not implemented")

@@ -16,7 +16,9 @@ final class MockPlaylistPlayer: PlaylistPlayer {
     }
 
     var currentlyPlayingVideo: Video?
-    
+
+    var playbackRate: Float = 1
+
     var isPlaying: Bool = true
 
     var isReadyForPlayback: Bool = true

@@ -50,19 +50,6 @@ class VideoMetadataServiceImpl: VideoMetadataService {
 
         securityScopedURL.stopAccessingSecurityScopedResource()
         completion(video)
-
-
-//        let durationCalculatorOperation = DurationCalculatorOperation(url: securityScopedURL)
-//
-//        durationCalculatorOperation.onComplete = { [weak self] duration in
-//            guard let self = self else { return }
-//            let video = Video(id: id, url: securityScopedURL, filename: filename, duration: duration)
-//            Current.thumbnailService.generateThumbnail(for: video)
-//            completion(video)
-//        }
-//        operationQueue.addOperation(durationCalculatorOperation)
-
-
     }
 
     func url(for video: Video) -> URL? {

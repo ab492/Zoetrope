@@ -84,6 +84,14 @@ extension PlaylistDetailView {
                 Current.playlistManager.save()
             }
         }
+
+        var shouldShowSortMenu: Bool {
+            playlist.videos.count > 0
+        }
+
+        var shouldShowEditMenu: Bool {
+            playlist.videos.count > 0
+        }
     }
 }
 

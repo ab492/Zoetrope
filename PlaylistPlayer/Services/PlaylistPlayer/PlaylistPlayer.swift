@@ -49,7 +49,7 @@ protocol PlaylistPlayer {
     func removeObserver(_ observer: PlaylistPlayerObserver)
 }
 
-protocol PlaylistPlayerObserver: class {
+protocol PlaylistPlayerObserver: AnyObject {
     func loopModeDidUpdate(newValue: LoopMode)
     func playbackStateDidChange(to: PlayPauseState)
     func playbackReadinessDidChange(isReady: Bool)

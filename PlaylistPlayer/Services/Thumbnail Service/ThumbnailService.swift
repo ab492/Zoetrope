@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-protocol ThumbnailServiceObserver: class {
+protocol ThumbnailServiceObserver: AnyObject {
     func processingThumbnailsDidUpdate()
     func didFinishProcessingThumbnails()
 }

@@ -14,7 +14,9 @@ extension PlaylistSidebarView {
         // MARK: - Init
 
         init() {
-            Current.playlistManager.addObserver(self)
+            DispatchQueue.main.async {
+                Current.playlistManager.addObserver(self)
+            }
         }
 
         // MARK: - Public

@@ -22,11 +22,15 @@ class PlaylistDetailViewModelTests: BaseTestCase {
         playlist = PlaylistBuilder().name("Test Playlist").videos([video1, video2]).build()
     }
 
+    // MARK: - Observable
+
     func test_initViewModel_addsObserverToPlaylistManager() {
         makeSUT(playlist: playlist)
 
         XCTAssertEqual(Current.mockPlaylistManager.addObserverCallCount, 1)
     }
+
+    // MARK: - Sort Order
 
     // The default is descending, meaning the button will show ascending.
     func test_defaultSortByTitleOrder_isDescending() {
@@ -43,6 +47,23 @@ class PlaylistDetailViewModelTests: BaseTestCase {
         XCTAssertEqual(Current.mockPlaylistManager.saveCallCount, 1)
     }
 
+    // MARK: - Empty Menu Button State
+
+    func test_emptyPlaylistThenSortMenuAndEditButtonAreHidden() {
+        let emptyPlaylist = PlaylistBuilder().videos([]).build()
+        let sut = makeSUT(playlist: emptyPlaylist)
+
+        XCTAssertEqual(sut.shouldShowEditMenu, false)
+        XCTAssertEqual(sut.shouldShowSortMenu, false)
+    }
+
+    func test_playlistWithVideosThenSortMenuAndEditButtonAreShown() {
+        let sut = makeSUT(playlist: playlist)
+
+        XCTAssertEqual(sut.shouldShowEditMenu, true)
+        XCTAssertEqual(sut.shouldShowSortMenu, true)
+    }
+    
     // TODO: Test for videos actually being sorted
 
     @discardableResult private func makeSUT(playlist: Playlist) -> PlaylistDetailView.ViewModel {

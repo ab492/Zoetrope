@@ -8,7 +8,7 @@
 import Foundation
 import PencilKit
 
-protocol DrawingViewDelegate: class {
+protocol DrawingViewDelegate: AnyObject {
     func drawingDidStart()
     func drawingDidEnd(drawing: Drawing)
     func drawingDidChange(drawing: Drawing)

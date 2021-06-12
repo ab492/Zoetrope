@@ -9,7 +9,7 @@ import UIKit
 import AVFoundation
 import PencilKit
 
-protocol PlayerViewDelegate: class {
+protocol PlayerViewDelegate: AnyObject {
     func drawingDidStart()
     func drawingDidChange(drawing: Drawing)
     func drawingDidEnd(drawing: Drawing)

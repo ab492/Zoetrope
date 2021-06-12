@@ -34,7 +34,7 @@ protocol VideoPlayerProtocol {
     func setVideoPlayer(view: PlayerView)
 }
 
-protocol VideoPlayerObserver: class {
+protocol VideoPlayerObserver: AnyObject {
     func playbackItemStatusDidChange(to status: ItemStatus)
     func playbackStateDidChange(to playbackState: PlaybackState)
     func playbackPositionDidChange(to time: MediaTime)

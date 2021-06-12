@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-protocol PlaylistManagerObserver: class {
+protocol PlaylistManagerObserver: AnyObject {
     func playlistManagerDidUpdate()
 }
 

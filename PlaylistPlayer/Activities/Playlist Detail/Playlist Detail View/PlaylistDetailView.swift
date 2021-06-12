@@ -14,8 +14,7 @@ struct PlaylistDetailView: View {
     //https://stackoverflow.com/questions/57784859/swiftui-how-to-perform-action-when-editmode-changes
 
     // MARK: - State
-    @StateObject var playlistDetailViewModel: ViewModel
-//    private var playlistPlayer = PlaylistPlayerImpl()
+    @StateObject var viewModel: ViewModel
     @State var editMode: EditMode = .inactive
     @State private var showingDocumentPicker = false
     @State private var urls: [URL]?
@@ -27,14 +26,14 @@ struct PlaylistDetailView: View {
         UITableView.appearance().backgroundColor = .clear
         UITableViewCell.appearance().backgroundColor = .clear
         UIToolbar.appearance().barTintColor = .secondarySystemBackground
-        _playlistDetailViewModel = StateObject(wrappedValue: ViewModel(playlist: playlist))
+        _viewModel = StateObject(wrappedValue: ViewModel(playlist: playlist))
     }
 
     // MARK: - Main View
 
     var body: some View {
         ZStack {
-            if playlistDetailViewModel.playlistIsEmpty {
+            if viewModel.playlistIsEmpty {
                 EmptyContentView(text: "Add videos to get started.")
             } else {
                 videoList
@@ -46,7 +45,7 @@ struct PlaylistDetailView: View {
             trailingToolbar
             bottomToolbarItemCount
         }
-        .navigationBarTitle(playlistDetailViewModel.playlistTitle, displayMode: .inline)
+        .navigationBarTitle(viewModel.playlistTitle, displayMode: .inline)
         .environment(\.editMode, self.$editMode)
         .fullScreenCover(isPresented: $presentingPlayer) {
             CustomPlayerView(playlistPlayer: Current.playlistPlayer)
@@ -55,11 +54,11 @@ struct PlaylistDetailView: View {
 
     private var videoList: some View {
         List() {
-            ForEach(playlistDetailViewModel.videos) { video in
+            ForEach(viewModel.videos) { video in
                 PlaylistDetailRow(video: video)
                     .onTapGesture {
                         updateViewModel()
-                        Current.playlistPlayer.skipToItem(at: playlistDetailViewModel.index(of: video))
+                        Current.playlistPlayer.skipToItem(at: viewModel.index(of: video))
                         presentingPlayer.toggle()
                     }
             }
@@ -72,8 +71,8 @@ struct PlaylistDetailView: View {
 
     private var trailingToolbar: some ToolbarContent {
         ToolbarItemGroup(placement: .navigationBarTrailing) {
-            sortMenu
-            editButton
+            if viewModel.shouldShowSortMenu { sortMenu }
+            if viewModel.shouldShowEditMenu { editButton }
         }
     }
 
@@ -88,15 +87,15 @@ struct PlaylistDetailView: View {
     private var sortMenu: some View {
         Menu {
             Button {
-                playlistDetailViewModel.sortByTitleSortOrder.toggle()
+                viewModel.sortByTitleSortOrder.toggle()
             } label: {
-                let icon = playlistDetailViewModel.sortByTitleSortOrder == .ascending ? "chevron.down" : "chevron.up"
+                let icon = viewModel.sortByTitleSortOrder == .ascending ? "chevron.down" : "chevron.up"
                 MenuItemView(title: "Sort by Title", iconSystemName: icon)
             }
             Button {
-                playlistDetailViewModel.sortByDurationSortOrder.toggle()
+                viewModel.sortByDurationSortOrder.toggle()
             } label: {
-                let icon = playlistDetailViewModel.sortByDurationSortOrder == .ascending ? "chevron.down" : "chevron.up"
+                let icon = viewModel.sortByDurationSortOrder == .ascending ? "chevron.down" : "chevron.up"
                 MenuItemView(title: "Sort by Duration", iconSystemName: icon)
             }
 
@@ -121,7 +120,7 @@ struct PlaylistDetailView: View {
 
     private var bottomToolbarItemCount: some ToolbarContent {
         ToolbarItem(placement: .bottomBar) {
-            Text(playlistDetailViewModel.playlistCount)
+            Text(viewModel.playlistCount)
         }
     }
 
@@ -129,19 +128,19 @@ struct PlaylistDetailView: View {
 
     private func addMedia() {
         guard let urls = urls else { return }
-        playlistDetailViewModel.addMedia(at: urls)
+        viewModel.addMedia(at: urls)
         self.urls = nil
     }
 
     private func moveRows(from source: IndexSet, to destination: Int) {
-        playlistDetailViewModel.moveVideo(from: source, to: destination)
+        viewModel.moveVideo(from: source, to: destination)
     }
 
     private func removeRows(at offsets: IndexSet) {
-        playlistDetailViewModel.removeRows(at: offsets)
+        viewModel.removeRows(at: offsets)
     }
 
     private func updateViewModel() {
-        Current.playlistPlayer.updateQueue(for: playlistDetailViewModel.playlist)
+        Current.playlistPlayer.updateQueue(for: viewModel.playlist)
     }
 }
