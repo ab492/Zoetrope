@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TimeControlsBar: View {
 
-    @StateObject var viewModel: PlaylistPlayerViewModel
+    @ObservedObject var viewModel: PlaylistPlayerViewModel
 
     var body: some View {
 

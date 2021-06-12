@@ -6,21 +6,24 @@ import CoreMedia
 
 /// An accurate representation of time used for media timings where precision is key. Wraps `CMTime`.
 struct MediaTime {
-    private var cmTime: CMTime
-    let preferredTimescale: CMTimeScale
+    fileprivate var cmTime: CMTime
 
     var seconds: Double {
         CMTimeGetSeconds(cmTime)
     }
 
     init(seconds: Double, preferredTimescale: CMTimeScale = .default) {
-        self.preferredTimescale = preferredTimescale
         cmTime = CMTime(seconds: seconds, preferredTimescale: preferredTimescale)
     }
 
     init(time: CMTime) {
         self.cmTime = time
-        self.preferredTimescale = time.timescale
+    }
+}
+
+extension CMTime {
+    init(mediaTime: MediaTime) {
+        self.init(value: mediaTime.cmTime.value, timescale: mediaTime.cmTime.timescale)
     }
 }
 

@@ -71,18 +71,16 @@ struct CustomSlider: View {
                     Rectangle()
                         .fill(configuration.maximumTrackTint)
                 }
-//                .animation(isDragging ? .none : Animation.easeIn(duration: 0.1))
                 .frame(height: configuration.barHeight)
-                .clipShape(RoundedRectangle(cornerRadius: 16))
+                // Corner radius was 16, but changed to 2 when .drawingGroup modifier was introduced on `TransportControls`.
+                .clipShape(RoundedRectangle(cornerRadius: 2))
                 HStack(spacing: 0) {
                     Circle()
                         .fill(configuration.knobColor)
                         .frame(width: configuration.knobWidth, height: configuration.knobWidth)
                         .padding([.top, .bottom], knobVerticalPadding)
-//                        .background(Color.red)
                         .contentShape(Rectangle())
                         .offset(x: valueForKnob(geometry: geo))
-//                        .animation(isDragging ? .none : Animation.easeIn(duration: 0.1))
                         .gesture(
                             DragGesture(minimumDistance: 0)
                                 .onChanged { value in

@@ -2,39 +2,36 @@
 //  MockPlaylistPlayer.swift
 //  PlaylistPlayerTests
 //
-//  Created by Andy Brown on 12/03/2021.
+//  Created by Andy Brown on 04/04/2021.
 //
 
 import Foundation
-import AVFoundation
 @testable import PlaylistPlayer
 
-final class MockPlaylistPlayer: PlaylistPlayerProtocol {
+final class MockPlaylistPlayer: PlaylistPlayer {
 
-    var lastSelectedLoopMode: LoopMode?
-    var loopMode: LoopMode = .playPlaylistOnce {
-        didSet {
-            lastSelectedLoopMode = loopMode
-        }
+    var lastSeekedToTime: MediaTime?
+    func seek(to time: MediaTime) {
+        lastSeekedToTime = time
     }
 
-    var playNextCallCount = 0
-    func playNext() {
-        playNextCallCount += 1
-    }
-
-    var playPreviousCallCount = 0
-    func playPrevious() {
-        playPreviousCallCount += 1
-    }
-
-    var replaceQueueWasCalled = false
-    func replaceQueue(with items: [AVPlayerItem]) {
-        replaceQueueWasCalled = true
-    }
-
-    var nowPlayingIndex: Int = 0
+    var currentlyPlayingVideo: Video?
     
+    var isPlaying: Bool = true
+
+    var isReadyForPlayback: Bool = true
+
+    var canPlayFastReverse: Bool = true
+
+    var canPlayFastForward: Bool = true
+
+    var currentTime: MediaTime = .zero
+
+    var duration: MediaTime = .zero
+
+
+    var loopMode: LoopMode = .loopCurrent
+
     func play() {
         fatalError("Not implemented")
     }
@@ -43,15 +40,23 @@ final class MockPlaylistPlayer: PlaylistPlayerProtocol {
         fatalError("Not implemented")
     }
 
+    func nextItem() {
+        fatalError("Not implemented")
+    }
+
+    func previousItem() {
+        fatalError("Not implemented")
+    }
+
     func skipToItem(at index: Int) {
         fatalError("Not implemented")
     }
 
-    func step(byFrames count: Int) {
+    func step(byFrames frames: Int) {
         fatalError("Not implemented")
     }
 
-    func seek(to time: MediaTime) {
+    func updateQueue(for playlist: Playlist) {
         fatalError("Not implemented")
     }
 
@@ -59,11 +64,11 @@ final class MockPlaylistPlayer: PlaylistPlayerProtocol {
         fatalError("Not implemented")
     }
 
-    func scrubbed(to time: MediaTime) {
+    func scrubbingDidEnd() {
         fatalError("Not implemented")
     }
 
-    func scrubbingDidEnd() {
+    func scrubbed(to time: MediaTime) {
         fatalError("Not implemented")
     }
 
@@ -71,14 +76,25 @@ final class MockPlaylistPlayer: PlaylistPlayerProtocol {
         fatalError("Not implemented")
     }
 
-    func playFastBackward() {
+    func playFastReverse() {
         fatalError("Not implemented")
     }
 
-    var currentItemDuration: MediaTime = .zero
+    func setVideoPlayer(view: PlayerView) {
+        fatalError("Not implemented")
+    }
 
-    var volume: Float = 1
+    // MARK: - Observers
 
-    var observer: PlaylistPlayerObserver?
+    var observations = [ObjectIdentifier : WeakBox<PlaylistPlayerObserver>]()
 
+    func addObserver(_ observer: PlaylistPlayerObserver) {
+        let id = ObjectIdentifier(observer)
+        observations[id] = WeakBox(observer)
+    }
+
+    func removeObserver(_ observer: PlaylistPlayerObserver) {
+        let id = ObjectIdentifier(observer)
+        observations.removeValue(forKey: id)
+    }
 }

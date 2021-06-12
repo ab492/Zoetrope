@@ -43,4 +43,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
         return true
     }
+
+    func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
+        fatalError("DID RECEIVE MEMORY WARNING!")
+    }
 }

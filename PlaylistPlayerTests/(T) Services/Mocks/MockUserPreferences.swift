@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 @testable import PlaylistPlayer
 
 final class MockUserPreferences: UserPreferences {
@@ -18,6 +19,30 @@ final class MockUserPreferences: UserPreferences {
 
     func integer(forKey key: String) -> Int? {
         keyValueStore[key] as? Int
+    }
+
+    func set(_ value: String, forKey key: String) {
+        keyValueStore[key] = value
+    }
+
+    func string(forKey key: String) -> String? {
+        keyValueStore[key] as? String
+    }
+
+    func set(_ value: Bool, forKey key: String) {
+        keyValueStore[key] = value
+    }
+
+    func bool(forKey key: String) -> Bool? {
+        keyValueStore[key] as? Bool
+    }
+
+    func set(_ value: UIColor, forKey key: String) {
+        keyValueStore[key] = value
+    }
+
+    func color(forKey key: String) -> UIColor? {
+        keyValueStore[key] as? UIColor
     }
 
     var registeredDefaults: [String: Any]?

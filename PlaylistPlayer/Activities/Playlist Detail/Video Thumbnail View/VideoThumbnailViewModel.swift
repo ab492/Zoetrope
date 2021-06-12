@@ -23,8 +23,7 @@ extension VideoThumbnailView {
         }
 
         // MARK: - Public
-
-        // TODO: This isn't idea as it's containing some view data (Image), but it serves its purpose.
+        
         var imageState: VideoThumbnailView.State {
             if Current.thumbnailService.processingThumbnails.contains(video) {
                 return .loading

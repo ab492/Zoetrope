@@ -5,12 +5,11 @@
 //  Created by Andy Brown on 12/03/2021.
 //
 
+import UIKit
 import Foundation
 @testable import PlaylistPlayer
 
 final class MockUserPreferencesManager: UserPreferencesManager {
-    var sortByTitleOrder: SortOrder = .ascending
-    var sortByDurationOrder: SortOrder = .ascending
 
     var lastUpdatedLoopMode: LoopMode?
     var loopMode: LoopMode = .playPlaylistOnce {
@@ -18,4 +17,8 @@ final class MockUserPreferencesManager: UserPreferencesManager {
             lastUpdatedLoopMode = loopMode
         }
     }
+
+    var overlayNotes: Bool = false
+
+    var noteColor: UIColor = UIColor.white
 }
