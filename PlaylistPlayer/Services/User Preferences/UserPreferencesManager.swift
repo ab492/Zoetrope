@@ -56,7 +56,7 @@ final class UserPreferencesManagerImpl: UserPreferencesManager {
 
     var overlayNotes: Bool {
         get {
-            return userPreferences.bool(forKey: Keys.overlayNotes) ?? false
+            return userPreferences.bool(forKey: Keys.overlayNotes) ?? true
         }
         set {
             userPreferences.set(newValue, forKey: Keys.overlayNotes)
@@ -65,7 +65,7 @@ final class UserPreferencesManagerImpl: UserPreferencesManager {
 
     var noteColor: UIColor {
         get {
-            return userPreferences.color(forKey: Keys.noteColor) ?? .white
+            return userPreferences.color(forKey: Keys.noteColor) ?? .yellow
         }
         set {
             userPreferences.set(newValue, forKey: Keys.noteColor)
