@@ -7,6 +7,7 @@
 
 import UIKit
 import Foundation
+import VideoQueuePlayer
 @testable import PlaylistPlayer
 
 final class MockUserPreferencesManager: UserPreferencesManager {

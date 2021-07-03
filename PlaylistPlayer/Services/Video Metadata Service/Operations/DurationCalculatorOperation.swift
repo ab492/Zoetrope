@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import VideoQueuePlayer
 
 final class DurationCalculatorOperation: Operation {
 

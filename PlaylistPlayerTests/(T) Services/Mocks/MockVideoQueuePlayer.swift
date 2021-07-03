@@ -7,9 +7,14 @@
 
 import Foundation
 import AVFoundation
+import VideoQueuePlayer
 @testable import PlaylistPlayer
 
 final class MockVideoQueuePlayer: VideoQueuePlayerProtocol {
+
+    enum TestError: Error {
+        case playbackError
+    }
 
     var lastSelectedLoopMode: LoopMode?
     var loopMode: LoopMode = .playPlaylistOnce {
@@ -83,6 +88,6 @@ final class MockVideoQueuePlayer: VideoQueuePlayerProtocol {
     var volume: Float = 1
 
     var observer: VideoQueuePlayerObserver?
-    func setVideoPlayer(view: PlayerView) { }
+    func setVideoPlayer(view: PlayerViewProtocol) { }
 
 }

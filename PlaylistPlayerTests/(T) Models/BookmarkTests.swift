@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import VideoQueuePlayer
 @testable import PlaylistPlayer
 
 // TODO: Check a bookmark can't have the times backwards (i.e. time out less than time in

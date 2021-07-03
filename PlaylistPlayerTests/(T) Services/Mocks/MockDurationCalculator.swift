@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import VideoQueuePlayer
 @testable import PlaylistPlayer
 
 final class MockDurationCalculator: DurationCalculator {

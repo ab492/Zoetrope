@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import VideoQueuePlayer
 @testable import PlaylistPlayer
 
 class PlaylistDetailViewModelTests: BaseTestCase {

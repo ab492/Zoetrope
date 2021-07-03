@@ -8,6 +8,7 @@
 import UIKit
 import AVFoundation
 import PencilKit
+import VideoQueuePlayer
 
 protocol PlayerViewDelegate: AnyObject {
     func drawingDidStart()
@@ -174,4 +175,6 @@ extension PlayerView: DrawingViewDelegate {
         delegate?.drawingDidChange(drawing: drawing)
     }
 }
+
+extension PlayerView: PlayerViewProtocol { }
 

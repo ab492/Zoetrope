@@ -7,7 +7,7 @@
 
 import XCTest
 import CoreMedia
-@testable import PlaylistPlayer
+@testable import VideoQueuePlayer
 
 
 class MediaTimeTests: XCTestCase {

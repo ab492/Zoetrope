@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import VideoQueuePlayer
 
 protocol VideoMetadataService {
     func generateVideoWithMetadataForItemAt(securityScopedURL: URL, completion: @escaping (Video?) -> Void)

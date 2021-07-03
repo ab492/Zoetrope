@@ -7,6 +7,7 @@
 
 import UIKit
 import XCTest
+import VideoQueuePlayer
 @testable import PlaylistPlayer
 
 final class UserPreferencesManagerTests: XCTestCase {

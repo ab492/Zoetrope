@@ -6,6 +6,7 @@
 //
 
 import AVFoundation
+import VideoQueuePlayer
 
 protocol DurationCalculator {
     func durationForAsset(at url: URL) -> Time

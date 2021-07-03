@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import VideoQueuePlayer
 
 extension EditBookmarkView {
     class ViewModel: ObservableObject, PlaylistPlayerObserver {

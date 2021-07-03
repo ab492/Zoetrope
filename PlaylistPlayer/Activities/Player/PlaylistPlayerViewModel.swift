@@ -7,6 +7,7 @@
 
 import AVFoundation
 import SwiftUI
+import VideoQueuePlayer
 
 final class PlaylistPlayerViewModel: ObservableObject {
 

@@ -5,8 +5,8 @@
 //  Created by Andy Brown on 27/03/2021.
 //
 
-
 import XCTest
+import VideoQueuePlayer
 @testable import PlaylistPlayer
 
 extension PlaylistPlayerTests {
@@ -50,7 +50,7 @@ extension PlaylistPlayerTests {
     func test_playbackStatusFailed_isReportedAsFalse() {
         makeSUT()
 
-        mockVideoQueuePlayer.observer?.playbackItemStatusDidChange(to: .failed(MockVideoPlayer.TestError.playbackError))
+        mockVideoQueuePlayer.observer?.playbackItemStatusDidChange(to: .failed(MockVideoQueuePlayer.TestError.playbackError))
 
         XCTAssertEqual(testObserver.lastReportedPlaybackReadiness, false)
     }
