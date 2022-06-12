@@ -36,6 +36,7 @@ struct CustomPlayerView: View {
                     transportControls.zIndex(1)
                 }
             }
+            .ignoresSafeArea(edges: .top)
             Group {
                 if showSettings {
                     settingsPanel
@@ -43,7 +44,6 @@ struct CustomPlayerView: View {
                 }
             }
         }
-        .ignoresSafeArea(edges: .top)
         .onAppear { playlistPlayerViewModel.play() }
         .onDisappear { playlistPlayerViewModel.pause() }
     }
@@ -65,7 +65,7 @@ struct CustomPlayerView: View {
     }
 
     private var settingsPanel: some View {
-        ViewerOptionsScreen(playerViewModel: playlistPlayerViewModel)
+        SettingsScreen(playerViewModel: playlistPlayerViewModel)
             .cornerRadius(10)
             .padding([.leading, .trailing], 4)
             .frame(width: 350)

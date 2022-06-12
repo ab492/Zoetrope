@@ -67,7 +67,7 @@
 		AD2F0BB125BC0DD50006306D /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F0BB025BC0DD50006306D /* VideoPlayerView.swift */; };
 		AD2F0BB525BC0E0F0006306D /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F0BB425BC0E0F0006306D /* PlayerView.swift */; };
 		AD318A5325C7D7B700B62201 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD318A5225C7D7B700B62201 /* Video.swift */; };
-		AD326F902639EE370013AF98 /* ViewerOptionsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD326F8F2639EE370013AF98 /* ViewerOptionsScreen.swift */; };
+		AD326F902639EE370013AF98 /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD326F8F2639EE370013AF98 /* SettingsScreen.swift */; };
 		AD326FA4263A7E0E0013AF98 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD326FA3263A7E0D0013AF98 /* Colors.xcassets */; };
 		AD37B5CE25BC109400B854B6 /* PlaylistPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD37B5CD25BC109400B854B6 /* PlaylistPlayerViewModel.swift */; };
 		AD45974525EB815C00E537C1 /* AddPlaylistModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD45974425EB815C00E537C1 /* AddPlaylistModal.swift */; };
@@ -209,7 +209,7 @@
 		AD2F0BB025BC0DD50006306D /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		AD2F0BB425BC0E0F0006306D /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		AD318A5225C7D7B700B62201 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
-		AD326F8F2639EE370013AF98 /* ViewerOptionsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewerOptionsScreen.swift; sourceTree = "<group>"; };
+		AD326F8F2639EE370013AF98 /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
 		AD326FA3263A7E0D0013AF98 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		AD37B5CD25BC109400B854B6 /* PlaylistPlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistPlayerViewModel.swift; sourceTree = "<group>"; };
 		AD45974425EB815C00E537C1 /* AddPlaylistModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlaylistModal.swift; sourceTree = "<group>"; };
@@ -670,7 +670,7 @@
 		AD837F9C26406F2300DF3E3A /* Viewer Options Screen */ = {
 			isa = PBXGroup;
 			children = (
-				AD326F8F2639EE370013AF98 /* ViewerOptionsScreen.swift */,
+				AD326F8F2639EE370013AF98 /* SettingsScreen.swift */,
 			);
 			path = "Viewer Options Screen";
 			sourceTree = "<group>";
@@ -1004,7 +1004,7 @@
 				AD8989F625D7C1F10065975D /* ThumbnailService.swift in Sources */,
 				AD9BBBC425DF974400F525B0 /* VideoThumbnailView.swift in Sources */,
 				ADE947EE2609C43300B8BCFB /* CMTime+Codable.swift in Sources */,
-				AD326F902639EE370013AF98 /* ViewerOptionsScreen.swift in Sources */,
+				AD326F902639EE370013AF98 /* SettingsScreen.swift in Sources */,
 				AD5625FF260F24760056C5C7 /* PlaylistPlayerImpl.swift in Sources */,
 				AD75C75125C918E50070110F /* VideoQueuePlayer.swift in Sources */,
 				ADB964B425F4D9CE00D26886 /* MenuItemView.swift in Sources */,

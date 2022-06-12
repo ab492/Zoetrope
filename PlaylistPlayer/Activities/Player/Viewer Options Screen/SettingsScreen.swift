@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ViewerOptionsScreen: View {
+struct SettingsScreen: View {
 
     // MARK: - State Properties
 
@@ -34,7 +34,7 @@ struct ViewerOptionsScreen: View {
                 }
                 .listRowBackground(Color.tertiarySystemGroupedBackground)
             }
-            .navigationTitle("Viewer Options")
+            .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
             .background(Color.secondarySystemGroupedBackground)
         }
