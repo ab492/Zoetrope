@@ -64,7 +64,7 @@ struct PlaylistDetailView: View {
             }
             .onDelete(perform: removeRows)
             .onMove(perform: moveRows)
-        }
+        }.listStyle(.plain)
     }
     
     // MARK: - Toolbar
