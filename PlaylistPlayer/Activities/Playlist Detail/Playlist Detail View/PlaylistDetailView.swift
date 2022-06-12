@@ -10,12 +10,8 @@ import Combine
 
 struct PlaylistDetailView: View {
 
-    // FIXME: For multi selection deletion
-    //https://stackoverflow.com/questions/57784859/swiftui-how-to-perform-action-when-editmode-changes
-
     // MARK: - State
     @StateObject var viewModel: ViewModel
-    @State var editMode: EditMode = .inactive
     @State private var showingDocumentPicker = false
     @State private var urls: [URL]?
     @State private var presentingPlayer = false
@@ -39,14 +35,12 @@ struct PlaylistDetailView: View {
                 videoList
             }
         }
-        .animation(.default)
         .toolbar {
             importMediaToolbarItem
             trailingToolbar
             bottomToolbarItemCount
         }
         .navigationBarTitle(viewModel.playlistTitle, displayMode: .inline)
-        .environment(\.editMode, self.$editMode)
         .fullScreenCover(isPresented: $presentingPlayer) {
             CustomPlayerView(playlistPlayer: Current.playlistPlayer)
         }
@@ -72,18 +66,10 @@ struct PlaylistDetailView: View {
     private var trailingToolbar: some ToolbarContent {
         ToolbarItemGroup(placement: .navigationBarTrailing) {
             if viewModel.shouldShowSortMenu { sortMenu }
-            if viewModel.shouldShowEditMenu { editButton }
+            if viewModel.shouldShowEditMenu { EditButton() }
         }
     }
-
-    private var editButton: some View {
-        Button(action: {
-            self.editMode.toggle()
-            }) {
-                Text(self.editMode == .active ? "Done" : "Edit")
-        }
-    }
-
+    
     private var sortMenu: some View {
         Menu {
             Button {
