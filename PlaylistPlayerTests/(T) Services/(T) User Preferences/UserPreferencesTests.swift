@@ -97,23 +97,6 @@ final class UserPreferencesTests: XCTestCase {
         XCTAssertEqual(sut.string(forKey: testKey), "Test string")
     }
 
-    // MARK: - UIColor
-
-    func test_settingAndRetrievingColor() {
-        let sut = makeSUT()
-
-        let testColor = UIColor.systemPink
-        sut.set(testColor, forKey: testKey)
-
-        XCTAssertEqual(sut.color(forKey: testKey), testColor)
-    }
-
-    func test_NilIsReturnedWhenNoColorValueForKey() {
-        let sut = makeSUT()
-
-        XCTAssertEqual(sut.color(forKey: testKey), nil)
-    }
-
     // MARK: - SUT
 
     private func makeSUT() -> UserPreferencesImpl {

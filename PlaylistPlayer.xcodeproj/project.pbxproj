@@ -69,7 +69,6 @@
 		AD318A5325C7D7B700B62201 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD318A5225C7D7B700B62201 /* Video.swift */; };
 		AD326F902639EE370013AF98 /* ViewerOptionsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD326F8F2639EE370013AF98 /* ViewerOptionsScreen.swift */; };
 		AD326FA4263A7E0E0013AF98 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD326FA3263A7E0D0013AF98 /* Colors.xcassets */; };
-		AD326FCF263BBFCB0013AF98 /* UserDefaults+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD326FCE263BBFCA0013AF98 /* UserDefaults+UIColor.swift */; };
 		AD37B5CE25BC109400B854B6 /* PlaylistPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD37B5CD25BC109400B854B6 /* PlaylistPlayerViewModel.swift */; };
 		AD45974525EB815C00E537C1 /* AddPlaylistModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD45974425EB815C00E537C1 /* AddPlaylistModal.swift */; };
 		AD45974B25EB8E6600E537C1 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD45974A25EB8E6600E537C1 /* CustomTextField.swift */; };
@@ -86,8 +85,6 @@
 		AD562609260F25820056C5C7 /* PlaylistPlayerTests-Observers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD562608260F25820056C5C7 /* PlaylistPlayerTests-Observers.swift */; };
 		AD56260F260F26550056C5C7 /* TestPlaylistPlayerObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD56260E260F26550056C5C7 /* TestPlaylistPlayerObserver.swift */; };
 		AD62B3AA2604705F007F8915 /* SortOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD62B3A92604705F007F8915 /* SortOrder.swift */; };
-		AD62B3D726072F33007F8915 /* BookmarkEditorViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD62B3D626072F33007F8915 /* BookmarkEditorViewModelTests.swift */; };
-		AD62B3DB26072F59007F8915 /* BookmarkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD62B3DA26072F59007F8915 /* BookmarkTests.swift */; };
 		AD62B3FD26073544007F8915 /* TimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD62B3FC26073544007F8915 /* TimeTests.swift */; };
 		AD67C7B725D3C1EC008635B8 /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD67C7B625D3C1EC008635B8 /* World.swift */; };
 		AD67DB632612E9D80099DF30 /* Binding+NilCoalescing.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD67DB622612E9D80099DF30 /* Binding+NilCoalescing.swift */; };
@@ -120,7 +117,6 @@
 		ADB50B2D25FC971B00FB96D1 /* PlaylistDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB50B2C25FC971B00FB96D1 /* PlaylistDetailViewModelTests.swift */; };
 		ADB964B425F4D9CE00D26886 /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB964B325F4D9CE00D26886 /* MenuItemView.swift */; };
 		ADB964BA25F4E63A00D26886 /* EditMode+Toggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB964B925F4E63A00D26886 /* EditMode+Toggle.swift */; };
-		ADC744C6260B0FAD0036A0D6 /* PlaylistPlayerViewModel-Bookmarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC744C5260B0FAD0036A0D6 /* PlaylistPlayerViewModel-Bookmarks.swift */; };
 		ADC744D0260B12560036A0D6 /* PlaylistManagerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC744CF260B12560036A0D6 /* PlaylistManagerImpl.swift */; };
 		ADCD4DA325D4FAA900F8A03D /* SecurityScopedBookmarkStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCD4DA225D4FAA900F8A03D /* SecurityScopedBookmarkStore.swift */; };
 		ADE058FA25D91CE7004076AC /* MockSecurityScopedBookmarkStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE058F925D91CE7004076AC /* MockSecurityScopedBookmarkStore.swift */; };
@@ -136,9 +132,7 @@
 		ADE947E82609B64300B8BCFB /* MediaTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE947E72609B64300B8BCFB /* MediaTimeTests.swift */; };
 		ADE947EE2609C43300B8BCFB /* CMTime+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE947ED2609C43300B8BCFB /* CMTime+Codable.swift */; };
 		ADE947F42609C48A00B8BCFB /* CMTime+CodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE947F32609C48A00B8BCFB /* CMTime+CodableTests.swift */; };
-		ADF04C552619994B00BE9ACC /* EditBookmarkViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF04C542619994B00BE9ACC /* EditBookmarkViewModelTests.swift */; };
 		ADF04C59261999D500BE9ACC /* MockPlaylistPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF04C58261999D500BE9ACC /* MockPlaylistPlayer.swift */; };
-		ADF04C712619C16300BE9ACC /* BookmarkListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF04C702619C16300BE9ACC /* BookmarkListViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -217,7 +211,6 @@
 		AD318A5225C7D7B700B62201 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		AD326F8F2639EE370013AF98 /* ViewerOptionsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewerOptionsScreen.swift; sourceTree = "<group>"; };
 		AD326FA3263A7E0D0013AF98 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
-		AD326FCE263BBFCA0013AF98 /* UserDefaults+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+UIColor.swift"; sourceTree = "<group>"; };
 		AD37B5CD25BC109400B854B6 /* PlaylistPlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistPlayerViewModel.swift; sourceTree = "<group>"; };
 		AD45974425EB815C00E537C1 /* AddPlaylistModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlaylistModal.swift; sourceTree = "<group>"; };
 		AD45974A25EB8E6600E537C1 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
@@ -234,8 +227,6 @@
 		AD562608260F25820056C5C7 /* PlaylistPlayerTests-Observers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaylistPlayerTests-Observers.swift"; sourceTree = "<group>"; };
 		AD56260E260F26550056C5C7 /* TestPlaylistPlayerObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPlaylistPlayerObserver.swift; sourceTree = "<group>"; };
 		AD62B3A92604705F007F8915 /* SortOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOrder.swift; sourceTree = "<group>"; };
-		AD62B3D626072F33007F8915 /* BookmarkEditorViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkEditorViewModelTests.swift; sourceTree = "<group>"; };
-		AD62B3DA26072F59007F8915 /* BookmarkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTests.swift; sourceTree = "<group>"; };
 		AD62B3FC26073544007F8915 /* TimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTests.swift; sourceTree = "<group>"; };
 		AD67C7B625D3C1EC008635B8 /* World.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = World.swift; sourceTree = "<group>"; };
 		AD67DB622612E9D80099DF30 /* Binding+NilCoalescing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+NilCoalescing.swift"; sourceTree = "<group>"; };
@@ -268,7 +259,6 @@
 		ADB50B2C25FC971B00FB96D1 /* PlaylistDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistDetailViewModelTests.swift; sourceTree = "<group>"; };
 		ADB964B325F4D9CE00D26886 /* MenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
 		ADB964B925F4E63A00D26886 /* EditMode+Toggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditMode+Toggle.swift"; sourceTree = "<group>"; };
-		ADC744C5260B0FAD0036A0D6 /* PlaylistPlayerViewModel-Bookmarks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaylistPlayerViewModel-Bookmarks.swift"; sourceTree = "<group>"; };
 		ADC744CF260B12560036A0D6 /* PlaylistManagerImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistManagerImpl.swift; sourceTree = "<group>"; };
 		ADCD4DA225D4FAA900F8A03D /* SecurityScopedBookmarkStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecurityScopedBookmarkStore.swift; sourceTree = "<group>"; };
 		ADE058F925D91CE7004076AC /* MockSecurityScopedBookmarkStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSecurityScopedBookmarkStore.swift; sourceTree = "<group>"; };
@@ -284,9 +274,7 @@
 		ADE947E72609B64300B8BCFB /* MediaTimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTimeTests.swift; sourceTree = "<group>"; };
 		ADE947ED2609C43300B8BCFB /* CMTime+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMTime+Codable.swift"; sourceTree = "<group>"; };
 		ADE947F32609C48A00B8BCFB /* CMTime+CodableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMTime+CodableTests.swift"; sourceTree = "<group>"; };
-		ADF04C542619994B00BE9ACC /* EditBookmarkViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBookmarkViewModelTests.swift; sourceTree = "<group>"; };
 		ADF04C58261999D500BE9ACC /* MockPlaylistPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPlaylistPlayer.swift; sourceTree = "<group>"; };
-		ADF04C702619C16300BE9ACC /* BookmarkListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkListViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -721,7 +709,6 @@
 			children = (
 				AD9A0D9525CE74BF00FF85EB /* PlaylistTests.swift */,
 				AD6FAE9926032B4E00258F2D /* VideoTests.swift */,
-				AD62B3DA26072F59007F8915 /* BookmarkTests.swift */,
 				AD62B3FC26073544007F8915 /* TimeTests.swift */,
 				AD7A9F4325D00BD500118055 /* Model Builders */,
 			);
@@ -792,7 +779,6 @@
 			children = (
 				AD8B29DE25BFEB8300AAA7AC /* CGFloat+MapTests.swift */,
 				ADE947F32609C48A00B8BCFB /* CMTime+CodableTests.swift */,
-				AD326FCE263BBFCA0013AF98 /* UserDefaults+UIColor.swift */,
 			);
 			path = "(T) Extensions";
 			sourceTree = "<group>";
@@ -814,10 +800,7 @@
 		ADB50B2B25FC970600FB96D1 /* (T) Activities */ = {
 			isa = PBXGroup;
 			children = (
-				ADF04C6B2619C10F00BE9ACC /* Bookmarks */,
-				ADC744C5260B0FAD0036A0D6 /* PlaylistPlayerViewModel-Bookmarks.swift */,
 				ADB50B2C25FC971B00FB96D1 /* PlaylistDetailViewModelTests.swift */,
-				AD62B3D626072F33007F8915 /* BookmarkEditorViewModelTests.swift */,
 			);
 			path = "(T) Activities";
 			sourceTree = "<group>";
@@ -894,15 +877,6 @@
 				ADC744CF260B12560036A0D6 /* PlaylistManagerImpl.swift */,
 			);
 			path = "Playlist Manager";
-			sourceTree = "<group>";
-		};
-		ADF04C6B2619C10F00BE9ACC /* Bookmarks */ = {
-			isa = PBXGroup;
-			children = (
-				ADF04C702619C16300BE9ACC /* BookmarkListViewModelTests.swift */,
-				ADF04C542619994B00BE9ACC /* EditBookmarkViewModelTests.swift */,
-			);
-			path = Bookmarks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1105,18 +1079,14 @@
 				ADE0591725D92BC7004076AC /* ThumbnailStoreTests.swift in Sources */,
 				AD6FAE9A26032B4F00258F2D /* VideoTests.swift in Sources */,
 				AD56260F260F26550056C5C7 /* TestPlaylistPlayerObserver.swift in Sources */,
-				AD62B3D726072F33007F8915 /* BookmarkEditorViewModelTests.swift in Sources */,
 				AD4B08AD25D9195000088A64 /* BaseTestCase.swift in Sources */,
 				AD1CB82125FB31B40030BC5C /* MockVideoQueuePlayer.swift in Sources */,
 				AD562609260F25820056C5C7 /* PlaylistPlayerTests-Observers.swift in Sources */,
-				AD62B3DB26072F59007F8915 /* BookmarkTests.swift in Sources */,
 				ADF04C59261999D500BE9ACC /* MockPlaylistPlayer.swift in Sources */,
 				AD2F0B4925BC08C00006306D /* MockVideoPlayer.swift in Sources */,
 				AD15DB6225F4FA1E00010B73 /* UserPreferencesManagerTests.swift in Sources */,
-				ADF04C552619994B00BE9ACC /* EditBookmarkViewModelTests.swift in Sources */,
 				AD9A0D9625CE74BF00FF85EB /* PlaylistTests.swift in Sources */,
 				ADE947E82609B64300B8BCFB /* MediaTimeTests.swift in Sources */,
-				AD326FCF263BBFCB0013AF98 /* UserDefaults+UIColor.swift in Sources */,
 				AD15DB7D25F88F9B00010B73 /* MockMetadataService.swift in Sources */,
 				ADE058FA25D91CE7004076AC /* MockSecurityScopedBookmarkStore.swift in Sources */,
 				AD7E780425C58FEE00EDD01E /* TimeFormatterTests.swift in Sources */,
@@ -1134,7 +1104,6 @@
 				AD8B29DF25BFEB8300AAA7AC /* CGFloat+MapTests.swift in Sources */,
 				AD0D65E225F38BEC00461BE6 /* MockPlaylistManager.swift in Sources */,
 				AD5625F4260F21F20056C5C7 /* PlaylistPlayerTests.swift in Sources */,
-				ADC744C6260B0FAD0036A0D6 /* PlaylistPlayerViewModel-Bookmarks.swift in Sources */,
 				AD9A0DB625CE877B00FF85EB /* MockPlaylistStore.swift in Sources */,
 				AD12075925D3B50800A8AAEC /* PlaylistManagerTests.swift in Sources */,
 				AD62B3FD26073544007F8915 /* TimeTests.swift in Sources */,
@@ -1145,7 +1114,6 @@
 				ADE0591325D9226A004076AC /* MockThumbnailStore.swift in Sources */,
 				ADB50B2D25FC971B00FB96D1 /* PlaylistDetailViewModelTests.swift in Sources */,
 				AD1CB83625FB36F50030BC5C /* MockUserPreferencesManager.swift in Sources */,
-				ADF04C712619C16300BE9ACC /* BookmarkListViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

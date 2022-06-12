@@ -14,7 +14,6 @@ class BaseTestCase: XCTestCase {
         super.setUp()
 
         Current = World(dateTimeService: MockDateTimeService(),
-                        featureFlags: FeatureFlags(),
                         playlistManager: MockPlaylistManager(),
                         playlistPlayer: MockPlaylistPlayer(),
                         thumbnailService: MockThumbnailService(),

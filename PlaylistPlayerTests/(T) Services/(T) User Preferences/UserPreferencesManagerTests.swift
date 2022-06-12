@@ -36,39 +36,7 @@ final class UserPreferencesManagerTests: XCTestCase {
 
         XCTAssertEqual(sut.loopMode, .playPlaylistOnce)
     }
-
-    // MARK: - Overlay Note
-
-    func test_settingOverlayNotes_addsValueToPreferences() {
-        let sut = makeSUT()
-
-        sut.overlayNotes = true
-
-        XCTAssertEqual(mockUserPreferences.bool(forKey: "overlayNotes"), true)
-    }
-
-    func test_noteOverlay_defaultsToFalse() {
-        let sut = makeSUT()
-
-        XCTAssertEqual(sut.overlayNotes, false)
-    }
-
-    // MARK: - Note Color
-
-    func test_settingNoteColor_addsValueToPreferences() {
-        let sut = makeSUT()
-
-        sut.noteColor = UIColor.green
-
-        XCTAssertEqual(mockUserPreferences.color(forKey: "noteColor"), UIColor.green)
-    }
-
-    func test_noteColor_defaultsToWhite() {
-        let sut = makeSUT()
-
-        XCTAssertEqual(sut.noteColor, .white)
-    }
-
+    
     // MARK: - Helpers
 
     @discardableResult private func makeSUT() -> UserPreferencesManagerImpl {
