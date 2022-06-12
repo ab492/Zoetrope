@@ -18,21 +18,16 @@ struct SecondaryPlayerControlsButtonStyle: ButtonStyle {
     }
 
     func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .font(.body)
-//            .overlay(Color.black)
-
-            .frame(minWidth: 30, minHeight: 30)
-//            .foregroundColor((configuration.isPressed ? foregroundColor.opacity(0.3) : foregroundColor))
-            .foregroundColor(foregroundColor1(configuration: configuration))
-            .background(isSelected ? primaryColor : Color.clear)
-            .clipShape(RoundedRectangle(cornerRadius: 6))
-            .contentShape(Rectangle())
+            configuration.label
+            .font(.title3)
+                .frame(minWidth: 38, minHeight: 38)
+                .foregroundColor(foregroundColor1(configuration: configuration))
+                .background(isSelected ? primaryColor : Color.clear)
+                .clipShape(RoundedRectangle(cornerRadius: 6))
+                .contentShape(Rectangle())
     }
 
     func foregroundColor1(configuration: Configuration) -> Color {
-//        let color = Color.red.overlay(Color.black.opacity(0.3))
-//        return color
         if configuration.isPressed {
             return (isSelected ? secondaryColor : primaryColor).opacity(0.3)
         } else {

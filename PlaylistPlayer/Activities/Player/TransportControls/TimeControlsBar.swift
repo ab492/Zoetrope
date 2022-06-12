@@ -11,6 +11,9 @@ struct TimeControlsBar: View {
 
     @ObservedObject var viewModel: PlaylistPlayerViewModel
 
+    /// As debugging the scrubber bar is tricky due to various layers and tap areas, enable the ui debug flag to help visually highlight layers.
+    private let uiDebug = false
+
     var body: some View {
 
         let currentTimeSeconds = Binding<CGFloat>(
@@ -22,19 +25,27 @@ struct TimeControlsBar: View {
             }
         )
 
-        VStack(spacing: 0) {
-            CustomSlider(value: currentTimeSeconds,
-                         in: 0...CGFloat(viewModel.duration.seconds),
-                         configuration: sliderConfiguration,
-                         onDragStart: { viewModel.scrubbingDidStart() },
-                         onDragFinish: { viewModel.scrubbingDidEnd() })
-            HStack {
-                Text(viewModel.formattedCurrentTime)
-                Spacer()
-                Text(viewModel.formattedDuration)
+        // ZIndex and negative spacing required here to allow for a larger tap area on the knob.
+        // Use `uiDebug` flag to see the issue.
+        ZStack {
+            VStack(spacing: -14) {
+                CustomSlider(value: currentTimeSeconds,
+                             in: 0...CGFloat(viewModel.duration.seconds),
+                             configuration: sliderConfiguration,
+                             uiDebug: uiDebug,
+                             onDragStart: { viewModel.scrubbingDidStart() },
+                             onDragFinish: { viewModel.scrubbingDidEnd() })
+                    .zIndex(1)
+                HStack {
+                    Text(viewModel.formattedCurrentTime)
+                    Spacer()
+                    Text(viewModel.formattedDuration)
+                }
+                .zIndex(0)
+                .background(uiDebug ? Color.red : Color.clear)
+                .font(.subheadline)
+                .foregroundColor(.secondary)
             }
-            .font(.subheadline)
-            .foregroundColor(.secondary)
         }
     }
 
