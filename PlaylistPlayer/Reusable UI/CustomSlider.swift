@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import ABUtilities
+import ABExtensions
 
 struct CustomSlider: View {
 

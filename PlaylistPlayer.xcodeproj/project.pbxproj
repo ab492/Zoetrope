@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AD07860C2855C4EF0046AE15 /* ABExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = AD07860B2855C4EF0046AE15 /* ABExtensions */; };
 		AD078C3125BC180900137941 /* TransportControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD078C3025BC180900137941 /* TransportControls.swift */; };
 		AD078C3525BC185700137941 /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD078C3425BC185700137941 /* VisualEffectView.swift */; };
 		AD078C3925BC186500137941 /* PlaybackControlsBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD078C3825BC186500137941 /* PlaybackControlsBar.swift */; };
@@ -27,7 +28,6 @@
 		AD15DB6825F4FA7200010B73 /* MockUserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD15DB6725F4FA7200010B73 /* MockUserPreferences.swift */; };
 		AD15DB7D25F88F9B00010B73 /* MockMetadataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD15DB7C25F88F9B00010B73 /* MockMetadataService.swift */; };
 		AD175E1225C67FBF00B805E1 /* PlayerIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD175E1125C67FBF00B805E1 /* PlayerIcons.swift */; };
-		AD1BDF7E25E0FC9B00584968 /* ABUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = AD1BDF7D25E0FC9B00584968 /* ABUtilities */; };
 		AD1BDFAB25E4CF8900584968 /* GenerateThumbnailOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1BDFAA25E4CF8900584968 /* GenerateThumbnailOperation.swift */; };
 		AD1BDFAF25E4D73600584968 /* SecurityScopedBookmarkOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1BDFAE25E4D73600584968 /* SecurityScopedBookmarkOperation.swift */; };
 		AD1BDFB425E6297000584968 /* DurationCalculatorOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1BDFB325E6296F00584968 /* DurationCalculatorOperation.swift */; };
@@ -94,7 +94,6 @@
 		AD62B3D726072F33007F8915 /* BookmarkEditorViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD62B3D626072F33007F8915 /* BookmarkEditorViewModelTests.swift */; };
 		AD62B3DB26072F59007F8915 /* BookmarkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD62B3DA26072F59007F8915 /* BookmarkTests.swift */; };
 		AD62B3FD26073544007F8915 /* TimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD62B3FC26073544007F8915 /* TimeTests.swift */; };
-		AD62B4052607396C007F8915 /* Comparable+Constrained.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD62B4042607396C007F8915 /* Comparable+Constrained.swift */; };
 		AD67C7B725D3C1EC008635B8 /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD67C7B625D3C1EC008635B8 /* World.swift */; };
 		AD67DB632612E9D80099DF30 /* Binding+NilCoalescing.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD67DB622612E9D80099DF30 /* Binding+NilCoalescing.swift */; };
 		AD6FAE8226031C7200258F2D /* Video+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6FAE8126031C7200258F2D /* Video+Models.swift */; };
@@ -106,7 +105,6 @@
 		AD7A9EDD25CEB1C500118055 /* PlaylistSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7A9EDC25CEB1C500118055 /* PlaylistSidebarView.swift */; };
 		AD7A9EE425CEB25300118055 /* PlaylistDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7A9EE325CEB25300118055 /* PlaylistDetailView.swift */; };
 		AD7A9EFD25CFCB6A00118055 /* DocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7A9EFC25CFCB6A00118055 /* DocumentPicker.swift */; };
-		AD7A9F0125CFCBDE00118055 /* Binding+OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7A9F0025CFCBDE00118055 /* Binding+OnChange.swift */; };
 		AD7A9F0725CFCCEC00118055 /* EmptyContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7A9F0625CFCCEC00118055 /* EmptyContentView.swift */; };
 		AD7A9F3025CFE24C00118055 /* Playlist-Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7A9F2F25CFE24C00118055 /* Playlist-Helpers.swift */; };
 		AD7A9F3625CFE6B300118055 /* URL+SecurityScoped.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7A9F3525CFE6B300118055 /* URL+SecurityScoped.swift */; };
@@ -131,7 +129,6 @@
 		AD9BBBC425DF974400F525B0 /* VideoThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9BBBC325DF974300F525B0 /* VideoThumbnailView.swift */; };
 		ADA4D74925D9121D0054B8FA /* VideoMetadataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA4D74825D9121D0054B8FA /* VideoMetadataService.swift */; };
 		ADB50B2D25FC971B00FB96D1 /* PlaylistDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB50B2C25FC971B00FB96D1 /* PlaylistDetailViewModelTests.swift */; };
-		ADB964AE25F4416000D26886 /* Sequence-Sorting.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB964AD25F4416000D26886 /* Sequence-Sorting.swift */; };
 		ADB964B425F4D9CE00D26886 /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB964B325F4D9CE00D26886 /* MenuItemView.swift */; };
 		ADB964BA25F4E63A00D26886 /* EditMode+Toggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB964B925F4E63A00D26886 /* EditMode+Toggle.swift */; };
 		ADC744C6260B0FAD0036A0D6 /* PlaylistPlayerViewModel-Bookmarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC744C5260B0FAD0036A0D6 /* PlaylistPlayerViewModel-Bookmarks.swift */; };
@@ -145,7 +142,6 @@
 		ADE0591325D9226A004076AC /* MockThumbnailStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE0591225D9226A004076AC /* MockThumbnailStore.swift */; };
 		ADE0591725D92BC7004076AC /* ThumbnailStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE0591625D92BC7004076AC /* ThumbnailStoreTests.swift */; };
 		ADE0593E25DA4DC5004076AC /* LoopButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE0593D25DA4DC5004076AC /* LoopButton.swift */; };
-		ADE0594225DB93E5004076AC /* Array+Maybe.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE0594125DB93E5004076AC /* Array+Maybe.swift */; };
 		ADE0594E25DBA445004076AC /* PlayerSecondaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE0594D25DBA445004076AC /* PlayerSecondaryButton.swift */; };
 		ADE0595225DBA4E8004076AC /* SecondaryPlayerControlsButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE0595125DBA4E8004076AC /* SecondaryPlayerControlsButtonStyle.swift */; };
 		ADE947E82609B64300B8BCFB /* MediaTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE947E72609B64300B8BCFB /* MediaTimeTests.swift */; };
@@ -257,7 +253,6 @@
 		AD62B3D626072F33007F8915 /* BookmarkEditorViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkEditorViewModelTests.swift; sourceTree = "<group>"; };
 		AD62B3DA26072F59007F8915 /* BookmarkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTests.swift; sourceTree = "<group>"; };
 		AD62B3FC26073544007F8915 /* TimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTests.swift; sourceTree = "<group>"; };
-		AD62B4042607396C007F8915 /* Comparable+Constrained.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comparable+Constrained.swift"; sourceTree = "<group>"; };
 		AD67C7B625D3C1EC008635B8 /* World.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = World.swift; sourceTree = "<group>"; };
 		AD67DB622612E9D80099DF30 /* Binding+NilCoalescing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+NilCoalescing.swift"; sourceTree = "<group>"; };
 		AD6FAE8126031C7200258F2D /* Video+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Video+Models.swift"; sourceTree = "<group>"; };
@@ -269,7 +264,6 @@
 		AD7A9EDC25CEB1C500118055 /* PlaylistSidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistSidebarView.swift; sourceTree = "<group>"; };
 		AD7A9EE325CEB25300118055 /* PlaylistDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistDetailView.swift; sourceTree = "<group>"; };
 		AD7A9EFC25CFCB6A00118055 /* DocumentPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentPicker.swift; sourceTree = "<group>"; };
-		AD7A9F0025CFCBDE00118055 /* Binding+OnChange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Binding+OnChange.swift"; sourceTree = "<group>"; };
 		AD7A9F0625CFCCEC00118055 /* EmptyContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyContentView.swift; sourceTree = "<group>"; };
 		AD7A9F2F25CFE24C00118055 /* Playlist-Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Playlist-Helpers.swift"; sourceTree = "<group>"; };
 		AD7A9F3525CFE6B300118055 /* URL+SecurityScoped.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+SecurityScoped.swift"; sourceTree = "<group>"; };
@@ -294,7 +288,6 @@
 		AD9BBBC325DF974300F525B0 /* VideoThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoThumbnailView.swift; sourceTree = "<group>"; };
 		ADA4D74825D9121D0054B8FA /* VideoMetadataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMetadataService.swift; sourceTree = "<group>"; };
 		ADB50B2C25FC971B00FB96D1 /* PlaylistDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistDetailViewModelTests.swift; sourceTree = "<group>"; };
-		ADB964AD25F4416000D26886 /* Sequence-Sorting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Sequence-Sorting.swift"; sourceTree = "<group>"; };
 		ADB964B325F4D9CE00D26886 /* MenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
 		ADB964B925F4E63A00D26886 /* EditMode+Toggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditMode+Toggle.swift"; sourceTree = "<group>"; };
 		ADC744C5260B0FAD0036A0D6 /* PlaylistPlayerViewModel-Bookmarks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaylistPlayerViewModel-Bookmarks.swift"; sourceTree = "<group>"; };
@@ -308,7 +301,6 @@
 		ADE0591225D9226A004076AC /* MockThumbnailStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockThumbnailStore.swift; sourceTree = "<group>"; };
 		ADE0591625D92BC7004076AC /* ThumbnailStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailStoreTests.swift; sourceTree = "<group>"; };
 		ADE0593D25DA4DC5004076AC /* LoopButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoopButton.swift; sourceTree = "<group>"; };
-		ADE0594125DB93E5004076AC /* Array+Maybe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Maybe.swift"; sourceTree = "<group>"; };
 		ADE0594D25DBA445004076AC /* PlayerSecondaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSecondaryButton.swift; sourceTree = "<group>"; };
 		ADE0595125DBA4E8004076AC /* SecondaryPlayerControlsButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryPlayerControlsButtonStyle.swift; sourceTree = "<group>"; };
 		ADE947E72609B64300B8BCFB /* MediaTimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTimeTests.swift; sourceTree = "<group>"; };
@@ -324,7 +316,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD1BDF7E25E0FC9B00584968 /* ABUtilities in Frameworks */,
+				AD07860C2855C4EF0046AE15 /* ABExtensions in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -905,9 +897,6 @@
 		ADB964B725F4E5E300D26886 /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
-				ADE0594125DB93E5004076AC /* Array+Maybe.swift */,
-				ADB964AD25F4416000D26886 /* Sequence-Sorting.swift */,
-				AD62B4042607396C007F8915 /* Comparable+Constrained.swift */,
 				AD7A9F3525CFE6B300118055 /* URL+SecurityScoped.swift */,
 			);
 			path = Foundation;
@@ -916,7 +905,6 @@
 		ADB964B825F4E5E800D26886 /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
-				AD7A9F0025CFCBDE00118055 /* Binding+OnChange.swift */,
 				AD67DB622612E9D80099DF30 /* Binding+NilCoalescing.swift */,
 				ADB964B925F4E63A00D26886 /* EditMode+Toggle.swift */,
 				AD12074025D1173900A8AAEC /* Color+Extensions.swift */,
@@ -1007,7 +995,7 @@
 			);
 			name = PlaylistPlayer;
 			packageProductDependencies = (
-				AD1BDF7D25E0FC9B00584968 /* ABUtilities */,
+				AD07860B2855C4EF0046AE15 /* ABExtensions */,
 			);
 			productName = PlaylistPlayer;
 			productReference = AD2F0AB425BC06A50006306D /* PlaylistPlayer.app */;
@@ -1059,7 +1047,7 @@
 			);
 			mainGroup = AD2F0AAB25BC06A50006306D;
 			packageReferences = (
-				AD1BDF7C25E0FC9B00584968 /* XCRemoteSwiftPackageReference "ABUtilties" */,
+				AD07860A2855C4EF0046AE15 /* XCRemoteSwiftPackageReference "ABExtensions" */,
 			);
 			productRefGroup = AD2F0AB525BC06A50006306D /* Products */;
 			projectDirPath = "";
@@ -1112,7 +1100,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ADB964AE25F4416000D26886 /* Sequence-Sorting.swift in Sources */,
 				AD837F8B263E913500DF3E3A /* DrawingView.swift in Sources */,
 				AD8989F625D7C1F10065975D /* ThumbnailService.swift in Sources */,
 				AD9BBBC425DF974400F525B0 /* VideoThumbnailView.swift in Sources */,
@@ -1125,7 +1112,6 @@
 				AD4DDB4225C08E7700F8831B /* CGFloat+Extensions.swift in Sources */,
 				AD4AE64D25F1FE3A00D9E63A /* PlaylistSiderbarViewModel.swift in Sources */,
 				ADA4D74925D9121D0054B8FA /* VideoMetadataService.swift in Sources */,
-				ADE0594225DB93E5004076AC /* Array+Maybe.swift in Sources */,
 				AD1BDFAB25E4CF8900584968 /* GenerateThumbnailOperation.swift in Sources */,
 				AD078C3125BC180900137941 /* TransportControls.swift in Sources */,
 				AD67DB632612E9D80099DF30 /* Binding+NilCoalescing.swift in Sources */,
@@ -1149,7 +1135,6 @@
 				AD13687425BD600100ACC7D0 /* TimeControlsBar.swift in Sources */,
 				AD15DB4E25F4ED0800010B73 /* UserPreferences.swift in Sources */,
 				AD62B3AA2604705F007F8915 /* SortOrder.swift in Sources */,
-				AD7A9F0125CFCBDE00118055 /* Binding+OnChange.swift in Sources */,
 				AD1CB82625FB34AB0030BC5C /* DateTimeService.swift in Sources */,
 				ADC744D0260B12560036A0D6 /* PlaylistManagerImpl.swift in Sources */,
 				AD318A5325C7D7B700B62201 /* Video.swift in Sources */,
@@ -1179,7 +1164,6 @@
 				AD1BDFB425E6297000584968 /* DurationCalculatorOperation.swift in Sources */,
 				AD6FAE8226031C7200258F2D /* Video+Models.swift in Sources */,
 				AD15DB5225F4EEC100010B73 /* UserPreferencesManager.swift in Sources */,
-				AD62B4052607396C007F8915 /* Comparable+Constrained.swift in Sources */,
 				AD8989EE25D7BEB20065975D /* ThumbnailGenerator.swift in Sources */,
 				AD7A9EDD25CEB1C500118055 /* PlaylistSidebarView.swift in Sources */,
 				AD898A1F25D7F9B20065975D /* DurationCaclulator.swift in Sources */,
@@ -1503,21 +1487,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		AD1BDF7C25E0FC9B00584968 /* XCRemoteSwiftPackageReference "ABUtilties" */ = {
+		AD07860A2855C4EF0046AE15 /* XCRemoteSwiftPackageReference "ABExtensions" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ab492/ABUtilties.git";
+			repositoryURL = "https://github.com/ab492/ABExtensions";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.8;
+				minimumVersion = 1.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		AD1BDF7D25E0FC9B00584968 /* ABUtilities */ = {
+		AD07860B2855C4EF0046AE15 /* ABExtensions */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = AD1BDF7C25E0FC9B00584968 /* XCRemoteSwiftPackageReference "ABUtilties" */;
-			productName = ABUtilities;
+			package = AD07860A2855C4EF0046AE15 /* XCRemoteSwiftPackageReference "ABExtensions" */;
+			productName = ABExtensions;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
