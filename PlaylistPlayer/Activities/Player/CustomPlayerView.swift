@@ -22,8 +22,7 @@ struct CustomPlayerView: View {
     // MARK: - State
 
     @StateObject private var playlistPlayerViewModel: PlaylistPlayerViewModel
-    @StateObject private var bookmarkListViewModel: BookmarkListView.ViewModel
-
+    
     @State private var viewerOptionsSelected = false
     @State private var showTransportControls = true
     @State private var selectedViewerOption: ViewerOption = .none
@@ -37,11 +36,6 @@ struct CustomPlayerView: View {
         shouldShowViewerOptions && selectedViewerOption == .bookmarks
     }
 
-    private var shouldShowDrawingView: Bool {
-        guard Current.featureFlags.drawingModeEnabled else { return false }
-        return shouldShowViewerOptions && selectedViewerOption == .drawing
-    }
-
     private var shouldShowPlayerSettings: Bool {
         shouldShowViewerOptions && selectedViewerOption == .settings
     }
@@ -51,8 +45,6 @@ struct CustomPlayerView: View {
     init(playlistPlayer: PlaylistPlayer) {
         let playlistPlayerViewModel = StateObject(wrappedValue: PlaylistPlayerViewModel(playlistPlayer: playlistPlayer))
         _playlistPlayerViewModel = playlistPlayerViewModel
-        let viewModel = BookmarkListView.ViewModel(playlistPlayer: playlistPlayer)
-        _bookmarkListViewModel = StateObject(wrappedValue: viewModel)
     }
 
     // MARK: - View
@@ -69,10 +61,6 @@ struct CustomPlayerView: View {
                 }
             }
             Group {
-                if shouldShowBookmarkPanel {
-                    bookmarkPanel
-                        .transition(.move(edge: .trailing))
-                }
                 if shouldShowPlayerSettings {
                     settingsPanel
                         .transition(.move(edge: .trailing))
@@ -90,14 +78,6 @@ struct CustomPlayerView: View {
 
     private var controlsBar: some View {
         VStack(spacing: 20) {
-            if Current.featureFlags.drawingModeEnabled {
-                ViewerOptionsButton(systemImage: PlayerIcons.PlayerOptions.annotate,
-                                    isSelected: selectedViewerOption == .drawing,
-                                    onTap: toggleDrawing)
-            }
-            ViewerOptionsButton(systemImage: PlayerIcons.PlayerOptions.bookmarks,
-                                isSelected: selectedViewerOption == .bookmarks,
-                                onTap: toggleBookmarks)
             ViewerOptionsButton(systemImage: PlayerIcons.PlayerOptions.settings,
                                 isSelected: selectedViewerOption == .settings,
                                 onTap: toggleSettings)
@@ -108,12 +88,9 @@ struct CustomPlayerView: View {
     }
 
     private var videoPlaybackView: some View {
-        CustomPlayerLayer(viewModel: playlistPlayerViewModel, bookmarkListViewModel: bookmarkListViewModel)
+        CustomPlayerLayer(viewModel: playlistPlayerViewModel)
             .onTapGesture {
                 withAnimation(.easeIn(duration: 0.1)) {
-                    // Disable taps while drawing mode is active.
-                    guard shouldShowDrawingView == false else { return }
-
                     showTransportControls.toggle()
                     //                    visibleControlsConfigurator.isShowingTransportControls.toggle()
                     // Temporary fix to hide the status bar since `.statusBar(hidden: _)` is unreliable.
@@ -126,12 +103,6 @@ struct CustomPlayerView: View {
         TransportControls(playerOptionsIsSelected: $viewerOptionsSelected.animation(), viewModel: playlistPlayerViewModel)
     }
 
-    private var bookmarkPanel: some View {
-        BookmarkListView(viewModel: bookmarkListViewModel)
-            .cornerRadius(10)
-            .padding([.leading, .trailing], 4)
-    }
-
     private var settingsPanel: some View {
         ViewerOptionsScreen(playerViewModel: playlistPlayerViewModel)
             .cornerRadius(10)
@@ -141,39 +112,7 @@ struct CustomPlayerView: View {
 
     // MARK: - Helpers
 
-    private func toggleBookmarks() {
-        if Current.featureFlags.drawingModeEnabled {
-            playlistPlayerViewModel.drawingOverlayMode = .display
-        }
-        withAnimation {
-            switch selectedViewerOption {
-            case .bookmarks: selectedViewerOption = .none
-            default: selectedViewerOption = .bookmarks
-            }
-        }
-    }
-
-    private func toggleDrawing() {
-        guard Current.featureFlags.drawingModeEnabled else { return }
-        withAnimation {
-            switch selectedViewerOption {
-            case .drawing:
-//                playlistPlayerViewModel.isInDrawingMode = false
-                playlistPlayerViewModel.drawingOverlayMode = .display
-                selectedViewerOption = .none
-            default:
-                selectedViewerOption = .drawing
-                playlistPlayerViewModel.drawingOverlayMode = .drawing
-//                playlistPlayerViewModel.isInDrawingMode = true
-            }
-        }
-    }
-
     private func toggleSettings() {
-        if Current.featureFlags.drawingModeEnabled {
-            playlistPlayerViewModel.drawingOverlayMode = .display
-        }
-        
         withAnimation {
             switch selectedViewerOption {
             case .settings:

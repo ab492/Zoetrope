@@ -17,8 +17,6 @@ final class Video: Identifiable, Codable {
     /// The approximate duration for the video (in seconds, rather that as `MediaTime`).
     let duration: Time
     var thumbnailFilename: String?
-    private var unorderedBookmarks: [Bookmark] //The master list of bookmarks. Exposed publicly via `bookmarks`.
-
     var url: URL
     private var bookmarkData: Data?
     private var isSecurityScoped = false
@@ -31,21 +29,9 @@ final class Video: Identifiable, Codable {
         self.duration = duration
         self.thumbnailFilename = thumbnailFilename
         self.url = url
-        self.unorderedBookmarks = [Bookmark]()
-        
+
         isSecurityScoped = url.startAccessingSecurityScopedResource()
         self.bookmarkData = try? url.bookmarkData(options: .suitableForBookmarkFile, includingResourceValuesForKeys: nil, relativeTo: nil)
-    }
-
-    // MARK: - Public
-
-    func addBookmark(_ bookmark: Bookmark) {
-        unorderedBookmarks.append(bookmark)
-    }
-
-    // TODO: Test this!
-    func removeBookmark(_ bookmark: Bookmark) {
-        unorderedBookmarks.removeAll(where: { $0 == bookmark })
     }
 
     // MARK: - Codable
@@ -57,7 +43,6 @@ final class Video: Identifiable, Codable {
         case thumbnailFilename
         case url
         case bookmarkData
-        case bookmarks
     }
 
     init(from decoder: Decoder) throws {
@@ -65,7 +50,6 @@ final class Video: Identifiable, Codable {
         id = try values.decode(UUID.self, forKey: .id)
         filename = try values.decode(String.self, forKey: .filename)
         duration = try values.decode(Time.self, forKey: .duration)
-        unorderedBookmarks = try values.decode([Bookmark].self, forKey: .bookmarks)
         thumbnailFilename = try? values.decode(String.self, forKey: .thumbnailFilename)
 
         var isStale = false
@@ -92,7 +76,6 @@ final class Video: Identifiable, Codable {
         try container.encode(duration, forKey: .duration)
         try container.encode(thumbnailFilename, forKey: .thumbnailFilename)
         try container.encode(url, forKey: .url)
-        try container.encode(unorderedBookmarks, forKey: .bookmarks)
 
         bookmarkData = try url.bookmarkData(options: .suitableForBookmarkFile,
                                             includingResourceValuesForKeys: nil, relativeTo: nil)
@@ -108,14 +91,5 @@ extension Video: Equatable {
     // TODO: Update this equatable conformance!!
     static func == (lhs: Video, rhs: Video) -> Bool {
         lhs.id == rhs.id && lhs.filename == rhs.filename && lhs.thumbnailFilename == rhs.thumbnailFilename
-    }
-}
-
-// MARK: - Helpers
-
-extension Video {
-    var bookmarks: [Bookmark] {
-        let sortedBookmarks = unorderedBookmarks.sorted(by: \.timeIn, using: <)
-        return sortedBookmarks
     }
 }

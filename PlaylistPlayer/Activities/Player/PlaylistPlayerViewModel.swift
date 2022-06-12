@@ -35,9 +35,7 @@ final class PlaylistPlayerViewModel: ObservableObject {
     @Published private(set) var duration: MediaTime = .zero
     @Published private(set) var formattedCurrentTime = "00:00"
     @Published private(set) var formattedDuration = "00:00"
-
-    @Published var drawingOverlayMode: DrawingView.Configuration = .none
-
+    
     var overlayNotes: Bool {
         get {
             Current.userPreferencesManager.overlayNotes
