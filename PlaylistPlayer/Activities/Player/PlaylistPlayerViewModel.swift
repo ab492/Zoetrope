@@ -35,26 +35,17 @@ final class PlaylistPlayerViewModel: ObservableObject {
     @Published private(set) var duration: MediaTime = .zero
     @Published private(set) var formattedCurrentTime = "00:00"
     @Published private(set) var formattedDuration = "00:00"
-    
-    var overlayNotes: Bool {
-        get {
-            Current.userPreferencesManager.overlayNotes
-        }
-        set {
-            objectWillChange.send()
-            Current.userPreferencesManager.overlayNotes = newValue
-        }
-    }
 
-    var noteColor: Color {
-        get {
-            Color(Current.userPreferencesManager.noteColor)
-        }
-        set {
-            objectWillChange.send()
-            Current.userPreferencesManager.noteColor = UIColor(newValue)
-        }
-    }
+    // Left here for example of user preferences being used.
+//    var overlayNotes: Bool {
+//        get {
+//            Current.userPreferencesManager.overlayNotes
+//        }
+//        set {
+//            objectWillChange.send()
+//            Current.userPreferencesManager.overlayNotes = newValue
+//        }
+//    }
     
     private var playlist: Playlist?
 

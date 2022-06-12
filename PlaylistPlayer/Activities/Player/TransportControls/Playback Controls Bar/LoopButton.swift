@@ -38,11 +38,11 @@ struct LoopButton: View {
     private func selectImage() -> Image {
         switch loopMode {
         case .playPlaylistOnce:
-            return Image(systemName: PlayerIcons.Playback.loopPlaylist)
+            return Image(systemName: PlayerIcons.loopPlaylist)
         case .loopCurrent:
-            return Image(systemName: PlayerIcons.Playback.loopCurrent)
+            return Image(systemName: PlayerIcons.loopCurrent)
         case .loopPlaylist:
-            return Image(systemName: PlayerIcons.Playback.loopPlaylist)
+            return Image(systemName: PlayerIcons.loopPlaylist)
         }
     }
 }

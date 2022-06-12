@@ -10,8 +10,6 @@ import UIKit
 
 protocol UserPreferencesManager {
     var loopMode: LoopMode { get set }
-    var overlayNotes: Bool { get set }
-    var noteColor: UIColor { get set }
 }
 
 final class UserPreferencesManagerImpl: UserPreferencesManager {
@@ -20,8 +18,7 @@ final class UserPreferencesManagerImpl: UserPreferencesManager {
 
     struct Keys {
         static let loopMode = "loopMode"
-        static let overlayNotes = "overlayNotes"
-        static let noteColor = "noteColor"
+//        static let overlayNotes = "overlayNotes"
     }
 
     // MARK: - Properties
@@ -54,21 +51,14 @@ final class UserPreferencesManagerImpl: UserPreferencesManager {
         }
     }
 
-    var overlayNotes: Bool {
-        get {
-            return userPreferences.bool(forKey: Keys.overlayNotes) ?? true
-        }
-        set {
-            userPreferences.set(newValue, forKey: Keys.overlayNotes)
-        }
-    }
-
-    var noteColor: UIColor {
-        get {
-            return userPreferences.color(forKey: Keys.noteColor) ?? .yellow
-        }
-        set {
-            userPreferences.set(newValue, forKey: Keys.noteColor)
-        }
-    }
+    // leaving as an example of working with user preferences
+//
+//    var overlayNotes: Bool {
+//        get {
+//            return userPreferences.bool(forKey: Keys.overlayNotes) ?? true
+//        }
+//        set {
+//            userPreferences.set(newValue, forKey: Keys.overlayNotes)
+//        }
+//    }
 }

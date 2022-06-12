@@ -21,10 +21,6 @@ protocol UserPreferences {
     func set(_ value: String, forKey key: String)
     func string(forKey key: String) -> String?
 
-    // Color
-    func set(_ value: UIColor, forKey key: String)
-    func color(forKey key: String) -> UIColor?
-
     // Defaults
     func register(defaults: [String: Any])
 }
@@ -68,14 +64,6 @@ final class UserPreferencesImpl: UserPreferences {
 
     func string(forKey key: String) -> String? {
         userDefaults.object(forKey: key) as? String
-    }
-
-    func set(_ value: UIColor, forKey key: String) {
-        userDefaults.set(value, forKey: key)
-    }
-
-    func color(forKey key: String) -> UIColor? {
-        userDefaults.color(forKey: key)
     }
 
     func register(defaults: [String: Any]) {

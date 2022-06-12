@@ -7,11 +7,6 @@
 
 import SwiftUI
 
-enum NoteOverlayPosition: String, CaseIterable {
-    case top = "Top"
-    case bottom = "Bottom"
-}
-
 struct ViewerOptionsScreen: View {
 
     // MARK: - State Properties
@@ -30,12 +25,12 @@ struct ViewerOptionsScreen: View {
         NavigationView {
             Form {
                 Section(header: Text("Display Bookmarks")) {
-                    Toggle(isOn: $playerViewModel.overlayNotes.animation()) {
-                        Text("Overlay Notes")
-                    }
-                    if playerViewModel.overlayNotes {
-                        ColorPicker("Note Color", selection: $playerViewModel.noteColor)
-                    }
+//                    Toggle(isOn: $playerViewModel.overlayNotes.animation()) {
+//                        Text("Overlay Notes")
+//                    }
+//                    if playerViewModel.overlayNotes {
+//                        ColorPicker("Note Color", selection: $playerViewModel.noteColor)
+//                    }
                 }
                 .listRowBackground(Color.tertiarySystemGroupedBackground)
             }

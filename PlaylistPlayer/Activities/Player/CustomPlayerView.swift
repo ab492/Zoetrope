@@ -10,36 +10,12 @@ import PencilKit
 
 struct CustomPlayerView: View {
 
-    // MARK: - Types
-
-    enum ViewerOption {
-        case drawing
-        case bookmarks
-        case settings
-        case none
-    }
-
     // MARK: - State
 
     @StateObject private var playlistPlayerViewModel: PlaylistPlayerViewModel
-    
-    @State private var viewerOptionsSelected = false
+    @State private var showSettings = false
     @State private var showTransportControls = true
-    @State private var selectedViewerOption: ViewerOption = .none
-    @State private var playerDimension = CGRect.zero
-
-    private var shouldShowViewerOptions: Bool {
-        showTransportControls && viewerOptionsSelected
-    }
-
-    private var shouldShowBookmarkPanel: Bool {
-        shouldShowViewerOptions && selectedViewerOption == .bookmarks
-    }
-
-    private var shouldShowPlayerSettings: Bool {
-        shouldShowViewerOptions && selectedViewerOption == .settings
-    }
-
+    
     // MARK: - Init
 
     init(playlistPlayer: PlaylistPlayer) {
@@ -61,12 +37,8 @@ struct CustomPlayerView: View {
                 }
             }
             Group {
-                if shouldShowPlayerSettings {
+                if showSettings {
                     settingsPanel
-                        .transition(.move(edge: .trailing))
-                }
-                if shouldShowViewerOptions {
-                    controlsBar
                         .transition(.move(edge: .trailing))
                 }
             }
@@ -74,17 +46,6 @@ struct CustomPlayerView: View {
         .ignoresSafeArea(edges: .top)
         .onAppear { playlistPlayerViewModel.play() }
         .onDisappear { playlistPlayerViewModel.pause() }
-    }
-
-    private var controlsBar: some View {
-        VStack(spacing: 20) {
-            ViewerOptionsButton(systemImage: PlayerIcons.PlayerOptions.settings,
-                                isSelected: selectedViewerOption == .settings,
-                                onTap: toggleSettings)
-        }
-        .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
-        .background(Color.secondarySystemBackground)
-        .cornerRadius(10)
     }
 
     private var videoPlaybackView: some View {
@@ -100,7 +61,7 @@ struct CustomPlayerView: View {
     }
 
     private var transportControls: some View {
-        TransportControls(playerOptionsIsSelected: $viewerOptionsSelected.animation(), viewModel: playlistPlayerViewModel)
+        TransportControls(playerOptionsIsSelected: $showSettings.animation(), viewModel: playlistPlayerViewModel)
     }
 
     private var settingsPanel: some View {
@@ -109,18 +70,4 @@ struct CustomPlayerView: View {
             .padding([.leading, .trailing], 4)
             .frame(width: 350)
     }
-
-    // MARK: - Helpers
-
-    private func toggleSettings() {
-        withAnimation {
-            switch selectedViewerOption {
-            case .settings:
-                selectedViewerOption = .none
-            default:
-                selectedViewerOption = .settings
-            }
-        }
-    }
-
 }

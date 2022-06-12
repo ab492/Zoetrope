@@ -54,7 +54,7 @@ struct TransportControls: View {
         Button {
             presentationMode.wrappedValue.dismiss()
         } label: {
-            Image(systemName: PlayerIcons.Playback.close)
+            Image(systemName: PlayerIcons.close)
                 .font(.title)
         }
         .buttonStyle(ScaleButtonStyle(width: 45, height: 45))
