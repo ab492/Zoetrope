@@ -1393,7 +1393,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.andybrown.PlaylistPlayer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andybrown.VideoPlayerPro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
@@ -1418,7 +1418,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.andybrown.PlaylistPlayer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andybrown.VideoPlayerPro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
