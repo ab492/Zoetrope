@@ -14,21 +14,17 @@ final class ImportAssetConstructor {
 
     private let uuidConstructor: () -> UUID
     private let durationCalculator: (URL) -> Time
-    private let destinationDirectory: URL
 
     // MARK: - Init
 
-    init(destinationDirectory: URL,
-         uuidConstructor: @escaping () -> UUID,
+    init(uuidConstructor: @escaping () -> UUID,
          durationCalculator: @escaping (URL) -> Time) {
-        self.destinationDirectory = destinationDirectory
         self.uuidConstructor = uuidConstructor
         self.durationCalculator = durationCalculator
     }
 
-    convenience init(destinationDirectory: URL) {
-        self.init(destinationDirectory: destinationDirectory,
-                  uuidConstructor: { UUID() },
+    convenience init() {
+        self.init(uuidConstructor: { UUID() },
                   durationCalculator: { Time(seconds: AVAsset(url: $0).duration.seconds) })
     }
 
@@ -36,9 +32,9 @@ final class ImportAssetConstructor {
 
     func assetFor(sourceURL: URL) -> ImportAsset {
         let fileExtension = sourceURL.pathExtension
-        let destinationURL = destinationDirectory.appendingPathComponent(uuidConstructor().uuidString).appendingPathExtension(fileExtension)
-        let title = FileManager.default.displayName(atPath: sourceURL.path).trimmingCharacters(in: .whitespaces)
+        let filename = uuidConstructor().uuidString.appending(".\(fileExtension)")
+        let displayName = FileManager.default.displayName(atPath: sourceURL.path).trimmingCharacters(in: .whitespaces)
         let duration = durationCalculator(sourceURL)
-        return ImportAsset(sourceURL: sourceURL, destinationURL: destinationURL, title: title, duration: duration)
+        return ImportAsset(sourceURL: sourceURL, filename: filename, displayName: displayName, duration: duration)
     }
 }

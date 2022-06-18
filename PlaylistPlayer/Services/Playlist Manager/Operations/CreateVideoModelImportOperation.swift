@@ -25,11 +25,7 @@ final class CreateVideoModelImportOperation: Operation {
 
     override func main() {
         // TODO: Update filename to title, add duration metadata... WHAT IS ID USED FOR?
-        let videoModel = Video(id: UUID(),
-                               url: importAsset.destinationURL,
-                               filename: importAsset.title,
-                               duration: importAsset.duration,
-                               thumbnailFilename: nil)
+        let videoModel = Video(filename: importAsset.displayName, duration: importAsset.duration, underlyingFilename: importAsset.filename)
 
         if let onVideoModelCreated = onVideoModelCreated {
             DispatchQueue.main.async {

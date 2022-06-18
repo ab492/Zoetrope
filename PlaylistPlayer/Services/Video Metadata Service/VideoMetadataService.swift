@@ -22,8 +22,10 @@ class VideoMetadataServiceImpl: VideoMetadataService {
     // MARK: - Properties
 
     private let operationQueue = OperationQueue()
+    
+    
 
-    private let importAssetConstructor = ImportAssetConstructor(destinationDirectory: FileManagerWrappedImpl().documentsDirectory.appendingPathComponent("Videos"))
+    private let importAssetConstructor = ImportAssetConstructor()
 
     // MARK: - Init
     
@@ -35,25 +37,29 @@ class VideoMetadataServiceImpl: VideoMetadataService {
     // MARK: - Public
 
     func generateVideoWithMetadataForItemAt(securityScopedURL: URL, completion: @escaping (Video?) -> Void) {
-
-
-        let importAsset = importAssetConstructor.assetFor(sourceURL: securityScopedURL)
-
-        print("IMPORT ASSET: \(importAsset)")
-
-        // Define operations
-        let copyFileToLocationOperation = CopyFileToLocationImportOperation(importAsset: importAsset)
-        let createVideoModelOperation = CreateVideoModelImportOperation(importAsset: importAsset)
-
-        createVideoModelOperation.addDependency(copyFileToLocationOperation)
-
-        operationQueue.addOperation(copyFileToLocationOperation)
-        operationQueue.addOperation(createVideoModelOperation)
-
-
-        createVideoModelOperation.onVideoModelCreated = { video in
-            completion(video)
-        }
+//
+//        do {
+//            try FileManager.default.copyItem(at: securityScopedURL, to: FileManager.default.documentsDirectory.appendingPathComponent("file.mov"))
+//        } catch let error {
+//            print("ERROR: 😂 \(error)")
+////        }
+//        let importAsset = importAssetConstructor.assetFor(sourceURL: securityScopedURL)
+//
+//        print("IMPORT ASSET: \(importAsset)")
+//
+//        // Define operations
+//        let copyFileToLocationOperation = CopyFileToLocationImportOperation(baseURL: <#URL#>, importAsset: importAsset)
+//        let createVideoModelOperation = CreateVideoModelImportOperation(importAsset: importAsset)
+//
+//        createVideoModelOperation.addDependency(copyFileToLocationOperation)
+//
+//        operationQueue.addOperation(copyFileToLocationOperation)
+//        operationQueue.addOperation(createVideoModelOperation)
+//
+//
+//        createVideoModelOperation.onVideoModelCreated = { video in
+//            completion(video)
+//        }
 
 //        Current.thumbnailService.generateThumbnail(for: video)
     }

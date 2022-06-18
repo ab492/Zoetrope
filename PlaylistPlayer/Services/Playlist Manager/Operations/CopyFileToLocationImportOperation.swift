@@ -12,23 +12,26 @@ final class CopyFileToLocationImportOperation: Operation {
 
     // MARK: - Properties
 
-    private let fileManager: FileManagerWrapped
+    private let baseURL: URL
     private let importAsset: ImportAsset
 
     // MARK: - Init
 
-    init(importAsset: ImportAsset, fileManager: FileManagerWrapped) {
-        self.fileManager = fileManager
+    init(baseURL: URL, importAsset: ImportAsset) {
+        self.baseURL = baseURL
         self.importAsset = importAsset
     }
 
-    convenience init(importAsset: ImportAsset) {
-        self.init(importAsset: importAsset, fileManager: FileManagerWrappedImpl())
-    }
-
+    // MARK: - Main
+    
     override func main() {
         // TODO: Loop around to handle errors
-        try? fileManager.copyItem(at: importAsset.sourceURL, to: importAsset.destinationURL)
+        do {
+            try FileManagerWrappedImpl().copyItem(at: importAsset.sourceURL, to: baseURL.appendingPathComponent(importAsset.filename))
+        } catch let error {
+            print("ERROR: \(error)")
+        }
+        
     }
 
 }

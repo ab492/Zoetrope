@@ -56,7 +56,7 @@ final class PlaylistPlayerImpl: PlaylistPlayer {
         playlist?.videos[player.nowPlayingIndex]
     }
 
-    var observations = [ObjectIdentifier : WeakBox<PlaylistPlayerObserver>]()
+    var observations = [ObjectIdentifier: WeakBox<PlaylistPlayerObserver>]()
 
     // When the user skips between videos, the change of playback state (i.e. from
     // playing to loading) causes the play button to flicker between play-pause-play.

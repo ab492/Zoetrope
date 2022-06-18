@@ -16,18 +16,18 @@ final class Video: Identifiable, Codable {
 
     /// The approximate duration for the video (in seconds, rather that as `MediaTime`).
     let duration: Time
+    let underlyingFilename: String
 
     var thumbnailFilename: String?
-    var url: URL
     
     // MARK: - Init
 
-    init(id: UUID = UUID(), url: URL, filename: String, duration: Time, thumbnailFilename: String? = nil) {
+    init(id: UUID = UUID(), filename: String, duration: Time, thumbnailFilename: String? = nil, underlyingFilename: String) {
         self.id = id
         self.filename = filename
         self.duration = duration
         self.thumbnailFilename = thumbnailFilename
-        self.url = url
+        self.underlyingFilename = underlyingFilename
     }
 
     // MARK: - Codable
@@ -37,7 +37,7 @@ final class Video: Identifiable, Codable {
         case filename
         case duration
         case thumbnailFilename
-        case url
+        case underlyingFilename
     }
 
     init(from decoder: Decoder) throws {
@@ -46,7 +46,7 @@ final class Video: Identifiable, Codable {
         filename = try values.decode(String.self, forKey: .filename)
         duration = try values.decode(Time.self, forKey: .duration)
         thumbnailFilename = try? values.decode(String.self, forKey: .thumbnailFilename)
-        url = try values.decode(URL.self, forKey: .url)
+        underlyingFilename = try values.decode(String.self, forKey: .underlyingFilename)
     }
 
     func encode(to encoder: Encoder) throws {
@@ -56,7 +56,7 @@ final class Video: Identifiable, Codable {
         try container.encode(filename, forKey: .filename)
         try container.encode(duration, forKey: .duration)
         try container.encode(thumbnailFilename, forKey: .thumbnailFilename)
-        try container.encode(url, forKey: .url)
+        try container.encode(underlyingFilename, forKey: .underlyingFilename)
     }
 }
 

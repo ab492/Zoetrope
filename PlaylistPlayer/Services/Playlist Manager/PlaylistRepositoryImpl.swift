@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import ABExtensions
 
 protocol PlaylistManagerObserver: AnyObject {
     func playlistManagerDidUpdate()
@@ -33,17 +34,28 @@ protocol PlaylistRepository {
     func removeObserver(_ observer: PlaylistManagerObserver)
 }
 
-class PlaylistRepositoryImpl: PlaylistRepository {
+final class PlaylistRepositoryImpl: PlaylistRepository {
 
+    // MARK: - Properties
+    
     private var playlistStore: PlaylistStore
-    private var videoMetadataService: VideoMetadataService
-
+    private let fileManager: FileManagerWrapped
+    private var videoBaseURL: URL {
+        fileManager.documentsDirectory.appendingPathComponent("Videos")
+    }
+    private let importAssetConstructor: ImportAssetConstructor
+    private let operationQueue = OperationQueue()
     private(set) var playlists: [Playlist]
 
-    init(playlistStore: PlaylistStore, videoModelBuilder: VideoMetadataService, notificationCenter: NotificationCenter) {
+    // MARK: - Init
+
+    init(playlistStore: PlaylistStore,
+         notificationCenter: NotificationCenter,
+         fileManagerWrapped: FileManagerWrapped) {
         self.playlistStore = playlistStore
         self.playlists = playlistStore.fetchPlaylists()
-        self.videoMetadataService = videoModelBuilder
+        self.fileManager = fileManagerWrapped
+        self.importAssetConstructor = ImportAssetConstructor()
 
         notificationCenter.addObserver(self,
                                        selector: #selector(applicationWillResignActive),
@@ -57,8 +69,8 @@ class PlaylistRepositoryImpl: PlaylistRepository {
 
     convenience init() {
         self.init(playlistStore: PlaylistStoreImpl(),
-                  videoModelBuilder: VideoMetadataServiceImpl(),
-                  notificationCenter: NotificationCenter.default)
+                  notificationCenter: NotificationCenter.default,
+                  fileManagerWrapped: FileManagerWrappedImpl())
     }
 
     // MARK: - Public
@@ -84,29 +96,50 @@ class PlaylistRepositoryImpl: PlaylistRepository {
 
     func addMediaAt(urls: [URL], to playlist: Playlist) {
         for url in urls {
-            videoMetadataService.generateVideoWithMetadataForItemAt(securityScopedURL: url) { video in
-                guard let video = video else { return }
-                playlist.videos.append(video)
-                print("CALLED: \(video.url)")
-                self.playlistManagerDidUpdate()
-            }
+            addFile(at: url, to: playlist)
+        }
+    }
+    
+    private func addFile(at url: URL, to playlist: Playlist) {
+        try? fileManager.createDirectoryIfRequired(url: videoBaseURL)
+        
+        // Very important line. Notes about security scope here:
+        // https://danieltull.co.uk/blog/2018/09/09/wrapping-urls-security-scoped-resource-methods/
+        _ = url.startAccessingSecurityScopedResource()
+        let importAsset = importAssetConstructor.assetFor(sourceURL: url)
+                
+        // Define operations
+        let copyFileToLocationOperation = CopyFileToLocationImportOperation(baseURL: videoBaseURL, importAsset: importAsset)
+        let createVideoModelOperation = CreateVideoModelImportOperation(importAsset: importAsset)
+        
+        // Setup dependencies
+        createVideoModelOperation.addDependency(copyFileToLocationOperation)
+        
+        // Start operations
+        operationQueue.addOperation(copyFileToLocationOperation)
+        operationQueue.addOperation(createVideoModelOperation)
+        
+        createVideoModelOperation.onVideoModelCreated = { [weak self] video in
+            playlist.videos.append(video)
+            self?.playlistManagerDidUpdate()
+            url.stopAccessingSecurityScopedResource()
+            self?.save()
         }
     }
 
     func deleteItems(fromPlaylist playlist: Playlist, at offsets: IndexSet) {
         for index in offsets {
             // Clear up all store metadata first.
-            videoMetadataService.removeMetadata(for: playlist.videos[index])
+//            videoMetadataService.removeMetadata(for: playlist.videos[index])
         }
         playlist.videos.remove(atOffsets: offsets)
         playlistManagerDidUpdate()
         save()
     }
-
+    
     func mediaUrlsFor(playlist: Playlist) -> [URL] {
-        let urls = playlist.videos.map { $0.url }
-        print("URLS: \(urls)")
-        return urls
+        // Takes the media filename to: path/to/documentsDirectory/mediaDirectoryName/filename
+        playlist.videos.map { URL(fileURLWithPath: $0.underlyingFilename, relativeTo: videoBaseURL) }
     }
 
     // MARK: - Private
@@ -114,7 +147,7 @@ class PlaylistRepositoryImpl: PlaylistRepository {
     @objc private func applicationWillResignActive() {
         // If you switch to use scenes, `applicationWillResignActive` isn't called.
         let allVideos = playlists.map { $0.videos }.flatMap { $0 }
-        videoMetadataService.cleanupStore(currentVideos: allVideos)
+//        videoMetadataService.cleanupStore(currentVideos: allVideos)
     }
 
     func save() {

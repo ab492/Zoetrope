@@ -9,14 +9,14 @@ import Foundation
 
 final class ImportAsset {
     let sourceURL: URL
-    let destinationURL: URL
-    let title: String
+    let filename: String
+    let displayName: String
     let duration: Time
 
-    init(sourceURL: URL, destinationURL: URL, title: String, duration: Time) {
+    init(sourceURL: URL, filename: String, displayName: String, duration: Time) {
         self.sourceURL = sourceURL
-        self.destinationURL = destinationURL
-        self.title = title
+        self.filename = filename
+        self.displayName = displayName
         self.duration = duration
     }
 }

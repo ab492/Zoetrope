@@ -121,7 +121,6 @@
 		ADB964B425F4D9CE00D26886 /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB964B325F4D9CE00D26886 /* MenuItemView.swift */; };
 		ADB964BA25F4E63A00D26886 /* EditMode+Toggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB964B925F4E63A00D26886 /* EditMode+Toggle.swift */; };
 		ADC744D0260B12560036A0D6 /* PlaylistRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC744CF260B12560036A0D6 /* PlaylistRepositoryImpl.swift */; };
-		ADCD4DA325D4FAA900F8A03D /* SecurityScopedBookmarkStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCD4DA225D4FAA900F8A03D /* SecurityScopedBookmarkStore.swift */; };
 		ADE058FA25D91CE7004076AC /* MockSecurityScopedBookmarkStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE058F925D91CE7004076AC /* MockSecurityScopedBookmarkStore.swift */; };
 		ADE058FE25D91CFA004076AC /* MockThumbnailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE058FD25D91CFA004076AC /* MockThumbnailService.swift */; };
 		ADE0590225D91DC9004076AC /* VideoMetadataServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE0590125D91DC9004076AC /* VideoMetadataServiceTests.swift */; };
@@ -266,7 +265,6 @@
 		ADB964B325F4D9CE00D26886 /* MenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
 		ADB964B925F4E63A00D26886 /* EditMode+Toggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditMode+Toggle.swift"; sourceTree = "<group>"; };
 		ADC744CF260B12560036A0D6 /* PlaylistRepositoryImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistRepositoryImpl.swift; sourceTree = "<group>"; };
-		ADCD4DA225D4FAA900F8A03D /* SecurityScopedBookmarkStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecurityScopedBookmarkStore.swift; sourceTree = "<group>"; };
 		ADE058F925D91CE7004076AC /* MockSecurityScopedBookmarkStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSecurityScopedBookmarkStore.swift; sourceTree = "<group>"; };
 		ADE058FD25D91CFA004076AC /* MockThumbnailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockThumbnailService.swift; sourceTree = "<group>"; };
 		ADE0590125D91DC9004076AC /* VideoMetadataServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMetadataServiceTests.swift; sourceTree = "<group>"; };
@@ -388,14 +386,6 @@
 				AD12075825D3B50800A8AAEC /* PlaylistManagerTests.swift */,
 			);
 			path = "(T) Playlist Manager";
-			sourceTree = "<group>";
-		};
-		AD12076525D3B8B100A8AAEC /* Security Scoped Bookmark Store */ = {
-			isa = PBXGroup;
-			children = (
-				ADCD4DA225D4FAA900F8A03D /* SecurityScopedBookmarkStore.swift */,
-			);
-			path = "Security Scoped Bookmark Store";
 			sourceTree = "<group>";
 		};
 		AD15DB4C25F4ECD700010B73 /* User Preferences */ = {
@@ -532,7 +522,6 @@
 				AD1CB82425FB34990030BC5C /* Date Time Service */,
 				ADF04C6A2619BC0D00BE9ACC /* Playlist Manager */,
 				AD9A0DAC25CE872200FF85EB /* Playlist Store */,
-				AD12076525D3B8B100A8AAEC /* Security Scoped Bookmark Store */,
 				AD8989EC25D7BE9D0065975D /* Thumbnail Service */,
 				AD15DB4C25F4ECD700010B73 /* User Preferences */,
 				ADA4D74C25D9122E0054B8FA /* Video Metadata Service */,
@@ -625,6 +614,24 @@
 				AD562604260F24BE0056C5C7 /* PlaylistPlayerImpl+Observers.swift */,
 			);
 			path = PlaylistPlayer;
+			sourceTree = "<group>";
+		};
+		AD7409FA285DFD0A00AEF44C /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				AD07860E285DA8DE0046AE15 /* CopyFileToLocationImportOperation.swift */,
+				AD078617285DB00D0046AE15 /* CreateVideoModelImportOperation.swift */,
+			);
+			path = Operations;
+			sourceTree = "<group>";
+		};
+		AD7409FB285DFD1200AEF44C /* Import Asset */ = {
+			isa = PBXGroup;
+			children = (
+				AD078615285DAE760046AE15 /* ImportAssetConstructor.swift */,
+				AD078613285DAE620046AE15 /* ImportAsset.swift */,
+			);
+			path = "Import Asset";
 			sourceTree = "<group>";
 		};
 		AD7A9EDB25CEB1AE00118055 /* Playlist Sidebar */ = {
@@ -766,10 +773,6 @@
 			isa = PBXGroup;
 			children = (
 				ADA4D74825D9121D0054B8FA /* VideoMetadataService.swift */,
-				AD07860E285DA8DE0046AE15 /* CopyFileToLocationImportOperation.swift */,
-				AD078617285DB00D0046AE15 /* CreateVideoModelImportOperation.swift */,
-				AD078615285DAE760046AE15 /* ImportAssetConstructor.swift */,
-				AD078613285DAE620046AE15 /* ImportAsset.swift */,
 				AD1BDFB725E629AA00584968 /* Operations */,
 			);
 			path = "Video Metadata Service";
@@ -876,6 +879,8 @@
 			isa = PBXGroup;
 			children = (
 				ADC744CF260B12560036A0D6 /* PlaylistRepositoryImpl.swift */,
+				AD7409FB285DFD1200AEF44C /* Import Asset */,
+				AD7409FA285DFD0A00AEF44C /* Operations */,
 			);
 			path = "Playlist Manager";
 			sourceTree = "<group>";
@@ -1028,7 +1033,6 @@
 				AD1BDFAF25E4D73600584968 /* SecurityScopedBookmarkOperation.swift in Sources */,
 				AD078C3925BC186500137941 /* PlaybackControlsBar.swift in Sources */,
 				AD9A0D9E25CE79B800FF85EB /* PlaylistStore.swift in Sources */,
-				ADCD4DA325D4FAA900F8A03D /* SecurityScopedBookmarkStore.swift in Sources */,
 				AD0D65CE25F3837B00461BE6 /* VideoThumbnailViewModel.swift in Sources */,
 				AD45974525EB815C00E537C1 /* AddPlaylistModal.swift in Sources */,
 				AD13687425BD600100ACC7D0 /* TimeControlsBar.swift in Sources */,
