@@ -16,10 +16,9 @@ final class Video: Identifiable, Codable {
 
     /// The approximate duration for the video (in seconds, rather that as `MediaTime`).
     let duration: Time
+
     var thumbnailFilename: String?
     var url: URL
-    private var bookmarkData: Data?
-    private var isSecurityScoped = false
     
     // MARK: - Init
 
@@ -29,9 +28,6 @@ final class Video: Identifiable, Codable {
         self.duration = duration
         self.thumbnailFilename = thumbnailFilename
         self.url = url
-
-        isSecurityScoped = url.startAccessingSecurityScopedResource()
-        self.bookmarkData = try? url.bookmarkData(options: .suitableForBookmarkFile, includingResourceValuesForKeys: nil, relativeTo: nil)
     }
 
     // MARK: - Codable
@@ -42,7 +38,6 @@ final class Video: Identifiable, Codable {
         case duration
         case thumbnailFilename
         case url
-        case bookmarkData
     }
 
     init(from decoder: Decoder) throws {
@@ -51,21 +46,7 @@ final class Video: Identifiable, Codable {
         filename = try values.decode(String.self, forKey: .filename)
         duration = try values.decode(Time.self, forKey: .duration)
         thumbnailFilename = try? values.decode(String.self, forKey: .thumbnailFilename)
-
-        var isStale = false
-        bookmarkData = try? values.decode(Data.self, forKey: .bookmarkData)
-
-        if let data = bookmarkData {
-            // Don't think we use isStale flag as we generate bookmark data each save anyway.
-            url = try URL(resolvingBookmarkData: data, options: .withoutUI, relativeTo: nil, bookmarkDataIsStale: &isStale)
-            isSecurityScoped = url.startAccessingSecurityScopedResource()
-        } else {
-            url = try values.decode(URL.self, forKey: .url)
-        }
-    }
-
-    enum VideoError: Error {
-        case unableToResolveBookmark
+        url = try values.decode(URL.self, forKey: .url)
     }
 
     func encode(to encoder: Encoder) throws {
@@ -76,14 +57,6 @@ final class Video: Identifiable, Codable {
         try container.encode(duration, forKey: .duration)
         try container.encode(thumbnailFilename, forKey: .thumbnailFilename)
         try container.encode(url, forKey: .url)
-
-        bookmarkData = try url.bookmarkData(options: .suitableForBookmarkFile,
-                                            includingResourceValuesForKeys: nil, relativeTo: nil)
-        try container.encode(bookmarkData, forKey: .bookmarkData)
-    }
-
-    deinit {
-        url.stopAccessingSecurityScopedResource()
     }
 }
 

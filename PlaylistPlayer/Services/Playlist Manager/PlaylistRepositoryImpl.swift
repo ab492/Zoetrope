@@ -12,7 +12,7 @@ protocol PlaylistManagerObserver: AnyObject {
     func playlistManagerDidUpdate()
 }
 
-protocol PlaylistManager {
+protocol PlaylistRepository {
 
     // Playlists
     var playlists: [Playlist] { get }
@@ -33,7 +33,7 @@ protocol PlaylistManager {
     func removeObserver(_ observer: PlaylistManagerObserver)
 }
 
-class PlaylistManagerImpl: PlaylistManager {
+class PlaylistRepositoryImpl: PlaylistRepository {
 
     private var playlistStore: PlaylistStore
     private var videoMetadataService: VideoMetadataService
@@ -87,6 +87,7 @@ class PlaylistManagerImpl: PlaylistManager {
             videoMetadataService.generateVideoWithMetadataForItemAt(securityScopedURL: url) { video in
                 guard let video = video else { return }
                 playlist.videos.append(video)
+                print("CALLED: \(video.url)")
                 self.playlistManagerDidUpdate()
             }
         }
@@ -103,7 +104,9 @@ class PlaylistManagerImpl: PlaylistManager {
     }
 
     func mediaUrlsFor(playlist: Playlist) -> [URL] {
-        playlist.videos.map { $0.url }
+        let urls = playlist.videos.map { $0.url }
+        print("URLS: \(urls)")
+        return urls
     }
 
     // MARK: - Private
@@ -144,7 +147,7 @@ class PlaylistManagerImpl: PlaylistManager {
 
 }
 
-extension PlaylistManagerImpl: ThumbnailServiceObserver {
+extension PlaylistRepositoryImpl: ThumbnailServiceObserver {
     func didFinishProcessingThumbnails() {
         save()
     }

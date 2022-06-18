@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		AD07860C2855C4EF0046AE15 /* ABExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = AD07860B2855C4EF0046AE15 /* ABExtensions */; };
+		AD07860F285DA8DE0046AE15 /* CopyFileToLocationImportOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD07860E285DA8DE0046AE15 /* CopyFileToLocationImportOperation.swift */; };
+		AD078614285DAE620046AE15 /* ImportAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD078613285DAE620046AE15 /* ImportAsset.swift */; };
+		AD078616285DAE760046AE15 /* ImportAssetConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD078615285DAE760046AE15 /* ImportAssetConstructor.swift */; };
+		AD078618285DB00D0046AE15 /* CreateVideoModelImportOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD078617285DB00D0046AE15 /* CreateVideoModelImportOperation.swift */; };
 		AD078C3125BC180900137941 /* TransportControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD078C3025BC180900137941 /* TransportControls.swift */; };
 		AD078C3525BC185700137941 /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD078C3425BC185700137941 /* VisualEffectView.swift */; };
 		AD078C3925BC186500137941 /* PlaybackControlsBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD078C3825BC186500137941 /* PlaybackControlsBar.swift */; };
@@ -105,7 +109,6 @@
 		AD8989F225D7BEE30065975D /* ThumbnailStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8989F125D7BEE30065975D /* ThumbnailStore.swift */; };
 		AD8989F625D7C1F10065975D /* ThumbnailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8989F525D7C1F10065975D /* ThumbnailService.swift */; };
 		AD898A1B25D7F34F0065975D /* PlaylistDetailRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD898A1A25D7F34F0065975D /* PlaylistDetailRow.swift */; };
-		AD898A1F25D7F9B20065975D /* DurationCaclulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD898A1E25D7F9B20065975D /* DurationCaclulator.swift */; };
 		AD8B29DF25BFEB8300AAA7AC /* CGFloat+MapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8B29DE25BFEB8300AAA7AC /* CGFloat+MapTests.swift */; };
 		AD9A0D9125CE739600FF85EB /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9A0D9025CE739600FF85EB /* Playlist.swift */; };
 		AD9A0D9625CE74BF00FF85EB /* PlaylistTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9A0D9525CE74BF00FF85EB /* PlaylistTests.swift */; };
@@ -117,7 +120,7 @@
 		ADB50B2D25FC971B00FB96D1 /* PlaylistDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB50B2C25FC971B00FB96D1 /* PlaylistDetailViewModelTests.swift */; };
 		ADB964B425F4D9CE00D26886 /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB964B325F4D9CE00D26886 /* MenuItemView.swift */; };
 		ADB964BA25F4E63A00D26886 /* EditMode+Toggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB964B925F4E63A00D26886 /* EditMode+Toggle.swift */; };
-		ADC744D0260B12560036A0D6 /* PlaylistManagerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC744CF260B12560036A0D6 /* PlaylistManagerImpl.swift */; };
+		ADC744D0260B12560036A0D6 /* PlaylistRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC744CF260B12560036A0D6 /* PlaylistRepositoryImpl.swift */; };
 		ADCD4DA325D4FAA900F8A03D /* SecurityScopedBookmarkStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCD4DA225D4FAA900F8A03D /* SecurityScopedBookmarkStore.swift */; };
 		ADE058FA25D91CE7004076AC /* MockSecurityScopedBookmarkStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE058F925D91CE7004076AC /* MockSecurityScopedBookmarkStore.swift */; };
 		ADE058FE25D91CFA004076AC /* MockThumbnailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE058FD25D91CFA004076AC /* MockThumbnailService.swift */; };
@@ -146,6 +149,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AD07860E285DA8DE0046AE15 /* CopyFileToLocationImportOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyFileToLocationImportOperation.swift; sourceTree = "<group>"; };
+		AD078613285DAE620046AE15 /* ImportAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportAsset.swift; sourceTree = "<group>"; };
+		AD078615285DAE760046AE15 /* ImportAssetConstructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportAssetConstructor.swift; sourceTree = "<group>"; };
+		AD078617285DB00D0046AE15 /* CreateVideoModelImportOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateVideoModelImportOperation.swift; sourceTree = "<group>"; };
 		AD078C3025BC180900137941 /* TransportControls.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransportControls.swift; sourceTree = "<group>"; };
 		AD078C3425BC185700137941 /* VisualEffectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 		AD078C3825BC186500137941 /* PlaybackControlsBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackControlsBar.swift; sourceTree = "<group>"; };
@@ -247,7 +254,6 @@
 		AD8989F125D7BEE30065975D /* ThumbnailStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailStore.swift; sourceTree = "<group>"; };
 		AD8989F525D7C1F10065975D /* ThumbnailService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailService.swift; sourceTree = "<group>"; };
 		AD898A1A25D7F34F0065975D /* PlaylistDetailRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistDetailRow.swift; sourceTree = "<group>"; };
-		AD898A1E25D7F9B20065975D /* DurationCaclulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationCaclulator.swift; sourceTree = "<group>"; };
 		AD8B29DE25BFEB8300AAA7AC /* CGFloat+MapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+MapTests.swift"; sourceTree = "<group>"; };
 		AD9A0D9025CE739600FF85EB /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
 		AD9A0D9525CE74BF00FF85EB /* PlaylistTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistTests.swift; sourceTree = "<group>"; };
@@ -259,7 +265,7 @@
 		ADB50B2C25FC971B00FB96D1 /* PlaylistDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistDetailViewModelTests.swift; sourceTree = "<group>"; };
 		ADB964B325F4D9CE00D26886 /* MenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
 		ADB964B925F4E63A00D26886 /* EditMode+Toggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditMode+Toggle.swift"; sourceTree = "<group>"; };
-		ADC744CF260B12560036A0D6 /* PlaylistManagerImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistManagerImpl.swift; sourceTree = "<group>"; };
+		ADC744CF260B12560036A0D6 /* PlaylistRepositoryImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistRepositoryImpl.swift; sourceTree = "<group>"; };
 		ADCD4DA225D4FAA900F8A03D /* SecurityScopedBookmarkStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecurityScopedBookmarkStore.swift; sourceTree = "<group>"; };
 		ADE058F925D91CE7004076AC /* MockSecurityScopedBookmarkStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSecurityScopedBookmarkStore.swift; sourceTree = "<group>"; };
 		ADE058FD25D91CFA004076AC /* MockThumbnailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockThumbnailService.swift; sourceTree = "<group>"; };
@@ -524,7 +530,6 @@
 			children = (
 				AD5625FD260F24520056C5C7 /* PlaylistPlayer */,
 				AD1CB82425FB34990030BC5C /* Date Time Service */,
-				AD898A2225D7F9EB0065975D /* Duration Calculator */,
 				ADF04C6A2619BC0D00BE9ACC /* Playlist Manager */,
 				AD9A0DAC25CE872200FF85EB /* Playlist Store */,
 				AD12076525D3B8B100A8AAEC /* Security Scoped Bookmark Store */,
@@ -686,14 +691,6 @@
 			path = "Thumbnail Service";
 			sourceTree = "<group>";
 		};
-		AD898A2225D7F9EB0065975D /* Duration Calculator */ = {
-			isa = PBXGroup;
-			children = (
-				AD898A1E25D7F9B20065975D /* DurationCaclulator.swift */,
-			);
-			path = "Duration Calculator";
-			sourceTree = "<group>";
-		};
 		AD9A0D8B25CE72E200FF85EB /* Video Playback */ = {
 			isa = PBXGroup;
 			children = (
@@ -769,6 +766,10 @@
 			isa = PBXGroup;
 			children = (
 				ADA4D74825D9121D0054B8FA /* VideoMetadataService.swift */,
+				AD07860E285DA8DE0046AE15 /* CopyFileToLocationImportOperation.swift */,
+				AD078617285DB00D0046AE15 /* CreateVideoModelImportOperation.swift */,
+				AD078615285DAE760046AE15 /* ImportAssetConstructor.swift */,
+				AD078613285DAE620046AE15 /* ImportAsset.swift */,
 				AD1BDFB725E629AA00584968 /* Operations */,
 			);
 			path = "Video Metadata Service";
@@ -874,7 +875,7 @@
 		ADF04C6A2619BC0D00BE9ACC /* Playlist Manager */ = {
 			isa = PBXGroup;
 			children = (
-				ADC744CF260B12560036A0D6 /* PlaylistManagerImpl.swift */,
+				ADC744CF260B12560036A0D6 /* PlaylistRepositoryImpl.swift */,
 			);
 			path = "Playlist Manager";
 			sourceTree = "<group>";
@@ -1006,6 +1007,7 @@
 				ADE947EE2609C43300B8BCFB /* CMTime+Codable.swift in Sources */,
 				AD326F902639EE370013AF98 /* SettingsScreen.swift in Sources */,
 				AD5625FF260F24760056C5C7 /* PlaylistPlayerImpl.swift in Sources */,
+				AD07860F285DA8DE0046AE15 /* CopyFileToLocationImportOperation.swift in Sources */,
 				AD75C75125C918E50070110F /* VideoQueuePlayer.swift in Sources */,
 				ADB964B425F4D9CE00D26886 /* MenuItemView.swift in Sources */,
 				AD4DDB4225C08E7700F8831B /* CGFloat+Extensions.swift in Sources */,
@@ -1016,6 +1018,7 @@
 				AD67DB632612E9D80099DF30 /* Binding+NilCoalescing.swift in Sources */,
 				AD7A9F3025CFE24C00118055 /* Playlist-Helpers.swift in Sources */,
 				AD7A9F3625CFE6B300118055 /* URL+SecurityScoped.swift in Sources */,
+				AD078616285DAE760046AE15 /* ImportAssetConstructor.swift in Sources */,
 				ADE0593E25DA4DC5004076AC /* LoopButton.swift in Sources */,
 				AD7994D725C28E070041CFC7 /* CustomSlider.swift in Sources */,
 				AD2F0AF925BC06FC0006306D /* Time.swift in Sources */,
@@ -1032,7 +1035,7 @@
 				AD15DB4E25F4ED0800010B73 /* UserPreferences.swift in Sources */,
 				AD62B3AA2604705F007F8915 /* SortOrder.swift in Sources */,
 				AD1CB82625FB34AB0030BC5C /* DateTimeService.swift in Sources */,
-				ADC744D0260B12560036A0D6 /* PlaylistManagerImpl.swift in Sources */,
+				ADC744D0260B12560036A0D6 /* PlaylistRepositoryImpl.swift in Sources */,
 				AD318A5325C7D7B700B62201 /* Video.swift in Sources */,
 				AD2B4C662633F08C00676350 /* TemporaryRandomColor.swift in Sources */,
 				AD2F0AE625BC06D20006306D /* WrappedAVPlayer.swift in Sources */,
@@ -1059,13 +1062,14 @@
 				AD15DB5225F4EEC100010B73 /* UserPreferencesManager.swift in Sources */,
 				AD8989EE25D7BEB20065975D /* ThumbnailGenerator.swift in Sources */,
 				AD7A9EDD25CEB1C500118055 /* PlaylistSidebarView.swift in Sources */,
-				AD898A1F25D7F9B20065975D /* DurationCaclulator.swift in Sources */,
+				AD078614285DAE620046AE15 /* ImportAsset.swift in Sources */,
 				AD0D65C825F371C000461BE6 /* PlaylistDetailRowViewModel.swift in Sources */,
 				AD7A9F0725CFCCEC00118055 /* EmptyContentView.swift in Sources */,
 				AD2F0BB125BC0DD50006306D /* VideoPlayerView.swift in Sources */,
 				AD175E1225C67FBF00B805E1 /* PlayerIcons.swift in Sources */,
 				AD898A1B25D7F34F0065975D /* PlaylistDetailRow.swift in Sources */,
 				AD4AE63D25F0BAB100D9E63A /* PlaylistDetailViewModel.swift in Sources */,
+				AD078618285DB00D0046AE15 /* CreateVideoModelImportOperation.swift in Sources */,
 				AD4AE64325F1F6C900D9E63A /* WeakBox.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

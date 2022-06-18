@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import ABExtensions
 
 protocol VideoMetadataService {
     func generateVideoWithMetadataForItemAt(securityScopedURL: URL, completion: @escaping (Video?) -> Void)
-    func url(for video: Video) -> URL?
+//    func url(for video: Video) -> URL?
     func removeMetadata(for video: Video)
     func cleanupStore(currentVideos: [Video])
 }
@@ -20,49 +21,54 @@ class VideoMetadataServiceImpl: VideoMetadataService {
 
     // MARK: - Properties
 
-    private var durationCalculator: DurationCalculator
-    private var securityScopedBookmarkStore: SecurityScopedBookmarkStore
     private let operationQueue = OperationQueue()
 
+    private let importAssetConstructor = ImportAssetConstructor(destinationDirectory: FileManagerWrappedImpl().documentsDirectory.appendingPathComponent("Videos"))
+
     // MARK: - Init
-
-    init(durationCalculator: DurationCalculator, securityScopedBookmarkStore: SecurityScopedBookmarkStore) {
-        self.durationCalculator = durationCalculator
-        self.securityScopedBookmarkStore = securityScopedBookmarkStore
+    
+    init() {
         operationQueue.qualityOfService = .userInitiated
-        operationQueue.maxConcurrentOperationCount = 1
-    }
-
-    convenience init() {
-        self.init(durationCalculator: DurationCalculatorImpl(),
-                  securityScopedBookmarkStore: SecurityScopedBookmarkStoreImpl())
+        operationQueue.maxConcurrentOperationCount = 3
     }
 
     // MARK: - Public
 
     func generateVideoWithMetadataForItemAt(securityScopedURL: URL, completion: @escaping (Video?) -> Void) {
-        let filename = FileManager.default.displayName(atPath: securityScopedURL.path)
-        let id = UUID()
 
-        securityScopedURL.startAccessingSecurityScopedResource()
-        let video = Video(id: id, url: securityScopedURL, filename: filename, duration: durationCalculator.durationForAsset(at: securityScopedURL))
-        Current.thumbnailService.generateThumbnail(for: video)
 
-        securityScopedURL.stopAccessingSecurityScopedResource()
-        completion(video)
+        let importAsset = importAssetConstructor.assetFor(sourceURL: securityScopedURL)
+
+        print("IMPORT ASSET: \(importAsset)")
+
+        // Define operations
+        let copyFileToLocationOperation = CopyFileToLocationImportOperation(importAsset: importAsset)
+        let createVideoModelOperation = CreateVideoModelImportOperation(importAsset: importAsset)
+
+        createVideoModelOperation.addDependency(copyFileToLocationOperation)
+
+        operationQueue.addOperation(copyFileToLocationOperation)
+        operationQueue.addOperation(createVideoModelOperation)
+
+
+        createVideoModelOperation.onVideoModelCreated = { video in
+            completion(video)
+        }
+
+//        Current.thumbnailService.generateThumbnail(for: video)
     }
 
-    func url(for video: Video) -> URL? {
-        securityScopedBookmarkStore.url(for: video.id)
-    }
+//    func url(for video: Video) -> URL? {
+//        print("URL REQUESTED")
+//        return video.url
+////        securityScopedBookmarkStore.url(for: video.id)
+//    }
 
     func removeMetadata(for video: Video) {
-        securityScopedBookmarkStore.removeBookmark(for: video.id)
         Current.thumbnailService.removeThumbnail(for: video)
     }
 
     func cleanupStore(currentVideos: [Video]) {
         Current.thumbnailService.cleanupStoreOfAllExcept(requiredVideos: currentVideos)
-        securityScopedBookmarkStore.cleanupStore(requiredIds: currentVideos.map { $0.id })
     }
 }

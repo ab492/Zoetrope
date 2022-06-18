@@ -8,7 +8,7 @@
 import Foundation
 @testable import PlaylistPlayer
 
-final class MockPlaylistManager: PlaylistManager {
+final class MockPlaylistManager: PlaylistRepository {
 
     var addObserverCallCount = 0
     func addObserver(_ observer: PlaylistManagerObserver) {
