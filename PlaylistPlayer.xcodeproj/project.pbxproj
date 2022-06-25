@@ -70,7 +70,7 @@
 		AD2F0BAD25BC0D380006306D /* CustomPlayerLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F0BAC25BC0D380006306D /* CustomPlayerLayer.swift */; };
 		AD2F0BB125BC0DD50006306D /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F0BB025BC0DD50006306D /* VideoPlayerView.swift */; };
 		AD2F0BB525BC0E0F0006306D /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F0BB425BC0E0F0006306D /* PlayerView.swift */; };
-		AD318A5325C7D7B700B62201 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD318A5225C7D7B700B62201 /* Video.swift */; };
+		AD318A5325C7D7B700B62201 /* VideoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD318A5225C7D7B700B62201 /* VideoModel.swift */; };
 		AD326F902639EE370013AF98 /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD326F8F2639EE370013AF98 /* SettingsScreen.swift */; };
 		AD326FA4263A7E0E0013AF98 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD326FA3263A7E0D0013AF98 /* Colors.xcassets */; };
 		AD37B5CE25BC109400B854B6 /* PlaylistPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD37B5CD25BC109400B854B6 /* PlaylistPlayerViewModel.swift */; };
@@ -131,6 +131,8 @@
 		ADE947EE2609C43300B8BCFB /* CMTime+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE947ED2609C43300B8BCFB /* CMTime+Codable.swift */; };
 		ADE947F42609C48A00B8BCFB /* CMTime+CodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE947F32609C48A00B8BCFB /* CMTime+CodableTests.swift */; };
 		ADF04C59261999D500BE9ACC /* MockPlaylistPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF04C58261999D500BE9ACC /* MockPlaylistPlayer.swift */; };
+		ADF1FF052866EA0E00ACB0F0 /* AppService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF1FF042866EA0E00ACB0F0 /* AppService.swift */; };
+		ADF1FF072866EC1900ACB0F0 /* WorldConfigurer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF1FF062866EC1900ACB0F0 /* WorldConfigurer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -210,7 +212,7 @@
 		AD2F0BAC25BC0D380006306D /* CustomPlayerLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPlayerLayer.swift; sourceTree = "<group>"; };
 		AD2F0BB025BC0DD50006306D /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		AD2F0BB425BC0E0F0006306D /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
-		AD318A5225C7D7B700B62201 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
+		AD318A5225C7D7B700B62201 /* VideoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoModel.swift; sourceTree = "<group>"; };
 		AD326F8F2639EE370013AF98 /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
 		AD326FA3263A7E0D0013AF98 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		AD37B5CD25BC109400B854B6 /* PlaylistPlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistPlayerViewModel.swift; sourceTree = "<group>"; };
@@ -271,6 +273,8 @@
 		ADE947ED2609C43300B8BCFB /* CMTime+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMTime+Codable.swift"; sourceTree = "<group>"; };
 		ADE947F32609C48A00B8BCFB /* CMTime+CodableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMTime+CodableTests.swift"; sourceTree = "<group>"; };
 		ADF04C58261999D500BE9ACC /* MockPlaylistPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPlaylistPlayer.swift; sourceTree = "<group>"; };
+		ADF1FF042866EA0E00ACB0F0 /* AppService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppService.swift; sourceTree = "<group>"; };
+		ADF1FF062866EC1900ACB0F0 /* WorldConfigurer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldConfigurer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -438,6 +442,7 @@
 			children = (
 				AD2F0AB725BC06A50006306D /* PlaylistPlayerApp.swift */,
 				AD67C7B625D3C1EC008635B8 /* World.swift */,
+				ADF1FF062866EC1900ACB0F0 /* WorldConfigurer.swift */,
 				AD078C5425BD598A00137941 /* Activities */,
 				AD318A5125C7D7A700B62201 /* Models */,
 				AD2F0BB825BC0E230006306D /* Reusable UI */,
@@ -510,6 +515,7 @@
 		AD2F0B2125BC07D10006306D /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				ADF1FF042866EA0E00ACB0F0 /* AppService.swift */,
 				AD5625FD260F24520056C5C7 /* PlaylistPlayer */,
 				AD1CB82425FB34990030BC5C /* Date Time Service */,
 				ADF04C6A2619BC0D00BE9ACC /* Playlist Manager */,
@@ -571,7 +577,7 @@
 		AD318A5125C7D7A700B62201 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				AD318A5225C7D7B700B62201 /* Video.swift */,
+				AD318A5225C7D7B700B62201 /* VideoModel.swift */,
 				AD9A0D9025CE739600FF85EB /* Playlist.swift */,
 				AD7A9F2F25CFE24C00118055 /* Playlist-Helpers.swift */,
 				AD62B3A92604705F007F8915 /* SortOrder.swift */,
@@ -1020,7 +1026,7 @@
 				AD62B3AA2604705F007F8915 /* SortOrder.swift in Sources */,
 				AD1CB82625FB34AB0030BC5C /* DateTimeService.swift in Sources */,
 				ADC744D0260B12560036A0D6 /* PlaylistRepositoryImpl.swift in Sources */,
-				AD318A5325C7D7B700B62201 /* Video.swift in Sources */,
+				AD318A5325C7D7B700B62201 /* VideoModel.swift in Sources */,
 				AD2B4C662633F08C00676350 /* TemporaryRandomColor.swift in Sources */,
 				AD2F0AE625BC06D20006306D /* WrappedAVPlayer.swift in Sources */,
 				AD7A9EE425CEB25300118055 /* PlaylistDetailView.swift in Sources */,
@@ -1039,6 +1045,7 @@
 				AD8989F225D7BEE30065975D /* ThumbnailStore.swift in Sources */,
 				AD5625E0260F0DC40056C5C7 /* PlaylistPlayer.swift in Sources */,
 				AD12074125D1173900A8AAEC /* Color+Extensions.swift in Sources */,
+				ADF1FF052866EA0E00ACB0F0 /* AppService.swift in Sources */,
 				AD2F0ABA25BC06A50006306D /* ContentView.swift in Sources */,
 				AD078C3D25BC196700137941 /* ScaleButtonStyle.swift in Sources */,
 				AD2F0AB825BC06A50006306D /* PlaylistPlayerApp.swift in Sources */,
@@ -1054,6 +1061,7 @@
 				AD898A1B25D7F34F0065975D /* PlaylistDetailRow.swift in Sources */,
 				AD4AE63D25F0BAB100D9E63A /* PlaylistDetailViewModel.swift in Sources */,
 				AD078618285DB00D0046AE15 /* CreateVideoModelImportOperation.swift in Sources */,
+				ADF1FF072866EC1900ACB0F0 /* WorldConfigurer.swift in Sources */,
 				AD4AE64325F1F6C900D9E63A /* WeakBox.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

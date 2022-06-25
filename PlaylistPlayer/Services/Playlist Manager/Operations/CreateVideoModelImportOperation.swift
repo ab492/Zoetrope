@@ -13,7 +13,7 @@ final class CreateVideoModelImportOperation: Operation {
 
     private let importAsset: ImportAsset
 
-    var onVideoModelCreated: ((Video) -> Void)?
+    var onVideoModelCreated: ((VideoModel) -> Void)?
 
     // MARK: - Init
 
@@ -25,7 +25,9 @@ final class CreateVideoModelImportOperation: Operation {
 
     override func main() {
         // TODO: Update filename to title, add duration metadata... WHAT IS ID USED FOR?
-        let videoModel = Video(filename: importAsset.displayName, duration: importAsset.duration, underlyingFilename: importAsset.filename)
+        let videoModel = VideoModel(displayName: importAsset.displayName,
+                                    duration: importAsset.duration,
+                                    filename: importAsset.filename)
 
         if let onVideoModelCreated = onVideoModelCreated {
             DispatchQueue.main.async {

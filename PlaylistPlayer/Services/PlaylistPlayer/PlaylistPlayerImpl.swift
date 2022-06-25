@@ -52,7 +52,7 @@ final class PlaylistPlayerImpl: PlaylistPlayer {
     
     private var playlist: Playlist?
 
-    var currentlyPlayingVideo: Video? {
+    var currentlyPlayingVideo: VideoModel? {
         playlist?.videos[player.nowPlayingIndex]
     }
 
@@ -96,10 +96,6 @@ final class PlaylistPlayerImpl: PlaylistPlayer {
 
     init(videoQueuePlayer: VideoQueuePlayerProtocol) {
         self.player = videoQueuePlayer
-        DispatchQueue.main.async {
-            // TODO: Could do this is a setup function (maybe using mirroring?!)
-            self.loopMode = Current.userPreferencesManager.loopMode
-        }
         self.player.observer = self
     }
 
@@ -223,3 +219,10 @@ extension PlaylistPlayerImpl {
     }
 }
 
+// MARK: - AppService
+
+extension PlaylistPlayerImpl: AppService {
+    func onAppServicesLoaded() {
+        loopMode = Current.userPreferencesManager.loopMode
+    }
+}

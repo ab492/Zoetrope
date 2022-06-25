@@ -14,6 +14,7 @@ final class MockUserPreferencesManager: UserPreferencesManager {
     var lastUpdatedLoopMode: LoopMode?
     var loopMode: LoopMode = .playPlaylistOnce {
         didSet {
+            print("CALLED loop mode: \(loopMode)")
             lastUpdatedLoopMode = loopMode
         }
     }

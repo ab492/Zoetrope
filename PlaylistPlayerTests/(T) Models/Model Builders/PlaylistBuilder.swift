@@ -11,7 +11,7 @@ import Foundation
 final class PlaylistBuilder {
     private var b_id = UUID()
     private var b_name: String = ""
-    private var b_videos: [Video] = []
+    private var b_videos: [VideoModel] = []
 
     @discardableResult func id(_ id: UUID) -> PlaylistBuilder {
         b_id = id
@@ -23,7 +23,7 @@ final class PlaylistBuilder {
         return self
     }
 
-    @discardableResult func videos(_ videos: [Video]) -> PlaylistBuilder {
+    @discardableResult func videos(_ videos: [VideoModel]) -> PlaylistBuilder {
         b_videos = videos
         return self
     }

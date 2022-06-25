@@ -7,62 +7,62 @@
 
 import Foundation
 
-final class Video: Identifiable, Codable {
+final class VideoModel: Identifiable, Codable {
 
     // MARK: - Properties
 
     let id: UUID
-    let filename: String
+    
+    let displayName: String
 
     /// The approximate duration for the video (in seconds, rather that as `MediaTime`).
     let duration: Time
-    let underlyingFilename: String
+    let filename: String
 
     var thumbnailFilename: String?
     
     // MARK: - Init
 
-    init(id: UUID = UUID(), filename: String, duration: Time, thumbnailFilename: String? = nil, underlyingFilename: String) {
-        self.id = id
-        self.filename = filename
+    init(displayName: String, duration: Time, filename: String) {
+        self.id = UUID()
+        self.displayName = displayName
         self.duration = duration
-        self.thumbnailFilename = thumbnailFilename
-        self.underlyingFilename = underlyingFilename
+        self.filename = filename
     }
 
     // MARK: - Codable
 
     enum CodingKeys: String, CodingKey {
         case id
-        case filename
+        case displayName
         case duration
         case thumbnailFilename
-        case underlyingFilename
+        case filename
     }
 
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decode(UUID.self, forKey: .id)
-        filename = try values.decode(String.self, forKey: .filename)
+        displayName = try values.decode(String.self, forKey: .displayName)
         duration = try values.decode(Time.self, forKey: .duration)
         thumbnailFilename = try? values.decode(String.self, forKey: .thumbnailFilename)
-        underlyingFilename = try values.decode(String.self, forKey: .underlyingFilename)
+        filename = try values.decode(String.self, forKey: .filename)
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
         try container.encode(id, forKey: .id)
-        try container.encode(filename, forKey: .filename)
+        try container.encode(displayName, forKey: .displayName)
         try container.encode(duration, forKey: .duration)
         try container.encode(thumbnailFilename, forKey: .thumbnailFilename)
-        try container.encode(underlyingFilename, forKey: .underlyingFilename)
+        try container.encode(filename, forKey: .filename)
     }
 }
 
-extension Video: Equatable {
+extension VideoModel: Equatable {
     // TODO: Update this equatable conformance!!
-    static func == (lhs: Video, rhs: Video) -> Bool {
-        lhs.id == rhs.id && lhs.filename == rhs.filename && lhs.thumbnailFilename == rhs.thumbnailFilename
+    static func == (lhs: VideoModel, rhs: VideoModel) -> Bool {
+        lhs.id == rhs.id && lhs.displayName == rhs.displayName && lhs.thumbnailFilename == rhs.thumbnailFilename
     }
 }

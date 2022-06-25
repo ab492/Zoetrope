@@ -37,7 +37,7 @@ extension PlaylistDetailView {
             Current.playlistManager.deleteItems(fromPlaylist: playlist, at: offsets)
         }
 
-        var videos: [Video] {
+        var videos: [VideoModel] {
             playlist.videos
         }
 
@@ -49,7 +49,7 @@ extension PlaylistDetailView {
             playlist.name
         }
 
-        func index(of video: Video) -> Int {
+        func index(of video: VideoModel) -> Int {
             playlist.videos.firstIndex(of: video) ?? 0
         }
 
@@ -64,9 +64,9 @@ extension PlaylistDetailView {
                 objectWillChange.send()
                 switch sortByTitleSortOrder {
                 case .ascending:
-                    playlist.videos = playlist.videos.sorted(by: \.filename, using: <)
+                    playlist.videos = playlist.videos.sorted(by: \.displayName, using: <)
                 case .descending:
-                    playlist.videos = playlist.videos.sorted(by: \.filename, using: >)
+                    playlist.videos = playlist.videos.sorted(by: \.displayName, using: >)
                 }
                 Current.playlistManager.save()
             }

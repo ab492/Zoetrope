@@ -9,28 +9,28 @@ import UIKit
 @testable import PlaylistPlayer
 
 final class MockThumbnailService: ThumbnailService {
-    func generateThumbnail(for video: Video) {
+    func generateThumbnail(for video: VideoModel) {
         fatalError("Not implemented yet")
 
     }
 
     
-    var processingThumbnails: [Video] = []
+    var processingThumbnails: [VideoModel] = []
 
-    func generateThumbnail(for video: Video, at url: URL) {
+    func generateThumbnail(for video: VideoModel, at url: URL) {
         fatalError("Not implemented yet")
     }
 
-    func thumbnail(for video: Video) -> UIImage? {
+    func thumbnail(for video: VideoModel) -> UIImage? {
         fatalError("Not implemented yet")
     }
 
-    func cleanupStoreOfAllExcept(requiredVideos: [Video]) {
+    func cleanupStoreOfAllExcept(requiredVideos: [VideoModel]) {
         fatalError("Not implemented yet")
     }
 
     var removeThumbnailCallCount = 0
-    func removeThumbnail(for video: Video) {
+    func removeThumbnail(for video: VideoModel) {
         removeThumbnailCallCount += 1
     }
 

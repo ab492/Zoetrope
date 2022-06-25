@@ -62,10 +62,6 @@ final class PlaylistRepositoryImpl: PlaylistRepository {
                                        selector: #selector(applicationWillResignActive),
                                        name: UIApplication.willResignActiveNotification,
                                        object: nil)
-
-        DispatchQueue.main.async {
-            Current.thumbnailService.addObserver(self)
-        }
     }
 
     convenience init() {
@@ -121,17 +117,19 @@ final class PlaylistRepositoryImpl: PlaylistRepository {
         operationQueue.addOperation(createVideoModelOperation)
         
         createVideoModelOperation.onVideoModelCreated = { [weak self] video in
+            guard let self = self else { return }
             playlist.videos.append(video)
-            self?.playlistManagerDidUpdate()
+            self.playlistManagerDidUpdate()
             url.stopAccessingSecurityScopedResource()
-            self?.save()
+            Current.thumbnailService.generateThumbnail(for: video, at: self.videoBaseURL.appendingPathComponent(video.filename))
+            self.save()
         }
     }
 
     func deleteItems(fromPlaylist playlist: Playlist, at offsets: IndexSet) {
         for index in offsets {
             // Clear up all store metadata first.
-//            videoMetadataService.removeMetadata(for: playlist.videos[index])
+            Current.thumbnailService.removeThumbnail(for: playlist.videos[index])
         }
         playlist.videos.remove(atOffsets: offsets)
         playlistManagerDidUpdate()
@@ -140,7 +138,7 @@ final class PlaylistRepositoryImpl: PlaylistRepository {
     
     func mediaUrlsFor(playlist: Playlist) -> [URL] {
         // Takes the media filename to: path/to/documentsDirectory/mediaDirectoryName/filename
-        playlist.videos.map { URL(fileURLWithPath: $0.underlyingFilename, relativeTo: videoBaseURL) }
+        playlist.videos.map { URL(fileURLWithPath: $0.filename, relativeTo: videoBaseURL) }
     }
 
     // MARK: - Private
@@ -148,7 +146,7 @@ final class PlaylistRepositoryImpl: PlaylistRepository {
     @objc private func applicationWillResignActive() {
         // If you switch to use scenes, `applicationWillResignActive` isn't called.
         let allVideos = playlists.map { $0.videos }.flatMap { $0 }
-//        videoMetadataService.cleanupStore(currentVideos: allVideos)
+        Current.thumbnailService.cleanupStoreOfAllExcept(requiredVideos: allVideos)
     }
 
     func save() {
@@ -181,8 +179,19 @@ final class PlaylistRepositoryImpl: PlaylistRepository {
 
 }
 
+// MARK: - ThumbnailServiceObserver
+
 extension PlaylistRepositoryImpl: ThumbnailServiceObserver {
     func didFinishProcessingThumbnails() {
         save()
     }
 }
+
+// MARK: - AppService
+
+extension PlaylistRepositoryImpl: AppService {
+    func onAppServicesLoaded() {
+        Current.thumbnailService.addObserver(self)
+    }
+}
+

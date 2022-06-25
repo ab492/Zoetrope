@@ -21,7 +21,7 @@ protocol PlaylistPlayer {
     var canPlayFastForward: Bool { get }
     var currentTime: MediaTime { get }
     var duration: MediaTime { get }
-    var currentlyPlayingVideo: Video? { get }
+    var currentlyPlayingVideo: VideoModel? { get }
     var loopMode: LoopMode { get set }
     var playbackRate: Float { get set }
     

@@ -10,8 +10,8 @@ import XCTest
 
 class PlaylistDetailViewModelTests: BaseTestCase {
 
-    var video1: Video!
-    var video2: Video!
+    var video1: VideoModel!
+    var video2: VideoModel!
     var playlist: Playlist!
 
     override func setUp() {

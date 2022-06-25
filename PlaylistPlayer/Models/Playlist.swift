@@ -11,9 +11,9 @@ final class Playlist: Identifiable, Codable {
 
     let id: UUID
     var name: String
-    var videos: [Video]
+    var videos: [VideoModel]
 
-    init(id: UUID = UUID(), name: String, videos: [Video] = []) {
+    init(id: UUID = UUID(), name: String, videos: [VideoModel] = []) {
         self.id = id
         self.name = name
         self.videos = videos
@@ -29,7 +29,7 @@ final class Playlist: Identifiable, Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(UUID.self, forKey: .id)
         name = try container.decode(String.self, forKey: .name)
-        videos = try container.decode([Video].self, forKey: .videos)
+        videos = try container.decode([VideoModel].self, forKey: .videos)
     }
 
     func encode(to encoder: Encoder) throws {

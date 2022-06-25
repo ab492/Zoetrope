@@ -7,11 +7,7 @@
 
 import Foundation
 
-var Current = World(dateTimeService: DateTimeServiceImpl(),
-                    playlistManager: PlaylistRepositoryImpl(),
-                    playlistPlayer: PlaylistPlayerImpl(),
-                    thumbnailService: ThumbnailServiceImpl(),
-                    userPreferencesManager: UserPreferencesManagerImpl())
+var Current: World!
 
 struct World {
     var dateTimeService: DateTimeService
@@ -19,4 +15,8 @@ struct World {
     var playlistPlayer: PlaylistPlayer
     var thumbnailService: ThumbnailService
     var userPreferencesManager: UserPreferencesManager
+    
+    var allAppServices: [AppService] {
+        Mirror(reflecting: self).children.compactMap { $0.value as? AppService }
+    }
 }

@@ -11,12 +11,12 @@ import XCTest
 final class MockVideoMetadataService: VideoMetadataService {
 
     enum GenerateVideoBehavior {
-        case success(Video?)
+        case success(VideoModel?)
         case failure
     }
 
     var generateVideoBehavior: GenerateVideoBehavior?
-    func generateVideoWithMetadataForItemAt(securityScopedURL: URL, completion: @escaping (Video?) -> Void) {
+    func generateVideoWithMetadataForItemAt(securityScopedURL: URL, completion: @escaping (VideoModel?) -> Void) {
 
         if let behavior = generateVideoBehavior {
             switch behavior {
@@ -29,15 +29,15 @@ final class MockVideoMetadataService: VideoMetadataService {
     }
 
     var cleanupStoreCount = 0
-    func cleanupStore(currentVideos: [Video]) {
+    func cleanupStore(currentVideos: [VideoModel]) {
         cleanupStoreCount += 1
     }
 
-    func url(for video: Video) -> URL? {
+    func url(for video: VideoModel) -> URL? {
         fatalError("Not implemented")
     }
 
-    func removeMetadata(for video: Video) {
+    func removeMetadata(for video: VideoModel) {
         fatalError("Not implemented")
     }
 

@@ -9,10 +9,10 @@ import Foundation
 import ABExtensions
 
 protocol VideoMetadataService {
-    func generateVideoWithMetadataForItemAt(securityScopedURL: URL, completion: @escaping (Video?) -> Void)
+    func generateVideoWithMetadataForItemAt(securityScopedURL: URL, completion: @escaping (VideoModel?) -> Void)
 //    func url(for video: Video) -> URL?
-    func removeMetadata(for video: Video)
-    func cleanupStore(currentVideos: [Video])
+    func removeMetadata(for video: VideoModel)
+    func cleanupStore(currentVideos: [VideoModel])
 }
 
 /// Responsible for building a `Video`, along with creating and storing relevant metadata about the item (e.g. thumbnail, security scoped bookmark).
@@ -36,7 +36,7 @@ class VideoMetadataServiceImpl: VideoMetadataService {
 
     // MARK: - Public
 
-    func generateVideoWithMetadataForItemAt(securityScopedURL: URL, completion: @escaping (Video?) -> Void) {
+    func generateVideoWithMetadataForItemAt(securityScopedURL: URL, completion: @escaping (VideoModel?) -> Void) {
 //
 //        do {
 //            try FileManager.default.copyItem(at: securityScopedURL, to: FileManager.default.documentsDirectory.appendingPathComponent("file.mov"))
@@ -70,11 +70,11 @@ class VideoMetadataServiceImpl: VideoMetadataService {
 ////        securityScopedBookmarkStore.url(for: video.id)
 //    }
 
-    func removeMetadata(for video: Video) {
+    func removeMetadata(for video: VideoModel) {
         Current.thumbnailService.removeThumbnail(for: video)
     }
 
-    func cleanupStore(currentVideos: [Video]) {
+    func cleanupStore(currentVideos: [VideoModel]) {
         Current.thumbnailService.cleanupStoreOfAllExcept(requiredVideos: currentVideos)
     }
 }

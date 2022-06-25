@@ -19,7 +19,7 @@ final class ThumbnailServiceTests: XCTestCase {
     }
 
     func test_removeThumbnail_removesFromStoreAndRemovesPropertyFromVideoModel() {
-        let video = VideoBuilder().thumbnailFilename("test-thumbnail").build()
+        let video = makeVideo(thumbnailFilename: "test-thumbnail")
 
         let sut = makeSUT()
 
@@ -48,8 +48,10 @@ final class ThumbnailServiceTests: XCTestCase {
         mockThumbnailStore.allThumbnailFilenames = filenames
     }
 
-    private func makeVideo(thumbnailFilename: String) -> Video {
-        VideoBuilder().thumbnailFilename(thumbnailFilename).build()
+    private func makeVideo(thumbnailFilename: String) -> VideoModel {
+        let video = VideoBuilder().build()
+        video.thumbnailFilename = thumbnailFilename
+        return video
     }
 
 }

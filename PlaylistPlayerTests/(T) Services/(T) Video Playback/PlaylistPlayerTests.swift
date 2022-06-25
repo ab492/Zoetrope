@@ -73,10 +73,11 @@ class PlaylistPlayerTests: BaseTestCase {
         return player
     }
 
-    func makeSUT_andQueueVideos(_ videos: [Video]) -> PlaylistPlayerImpl {
+    func makeSUT_andQueueVideos(_ videos: [VideoModel]) -> PlaylistPlayerImpl {
         let playlist = PlaylistBuilder().videos(videos).build()
 
         let sut = makeSUT()
+        sut.onAppServicesLoaded()
         sut.updateQueue(for: playlist)
 
         return sut

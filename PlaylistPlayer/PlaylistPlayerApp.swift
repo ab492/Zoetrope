@@ -39,6 +39,9 @@ struct PlaylistPlayerApp: App {
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+        
+        WorldConfigurer.buildWorld()
+        
         // TODO: Move this somewhere more appropriate in line with playback.
         try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
         return true

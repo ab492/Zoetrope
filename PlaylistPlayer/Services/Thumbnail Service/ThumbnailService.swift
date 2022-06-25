@@ -19,12 +19,11 @@ extension ThumbnailServiceObserver {
 }
 
 protocol ThumbnailService {
-    var processingThumbnails: [Video] { get }
-    func generateThumbnail(for video: Video, at url: URL)
-    func generateThumbnail(for video: Video)
-    func thumbnail(for video: Video) -> UIImage?
-    func removeThumbnail(for video: Video)
-    func cleanupStoreOfAllExcept(requiredVideos: [Video])
+    var processingThumbnails: [VideoModel] { get }
+    func generateThumbnail(for video: VideoModel, at url: URL)
+    func thumbnail(for video: VideoModel) -> UIImage?
+    func removeThumbnail(for video: VideoModel)
+    func cleanupStoreOfAllExcept(requiredVideos: [VideoModel])
 
     // Observable
     var observations: [ObjectIdentifier: WeakBox<ThumbnailServiceObserver>] { get set }
@@ -34,7 +33,7 @@ protocol ThumbnailService {
 
 final class ThumbnailServiceImpl: ThumbnailService {
 
-    private(set) var processingThumbnails = [Video]()
+    private(set) var processingThumbnails = [VideoModel]()
 
     // MARK: - Properties
 
@@ -55,7 +54,7 @@ final class ThumbnailServiceImpl: ThumbnailService {
     // MARK: - Public
 
     /// Starts off an operation the generate a thumbnail for a given video. This work will be done in the background but **will not** block the calling thread.
-    func generateThumbnail(for video: Video, at url: URL) {
+    func generateThumbnail(for video: VideoModel, at url: URL) {
         processingThumbnails.append(video)
         thumbnailsDidUpdate()
 
@@ -83,41 +82,12 @@ final class ThumbnailServiceImpl: ThumbnailService {
         operationQueue.addOperation(generateThumbnailOperation)
     }
 
-    func generateThumbnail(for video: Video) {
-        processingThumbnails.append(video)
-        thumbnailsDidUpdate()
-
-        // TODO: Put this back!
-//        let generateThumbnailOperation = GenerateThumbnailOperation(url: video.url)
-//
-//        generateThumbnailOperation.onComplete = { [weak self] image in
-//            guard let self = self else { return }
-//
-//            self.processingThumbnails.removeAll(where: { $0.id == video.id })
-//            self.thumbnailsDidUpdate()
-//
-//            guard let thumbnail = image else { return }
-//            let filename = UUID().uuidString
-//
-//            do {
-//                try self.thumbnailStore.save(image: thumbnail, filename: filename)
-//                video.thumbnailFilename = filename
-//                if self.processingThumbnails.isEmpty {
-//                    self.didFinishProcessingThumbnails()
-//                }
-//            } catch let error {
-//                print("Unable to save image: \(error.localizedDescription)")
-//            }
-//        }
-//        operationQueue.addOperation(generateThumbnailOperation)
-    }
-
-    func thumbnail(for video: Video) -> UIImage? {
+    func thumbnail(for video: VideoModel) -> UIImage? {
         guard let name = video.thumbnailFilename else { return nil }
         return thumbnailStore.fetch(thumbnailNamed: name)
     }
 
-    func removeThumbnail(for video: Video) {
+    func removeThumbnail(for video: VideoModel) {
         guard let name = video.thumbnailFilename else { return }
         do {
             try thumbnailStore.delete(thumbnailName: name)
@@ -127,7 +97,7 @@ final class ThumbnailServiceImpl: ThumbnailService {
         }
     }
 
-    func cleanupStoreOfAllExcept(requiredVideos: [Video]) {
+    func cleanupStoreOfAllExcept(requiredVideos: [VideoModel]) {
         let filenamesToKeep = Set(requiredVideos.compactMap { $0.thumbnailFilename })
         let allFilenamesInStore = Set(thumbnailStore.allThumbnailFilenames)
         let filenamesToDelete = allFilenamesInStore.subtracting(filenamesToKeep)

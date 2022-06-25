@@ -18,7 +18,6 @@ class BaseTestCase: XCTestCase {
                         playlistPlayer: MockPlaylistPlayer(),
                         thumbnailService: MockThumbnailService(),
                         userPreferencesManager: MockUserPreferencesManager())
-
     }
 }
 

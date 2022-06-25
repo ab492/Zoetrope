@@ -49,12 +49,12 @@ final class PlaylistPlayerViewModel: ObservableObject {
     
     private var playlist: Playlist?
 
-    var currentlyPlayingVideo: Video? {
+    var currentlyPlayingVideo: VideoModel? {
         playlistPlayer.currentlyPlayingVideo
     }
 
     var videoTitle: String {
-        currentlyPlayingVideo?.filename ?? ""
+        currentlyPlayingVideo?.displayName ?? ""
     }
 
     var loopMode: LoopMode {
@@ -66,23 +66,12 @@ final class PlaylistPlayerViewModel: ObservableObject {
             playlistPlayer.loopMode = newValue
         }
     }
-
-    // TODO: Add playback rate here
-//    var playbackRate: PlaybackRate {
-//        get {
-//            if playlistPlayer.playbackRate == Float(0)
-//        }
-//        set {
-//            playlistPlayer.playbackRate = Float(newValue.rawValue)
-//        }
-//    }
     
     // MARK: - Init
 
     init(playlistPlayer: PlaylistPlayer) {
         self.playlistPlayer = playlistPlayer
         self.loopMode = Current.userPreferencesManager.loopMode
-//        self.playbackRate = .x2
         self.playlistPlayer.addObserver(self)
     }
 

@@ -12,7 +12,7 @@ struct PlaylistDetailRow: View {
     @StateObject private var viewModel: PlaylistDetailRow.ViewModel
     @StateObject private var videoThumbnailViewModel: VideoThumbnailView.ViewModel
 
-    init(video: Video) {
+    init(video: VideoModel) {
         _viewModel = StateObject(wrappedValue: ViewModel(video: video))
         _videoThumbnailViewModel = StateObject(wrappedValue: VideoThumbnailView.ViewModel(video: video))
     }

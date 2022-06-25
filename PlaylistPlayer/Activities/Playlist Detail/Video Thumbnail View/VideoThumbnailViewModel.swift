@@ -14,9 +14,9 @@ extension VideoThumbnailView {
 
         // MARK: - Properties and Init
 
-        private let video: Video
+        private let video: VideoModel
 
-        init(video: Video) {
+        init(video: VideoModel) {
             self.video = video
 
             Current.thumbnailService.addObserver(self)

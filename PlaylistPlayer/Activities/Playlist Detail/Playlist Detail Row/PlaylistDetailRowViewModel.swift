@@ -11,16 +11,16 @@ extension PlaylistDetailRow {
 
     class ViewModel: ObservableObject {
 
-        private let video: Video
+        private let video: VideoModel
 
-        init(video: Video) {
+        init(video: VideoModel) {
             self.video = video
         }
 
         // MARK: - Public
 
         var titleLabel: String {
-            video.filename
+            video.displayName
         }
 
         var durationLabel: String {

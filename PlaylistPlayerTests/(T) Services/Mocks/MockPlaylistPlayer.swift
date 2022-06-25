@@ -15,7 +15,7 @@ final class MockPlaylistPlayer: PlaylistPlayer {
         lastSeekedToTime = time
     }
 
-    var currentlyPlayingVideo: Video?
+    var currentlyPlayingVideo: VideoModel?
 
     var playbackRate: Float = 1
 
