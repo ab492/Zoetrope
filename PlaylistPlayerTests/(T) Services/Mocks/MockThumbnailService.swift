@@ -34,7 +34,7 @@ final class MockThumbnailService: ThumbnailService {
         removeThumbnailCallCount += 1
     }
 
-    var observations = [ObjectIdentifier: LegacyWeakBox<ThumbnailServiceObserver>]()
+    var observations = [ObjectIdentifier: WeakBox<ThumbnailServiceObserver>]()
 
     func addObserver(_ observer: ThumbnailServiceObserver) {
         // TODO: What to do here?!

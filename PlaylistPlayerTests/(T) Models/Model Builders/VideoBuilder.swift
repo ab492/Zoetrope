@@ -40,7 +40,8 @@ final class VideoBuilder {
         return self
     }
 
+    // TODO: Underlying Filename
     func build() -> Video {
-        Video(id: b_id, url: b_url, filename: b_filename, duration: b_duration, thumbnailFilename: b_thumbnailFilename)
+        Video(id: b_id, filename: b_filename, duration: b_duration, thumbnailFilename: b_thumbnailFilename, underlyingFilename: "DO THIS")
     }
 }

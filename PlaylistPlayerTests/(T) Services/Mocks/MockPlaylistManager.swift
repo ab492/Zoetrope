@@ -51,7 +51,7 @@ final class MockPlaylistManager: PlaylistRepository {
 
     }
 
-    var observations = [ObjectIdentifier: LegacyWeakBox<PlaylistManagerObserver>]()
+    var observations = [ObjectIdentifier: WeakBox<PlaylistManagerObserver>]()
 
     func removeObserver(_ observer: PlaylistManagerObserver) {
         fatalError()

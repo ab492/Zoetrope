@@ -40,12 +40,13 @@ final class PlaylistRepositoryImpl: PlaylistRepository {
     
     private var playlistStore: PlaylistStore
     private let fileManager: FileManagerWrapped
-    private var videoBaseURL: URL {
-        fileManager.documentsDirectory.appendingPathComponent("Videos")
-    }
     private let importAssetConstructor: ImportAssetConstructor
     private let operationQueue = OperationQueue()
     private(set) var playlists: [Playlist]
+    
+    private var videoBaseURL: URL {
+        fileManager.documentsDirectory.appendingPathComponent("Videos")
+    }
 
     // MARK: - Init
 

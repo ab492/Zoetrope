@@ -88,11 +88,11 @@ final class MockPlaylistPlayer: PlaylistPlayer {
 
     // MARK: - Observers
 
-    var observations = [ObjectIdentifier : LegacyWeakBox<PlaylistPlayerObserver>]()
+    var observations = [ObjectIdentifier : WeakBox<PlaylistPlayerObserver>]()
 
     func addObserver(_ observer: PlaylistPlayerObserver) {
         let id = ObjectIdentifier(observer)
-        observations[id] = LegacyWeakBox(observer)
+        observations[id] = WeakBox(observer)
     }
 
     func removeObserver(_ observer: PlaylistPlayerObserver) {
