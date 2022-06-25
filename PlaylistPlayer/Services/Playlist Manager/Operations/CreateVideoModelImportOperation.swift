@@ -24,7 +24,6 @@ final class CreateVideoModelImportOperation: Operation {
     // MARK: - Main
 
     override func main() {
-        // TODO: Update filename to title, add duration metadata... WHAT IS ID USED FOR?
         let videoModel = VideoModel(displayName: importAsset.displayName,
                                     duration: importAsset.duration,
                                     filename: importAsset.filename)
