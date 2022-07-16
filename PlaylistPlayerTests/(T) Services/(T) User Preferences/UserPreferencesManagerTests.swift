@@ -23,19 +23,52 @@ final class UserPreferencesManagerTests: XCTestCase {
 
     // MARK: - Loop Mode
 
-    func test_settingLoopMode_addsValueToPreferences() {
+    func test_settingLoopMode_addsValueToPreferences() throws {
         let sut = makeSUT()
 
         sut.loopMode = .loopCurrent
 
-        XCTAssertEqual(mockUserPreferences.integer(forKey: "loopMode"), LoopMode.loopCurrent.rawValue)
+        try mockUserPreferences.integer(forKey: "loopMode").assertUnwrap().verify(equals: LoopMode.loopCurrent.rawValue)
     }
 
     func test_loopMode_defaultsToPlayPlaylistOnce() {
         let sut = makeSUT()
 
-        XCTAssertEqual(sut.loopMode, .playPlaylistOnce)
+        sut.loopMode.verify(equals: .playPlaylistOnce)
     }
+    
+    // MARK: - Use Controls Timer
+
+    func test_settingUseControlsTimer_addsValueToPreferences() throws {
+        let sut = makeSUT()
+
+        sut.useControlsTimer = false
+
+        try mockUserPreferences.bool(forKey: "useControlsTimer").assertUnwrap().verifyFalse()
+    }
+
+    func test_useControlsTimer_defaultsToTrue() {
+        let sut = makeSUT()
+
+        sut.useControlsTimer.verifyTrue()
+    }
+    
+    // MARK: - Show Controls Time
+    
+    func test_settingShowControlsTime_addsValueToPreferences() throws {
+        let sut = makeSUT()
+
+        sut.showControlsTime = 10
+
+        try mockUserPreferences.integer(forKey: "showControlsTime").assertUnwrap().verify(equals: 10)
+    }
+
+    func test_showControlsTime_defaultsTo3() {
+        let sut = makeSUT()
+
+        sut.showControlsTime.verify(equals: 3)
+    }
+
     
     // MARK: - Helpers
 

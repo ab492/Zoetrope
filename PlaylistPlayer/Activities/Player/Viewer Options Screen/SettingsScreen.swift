@@ -11,7 +11,7 @@ struct SettingsScreen: View {
 
     // MARK: - State Properties
 
-    @StateObject var playerViewModel: PlaylistPlayerViewModel
+    @StateObject private var playerViewModel: PlaylistPlayerViewModel
 
     // MARK: - Init
 
@@ -24,13 +24,17 @@ struct SettingsScreen: View {
     var body: some View {
         NavigationView {
             Form {
-                Section(header: Text("Display Bookmarks")) {
-//                    Toggle(isOn: $playerViewModel.overlayNotes.animation()) {
-//                        Text("Overlay Notes")
-//                    }
-//                    if playerViewModel.overlayNotes {
-//                        ColorPicker("Note Color", selection: $playerViewModel.noteColor)
-//                    }
+                Section(header: Text("Playback Controls")) {
+                    Toggle(isOn: $playerViewModel.useControlsTimer.animation()) {
+                        Text("Use Controls Timer")
+                    }
+                    if playerViewModel.useControlsTimer {
+                        Picker(selection: $playerViewModel.showControlsTime, label: Text("Timer")) {
+                            ForEach(PlaylistPlayerViewModel.ShowControlsTime.allCases) { type in
+                                Text(type.label).tag(type)
+                            }
+                        }
+                    }
                 }
                 .listRowBackground(Color.tertiarySystemGroupedBackground)
             }

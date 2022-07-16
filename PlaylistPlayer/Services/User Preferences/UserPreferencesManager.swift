@@ -10,15 +10,18 @@ import UIKit
 
 protocol UserPreferencesManager {
     var loopMode: LoopMode { get set }
+    var useControlsTimer: Bool { get set }
+    var showControlsTime: Int { get set }
 }
 
 final class UserPreferencesManagerImpl: UserPreferencesManager {
 
     // MARK: - Types
 
-    struct Keys {
-        static let loopMode = "loopMode"
-//        static let overlayNotes = "overlayNotes"
+    private enum Keys: String {
+        case loopMode
+        case useControlsTimer
+        case showControlsTime
     }
 
     // MARK: - Properties
@@ -39,7 +42,7 @@ final class UserPreferencesManagerImpl: UserPreferencesManager {
 
     var loopMode: LoopMode {
         get {
-            if let loopModeRawValue = userPreferences.integer(forKey: Keys.loopMode),
+            if let loopModeRawValue = userPreferences.integer(forKey: Keys.loopMode.rawValue),
                let loopMode = LoopMode(rawValue: loopModeRawValue) {
                 return loopMode
             } else {
@@ -47,18 +50,25 @@ final class UserPreferencesManagerImpl: UserPreferencesManager {
             }
         }
         set {
-            userPreferences.set(newValue.rawValue, forKey: Keys.loopMode)
+            userPreferences.set(newValue.rawValue, forKey: Keys.loopMode.rawValue)
         }
     }
-
-    // leaving as an example of working with user preferences
-//
-//    var overlayNotes: Bool {
-//        get {
-//            return userPreferences.bool(forKey: Keys.overlayNotes) ?? true
-//        }
-//        set {
-//            userPreferences.set(newValue, forKey: Keys.overlayNotes)
-//        }
-//    }
+    
+    var useControlsTimer: Bool {
+        get {
+            return userPreferences.bool(forKey: Keys.useControlsTimer.rawValue) ?? true
+        }
+        set {
+            userPreferences.set(newValue, forKey: Keys.useControlsTimer.rawValue)
+        }
+    }
+    
+    var showControlsTime: Int {
+        get {
+            return userPreferences.integer(forKey: Keys.showControlsTime.rawValue) ?? 3
+        } set {
+            print("SET NEW VALUE: \(newValue)")
+            userPreferences.set(newValue, forKey: Keys.showControlsTime.rawValue)
+        }
+    }
 }

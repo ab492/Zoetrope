@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// The view containing the time labels, control buttons and scrubber.
 struct TransportControls: View {
 
     // MARK: - State

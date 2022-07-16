@@ -49,7 +49,6 @@ final class UserPreferencesImpl: UserPreferences {
         userDefaults.object(forKey: key) as? Int
     }
 
-    // TODO: Test these!
     func set(_ value: Bool, forKey key: String) {
         userDefaults.setValue(value, forKey: key)
     }

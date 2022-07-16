@@ -10,11 +10,19 @@ import Foundation
 @testable import PlaylistPlayer
 
 final class MockUserPreferencesManager: UserPreferencesManager {
-
+    
     var lastUpdatedLoopMode: LoopMode?
     var loopMode: LoopMode = .playPlaylistOnce {
-        didSet {
-            lastUpdatedLoopMode = loopMode
-        }
+        didSet { lastUpdatedLoopMode = loopMode }
+    }
+    
+    var lastUpdatedUseControlsTimer: Bool?
+    var useControlsTimer: Bool = false {
+        didSet { lastUpdatedUseControlsTimer = useControlsTimer}
+    }
+    
+    var lastUpdatedShowControlsTime: Int?
+    var showControlsTime: Int = 3 {
+        didSet { lastUpdatedShowControlsTime = showControlsTime }
     }
 }

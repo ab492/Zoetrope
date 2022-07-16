@@ -12,15 +12,15 @@ struct CustomPlayerView: View {
 
     // MARK: - State
 
-    @StateObject private var playlistPlayerViewModel: PlaylistPlayerViewModel
-    @State private var showSettings = false
-    @State private var showTransportControls = true
+    @StateObject private var viewModel: PlaylistPlayerViewModel
+    @State private var localShowTransportControls = true
+    @State private var localShowSettings = false
     
     // MARK: - Init
 
     init(playlistPlayer: PlaylistPlayer) {
         let playlistPlayerViewModel = StateObject(wrappedValue: PlaylistPlayerViewModel(playlistPlayer: playlistPlayer))
-        _playlistPlayerViewModel = playlistPlayerViewModel
+        _viewModel = playlistPlayerViewModel
     }
 
     // MARK: - View
@@ -32,40 +32,47 @@ struct CustomPlayerView: View {
                     videoPlaybackView.zIndex(0)
                 }.zIndex(0)
 
-                if showTransportControls {
+                if localShowTransportControls {
                     transportControls.zIndex(1)
                 }
             }
             .ignoresSafeArea(edges: .top)
             Group {
-                if showSettings {
+                if localShowSettings {
                     settingsPanel
                         .transition(.move(edge: .trailing))
                 }
             }
         }
-        .onAppear { playlistPlayerViewModel.play() }
-        .onDisappear { playlistPlayerViewModel.pause() }
+        .onChange(of: viewModel.showTransportControls, perform: { showTransportControls in
+            // Using a local @State to mirror the view model, allowing us to easily add animation and update status bar.
+            // https://stackoverflow.com/questions/67220033/swiftui-animation-from-published-property-changing-from-outside-the-view
+            withAnimation(.easeIn(duration: 0.1)) {
+                localShowTransportControls = showTransportControls
+                // Temporary fix to hide the status bar since `.statusBar(hidden: _)` is unreliable.
+                UIApplication.shared.isStatusBarHidden = !showTransportControls
+            }
+        })
+        .onChange(of: localShowSettings, perform: { showSettings in
+            viewModel.didTapSettings(show: showSettings)
+        })
+        .onAppear { viewModel.play() }
+        .onDisappear { viewModel.pause() }
     }
 
     private var videoPlaybackView: some View {
-        CustomPlayerLayer(viewModel: playlistPlayerViewModel)
+        CustomPlayerLayer(viewModel: viewModel)
             .onTapGesture {
-                withAnimation(.easeIn(duration: 0.1)) {
-                    showTransportControls.toggle()
-                    //                    visibleControlsConfigurator.isShowingTransportControls.toggle()
-                    // Temporary fix to hide the status bar since `.statusBar(hidden: _)` is unreliable.
-                    UIApplication.shared.isStatusBarHidden = !showTransportControls
-                }
+                viewModel.didTapVideo()
             }
     }
-
+    
     private var transportControls: some View {
-        TransportControls(playerOptionsIsSelected: $showSettings.animation(), viewModel: playlistPlayerViewModel)
+        TransportControls(playerOptionsIsSelected: $localShowSettings.animation(), viewModel: viewModel)
     }
 
     private var settingsPanel: some View {
-        SettingsScreen(playerViewModel: playlistPlayerViewModel)
+        SettingsScreen(playerViewModel: viewModel)
             .cornerRadius(10)
             .padding([.leading, .trailing], 4)
             .frame(width: 350)
