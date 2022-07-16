@@ -129,6 +129,7 @@
 		ADF04C59261999D500BE9ACC /* MockPlaylistPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF04C58261999D500BE9ACC /* MockPlaylistPlayer.swift */; };
 		ADF1FF052866EA0E00ACB0F0 /* AppService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF1FF042866EA0E00ACB0F0 /* AppService.swift */; };
 		ADF1FF072866EC1900ACB0F0 /* WorldConfigurer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF1FF062866EC1900ACB0F0 /* WorldConfigurer.swift */; };
+		ADF1FF0928673CB500ACB0F0 /* CameraRollVideoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF1FF0828673CB500ACB0F0 /* CameraRollVideoPicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -267,6 +268,7 @@
 		ADF04C58261999D500BE9ACC /* MockPlaylistPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPlaylistPlayer.swift; sourceTree = "<group>"; };
 		ADF1FF042866EA0E00ACB0F0 /* AppService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppService.swift; sourceTree = "<group>"; };
 		ADF1FF062866EC1900ACB0F0 /* WorldConfigurer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldConfigurer.swift; sourceTree = "<group>"; };
+		ADF1FF0828673CB500ACB0F0 /* CameraRollVideoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraRollVideoPicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -303,6 +305,7 @@
 			children = (
 				AD45974A25EB8E6600E537C1 /* CustomTextField.swift */,
 				AD7A9EFC25CFCB6A00118055 /* DocumentPicker.swift */,
+				ADF1FF0828673CB500ACB0F0 /* CameraRollVideoPicker.swift */,
 				AD078C3425BC185700137941 /* VisualEffectView.swift */,
 				AD2F0BB425BC0E0F0006306D /* PlayerView.swift */,
 			);
@@ -974,6 +977,7 @@
 				AD75C75125C918E50070110F /* VideoQueuePlayer.swift in Sources */,
 				ADB964B425F4D9CE00D26886 /* MenuItemView.swift in Sources */,
 				AD4DDB4225C08E7700F8831B /* CGFloat+Extensions.swift in Sources */,
+				ADF1FF0928673CB500ACB0F0 /* CameraRollVideoPicker.swift in Sources */,
 				AD4AE64D25F1FE3A00D9E63A /* PlaylistSiderbarViewModel.swift in Sources */,
 				AD1BDFAB25E4CF8900584968 /* GenerateThumbnailOperation.swift in Sources */,
 				AD078C3125BC180900137941 /* TransportControls.swift in Sources */,
@@ -1215,7 +1219,7 @@
 				DEVELOPMENT_TEAM = ZME7ED67F3;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PlaylistPlayer/Configuration/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1240,7 +1244,7 @@
 				DEVELOPMENT_TEAM = ZME7ED67F3;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PlaylistPlayer/Configuration/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1262,7 +1266,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZME7ED67F3;
 				INFOPLIST_FILE = PlaylistPlayerTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1284,7 +1288,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZME7ED67F3;
 				INFOPLIST_FILE = PlaylistPlayerTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

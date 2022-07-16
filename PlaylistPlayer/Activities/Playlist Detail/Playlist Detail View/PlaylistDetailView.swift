@@ -9,11 +9,21 @@ import SwiftUI
 import Combine
 
 struct PlaylistDetailView: View {
+    
+    // MARK: - Types
+    
+    private enum SheetImportType: String, Identifiable {
+        case files
+        case cameraRoll
+        
+        var id: String { self.rawValue }
+    }
 
     // MARK: - State
+    
     @StateObject var viewModel: ViewModel
-    @State private var showingDocumentPicker = false
-    @State private var urls: [URL]?
+    @State private var importSheetType: SheetImportType?
+    @State private var urls = [URL]()
     @State private var presentingPlayer = false
 
     // MARK: - Init
@@ -93,17 +103,23 @@ struct PlaylistDetailView: View {
     
     private var importMediaToolbarItem: some ToolbarContent {
         ToolbarItem(placement: .navigationBarLeading) {
-            Button {
-                self.showingDocumentPicker = true
+            Menu {
+                Button("Import from Files", action: { self.importSheetType = .files })
+                Button("Import from Camera Roll", action: { self.importSheetType = .cameraRoll })
             } label: {
                 Label("Add Media", systemImage: "plus")
             }
-            .sheet(isPresented: $showingDocumentPicker) {
-                DocumentPicker(urls: self.$urls.onChange(addMedia))
+            .sheet(item: $importSheetType) { sheetType in
+                switch sheetType {
+                case .cameraRoll:
+                    CameraRollVideoPicker(movieURLs: self.$urls.onChange(addMedia))
+                case .files:
+                    DocumentPicker(urls: self.$urls.onChange(addMedia))
+                }
             }
         }
     }
-
+    
     private var bottomToolbarItemCount: some ToolbarContent {
         ToolbarItem(placement: .bottomBar) {
             Text(viewModel.playlistCount)
@@ -113,9 +129,8 @@ struct PlaylistDetailView: View {
     // MARK: - Helpers
 
     private func addMedia() {
-        guard let urls = urls else { return }
         viewModel.addMedia(at: urls)
-        self.urls = nil
+        self.urls = []
     }
 
     private func moveRows(from source: IndexSet, to destination: Int) {
