@@ -146,7 +146,11 @@ final class PlaylistPlayerViewModel: ObservableObject {
     
     func didTapVideo() {
         if useControlsTimer {
-            invalidateAutoHideTimer(andRestartIt: true)
+            if showTransportControls {
+                showTransportControls = false
+            } else {
+                invalidateAutoHideTimer(andRestartIt: true)
+            }
         } else {
             showTransportControls.toggle()
         }
