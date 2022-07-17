@@ -175,13 +175,13 @@
 		AD1CB82F25FB36060030BC5C /* MockDateTimeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDateTimeService.swift; sourceTree = "<group>"; };
 		AD1CB83525FB36F50030BC5C /* MockUserPreferencesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUserPreferencesManager.swift; sourceTree = "<group>"; };
 		AD2B4C652633F08C00676350 /* TemporaryRandomColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryRandomColor.swift; sourceTree = "<group>"; };
-		AD2F0AB425BC06A50006306D /* PlaylistPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlaylistPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD2F0AB425BC06A50006306D /* Zoetrope.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zoetrope.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD2F0AB725BC06A50006306D /* PlaylistPlayerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistPlayerApp.swift; sourceTree = "<group>"; };
 		AD2F0AB925BC06A50006306D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AD2F0ABB25BC06A60006306D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AD2F0ABE25BC06A60006306D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AD2F0AC025BC06A60006306D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AD2F0AC525BC06A60006306D /* PlaylistPlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlaylistPlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD2F0AC525BC06A60006306D /* ZoetropeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZoetropeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD2F0ACB25BC06A60006306D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD2F0AE525BC06D20006306D /* WrappedAVPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrappedAVPlayer.swift; sourceTree = "<group>"; };
 		AD2F0AED25BC06D70006306D /* MediaTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaTime.swift; sourceTree = "<group>"; };
@@ -414,8 +414,8 @@
 		AD2F0AAB25BC06A50006306D = {
 			isa = PBXGroup;
 			children = (
-				AD2F0AB625BC06A50006306D /* PlaylistPlayer */,
-				AD2F0AC825BC06A60006306D /* PlaylistPlayerTests */,
+				AD2F0AB625BC06A50006306D /* Zoetrope */,
+				AD2F0AC825BC06A60006306D /* ZoetropeTests */,
 				AD2F0AB525BC06A50006306D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -423,13 +423,13 @@
 		AD2F0AB525BC06A50006306D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AD2F0AB425BC06A50006306D /* PlaylistPlayer.app */,
-				AD2F0AC525BC06A60006306D /* PlaylistPlayerTests.xctest */,
+				AD2F0AB425BC06A50006306D /* Zoetrope.app */,
+				AD2F0AC525BC06A60006306D /* ZoetropeTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		AD2F0AB625BC06A50006306D /* PlaylistPlayer */ = {
+		AD2F0AB625BC06A50006306D /* Zoetrope */ = {
 			isa = PBXGroup;
 			children = (
 				AD2F0AB725BC06A50006306D /* PlaylistPlayerApp.swift */,
@@ -443,7 +443,7 @@
 				AD4DDB4025C08E6700F8831B /* Extensions */,
 				AD2F0B0825BC07410006306D /* Configuration */,
 			);
-			path = PlaylistPlayer;
+			path = Zoetrope;
 			sourceTree = "<group>";
 		};
 		AD2F0ABD25BC06A60006306D /* Preview Content */ = {
@@ -454,7 +454,7 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		AD2F0AC825BC06A60006306D /* PlaylistPlayerTests */ = {
+		AD2F0AC825BC06A60006306D /* ZoetropeTests */ = {
 			isa = PBXGroup;
 			children = (
 				AD4B08AC25D9195000088A64 /* BaseTestCase.swift */,
@@ -466,7 +466,7 @@
 				AD57C8F82882C59C00E35B92 /* Test Helpers */,
 				AD2F0ACB25BC06A60006306D /* Info.plist */,
 			);
-			path = PlaylistPlayerTests;
+			path = ZoetropeTests;
 			sourceTree = "<group>";
 		};
 		AD2F0AF725BC06E00006306D /* Core Video Player */ = {
@@ -866,9 +866,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		AD2F0AB325BC06A50006306D /* PlaylistPlayer */ = {
+		AD2F0AB325BC06A50006306D /* Zoetrope */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AD2F0AD925BC06A60006306D /* Build configuration list for PBXNativeTarget "PlaylistPlayer" */;
+			buildConfigurationList = AD2F0AD925BC06A60006306D /* Build configuration list for PBXNativeTarget "Zoetrope" */;
 			buildPhases = (
 				AD2F0AB025BC06A50006306D /* Sources */,
 				AD2F0AB125BC06A50006306D /* Frameworks */,
@@ -878,17 +878,17 @@
 			);
 			dependencies = (
 			);
-			name = PlaylistPlayer;
+			name = Zoetrope;
 			packageProductDependencies = (
 				AD07860B2855C4EF0046AE15 /* ABExtensions */,
 			);
 			productName = PlaylistPlayer;
-			productReference = AD2F0AB425BC06A50006306D /* PlaylistPlayer.app */;
+			productReference = AD2F0AB425BC06A50006306D /* Zoetrope.app */;
 			productType = "com.apple.product-type.application";
 		};
-		AD2F0AC425BC06A60006306D /* PlaylistPlayerTests */ = {
+		AD2F0AC425BC06A60006306D /* ZoetropeTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AD2F0ADC25BC06A60006306D /* Build configuration list for PBXNativeTarget "PlaylistPlayerTests" */;
+			buildConfigurationList = AD2F0ADC25BC06A60006306D /* Build configuration list for PBXNativeTarget "ZoetropeTests" */;
 			buildPhases = (
 				AD2F0AC125BC06A60006306D /* Sources */,
 				AD2F0AC225BC06A60006306D /* Frameworks */,
@@ -899,9 +899,9 @@
 			dependencies = (
 				AD2F0AC725BC06A60006306D /* PBXTargetDependency */,
 			);
-			name = PlaylistPlayerTests;
+			name = ZoetropeTests;
 			productName = PlaylistPlayerTests;
-			productReference = AD2F0AC525BC06A60006306D /* PlaylistPlayerTests.xctest */;
+			productReference = AD2F0AC525BC06A60006306D /* ZoetropeTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -922,7 +922,7 @@
 					};
 				};
 			};
-			buildConfigurationList = AD2F0AAF25BC06A50006306D /* Build configuration list for PBXProject "PlaylistPlayer" */;
+			buildConfigurationList = AD2F0AAF25BC06A50006306D /* Build configuration list for PBXProject "Zoetrope" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -938,8 +938,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				AD2F0AB325BC06A50006306D /* PlaylistPlayer */,
-				AD2F0AC425BC06A60006306D /* PlaylistPlayerTests */,
+				AD2F0AB325BC06A50006306D /* Zoetrope */,
+				AD2F0AC425BC06A60006306D /* ZoetropeTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1106,7 +1106,7 @@
 /* Begin PBXTargetDependency section */
 		AD2F0AC725BC06A60006306D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = AD2F0AB325BC06A50006306D /* PlaylistPlayer */;
+			target = AD2F0AB325BC06A50006306D /* Zoetrope */;
 			targetProxy = AD2F0AC625BC06A60006306D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1235,17 +1235,17 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_ASSET_PATHS = "\"PlaylistPlayer/Configuration/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Zoetrope/Configuration/Preview Content\"";
 				DEVELOPMENT_TEAM = ZME7ED67F3;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = PlaylistPlayer/Configuration/Info.plist;
+				INFOPLIST_FILE = Zoetrope/Configuration/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.andybrown.VideoPlayerPro;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andybrown.Zoetrope;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
@@ -1260,17 +1260,17 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_ASSET_PATHS = "\"PlaylistPlayer/Configuration/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Zoetrope/Configuration/Preview Content\"";
 				DEVELOPMENT_TEAM = ZME7ED67F3;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = PlaylistPlayer/Configuration/Info.plist;
+				INFOPLIST_FILE = Zoetrope/Configuration/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.andybrown.VideoPlayerPro;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andybrown.Zoetrope;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
@@ -1285,18 +1285,18 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZME7ED67F3;
-				INFOPLIST_FILE = PlaylistPlayerTests/Info.plist;
+				INFOPLIST_FILE = Zoetrope/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.andybrown.PlaylistPlayerTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andybrown.ZoetropeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PlaylistPlayer.app/PlaylistPlayer";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zoetrope.app/Zoetrope";
 			};
 			name = Debug;
 		};
@@ -1307,25 +1307,25 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZME7ED67F3;
-				INFOPLIST_FILE = PlaylistPlayerTests/Info.plist;
+				INFOPLIST_FILE = Zoetrope/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.andybrown.PlaylistPlayerTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andybrown.ZoetropeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PlaylistPlayer.app/PlaylistPlayer";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zoetrope.app/Zoetrope";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AD2F0AAF25BC06A50006306D /* Build configuration list for PBXProject "PlaylistPlayer" */ = {
+		AD2F0AAF25BC06A50006306D /* Build configuration list for PBXProject "Zoetrope" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AD2F0AD725BC06A60006306D /* Debug */,
@@ -1334,7 +1334,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AD2F0AD925BC06A60006306D /* Build configuration list for PBXNativeTarget "PlaylistPlayer" */ = {
+		AD2F0AD925BC06A60006306D /* Build configuration list for PBXNativeTarget "Zoetrope" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AD2F0ADA25BC06A60006306D /* Debug */,
@@ -1343,7 +1343,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AD2F0ADC25BC06A60006306D /* Build configuration list for PBXNativeTarget "PlaylistPlayerTests" */ = {
+		AD2F0ADC25BC06A60006306D /* Build configuration list for PBXNativeTarget "ZoetropeTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AD2F0ADD25BC06A60006306D /* Debug */,

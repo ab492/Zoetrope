@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "AD2F0AB325BC06A50006306D"
-               BuildableName = "PlaylistPlayer.app"
-               BlueprintName = "PlaylistPlayer"
-               ReferencedContainer = "container:PlaylistPlayer.xcodeproj">
+               BuildableName = "Zoetrope.app"
+               BlueprintName = "Zoetrope"
+               ReferencedContainer = "container:Zoetrope.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AD2F0AB325BC06A50006306D"
-            BuildableName = "PlaylistPlayer.app"
-            BlueprintName = "PlaylistPlayer"
-            ReferencedContainer = "container:PlaylistPlayer.xcodeproj">
+            BuildableName = "Zoetrope.app"
+            BlueprintName = "Zoetrope"
+            ReferencedContainer = "container:Zoetrope.xcodeproj">
          </BuildableReference>
       </CodeCoverageTargets>
       <Testables>
@@ -44,9 +44,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "AD2F0AC425BC06A60006306D"
-               BuildableName = "PlaylistPlayerTests.xctest"
-               BlueprintName = "PlaylistPlayerTests"
-               ReferencedContainer = "container:PlaylistPlayer.xcodeproj">
+               BuildableName = "ZoetropeTests.xctest"
+               BlueprintName = "ZoetropeTests"
+               ReferencedContainer = "container:Zoetrope.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -66,9 +66,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AD2F0AB325BC06A50006306D"
-            BuildableName = "PlaylistPlayer.app"
-            BlueprintName = "PlaylistPlayer"
-            ReferencedContainer = "container:PlaylistPlayer.xcodeproj">
+            BuildableName = "Zoetrope.app"
+            BlueprintName = "Zoetrope"
+            ReferencedContainer = "container:Zoetrope.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -83,9 +83,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AD2F0AB325BC06A50006306D"
-            BuildableName = "PlaylistPlayer.app"
-            BlueprintName = "PlaylistPlayer"
-            ReferencedContainer = "container:PlaylistPlayer.xcodeproj">
+            BuildableName = "Zoetrope.app"
+            BlueprintName = "Zoetrope"
+            ReferencedContainer = "container:Zoetrope.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
