@@ -10,9 +10,10 @@ import SwiftUI
 struct PlaylistSidebarView: View {
 
     // MARK: - State and Init
-
+    
     @StateObject private var viewModel = ViewModel()
-    @State private var addPlaylistModalIsShowing = false
+    @State private var isShowingSettings = false
+    @State private var isShowingAddPlaylistModal = false
 
     init() {
         UITableView.appearance().backgroundColor = .clear
@@ -30,11 +31,6 @@ struct PlaylistSidebarView: View {
                 playlistList
             }
         }
-        .sheet(isPresented: $addPlaylistModalIsShowing, content: {
-            AddPlaylistModal { playlistTitle in
-                self.addPlaylist(title: playlistTitle)
-            }
-        })
         .toolbar {
             editListNavigationItem
             bottomToolbar
@@ -66,12 +62,29 @@ struct PlaylistSidebarView: View {
 
     private var bottomToolbar: some ToolbarContent {
         ToolbarItemGroup(placement: .bottomBar) {
+            Button {
+                isShowingSettings.toggle()
+            } label: {
+                Label("Settings", systemImage: "gearshape")
+            }
+            .sheet(isPresented: $isShowingSettings) {
+                SettingsView()
+                    // https://stackoverflow.com/questions/60313431/swiftui-how-to-close-the-sheet-view-while-dismissing-that-view
+                    .environment(\.showingSheet, self.$isShowingSettings)
+            }
+
+            Spacer()
             Text(viewModel.playlistCount)
             Spacer()
             Button {
-                addPlaylistModalIsShowing.toggle()
+                isShowingAddPlaylistModal.toggle()
             } label: {
                 Label("Add Playlist", systemImage: "folder.badge.plus")
+            }
+            .sheet(isPresented: $isShowingAddPlaylistModal) {
+                AddPlaylistModal { playlistTitle in
+                    self.addPlaylist(title: playlistTitle)
+                }
             }
         }
     }

@@ -28,7 +28,7 @@ struct ContentView: View {
                     .italic()
                     .foregroundColor(.secondary)
             }
-
+            .ignoresSafeArea(.keyboard, edges: .bottom) // Prevents the text moving up when the keyboard is presented.
         }
     }
     

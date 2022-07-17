@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "ABExtensions",
+        "repositoryURL": "https://github.com/ab492/ABExtensions.git",
+        "state": {
+          "branch": null,
+          "revision": "8d49e90b4401108c5bbf7a33f58ccb163261db09",
+          "version": "1.0.1"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

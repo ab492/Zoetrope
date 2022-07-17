@@ -1,0 +1,41 @@
+{
+  "sections": [
+    {
+      "id": "1c510166-65d7-460c-8236-6a6374da7575",
+      "title": "Getting started",
+      "tips": [
+        {
+          "body": "Add media to your playlist from your files. You can add local media, media from your preferred cloud service or a server on your local network.",
+          "id": "93913608-d7c0-412e-b27b-64eaf88fce64",
+          "heading": "Adding media",
+          "image": "Example"
+        },
+        {
+          "body": "Prepare your playlist by ordering your media.",
+          "id": "cfe53158-05a5-4e51-97df-d1f517fb6303",
+          "heading": "Reordering media",
+          "image": "Example"
+        },
+        {
+          "id": "434e1533-22fa-44e2-b66c-c957741f65c1",
+          "heading": "Playing media",
+          "image": "Example",
+          "body": "Once you've started playing your playlist you can loop a single clip, loop the whole playlist or play the playlist once. You can use the playback controls to navigate to your required video."
+        },
+        {
+          "id": "caefa638-0143-4c05-8b4c-7b4118343724",
+          "heading": "Adding bookmarks",
+          "image": "Example",
+          "body": "You can add bookmarks to a video to store notes or annotations. Bookmarks can be attached to the whole video, a time range or a single frame."
+        },
+        {
+          "id": "3366508b-0f41-4114-96e9-503a77a5ea8f",
+          "heading": "Adding annotations",
+          "image": "Example",
+          "body": "You can add annotations to a video to help illustrate notes. Once you start drawing, annotations are automatically assigned to a bookmark for later viewing or editing."
+        }
+      ],
+      "subtitle": "How to get up and running"
+    }
+  ]
+}

@@ -17,6 +17,7 @@
 		AD0D65E225F38BEC00461BE6 /* MockPlaylistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0D65E125F38BEC00461BE6 /* MockPlaylistManager.swift */; };
 		AD0E0EB325ECB3F100E9A573 /* GenerateThumbnailOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0E0EB225ECB3F100E9A573 /* GenerateThumbnailOperationTests.swift */; };
 		AD0E0EB725ECB49000E9A573 /* MockThumbnailGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0E0EB625ECB49000E9A573 /* MockThumbnailGenerator.swift */; };
+		AD106ACC2624D39900D37CFD /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD106ACB2624D39900D37CFD /* SettingsView.swift */; };
 		AD12074125D1173900A8AAEC /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD12074025D1173900A8AAEC /* Color+Extensions.swift */; };
 		AD12075525D3B43F00A8AAEC /* PlaylistManagerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD12075425D3B43F00A8AAEC /* PlaylistManagerImpl.swift */; };
 		AD12075925D3B50800A8AAEC /* PlaylistManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD12075825D3B50800A8AAEC /* PlaylistManagerTests.swift */; };
@@ -37,6 +38,7 @@
 		AD1CB82625FB34AB0030BC5C /* DateTimeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1CB82525FB34AB0030BC5C /* DateTimeService.swift */; };
 		AD1CB83025FB36060030BC5C /* MockDateTimeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1CB82F25FB36060030BC5C /* MockDateTimeService.swift */; };
 		AD1CB83625FB36F50030BC5C /* MockUserPreferencesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1CB83525FB36F50030BC5C /* MockUserPreferencesManager.swift */; };
+		AD28C7FE2624DB7300EDAEE7 /* Guidebook.json in Resources */ = {isa = PBXBuildFile; fileRef = AD28C7FD2624DB7300EDAEE7 /* Guidebook.json */; };
 		AD2F0AB825BC06A50006306D /* PlaylistPlayerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F0AB725BC06A50006306D /* PlaylistPlayerApp.swift */; };
 		AD2F0ABA25BC06A50006306D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F0AB925BC06A50006306D /* ContentView.swift */; };
 		AD2F0ABC25BC06A60006306D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD2F0ABB25BC06A60006306D /* Assets.xcassets */; };
@@ -76,6 +78,9 @@
 		AD4AE64D25F1FE3A00D9E63A /* PlaylistSiderbarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4AE64C25F1FE3A00D9E63A /* PlaylistSiderbarViewModel.swift */; };
 		AD4B08AD25D9195000088A64 /* BaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4B08AC25D9195000088A64 /* BaseTestCase.swift */; };
 		AD4DDB4225C08E7700F8831B /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4DDB4125C08E7700F8831B /* CGFloat+Extensions.swift */; };
+		AD5625C6260D2E860056C5C7 /* GuidebookDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5625C5260D2E860056C5C7 /* GuidebookDetailView.swift */; };
+		AD5625CA260D2ED10056C5C7 /* GuidebookPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5625C9260D2ED10056C5C7 /* GuidebookPageView.swift */; };
+		AD5625D2260DB50F0056C5C7 /* GuidebookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5625D1260DB50F0056C5C7 /* GuidebookModel.swift */; };
 		AD62B3AA2604705F007F8915 /* SortOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD62B3A92604705F007F8915 /* SortOrder.swift */; };
 		AD62B3CF2605F41A007F8915 /* BookmarkEditorRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD62B3CE2605F41A007F8915 /* BookmarkEditorRow.swift */; };
 		AD62B3D326071F0A007F8915 /* BookmarkEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD62B3D226071F0A007F8915 /* BookmarkEditorView.swift */; };
@@ -109,6 +114,9 @@
 		AD898A1B25D7F34F0065975D /* PlaylistDetailRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD898A1A25D7F34F0065975D /* PlaylistDetailRow.swift */; };
 		AD898A1F25D7F9B20065975D /* DurationCaclulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD898A1E25D7F9B20065975D /* DurationCaclulator.swift */; };
 		AD8B29DF25BFEB8300AAA7AC /* CGFloat+MapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8B29DE25BFEB8300AAA7AC /* CGFloat+MapTests.swift */; };
+		AD94DD53260D28EB00068FA9 /* GuidebookListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD94DD52260D28EB00068FA9 /* GuidebookListView.swift */; };
+		AD94DD57260D297900068FA9 /* GuidebookListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD94DD56260D297900068FA9 /* GuidebookListRow.swift */; };
+		AD94DD5B260D2B5100068FA9 /* GuidebookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD94DD5A260D2B5100068FA9 /* GuidebookView.swift */; };
 		AD94EF8126032F7D0070FA2F /* ViewerOptionsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD94EF8026032F7D0070FA2F /* ViewerOptionsButton.swift */; };
 		AD9A0D9125CE739600FF85EB /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9A0D9025CE739600FF85EB /* Playlist.swift */; };
 		AD9A0D9625CE74BF00FF85EB /* PlaylistTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9A0D9525CE74BF00FF85EB /* PlaylistTests.swift */; };
@@ -161,6 +169,7 @@
 		AD0D65E125F38BEC00461BE6 /* MockPlaylistManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPlaylistManager.swift; sourceTree = "<group>"; };
 		AD0E0EB225ECB3F100E9A573 /* GenerateThumbnailOperationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateThumbnailOperationTests.swift; sourceTree = "<group>"; };
 		AD0E0EB625ECB49000E9A573 /* MockThumbnailGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockThumbnailGenerator.swift; sourceTree = "<group>"; };
+		AD106ACB2624D39900D37CFD /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		AD12074025D1173900A8AAEC /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		AD12075425D3B43F00A8AAEC /* PlaylistManagerImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistManagerImpl.swift; sourceTree = "<group>"; };
 		AD12075825D3B50800A8AAEC /* PlaylistManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistManagerTests.swift; sourceTree = "<group>"; };
@@ -180,6 +189,7 @@
 		AD1CB82525FB34AB0030BC5C /* DateTimeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeService.swift; sourceTree = "<group>"; };
 		AD1CB82F25FB36060030BC5C /* MockDateTimeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDateTimeService.swift; sourceTree = "<group>"; };
 		AD1CB83525FB36F50030BC5C /* MockUserPreferencesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUserPreferencesManager.swift; sourceTree = "<group>"; };
+		AD28C7FD2624DB7300EDAEE7 /* Guidebook.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Guidebook.json; sourceTree = "<group>"; };
 		AD2F0AB425BC06A50006306D /* PlaylistPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlaylistPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD2F0AB725BC06A50006306D /* PlaylistPlayerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistPlayerApp.swift; sourceTree = "<group>"; };
 		AD2F0AB925BC06A50006306D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -223,6 +233,9 @@
 		AD4AE64C25F1FE3A00D9E63A /* PlaylistSiderbarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistSiderbarViewModel.swift; sourceTree = "<group>"; };
 		AD4B08AC25D9195000088A64 /* BaseTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTestCase.swift; sourceTree = "<group>"; };
 		AD4DDB4125C08E7700F8831B /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
+		AD5625C5260D2E860056C5C7 /* GuidebookDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidebookDetailView.swift; sourceTree = "<group>"; };
+		AD5625C9260D2ED10056C5C7 /* GuidebookPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidebookPageView.swift; sourceTree = "<group>"; };
+		AD5625D1260DB50F0056C5C7 /* GuidebookModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidebookModel.swift; sourceTree = "<group>"; };
 		AD62B3A92604705F007F8915 /* SortOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOrder.swift; sourceTree = "<group>"; };
 		AD62B3CE2605F41A007F8915 /* BookmarkEditorRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkEditorRow.swift; sourceTree = "<group>"; };
 		AD62B3D226071F0A007F8915 /* BookmarkEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkEditorView.swift; sourceTree = "<group>"; };
@@ -256,6 +269,9 @@
 		AD898A1A25D7F34F0065975D /* PlaylistDetailRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistDetailRow.swift; sourceTree = "<group>"; };
 		AD898A1E25D7F9B20065975D /* DurationCaclulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationCaclulator.swift; sourceTree = "<group>"; };
 		AD8B29DE25BFEB8300AAA7AC /* CGFloat+MapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+MapTests.swift"; sourceTree = "<group>"; };
+		AD94DD52260D28EB00068FA9 /* GuidebookListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidebookListView.swift; sourceTree = "<group>"; };
+		AD94DD56260D297900068FA9 /* GuidebookListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidebookListRow.swift; sourceTree = "<group>"; };
+		AD94DD5A260D2B5100068FA9 /* GuidebookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidebookView.swift; sourceTree = "<group>"; };
 		AD94EF8026032F7D0070FA2F /* ViewerOptionsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewerOptionsButton.swift; sourceTree = "<group>"; };
 		AD9A0D9025CE739600FF85EB /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
 		AD9A0D9525CE74BF00FF85EB /* PlaylistTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistTests.swift; sourceTree = "<group>"; };
@@ -335,6 +351,7 @@
 				AD7A9EDB25CEB1AE00118055 /* Playlist Sidebar */,
 				AD7A9EE225CEB23D00118055 /* Playlist Detail */,
 				AD078C5525BD599100137941 /* Player */,
+				AD94DD50260D286900068FA9 /* Settings */,
 			);
 			path = Activities;
 			sourceTree = "<group>";
@@ -508,6 +525,7 @@
 			isa = PBXGroup;
 			children = (
 				AD2F0AC025BC06A60006306D /* Info.plist */,
+				AD28C7FD2624DB7300EDAEE7 /* Guidebook.json */,
 				AD2F0ABB25BC06A60006306D /* Assets.xcassets */,
 				AD7A9EF025CFC6DA00118055 /* Colors.xcassets */,
 				AD7A9EF425CFC7C100118055 /* Colors.swift */,
@@ -623,6 +641,24 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		AD5625C3260D2E0B0056C5C7 /* Guidebook List */ = {
+			isa = PBXGroup;
+			children = (
+				AD94DD52260D28EB00068FA9 /* GuidebookListView.swift */,
+				AD94DD56260D297900068FA9 /* GuidebookListRow.swift */,
+			);
+			path = "Guidebook List";
+			sourceTree = "<group>";
+		};
+		AD5625C4260D2E6F0056C5C7 /* Guidebook Detail */ = {
+			isa = PBXGroup;
+			children = (
+				AD5625C5260D2E860056C5C7 /* GuidebookDetailView.swift */,
+				AD5625C9260D2ED10056C5C7 /* GuidebookPageView.swift */,
+			);
+			path = "Guidebook Detail";
+			sourceTree = "<group>";
+		};
 		AD62B3CD2605F3F7007F8915 /* Bookmark View */ = {
 			isa = PBXGroup;
 			children = (
@@ -696,6 +732,26 @@
 				AD898A1E25D7F9B20065975D /* DurationCaclulator.swift */,
 			);
 			path = "Duration Calculator";
+			sourceTree = "<group>";
+		};
+		AD94DD50260D286900068FA9 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				AD106ACB2624D39900D37CFD /* SettingsView.swift */,
+				AD94DD51260D28D500068FA9 /* Guide Book */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		AD94DD51260D28D500068FA9 /* Guide Book */ = {
+			isa = PBXGroup;
+			children = (
+				AD5625D1260DB50F0056C5C7 /* GuidebookModel.swift */,
+				AD94DD5A260D2B5100068FA9 /* GuidebookView.swift */,
+				AD5625C3260D2E0B0056C5C7 /* Guidebook List */,
+				AD5625C4260D2E6F0056C5C7 /* Guidebook Detail */,
+			);
+			path = "Guide Book";
 			sourceTree = "<group>";
 		};
 		AD9A0D8B25CE72E200FF85EB /* Video Playback */ = {
@@ -975,6 +1031,7 @@
 				AD2F0BA525BC0B6C0006306D /* 08.mov in Resources */,
 				AD2F0B9625BC0B610006306D /* 03.mov in Resources */,
 				AD7A9EF125CFC6DA00118055 /* Colors.xcassets in Resources */,
+				AD28C7FE2624DB7300EDAEE7 /* Guidebook.json in Resources */,
 				AD2F0BA225BC0B690006306D /* 07.mov in Resources */,
 				AD2F0B1D25BC07BE0006306D /* 02.mov in Resources */,
 				AD2F0ABF25BC06A60006306D /* Preview Assets.xcassets in Resources */,
@@ -1019,6 +1076,8 @@
 				ADA4D74925D9121D0054B8FA /* VideoMetadataService.swift in Sources */,
 				ADB50B3B25FCA0F100FB96D1 /* CanvasView.swift in Sources */,
 				ADE0594225DB93E5004076AC /* Array+Maybe.swift in Sources */,
+				AD106ACC2624D39900D37CFD /* SettingsView.swift in Sources */,
+				AD5625C6260D2E860056C5C7 /* GuidebookDetailView.swift in Sources */,
 				AD1BDFAB25E4CF8900584968 /* GenerateThumbnailOperation.swift in Sources */,
 				AD078C3125BC180900137941 /* TransportControls.swift in Sources */,
 				AD7A9F3025CFE24C00118055 /* Playlist-Helpers.swift in Sources */,
@@ -1026,6 +1085,7 @@
 				AD62B3CF2605F41A007F8915 /* BookmarkEditorRow.swift in Sources */,
 				ADE0593E25DA4DC5004076AC /* LoopButton.swift in Sources */,
 				AD62B40D260775F6007F8915 /* BookmarkTimecodeSetterView.swift in Sources */,
+				AD5625D2260DB50F0056C5C7 /* GuidebookModel.swift in Sources */,
 				AD7994D725C28E070041CFC7 /* CustomSlider.swift in Sources */,
 				AD2F0AF925BC06FC0006306D /* Time.swift in Sources */,
 				AD94EF8126032F7D0070FA2F /* ViewerOptionsButton.swift in Sources */,
@@ -1040,6 +1100,7 @@
 				AD45974525EB815C00E537C1 /* AddPlaylistModal.swift in Sources */,
 				AD13687425BD600100ACC7D0 /* TimeControlsBar.swift in Sources */,
 				AD15DB4E25F4ED0800010B73 /* UserPreferences.swift in Sources */,
+				AD5625CA260D2ED10056C5C7 /* GuidebookPageView.swift in Sources */,
 				AD62B3AA2604705F007F8915 /* SortOrder.swift in Sources */,
 				AD7A9F0125CFCBDE00118055 /* Binding+OnChange.swift in Sources */,
 				AD1CB82625FB34AB0030BC5C /* DateTimeService.swift in Sources */,
@@ -1052,6 +1113,7 @@
 				ADB964BA25F4E63A00D26886 /* EditMode+Toggle.swift in Sources */,
 				AD45974B25EB8E6600E537C1 /* CustomTextField.swift in Sources */,
 				AD2F0BAD25BC0D380006306D /* CustomPlayerLayer.swift in Sources */,
+				AD94DD53260D28EB00068FA9 /* GuidebookListView.swift in Sources */,
 				AD2F0AEE25BC06D70006306D /* MediaTime.swift in Sources */,
 				AD078C4325BC1AF500137941 /* CustomPlayerView.swift in Sources */,
 				AD7A9EFD25CFCB6A00118055 /* DocumentPicker.swift in Sources */,
@@ -1065,6 +1127,7 @@
 				AD078C3D25BC196700137941 /* ScaleButtonStyle.swift in Sources */,
 				AD2F0AB825BC06A50006306D /* PlaylistPlayerApp.swift in Sources */,
 				AD1BDFB425E6297000584968 /* DurationCalculatorOperation.swift in Sources */,
+				AD94DD5B260D2B5100068FA9 /* GuidebookView.swift in Sources */,
 				AD6FAE8226031C7200258F2D /* Video+Models.swift in Sources */,
 				AD15DB5225F4EEC100010B73 /* UserPreferencesManager.swift in Sources */,
 				AD62B4052607396C007F8915 /* Comparable+Constrained.swift in Sources */,
@@ -1079,6 +1142,7 @@
 				AD898A1B25D7F34F0065975D /* PlaylistDetailRow.swift in Sources */,
 				AD62B4112607766B007F8915 /* BookmarkEditorViewModel.swift in Sources */,
 				AD4AE63D25F0BAB100D9E63A /* PlaylistDetailViewModel.swift in Sources */,
+				AD94DD57260D297900068FA9 /* GuidebookListRow.swift in Sources */,
 				AD4AE64325F1F6C900D9E63A /* WeakBox.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
