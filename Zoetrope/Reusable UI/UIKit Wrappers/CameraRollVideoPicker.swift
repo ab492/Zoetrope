@@ -7,6 +7,7 @@
 
 import PhotosUI
 import SwiftUI
+import ABExtensions
 
 struct CameraRollVideoPicker: UIViewControllerRepresentable {
     
@@ -30,6 +31,7 @@ struct CameraRollVideoPicker: UIViewControllerRepresentable {
     
     class Coordinator: NSObject, PHPickerViewControllerDelegate {
         let parent: CameraRollVideoPicker
+        private let filemanager = FileManagerWrappedImpl()
         
         init(_ parent: CameraRollVideoPicker) {
             self.parent = parent
@@ -46,10 +48,17 @@ struct CameraRollVideoPicker: UIViewControllerRepresentable {
                 
                 provider.loadFileRepresentation(forTypeIdentifier: UTType.movie.identifier) { url, error in
                     guard let url = url else { return }
-                    let filename = "\(Int(Date().timeIntervalSince1970)).\(url.pathExtension)"
-                    let newURL = URL(fileURLWithPath: NSTemporaryDirectory() + filename)
-                    try? FileManager.default.moveItem(at: url, to: newURL)
-                    self.parent.movieURLs.append(newURL)
+                    let displayName = FileManager.default.displayName(atPath: url.path)
+                    let temporaryDirectory = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString)
+                    let newURL = temporaryDirectory.appendingPathComponent(displayName)
+                    
+                    do {
+                        try self.filemanager.createDirectoryIfRequired(url: temporaryDirectory)
+                        try self.filemanager.moveItem(from: url, to: newURL)
+                        self.parent.movieURLs.append(newURL)
+                    } catch {
+                        print("ERROR: \(error)")
+                    }
                 }
             }
         }
