@@ -128,8 +128,9 @@ final class PlaylistRepositoryImpl: PlaylistRepository {
 
     func deleteItems(fromPlaylist playlist: Playlist, at offsets: IndexSet) {
         for index in offsets {
-            // Clear up all store metadata first.
-            Current.thumbnailService.removeThumbnail(for: playlist.videos[index])
+            let video = playlist.videos[index]
+            Current.thumbnailService.removeThumbnail(for: video)
+            try? fileManager.removeItem(at: url(for: video))
         }
         playlist.videos.remove(atOffsets: offsets)
         playlistManagerDidUpdate()
@@ -138,7 +139,11 @@ final class PlaylistRepositoryImpl: PlaylistRepository {
     
     func mediaUrlsFor(playlist: Playlist) -> [URL] {
         // Takes the media filename to: path/to/documentsDirectory/mediaDirectoryName/filename
-        playlist.videos.map { URL(fileURLWithPath: $0.filename, relativeTo: videoBaseURL) }
+        playlist.videos.map { url(for: $0) }
+    }
+    
+    private func url(for video: VideoModel) -> URL {
+        URL(fileURLWithPath: video.filename, relativeTo: videoBaseURL)
     }
 
     // MARK: - Private
@@ -194,4 +199,3 @@ extension PlaylistRepositoryImpl: AppService {
         Current.thumbnailService.addObserver(self)
     }
 }
-
