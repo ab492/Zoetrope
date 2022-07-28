@@ -7,7 +7,7 @@
 
 import UIKit
 import XCTest
-@testable import PlaylistPlayer
+@testable import Zoetrope
 
 final class UserPreferencesTests: XCTestCase {
 

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-@testable import PlaylistPlayer
+@testable import Zoetrope
 
 final class MockDateTimeService: DateTimeService {
     var date = Date(day: 14, month: 3, year: 1992)

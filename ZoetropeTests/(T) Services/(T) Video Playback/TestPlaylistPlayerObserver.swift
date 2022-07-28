@@ -6,7 +6,7 @@
 //
 
 import Foundation
-@testable import PlaylistPlayer
+@testable import Zoetrope
 
 class TestPlaylistPlayerObserver: PlaylistPlayerObserver {
 

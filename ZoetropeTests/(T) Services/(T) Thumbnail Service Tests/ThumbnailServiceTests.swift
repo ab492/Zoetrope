@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import PlaylistPlayer
+@testable import Zoetrope
 
 final class ThumbnailServiceTests: XCTestCase {
 

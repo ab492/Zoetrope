@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import PlaylistPlayer
+@testable import Zoetrope
 
 class PlaylistDetailViewModelTests: BaseTestCase {
 

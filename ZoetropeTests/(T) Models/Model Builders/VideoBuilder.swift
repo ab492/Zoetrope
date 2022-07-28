@@ -6,7 +6,7 @@
 //
 
 import Foundation
-@testable import PlaylistPlayer
+@testable import Zoetrope
 
 final class VideoBuilder {
     private var b_id = UUID()

@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-@testable import PlaylistPlayer
+@testable import Zoetrope
 
 final class MockUserPreferences: UserPreferences {
 

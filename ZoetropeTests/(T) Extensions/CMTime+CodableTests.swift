@@ -7,7 +7,7 @@
 
 import CoreMedia
 import XCTest
-@testable import PlaylistPlayer
+@testable import Zoetrope
 
 class CMTime_CodableTests: XCTestCase {
 
