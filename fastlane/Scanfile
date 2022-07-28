@@ -1,0 +1,2 @@
+scheme("Zoetrope")
+device("iPad Pro 9.7")

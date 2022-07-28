@@ -1,0 +1,4 @@
+scheme("Zoetrope")
+clean(true)
+output_directory("./")
+export_method("app-store")
