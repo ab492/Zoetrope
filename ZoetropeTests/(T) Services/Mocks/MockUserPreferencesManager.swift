@@ -7,7 +7,7 @@
 
 import UIKit
 import Foundation
-@testable import PlaylistPlayer
+@testable import Zoetrope
 
 final class MockUserPreferencesManager: UserPreferencesManager {
     

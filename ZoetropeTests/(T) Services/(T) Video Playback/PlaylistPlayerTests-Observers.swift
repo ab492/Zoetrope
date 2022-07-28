@@ -7,7 +7,7 @@
 
 
 import XCTest
-@testable import PlaylistPlayer
+@testable import Zoetrope
 
 extension PlaylistPlayerTests {
 

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-@testable import PlaylistPlayer
+@testable import Zoetrope
 
 final class MockThumbnailGenerator: ThumbnailGenerator {
 
