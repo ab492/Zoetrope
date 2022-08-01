@@ -1,4 +1,4 @@
 scheme("Zoetrope")
 clean(true)
-output_directory("./")
+output_directory("./build")
 export_method("app-store")

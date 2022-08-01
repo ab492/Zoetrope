@@ -7,8 +7,8 @@
 </h1>
 
 ## Support Pages
-Repository: https://github.com/ab492/ZoetropePages  
-Support Page: https://ab492.github.io/ZoetropePages
+[Project Repository](https://github.com/ab492/ZoetropePages)  
+[Support Page](https://ab492.github.io/ZoetropePages)
 
 ## Getting Started
 1. Install  bundler:`sudo gem install bundler`. Bundler is a Ruby tool that manages Ruby packages, known as gems.
