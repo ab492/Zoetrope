@@ -8,15 +8,21 @@ default_platform(:ios)
 
 platform :ios do
 	lane :build do
-    	run_tests
-    	cert
-    	sigh 
-    	gym
+    		run_tests
+    		cert
+    		sigh 
+    		gym
   	end 
 
 	lane :alpha do
 		build
 		pilot
+  		increment_build_number
+	end
+
+	lane :release do
+		build
+		deliver
   		increment_build_number
 	end
 	

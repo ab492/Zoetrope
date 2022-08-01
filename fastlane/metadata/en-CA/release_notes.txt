@@ -1,0 +1,4 @@
+- Fixed a bug with deleting videos.
+- Fixed accessibility labels throughout the app.
+
+If you find the app useful, please rate it or leave a review. 

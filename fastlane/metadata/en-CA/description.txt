@@ -1,0 +1,1 @@
+An advanced video player that allows you to quickly build playlists of content from multiple sources and watch them in an easy way.
