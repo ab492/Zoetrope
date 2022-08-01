@@ -23,3 +23,8 @@ struct PlayerIcons {
     static let settings = "gearshape.fill"
 }
 
+struct GeneralIcons {
+    static let addPlaylist = "folder.badge.plus"
+    static let settings = "gearshape"
+}
+

@@ -30,7 +30,7 @@
 		AD15DB5B25F4EF6500010B73 /* UserPreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD15DB5A25F4EF6500010B73 /* UserPreferencesTests.swift */; };
 		AD15DB6225F4FA1E00010B73 /* UserPreferencesManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD15DB6125F4FA1E00010B73 /* UserPreferencesManagerTests.swift */; };
 		AD15DB6825F4FA7200010B73 /* MockUserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD15DB6725F4FA7200010B73 /* MockUserPreferences.swift */; };
-		AD175E1225C67FBF00B805E1 /* PlayerIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD175E1125C67FBF00B805E1 /* PlayerIcons.swift */; };
+		AD175E1225C67FBF00B805E1 /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD175E1125C67FBF00B805E1 /* Icons.swift */; };
 		AD1BDFAB25E4CF8900584968 /* GenerateThumbnailOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1BDFAA25E4CF8900584968 /* GenerateThumbnailOperation.swift */; };
 		AD1CB82125FB31B40030BC5C /* MockVideoQueuePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1CB82025FB31B40030BC5C /* MockVideoQueuePlayer.swift */; };
 		AD1CB82625FB34AB0030BC5C /* DateTimeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1CB82525FB34AB0030BC5C /* DateTimeService.swift */; };
@@ -132,6 +132,8 @@
 		ADE947EE2609C43300B8BCFB /* CMTime+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE947ED2609C43300B8BCFB /* CMTime+Codable.swift */; };
 		ADE947F42609C48A00B8BCFB /* CMTime+CodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE947F32609C48A00B8BCFB /* CMTime+CodableTests.swift */; };
 		ADF04C59261999D500BE9ACC /* MockPlaylistPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF04C58261999D500BE9ACC /* MockPlaylistPlayer.swift */; };
+		ADF1B1822897F76B0056B47D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF1B1812897F76B0056B47D /* SettingsView.swift */; };
+		ADF1B1842897FDCC0056B47D /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF1B1832897FDCC0056B47D /* MailView.swift */; };
 		ADF1FF052866EA0E00ACB0F0 /* AppService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF1FF042866EA0E00ACB0F0 /* AppService.swift */; };
 		ADF1FF072866EC1900ACB0F0 /* WorldConfigurer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF1FF062866EC1900ACB0F0 /* WorldConfigurer.swift */; };
 		ADF1FF0928673CB500ACB0F0 /* CameraRollVideoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF1FF0828673CB500ACB0F0 /* CameraRollVideoPicker.swift */; };
@@ -170,7 +172,7 @@
 		AD15DB5A25F4EF6500010B73 /* UserPreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferencesTests.swift; sourceTree = "<group>"; };
 		AD15DB6125F4FA1E00010B73 /* UserPreferencesManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferencesManagerTests.swift; sourceTree = "<group>"; };
 		AD15DB6725F4FA7200010B73 /* MockUserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUserPreferences.swift; sourceTree = "<group>"; };
-		AD175E1125C67FBF00B805E1 /* PlayerIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerIcons.swift; sourceTree = "<group>"; };
+		AD175E1125C67FBF00B805E1 /* Icons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
 		AD1BDFAA25E4CF8900584968 /* GenerateThumbnailOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateThumbnailOperation.swift; sourceTree = "<group>"; };
 		AD1CB82025FB31B40030BC5C /* MockVideoQueuePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockVideoQueuePlayer.swift; sourceTree = "<group>"; };
 		AD1CB82525FB34AB0030BC5C /* DateTimeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeService.swift; sourceTree = "<group>"; };
@@ -277,6 +279,8 @@
 		ADE947ED2609C43300B8BCFB /* CMTime+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMTime+Codable.swift"; sourceTree = "<group>"; };
 		ADE947F32609C48A00B8BCFB /* CMTime+CodableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMTime+CodableTests.swift"; sourceTree = "<group>"; };
 		ADF04C58261999D500BE9ACC /* MockPlaylistPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPlaylistPlayer.swift; sourceTree = "<group>"; };
+		ADF1B1812897F76B0056B47D /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		ADF1B1832897FDCC0056B47D /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailView.swift; sourceTree = "<group>"; };
 		ADF1FF042866EA0E00ACB0F0 /* AppService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppService.swift; sourceTree = "<group>"; };
 		ADF1FF062866EC1900ACB0F0 /* WorldConfigurer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldConfigurer.swift; sourceTree = "<group>"; };
 		ADF1FF0828673CB500ACB0F0 /* CameraRollVideoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraRollVideoPicker.swift; sourceTree = "<group>"; };
@@ -319,6 +323,7 @@
 				ADF1FF0828673CB500ACB0F0 /* CameraRollVideoPicker.swift */,
 				AD078C3425BC185700137941 /* VisualEffectView.swift */,
 				AD2F0BB425BC0E0F0006306D /* PlayerView.swift */,
+				ADF1B1832897FDCC0056B47D /* MailView.swift */,
 			);
 			path = "UIKit Wrappers";
 			sourceTree = "<group>";
@@ -330,6 +335,7 @@
 				AD7A9EDB25CEB1AE00118055 /* Playlist Sidebar */,
 				AD7A9EE225CEB23D00118055 /* Playlist Detail */,
 				AD078C5525BD599100137941 /* Player */,
+				ADF1B1802897F75F0056B47D /* Settings */,
 			);
 			path = Activities;
 			sourceTree = "<group>";
@@ -337,7 +343,6 @@
 		AD078C5525BD599100137941 /* Player */ = {
 			isa = PBXGroup;
 			children = (
-				AD175E1125C67FBF00B805E1 /* PlayerIcons.swift */,
 				AD37B5CD25BC109400B854B6 /* PlaylistPlayerViewModel.swift */,
 				AD078C4225BC1AF500137941 /* CustomPlayerView.swift */,
 				AD2F0BAC25BC0D380006306D /* CustomPlayerLayer.swift */,
@@ -562,6 +567,7 @@
 		AD2F0BB825BC0E230006306D /* Reusable UI */ = {
 			isa = PBXGroup;
 			children = (
+				AD175E1125C67FBF00B805E1 /* Icons.swift */,
 				ADB964B325F4D9CE00D26886 /* MenuItemView.swift */,
 				AD7994D625C28E070041CFC7 /* CustomSlider.swift */,
 				AD7A9F0625CFCCEC00118055 /* EmptyContentView.swift */,
@@ -871,6 +877,14 @@
 			path = "Playlist Manager";
 			sourceTree = "<group>";
 		};
+		ADF1B1802897F75F0056B47D /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				ADF1B1812897F76B0056B47D /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1012,11 +1026,13 @@
 				ADE0593E25DA4DC5004076AC /* LoopButton.swift in Sources */,
 				AD7994D725C28E070041CFC7 /* CustomSlider.swift in Sources */,
 				AD548FCE28950DEB008516C7 /* AccessibilityService.swift in Sources */,
+				ADF1B1842897FDCC0056B47D /* MailView.swift in Sources */,
 				AD2F0AF925BC06FC0006306D /* Time.swift in Sources */,
 				AD562605260F24BE0056C5C7 /* PlaylistPlayerImpl+Observers.swift in Sources */,
 				AD37B5CE25BC109400B854B6 /* PlaylistPlayerViewModel.swift in Sources */,
 				ADE0594E25DBA445004076AC /* PlayerSecondaryButton.swift in Sources */,
 				AD078C3925BC186500137941 /* PlaybackControlsBar.swift in Sources */,
+				ADF1B1822897F76B0056B47D /* SettingsView.swift in Sources */,
 				AD9A0D9E25CE79B800FF85EB /* PlaylistStore.swift in Sources */,
 				AD0D65CE25F3837B00461BE6 /* VideoThumbnailViewModel.swift in Sources */,
 				AD45974525EB815C00E537C1 /* AddPlaylistModal.swift in Sources */,
@@ -1055,7 +1071,7 @@
 				AD0D65C825F371C000461BE6 /* PlaylistDetailRowViewModel.swift in Sources */,
 				AD7A9F0725CFCCEC00118055 /* EmptyContentView.swift in Sources */,
 				AD2F0BB125BC0DD50006306D /* VideoPlayerView.swift in Sources */,
-				AD175E1225C67FBF00B805E1 /* PlayerIcons.swift in Sources */,
+				AD175E1225C67FBF00B805E1 /* Icons.swift in Sources */,
 				AD898A1B25D7F34F0065975D /* PlaylistDetailRow.swift in Sources */,
 				AD4AE63D25F0BAB100D9E63A /* PlaylistDetailViewModel.swift in Sources */,
 				AD078618285DB00D0046AE15 /* CreateVideoModelImportOperation.swift in Sources */,
