@@ -45,3 +45,10 @@ extension Playlist: Equatable {
         lhs.id == rhs.id && lhs.name == rhs.name && lhs.videos == rhs.videos
     }
 }
+
+extension Playlist: Hashable {
+    // TODO: Is this fair game?
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}

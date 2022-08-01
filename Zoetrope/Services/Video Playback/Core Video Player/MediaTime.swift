@@ -15,6 +15,14 @@ struct MediaTime {
     init(seconds: Double, preferredTimescale: CMTimeScale = .default) {
         cmTime = CMTime(seconds: seconds, preferredTimescale: preferredTimescale)
     }
+    
+    init(minute: Double, preferredTimescale: CMTimeScale = .default) {
+        self.init(seconds: minute * 60, preferredTimescale: preferredTimescale)
+    }
+    
+    init(hour: Double, preferredTimescale: CMTimeScale = .default) {
+        self.init(minute: hour * 60, preferredTimescale: preferredTimescale)
+    }
 
     init(time: CMTime) {
         self.cmTime = time
@@ -33,6 +41,16 @@ extension MediaTime: Comparable {
     }
 }
 
+extension MediaTime {
+    static func + (lhs: MediaTime, rhs: MediaTime) -> MediaTime {
+        MediaTime(seconds: lhs.seconds + rhs.seconds)
+    }
+    
+    static func - (lhs: MediaTime, rhs: MediaTime) -> MediaTime {
+        MediaTime(seconds: lhs.seconds - rhs.seconds)
+    }
+}
+
 extension MediaTime: Codable { }
 
 extension MediaTime {
@@ -41,4 +59,10 @@ extension MediaTime {
 
 extension CMTimeScale {
     static let `default`: CMTimeScale = 600
+}
+
+extension MediaTime: CustomStringConvertible {
+    var description: String {
+        "Seconds: \(seconds). Timescale: \(cmTime.timescale)"
+    }
 }

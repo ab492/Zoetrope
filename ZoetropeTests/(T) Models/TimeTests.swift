@@ -15,6 +15,12 @@ class TimeTests: XCTestCase {
 
         XCTAssertEqual(time.seconds, 30)
     }
+    
+    func test_initWithMinutes() {
+        let time = Time(minutes: 30)
+        
+        time.seconds.verify(equals: 1800)
+    }
 
     func test_timeIsComparable() {
         let time1 = Time(seconds: 10)

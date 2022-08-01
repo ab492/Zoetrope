@@ -31,9 +31,12 @@ struct CustomPlayerView: View {
                 ZStack {
                     videoPlaybackView.zIndex(0)
                 }.zIndex(0)
+                    .accessibilitySortPriority(2)
+
 
                 if localShowTransportControls {
                     transportControls.zIndex(1)
+                        .accessibilitySortPriority(1)
                 }
             }
             .ignoresSafeArea(edges: .top)
@@ -65,6 +68,11 @@ struct CustomPlayerView: View {
             .onTapGesture {
                 viewModel.didTapVideo()
             }
+            .accessibilityElement()
+            .accessibility(addTraits: .isButton)
+            .accessibilityLabel("Video")
+            .accessibilityHint("Double tap to toggle controls")
+        
     }
     
     private var transportControls: some View {
@@ -72,7 +80,7 @@ struct CustomPlayerView: View {
     }
 
     private var settingsPanel: some View {
-        SettingsScreen(playerViewModel: viewModel)
+        ViewerSettingsView(playerViewModel: viewModel)
             .cornerRadius(10)
             .padding([.leading, .trailing], 4)
             .frame(width: 350)

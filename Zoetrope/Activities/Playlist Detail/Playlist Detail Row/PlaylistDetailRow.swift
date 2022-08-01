@@ -34,8 +34,11 @@ struct PlaylistDetailRow: View {
                 .foregroundColor(.secondary)
         }
         .contentShape(Rectangle())
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(viewModel.accessibilityLabel)
+        .accessibilityAddTraits(.isButton)
+        .accessibilityHint("Double tap to play")
     }
-
 }
 
 fileprivate extension View {

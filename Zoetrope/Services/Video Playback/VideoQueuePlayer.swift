@@ -223,9 +223,7 @@ extension VideoQueuePlayer {
     }
 
     func scrubbingDidEnd() {
-        if lastPlaybackRate > 0 {
-            play()
-        }
+        if lastPlaybackRate > 0 { play() }
     }
 }
 

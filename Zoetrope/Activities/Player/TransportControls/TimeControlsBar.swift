@@ -47,6 +47,16 @@ struct TimeControlsBar: View {
                 .foregroundColor(.secondary)
             }
         }
+        .accessibilityElement()
+        .accessibilityLabel("Current position")
+        .accessibilityValue(Text(viewModel.currentTimeAccessibilityLabel))
+        .accessibilityAdjustableAction { direction in
+            switch direction {
+            case .increment: viewModel.accessibilityIncrement()
+            case .decrement: viewModel.accessibilityDecrement()
+            @unknown default: break
+            }
+        }
     }
 
     private var sliderConfiguration: CustomSlider.Configuration {

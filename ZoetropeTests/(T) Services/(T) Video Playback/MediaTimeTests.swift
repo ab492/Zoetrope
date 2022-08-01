@@ -32,6 +32,16 @@ class MediaTimeTests: XCTestCase {
 
         XCTAssertEqual(mediaTime1, mediaTime2)
     }
-
-
+    
+    func test_mediaTimeInitWithMinutes() {
+        let mediaTime = MediaTime(minute: 30)
+        
+        mediaTime.seconds.verify(equals: 1800)
+    }
+    
+    func test_mediaTimeInitWithHours() {
+        let mediaTime = MediaTime(hour: 2)
+        
+        mediaTime.seconds.verify(equals: 7200)
+    }
 }

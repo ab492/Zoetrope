@@ -14,7 +14,14 @@ struct Time: Equatable {
 
     init(seconds: Double) {
         self.timeInSeconds = seconds
-
+    }
+    
+    init(minutes: Double) {
+        self.init(seconds: minutes * 60)
+    }
+    
+    init(mediaTime: MediaTime) {
+        self.init(seconds: mediaTime.seconds)
     }
 
     var seconds: Double {

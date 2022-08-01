@@ -20,6 +20,8 @@ struct PlaylistSidebarView: View {
     }
 
     // MARK: - View
+    
+    @State var selectedPlaylist: Playlist?
 
     var body: some View {
         ZStack {
@@ -45,8 +47,15 @@ struct PlaylistSidebarView: View {
     private var playlistList: some View {
         List {
             ForEach(viewModel.playlists) { playlist in
-                NavigationLink(destination: PlaylistDetailView(playlist: playlist)) {
-                    Text(playlist.name)
+                NavigationLink(destination: PlaylistDetailView(playlist: playlist), tag: playlist, selection: $selectedPlaylist) {
+                    VStack {
+                        Text(playlist.name)
+                            .accessibilityAddTraits(
+                                selectedPlaylist == playlist
+                                ? [.isButton, .isSelected]
+                                : [.isButton]
+                            )
+                    }
                 }
             }
             .onMove(perform: moveRows)
