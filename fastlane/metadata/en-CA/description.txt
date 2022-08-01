@@ -1,1 +1,3 @@
 An advanced video player that allows you to quickly build playlists of content from multiple sources and watch them in an easy way.
+
+If you have any issues or suggestions, please feel free to provide feedback within the app settings.
