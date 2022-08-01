@@ -42,14 +42,19 @@ final class PlaylistPlayerViewModel: ObservableObject {
     @Published private(set) var formattedDuration = "00:00"
     @Published private(set) var showTransportControls = true
     private var showSettings = false
-    
+    private let timeFormatter = TimeFormatter()
     private lazy var timer = Timer.publish(every: TimeInterval(showControlsTime.rawValue), on: .main, in: .common)
+    
+    var currentTimeAccessibilityLabel: String {
+        "\(timeFormatter.accessibilityString(from: .init(mediaTime: currentTime))) of \(timeFormatter.accessibilityString(from: .init(mediaTime: duration)))"
+    }
     
     private var timerSubscription: Cancellable?
     
     var useControlsTimer: Bool {
         get {
-            Current.userPreferencesManager.useControlsTimer
+            guard Current.accessibilityService.isVoiceoverEnabled == false else { return false }
+            return Current.userPreferencesManager.useControlsTimer
         }
         set {
             objectWillChange.send()
@@ -175,6 +180,53 @@ final class PlaylistPlayerViewModel: ObservableObject {
         invalidateAutoHideTimer(andRestartIt: true)
         playlistPlayer.scrubbed(to: time)
     }
+  
+    /**
+     Used for when a VoiceOver user swipes up to scrub through media. The increment time depends on the length of the content:
+     ## Increments:
+     - Duration less than 5 minutes: 5 second increment
+     - Duration between 5 minutes and 1 hour: 5 minute increment
+     - Duration greater than 1 hour: 10 minute increment
+     - Note: If next increment would be greater than the duration, this method returns with no action.
+     */
+    func accessibilityIncrement() {
+        invalidateAutoHideTimer(andRestartIt: true)
+        
+        let newTime: MediaTime
+        if duration < MediaTime(minute: 5) {
+            newTime = (currentTime + MediaTime(seconds: 5))
+        } else if duration < MediaTime(hour: 1) {
+            newTime = (currentTime + MediaTime(minute: 5))
+        } else {
+            newTime = (currentTime + MediaTime(minute: 10))
+        }
+                
+        guard newTime < duration else { return }
+        playlistPlayer.seek(to: newTime)
+    }
+    
+    /**
+     Used for when a VoiceOver user swipes down to scrub through media. The decrement time depends on the length of the content:
+     ## Increments:
+     - Duration less than 5 minutes: 5 second decrement
+     - Duration between 5 minutes and 1 hour: 5 minute decrement
+     - Duration greater than 1 hour: 10 minute decrement
+     - Note: If next decrement would be les than zero, we seek to zero.
+     */
+    func accessibilityDecrement() {
+        invalidateAutoHideTimer(andRestartIt: true)
+        
+        let newTime: MediaTime
+        if duration < MediaTime(minute: 5) {
+            newTime = (currentTime - MediaTime(seconds: 5))
+        } else if duration < MediaTime(hour: 1) {
+            newTime = (currentTime - MediaTime(minute: 5))
+        } else {
+            newTime = (currentTime - MediaTime(minute: 10))
+        }
+        
+        playlistPlayer.seek(to: newTime.constrained(min: .zero))
+    }
 
     // MARK: - Playback Rate
 
@@ -237,7 +289,7 @@ extension PlaylistPlayerViewModel: PlaylistPlayerObserver {
 
     func playbackDurationDidChange(to time: MediaTime) {
         self.duration = time
-        self.formattedDuration = TimeFormatter.string(from: Int(time.seconds))
+        self.formattedDuration = timeFormatter.string(from: Int(time.seconds))
     }
 
     func playbackStateDidChange(to playPauseState: PlayPauseState) {
@@ -249,6 +301,6 @@ extension PlaylistPlayerViewModel: PlaylistPlayerObserver {
 
     func playbackPositionDidChange(to time: MediaTime) {
         currentTime = time
-        formattedCurrentTime = TimeFormatter.string(from: Int(time.seconds))
+        formattedCurrentTime = timeFormatter.string(from: Int(time.seconds))
     }
 }

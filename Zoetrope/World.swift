@@ -10,6 +10,7 @@ import Foundation
 var Current: World!
 
 struct World {
+    var accessibilityService: AccessibilityService
     var dateTimeService: DateTimeService
     var playlistManager: PlaylistRepository
     var playlistPlayer: PlaylistPlayer

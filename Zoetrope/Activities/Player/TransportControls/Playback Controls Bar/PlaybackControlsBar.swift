@@ -30,6 +30,12 @@ struct PlaybackControlsBar: View {
             corePlaybackControls
             Spacer()
             PlayerSecondaryButton(systemImage: PlayerIcons.settings, isSelected: $playerOptionsIsSelected)
+                .accessibilityLabel("Player settings")
+                .accessibilityAddTraits(
+                    playerOptionsIsSelected
+                    ? [.isSelected]
+                    : []
+                )
         }
     }
 
@@ -71,7 +77,7 @@ struct PlaybackControlsBar: View {
         }
         .buttonStyle(ScaleButtonStyle())
         .disabled(fastReverseButtonDisabled)
-        .accessibility(label: Text("Fast backward")) // TODO: Fix this with a speed!
+        .accessibility(label: Text("Fast backward"))
     }
 
     private var skipBackwardsButton: some View {
@@ -116,7 +122,7 @@ struct PlaybackControlsBar: View {
         }
         .buttonStyle(ScaleButtonStyle())
         .disabled(fastForwardButtonDisabled)
-        .accessibility(label: Text("Fast forward")) // TODO: Fix this with a speed!
+        .accessibility(label: Text("Fast forward"))
     }
 
     private var nextItemButton: some View {

@@ -13,7 +13,8 @@ class BaseTestCase: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        Current = World(dateTimeService: MockDateTimeService(),
+        Current = World(accessibilityService: MockAccessibilityService(),
+                        dateTimeService: MockDateTimeService(),
                         playlistManager: MockPlaylistManager(),
                         playlistPlayer: MockPlaylistPlayer(),
                         thumbnailService: MockThumbnailService(),
@@ -22,6 +23,10 @@ class BaseTestCase: XCTestCase {
 }
 
  extension World {
+     var mockAccessibilityService: MockAccessibilityService {
+         self.accessibilityService as! MockAccessibilityService
+     }
+     
     var mockDateTimeService: MockDateTimeService {
         self.dateTimeService as! MockDateTimeService
     }

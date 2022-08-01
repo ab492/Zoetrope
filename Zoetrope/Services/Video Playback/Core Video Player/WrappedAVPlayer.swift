@@ -274,14 +274,10 @@ extension WrappedAVPlayer {
 
     var playbackState: PlaybackState {
         switch player.timeControlStatus {
-        case .paused:
-            return .paused
-        case .waitingToPlayAtSpecifiedRate:
-            return .waitingToPlayAtSpecifiedRate
-        case .playing:
-            return .playing
-        @unknown default:
-            fatalError("Unknown playback state.")
+        case .paused: return .paused
+        case .waitingToPlayAtSpecifiedRate: return .waitingToPlayAtSpecifiedRate
+        case .playing: return .playing
+        @unknown default: fatalError("Unknown playback state.")
         }
     }
 

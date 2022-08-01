@@ -48,6 +48,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     }
 
     func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
-        fatalError("DID RECEIVE MEMORY WARNING!")
+//        fatalError("DID RECEIVE MEMORY WARNING!")
     }
 }

@@ -27,11 +27,12 @@ final class MockPlaylistPlayer: PlaylistPlayer {
 
     var canPlayFastForward: Bool = true
 
-    var currentTime: MediaTime = .zero
+    var currentTimeToReturn: MediaTime = .zero
+    var currentTime: MediaTime { .zero }
 
-    var duration: MediaTime = .zero
-
-
+    var durationToReturn: MediaTime = .zero
+    var duration: MediaTime { durationToReturn }
+    
     var loopMode: LoopMode = .loopCurrent
 
     func play() {

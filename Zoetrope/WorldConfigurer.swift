@@ -9,7 +9,8 @@ import Foundation
 
 final class WorldConfigurer {
     static func buildWorld() {
-        let world = World(dateTimeService: DateTimeServiceImpl(),
+        let world = World(accessibilityService: AccessibilityServiceImpl(),
+                          dateTimeService: DateTimeServiceImpl(),
                           playlistManager: PlaylistRepositoryImpl(),
                           playlistPlayer: PlaylistPlayerImpl(),
                           thumbnailService: ThumbnailServiceImpl(),

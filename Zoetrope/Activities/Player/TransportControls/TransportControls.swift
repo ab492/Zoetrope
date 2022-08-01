@@ -19,11 +19,13 @@ struct TransportControls: View {
     // MARK: - View
 
     var body: some View {
-        VStack {
-            topBar
-                .offset(y: 25)
-            Spacer()
-            playbackControls
+        ZStack {
+            VStack {
+                topBar
+                    .offset(y: 25)
+                Spacer()
+                playbackControls
+            }
         }
     }
 
@@ -47,6 +49,7 @@ struct TransportControls: View {
             Spacer()
             Text(viewModel.videoTitle)
                 .font(.headline)
+                .accessibility(addTraits: .isHeader)
             Spacer()
         }
     }

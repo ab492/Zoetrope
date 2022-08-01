@@ -12,6 +12,7 @@ extension PlaylistDetailRow {
     class ViewModel: ObservableObject {
 
         private let video: VideoModel
+        private let timeFormatter = TimeFormatter()
 
         init(video: VideoModel) {
             self.video = video
@@ -24,7 +25,11 @@ extension PlaylistDetailRow {
         }
 
         var durationLabel: String {
-            TimeFormatter.string(from: Int(video.duration.seconds))
+            timeFormatter.string(from: Int(video.duration.seconds))
+        }
+        
+        var accessibilityLabel: String {
+            "\(titleLabel). \(timeFormatter.accessibilityString(from: video.duration))"
         }
     }
 }

@@ -14,6 +14,17 @@ struct LoopButton: View {
     private var isSelected: Bool {
         loopMode == .loopCurrent || loopMode == .loopPlaylist
     }
+    
+    private var accessibilityLabel: String {
+        switch loopMode {
+        case .loopCurrent:
+            return "Repeat current video"
+        case .loopPlaylist:
+            return "Repeat playlist"
+        case .playPlaylistOnce:
+            return "Play playlist once"
+        }
+    }
 
     var body: some View {
         Button {
@@ -22,6 +33,7 @@ struct LoopButton: View {
             selectImage()
         }
         .buttonStyle(SecondaryPlayerControlsButtonStyle(isSelected: isSelected))
+        .accessibilityLabel(accessibilityLabel)
     }
 
     private func cycleLoopMode() {
