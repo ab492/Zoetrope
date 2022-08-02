@@ -85,7 +85,10 @@ final class PlaylistRepositoryImpl: PlaylistRepository {
     }
 
     func delete(playlistsAt indexSet: IndexSet) {
-        // TODO: Remove metadata of images here!
+        for index in indexSet {
+            let playlist = playlists[index]
+            deleteAllItems(from: playlist)
+        }
         playlists.remove(atOffsets: indexSet)
         playlistManagerDidUpdate()
         save()
@@ -145,6 +148,10 @@ final class PlaylistRepositoryImpl: PlaylistRepository {
     private func url(for video: VideoModel) -> URL {
         URL(fileURLWithPath: video.filename, relativeTo: videoBaseURL)
     }
+    
+    func save() {
+        playlistStore.save(playlists)
+    }
 
     // MARK: - Private
 
@@ -153,9 +160,12 @@ final class PlaylistRepositoryImpl: PlaylistRepository {
         let allVideos = playlists.map { $0.videos }.flatMap { $0 }
         Current.thumbnailService.cleanupStoreOfAllExcept(requiredVideos: allVideos)
     }
-
-    func save() {
-        playlistStore.save(playlists)
+    
+    private func deleteAllItems(from playlist: Playlist) {
+        for video in playlist.videos {
+            Current.thumbnailService.removeThumbnail(for: video)
+            try? fileManager.removeItem(at: url(for: video))
+        }
     }
 
     // MARK: - Observable

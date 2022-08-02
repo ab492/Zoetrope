@@ -107,6 +107,8 @@
 		AD7A9F4525D00C2A00118055 /* PlaylistBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7A9F4425D00C2A00118055 /* PlaylistBuilder.swift */; };
 		AD7E77FF25C58FBD00EDD01E /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7E77FE25C58FBD00EDD01E /* TimeFormatter.swift */; };
 		AD7E780425C58FEE00EDD01E /* TimeFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7E780325C58FEE00EDD01E /* TimeFormatterTests.swift */; };
+		AD81C7AA2898EC4F00CA7D55 /* UIKitShowSidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD81C7A92898EC4F00CA7D55 /* UIKitShowSidebar.swift */; };
+		AD81C7AC2898EE2F00CA7D55 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD81C7AB2898EE2F00CA7D55 /* EmptyView.swift */; };
 		AD8989EE25D7BEB20065975D /* ThumbnailGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8989ED25D7BEB20065975D /* ThumbnailGenerator.swift */; };
 		AD8989F225D7BEE30065975D /* ThumbnailStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8989F125D7BEE30065975D /* ThumbnailStore.swift */; };
 		AD8989F625D7C1F10065975D /* ThumbnailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8989F525D7C1F10065975D /* ThumbnailService.swift */; };
@@ -253,6 +255,8 @@
 		AD7A9F4425D00C2A00118055 /* PlaylistBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistBuilder.swift; sourceTree = "<group>"; };
 		AD7E77FE25C58FBD00EDD01E /* TimeFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
 		AD7E780325C58FEE00EDD01E /* TimeFormatterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeFormatterTests.swift; sourceTree = "<group>"; };
+		AD81C7A92898EC4F00CA7D55 /* UIKitShowSidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitShowSidebar.swift; sourceTree = "<group>"; };
+		AD81C7AB2898EE2F00CA7D55 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		AD8989ED25D7BEB20065975D /* ThumbnailGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailGenerator.swift; sourceTree = "<group>"; };
 		AD8989F125D7BEE30065975D /* ThumbnailStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailStore.swift; sourceTree = "<group>"; };
 		AD8989F525D7C1F10065975D /* ThumbnailService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailService.swift; sourceTree = "<group>"; };
@@ -324,6 +328,7 @@
 				AD078C3425BC185700137941 /* VisualEffectView.swift */,
 				AD2F0BB425BC0E0F0006306D /* PlayerView.swift */,
 				ADF1B1832897FDCC0056B47D /* MailView.swift */,
+				AD81C7A92898EC4F00CA7D55 /* UIKitShowSidebar.swift */,
 			);
 			path = "UIKit Wrappers";
 			sourceTree = "<group>";
@@ -332,6 +337,7 @@
 			isa = PBXGroup;
 			children = (
 				AD2F0AB925BC06A50006306D /* ContentView.swift */,
+				AD81C7AB2898EE2F00CA7D55 /* EmptyView.swift */,
 				AD7A9EDB25CEB1AE00118055 /* Playlist Sidebar */,
 				AD7A9EE225CEB23D00118055 /* Playlist Detail */,
 				AD078C5525BD599100137941 /* Player */,
@@ -1035,6 +1041,7 @@
 				ADF1B1822897F76B0056B47D /* SettingsView.swift in Sources */,
 				AD9A0D9E25CE79B800FF85EB /* PlaylistStore.swift in Sources */,
 				AD0D65CE25F3837B00461BE6 /* VideoThumbnailViewModel.swift in Sources */,
+				AD81C7AC2898EE2F00CA7D55 /* EmptyView.swift in Sources */,
 				AD45974525EB815C00E537C1 /* AddPlaylistModal.swift in Sources */,
 				AD13687425BD600100ACC7D0 /* TimeControlsBar.swift in Sources */,
 				AD15DB4E25F4ED0800010B73 /* UserPreferences.swift in Sources */,
@@ -1046,6 +1053,7 @@
 				AD2F0AE625BC06D20006306D /* WrappedAVPlayer.swift in Sources */,
 				AD7A9EE425CEB25300118055 /* PlaylistDetailView.swift in Sources */,
 				AD9A0D9125CE739600FF85EB /* Playlist.swift in Sources */,
+				AD81C7AA2898EC4F00CA7D55 /* UIKitShowSidebar.swift in Sources */,
 				AD2F0BB525BC0E0F0006306D /* PlayerView.swift in Sources */,
 				AD078C3525BC185700137941 /* VisualEffectView.swift in Sources */,
 				ADB964BA25F4E63A00D26886 /* EditMode+Toggle.swift in Sources */,

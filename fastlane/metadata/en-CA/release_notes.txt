@@ -1,5 +1,6 @@
-- Fixed a bug with deleting videos.
+- Fixed a couple of bugs with deleting videos.
 - Fixed accessibility labels throughout the app.
+- Fixed a bug where sidebar didn't appear in portrait mode when no playlists.
 - Added the ability to provide feedback within the app settings.
 
 If you find the app useful, please rate it or leave a review. 

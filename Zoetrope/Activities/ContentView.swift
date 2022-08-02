@@ -22,28 +22,10 @@ struct ContentView: View {
                 .navigationTitle("Playlists")
 
             // Secondary view (when nothing selected from primary)
-            ZStack {
-                Color.black.edgesIgnoringSafeArea(.all)
-                VStack(alignment: .center, spacing: 10) {
-                    Text(secondaryTextTitle)
-                        .font(.system(size: 25, weight: .bold, design: .default))
-                        .foregroundColor(.primary)
-                    Text(secondaryTextSubtitle)
-                        .foregroundColor(.secondary)
-                        .font(.body)
-                }
-            }
+            EmptyView()
             .ignoresSafeArea(.keyboard, edges: .bottom) // Prevents the view moving up when the keyboard appears.
             .navigationBarTitle("") // Required to hide the navigation bar to allow the text to be centered.
             .navigationBarHidden(true)
         }
-    }
-    
-    private var secondaryTextTitle: String {
-        Current.playlistManager.playlists.isEmpty ? "No Playlists" : "No Playlist Selected"
-    }
-
-    private var secondaryTextSubtitle: String {
-        Current.playlistManager.playlists.isEmpty ? "Please add a playlist to get started." : "Please select a playlist to show details."
     }
 }
