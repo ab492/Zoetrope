@@ -90,7 +90,6 @@
 		AD56260F260F26550056C5C7 /* TestPlaylistPlayerObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD56260E260F26550056C5C7 /* TestPlaylistPlayerObserver.swift */; };
 		AD57C8F42882C2F900E35B92 /* PlaylistPlayerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD57C8F32882C2F900E35B92 /* PlaylistPlayerViewModelTests.swift */; };
 		AD57C8FA2882C5B300E35B92 /* Optional+Assertions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD57C8F92882C5B300E35B92 /* Optional+Assertions.swift */; };
-		AD57C8FC2882C61100E35B92 /* Equatable+Verify.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD57C8FB2882C61000E35B92 /* Equatable+Verify.swift */; };
 		AD57C8FE2882C62F00E35B92 /* Bool+Verify.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD57C8FD2882C62E00E35B92 /* Bool+Verify.swift */; };
 		AD62B3AA2604705F007F8915 /* SortOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD62B3A92604705F007F8915 /* SortOrder.swift */; };
 		AD62B3FD26073544007F8915 /* TimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD62B3FC26073544007F8915 /* TimeTests.swift */; };
@@ -109,6 +108,7 @@
 		AD7E780425C58FEE00EDD01E /* TimeFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7E780325C58FEE00EDD01E /* TimeFormatterTests.swift */; };
 		AD81C7AA2898EC4F00CA7D55 /* UIKitShowSidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD81C7A92898EC4F00CA7D55 /* UIKitShowSidebar.swift */; };
 		AD81C7AC2898EE2F00CA7D55 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD81C7AB2898EE2F00CA7D55 /* EmptyView.swift */; };
+		AD81C7F4289B9DD700CA7D55 /* Equatable+Verify.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD81C7F3289B9DD700CA7D55 /* Equatable+Verify.swift */; };
 		AD8989EE25D7BEB20065975D /* ThumbnailGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8989ED25D7BEB20065975D /* ThumbnailGenerator.swift */; };
 		AD8989F225D7BEE30065975D /* ThumbnailStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8989F125D7BEE30065975D /* ThumbnailStore.swift */; };
 		AD8989F625D7C1F10065975D /* ThumbnailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8989F525D7C1F10065975D /* ThumbnailService.swift */; };
@@ -238,7 +238,6 @@
 		AD56260E260F26550056C5C7 /* TestPlaylistPlayerObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPlaylistPlayerObserver.swift; sourceTree = "<group>"; };
 		AD57C8F32882C2F900E35B92 /* PlaylistPlayerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistPlayerViewModelTests.swift; sourceTree = "<group>"; };
 		AD57C8F92882C5B300E35B92 /* Optional+Assertions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Optional+Assertions.swift"; sourceTree = "<group>"; };
-		AD57C8FB2882C61000E35B92 /* Equatable+Verify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Equatable+Verify.swift"; path = "../../../../Shoebox/Shoebox/Extensions/Foundation/Verifications/Equatable+Verify.swift"; sourceTree = "<group>"; };
 		AD57C8FD2882C62E00E35B92 /* Bool+Verify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bool+Verify.swift"; sourceTree = "<group>"; };
 		AD62B3A92604705F007F8915 /* SortOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOrder.swift; sourceTree = "<group>"; };
 		AD62B3FC26073544007F8915 /* TimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTests.swift; sourceTree = "<group>"; };
@@ -257,6 +256,7 @@
 		AD7E780325C58FEE00EDD01E /* TimeFormatterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeFormatterTests.swift; sourceTree = "<group>"; };
 		AD81C7A92898EC4F00CA7D55 /* UIKitShowSidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitShowSidebar.swift; sourceTree = "<group>"; };
 		AD81C7AB2898EE2F00CA7D55 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
+		AD81C7F3289B9DD700CA7D55 /* Equatable+Verify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Equatable+Verify.swift"; sourceTree = "<group>"; };
 		AD8989ED25D7BEB20065975D /* ThumbnailGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailGenerator.swift; sourceTree = "<group>"; };
 		AD8989F125D7BEE30065975D /* ThumbnailStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailStore.swift; sourceTree = "<group>"; };
 		AD8989F525D7C1F10065975D /* ThumbnailService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailService.swift; sourceTree = "<group>"; };
@@ -626,7 +626,7 @@
 		AD57C8F82882C59C00E35B92 /* Test Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				AD57C8FB2882C61000E35B92 /* Equatable+Verify.swift */,
+				AD81C7F3289B9DD700CA7D55 /* Equatable+Verify.swift */,
 				AD57C8FD2882C62E00E35B92 /* Bool+Verify.swift */,
 				AD57C8F92882C5B300E35B92 /* Optional+Assertions.swift */,
 				AD548FCA2894FBB4008516C7 /* Optional+Verify.swift */,
@@ -1116,11 +1116,11 @@
 				AD57C8FA2882C5B300E35B92 /* Optional+Assertions.swift in Sources */,
 				AD5625FA260F230C0056C5C7 /* PlaylistPlayerTests-SkipThreshold.swift in Sources */,
 				AD8B29DF25BFEB8300AAA7AC /* CGFloat+MapTests.swift in Sources */,
-				AD57C8FC2882C61100E35B92 /* Equatable+Verify.swift in Sources */,
 				AD57C8F42882C2F900E35B92 /* PlaylistPlayerViewModelTests.swift in Sources */,
 				AD0D65E225F38BEC00461BE6 /* MockPlaylistManager.swift in Sources */,
 				AD57C8FE2882C62F00E35B92 /* Bool+Verify.swift in Sources */,
 				AD5625F4260F21F20056C5C7 /* PlaylistPlayerTests.swift in Sources */,
+				AD81C7F4289B9DD700CA7D55 /* Equatable+Verify.swift in Sources */,
 				AD9A0DB625CE877B00FF85EB /* MockPlaylistStore.swift in Sources */,
 				AD12075925D3B50800A8AAEC /* PlaylistManagerTests.swift in Sources */,
 				AD62B3FD26073544007F8915 /* TimeTests.swift in Sources */,
@@ -1278,7 +1278,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.andybrown.Zoetrope;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
@@ -1303,7 +1303,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.andybrown.Zoetrope;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
