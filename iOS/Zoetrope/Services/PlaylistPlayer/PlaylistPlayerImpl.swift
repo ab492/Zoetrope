@@ -140,7 +140,9 @@ final class PlaylistPlayerImpl: PlaylistPlayer {
         self.playlist = playlist
         let urls = Current.playlistManager.mediaUrlsFor(playlist: playlist)
         let items = urls.map { AVURLAsset(url: $0, options: [AVURLAssetPreferPreciseDurationAndTimingKey: true]) }
-        let playerItems = items.map { AVPlayerItem(asset: $0) }
+//        let playerItems = items.map { AVPlayerItem(asset: $0) }
+        let playerItems = items.map { WrappedAVPLayerItem(asset: $0) }
+
         player.replaceQueue(with: playerItems)
     }
 

@@ -19,7 +19,7 @@ public protocol VideoQueuePlayerProtocol {
     func skipToItem(at index: Int)
     func step(byFrames count: Int)
     func seek(to time: MediaTime)
-    func replaceQueue(with items: [AVPlayerItem])
+    func replaceQueue(with items: [PlayerItem])
     func scrubbingDidStart()
     func scrubbed(to time: MediaTime)
     func scrubbingDidEnd()
@@ -80,7 +80,7 @@ public final class VideoQueuePlayer: VideoQueuePlayerProtocol {
 
     // MARK: - Private Properties
 
-    private var playerItems: [AVPlayerItem] // The master queue
+    private var playerItems: [PlayerItem] // The master queue
 
     private var atBeginningOfQueue: Bool {
         nowPlayingIndex == 0
@@ -95,7 +95,7 @@ public final class VideoQueuePlayer: VideoQueuePlayerProtocol {
 
     // MARK: - Init
 
-    public init(items: [AVPlayerItem], videoPlayer: VideoPlayerProtocol) {
+    public init(items: [PlayerItem], videoPlayer: VideoPlayerProtocol) {
         playerItems = items
         player = videoPlayer
         player.observer = self
@@ -105,7 +105,7 @@ public final class VideoQueuePlayer: VideoQueuePlayerProtocol {
         self.init(items: [])
     }
 
-    public convenience init(items: [AVPlayerItem]) {
+    public convenience init(items: [PlayerItem]) {
         self.init(items: items, videoPlayer: WrappedAVPlayer())
     }
 }
@@ -182,9 +182,7 @@ extension VideoQueuePlayer {
         player.seek(to: time)
     }
 
-    public func replaceQueue(with items: [AVPlayerItem]) {
-        // TODO: Need to use this to test behavior!
-        // DO WE NEED TO STOP THE PLAYER?!
+    public func replaceQueue(with items: [PlayerItem]) {
         player.pause()
         playerItems = items
         nowPlayingIndex = 0
@@ -195,7 +193,7 @@ extension VideoQueuePlayer {
         lastPlaybackRate = player.playbackRate
         // Important to pause the player before updating the current item to prevent any weird play-pause behavior (e.g randomly becoming paused).
         player.playbackRate = 0
-        item.seek(to: .zero, completionHandler: nil)
+        item.seek(to: .zero)
         player.replaceCurrentItem(with: item)
         if lastPlaybackRate > 0 {
             player.playbackRate = lastPlaybackRate

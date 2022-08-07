@@ -6,7 +6,6 @@
 //
 
 import XCTest
-import AVFoundation
 @testable import VideoQueuePlayer
 
 final class VideoQueuePlayerTests: XCTestCase {
@@ -24,8 +23,8 @@ final class VideoQueuePlayerTests: XCTestCase {
     func test_initialState() {
         let sut = makeSUT()
 
-        XCTAssertEqual(sut.nowPlayingIndex, 0)
-        XCTAssertEqual(sut.loopMode, .playPlaylistOnce)
+        sut.nowPlayingIndex.verify(equals: 0)
+        sut.loopMode.verify(equals: .playPlaylistOnce)
     }
 
     func test_playCallsPlay() {
@@ -33,22 +32,24 @@ final class VideoQueuePlayerTests: XCTestCase {
 
         sut.play()
 
-        XCTAssertEqual(mockVideoPlayer.playCallCount, 1)
+        mockVideoPlayer.playCallCount.verify(equals: 1)
     }
 
     func test_callingPlayWithEmptyPlaylist_doesNothing() {
         let sut = makeSUT(withItems: 0)
 
         sut.play()
+        
+        mockVideoPlayer.playCallCount.verify(equals: 0)
     }
 
-    func test_playReplacesCurrentItemIfRequired() {
+    func test_playReplacesCurrentItemIfRequired() throws {
         let items = testItems(number: 3)
         let sut = makeSUT(withItems: items)
 
         sut.play()
 
-        XCTAssertEqual(mockVideoPlayer.lastReplacedItem, items.first)
+        try mockVideoPlayer.lastReplacedItem.assertUnwrap().isSame(as: items[0]).verifyTrue()
     }
 
     func test_pauseCallsPause() {
@@ -56,41 +57,50 @@ final class VideoQueuePlayerTests: XCTestCase {
 
         sut.pause()
 
-        XCTAssertEqual(mockVideoPlayer.pauseCallCount, 1)
+        mockVideoPlayer.pauseCallCount.verify(equals: 1)
     }
 
     // MARK: - Play Next Item (Default Loop Mode - Play Playlist Once)
 
-    func test_playNext_incrementsNowPlayingIndexAndReplacesCurrentItem() {
+    func test_playNext_incrementsNowPlayingIndexAndReplacesCurrentItem() throws {
         let items = testItems(number: 3)
         let sut = makeSUT(withItems: items)
 
         sut.playNext() // Skip to item 2 (index 1)
 
-        XCTAssertEqual(sut.nowPlayingIndex, 1)
-        XCTAssertEqual(mockVideoPlayer.lastReplacedItem, items[1])
+        sut.nowPlayingIndex.verify(equals: 1)
+        try mockVideoPlayer.lastReplacedItem.assertUnwrap().isSame(as: items[1]).verifyTrue()
     }
 
     func test_itemDidFinishPlayingCallback_incrementsPlayingIndex() {
         let sut = makeSUT()
 
-        XCTAssertEqual(sut.nowPlayingIndex, 0)
+        sut.nowPlayingIndex.verify(equals: 0)
         sut.currentItemDidFinishPlayback()
-        XCTAssertEqual(sut.nowPlayingIndex, 1)
+        sut.nowPlayingIndex.verify(equals: 1)
     }
 
-    func test_itemDidFinishPlayingCallback_replacesCurrentItem() {
+    func test_itemDidFinishPlayingCallback_replacesCurrentItem() throws {
         let items = testItems(number: 3)
         let sut = makeSUT(withItems: items)
 
         sut.currentItemDidFinishPlayback()
 
-        XCTAssertEqual(mockVideoPlayer.lastReplacedItem, items[1])
+        try mockVideoPlayer.lastReplacedItem.assertUnwrap().isSame(as: items[1]).verifyTrue()
+    }
+    
+    func test_playNext_resetsNewItemToZero() {
+        let items = testItems(number: 2)
+        let sut = makeSUT(withItems: items)
+
+        sut.playNext() // Skip to item 2 (index 1)
+
+        items[1].seekToWasCalled.verifyTrue()
     }
 
     // MARK: - Play Previous Item (Default Loop Mode - Play Playlist Once)
 
-    func test_playPreviousItem() {
+    func test_playPreviousItem() throws {
         let items = testItems(number: 3)
         let sut = makeSUT(withItems: items)
 
@@ -98,8 +108,8 @@ final class VideoQueuePlayerTests: XCTestCase {
         sut.playNext()      // Skip to item 3 (index 2)
         sut.playPrevious()  // Skip to item 2 (index 1)
 
-        XCTAssertEqual(sut.nowPlayingIndex, 1)
-        XCTAssertEqual(mockVideoPlayer.lastReplacedItem, items[1])
+        sut.nowPlayingIndex.verify(equals: 1)
+        try mockVideoPlayer.lastReplacedItem.assertUnwrap().isSame(as: items[1]).verifyTrue()
     }
 
     func test_playPreviousAtBeginningOfQueue_doesntDecrementNowPlayingIndex() {
@@ -107,7 +117,7 @@ final class VideoQueuePlayerTests: XCTestCase {
 
         sut.playPrevious()
 
-        XCTAssertEqual(sut.nowPlayingIndex, 0)
+        sut.nowPlayingIndex.verify(equals: 0)
     }
 
     func test_playPreviousItemAtBeginning_seeksToZero() {
@@ -115,12 +125,23 @@ final class VideoQueuePlayerTests: XCTestCase {
 
         sut.playPrevious()
 
-        XCTAssertEqual(mockVideoPlayer.seekToTimeCalledCount, 1)
+        mockVideoPlayer.seekToTimeCalledCount.verify(equals: 1)
+    }
+    
+    func test_playPrevious_resetsNewItemToZero() {
+        let items = testItems(number: 3)
+        let sut = makeSUT(withItems: items)
+
+        sut.playNext()      // Skip to item 2 (index 1)
+        sut.playNext()      // Skip to item 3 (index 2)
+        sut.playPrevious()  // Skip to item 2 (index 1)
+
+        items[1].seekToWasCalled.verifyTrue()
     }
 
     // MARK: - Looping Whole Playlist
 
-    func test_loopWholePlaylist_loopsBackToBeginningAtEndOfQueue() {
+    func test_loopWholePlaylist_loopsBackToBeginningAtEndOfQueue() throws {
         let items = testItems(number: 3)
         let sut = makeSUT(withItems: items)
 
@@ -130,11 +151,11 @@ final class VideoQueuePlayerTests: XCTestCase {
         sut.playNext() // Skip to item 3 (index 2)
         sut.playNext() // Loop back around to item 1 (index 0)
 
-        XCTAssertEqual(sut.nowPlayingIndex, 0)
-        XCTAssertEqual(mockVideoPlayer.lastReplacedItem, items[0])
+        sut.nowPlayingIndex.verify(equals: 0)
+        try mockVideoPlayer.lastReplacedItem.assertUnwrap().isSame(as: items[0]).verifyTrue()
     }
 
-    func test_loopWholePlaylist_indexBackToBeginningOnItemDidFinish() {
+    func test_loopWholePlaylist_indexBackToBeginningOnItemDidFinish() throws {
         let items = testItems(number: 3)
         let sut = makeSUT(withItems: items)
         sut.loopMode = .loopPlaylist
@@ -143,19 +164,19 @@ final class VideoQueuePlayerTests: XCTestCase {
 
         sut.currentItemDidFinishPlayback()
 
-        XCTAssertEqual(sut.nowPlayingIndex, 0)
-        XCTAssertEqual(mockVideoPlayer.lastReplacedItem, items[0])
+        sut.nowPlayingIndex.verify(equals: 0)
+        try mockVideoPlayer.lastReplacedItem.assertUnwrap().isSame(as: items[0]).verifyTrue()
     }
 
-    func test_loopWholePlaylist_playPreviousAtBeginningOfQueue_loopsBackwardsToLastItem() {
+    func test_loopWholePlaylist_playPreviousAtBeginningOfQueue_loopsBackwardsToLastItem() throws {
         let items = testItems(number: 3)
         let sut = makeSUT(withItems: items)
         sut.loopMode = .loopPlaylist
 
         sut.playPrevious()
 
-        XCTAssertEqual(sut.nowPlayingIndex, 2)
-        XCTAssertEqual(mockVideoPlayer.lastReplacedItem, items[2])
+        sut.nowPlayingIndex.verify(equals: 2)
+        try mockVideoPlayer.lastReplacedItem.assertUnwrap().isSame(as: items[2]).verifyTrue()
     }
 
     // MARK: - Playing Playlist Once
@@ -168,7 +189,7 @@ final class VideoQueuePlayerTests: XCTestCase {
 
         sut.playNext()
 
-        XCTAssertEqual(sut.nowPlayingIndex, 2)
+        sut.nowPlayingIndex.verify(equals: 2)
     }
 
     func test_playOnce_doesntIncrementOnItemDidFinish() {
@@ -179,7 +200,7 @@ final class VideoQueuePlayerTests: XCTestCase {
 
         sut.currentItemDidFinishPlayback()
 
-        XCTAssertEqual(sut.nowPlayingIndex, 2)
+        sut.nowPlayingIndex.verify(equals: 2)
     }
 
     // MARK: - Loop Current
@@ -191,10 +212,10 @@ final class VideoQueuePlayerTests: XCTestCase {
         sut.playNext() // Start looping item 2 (index 1)
         sut.playNext() // Start looping item 3 (index 2)
 
-        XCTAssertEqual(sut.nowPlayingIndex, 2)
+        sut.nowPlayingIndex.verify(equals: 2)
     }
 
-    func test_loopCurrent_doesntIncrementOnItemDidFinish() {
+    func test_loopCurrent_doesntIncrementOnItemDidFinish() throws {
         let items = testItems(number: 3)
         let sut = makeSUT(withItems: items)
         sut.loopMode = .loopCurrent
@@ -202,11 +223,11 @@ final class VideoQueuePlayerTests: XCTestCase {
         sut.playNext() // Start looping item 2 (index 1)
         sut.currentItemDidFinishPlayback()
 
-        XCTAssertEqual(sut.nowPlayingIndex, 1)
-        XCTAssertEqual(mockVideoPlayer.lastReplacedItem, items[1])
+        sut.nowPlayingIndex.verify(equals: 1)
+        try mockVideoPlayer.lastReplacedItem.assertUnwrap().isSame(as: items[1]).verifyTrue()
     }
 
-    func test_playNextWithLoopCurrent_doesntIncrementOnceAtEndOfQueue() {
+    func test_playNextWithLoopCurrent_doesntIncrementOnceAtEndOfQueue() throws {
         let items = testItems(number: 3)
         let sut = makeSUT(withItems: items)
         sut.loopMode = .loopCurrent
@@ -215,51 +236,51 @@ final class VideoQueuePlayerTests: XCTestCase {
         sut.playNext() // Start looping item 3 (index 2) - end of playlist
         sut.playNext() // Loop back around to item 1 (index 0)
 
-        XCTAssertEqual(sut.nowPlayingIndex, 0)
-        XCTAssertEqual(mockVideoPlayer.lastReplacedItem, items[0])
+        sut.nowPlayingIndex.verify(equals: 0)
+        try mockVideoPlayer.lastReplacedItem.assertUnwrap().isSame(as: items[0]).verifyTrue()
     }
 
-    func test_loopCurrent_playPreviousAtBeginningOfQueue_loopsBackwardsToLastItem() {
+    func test_loopCurrent_playPreviousAtBeginningOfQueue_loopsBackwardsToLastItem() throws {
         let items = testItems(number: 3)
         let sut = makeSUT(withItems: items)
         sut.loopMode = .loopCurrent
 
         sut.playPrevious()
 
-        XCTAssertEqual(sut.nowPlayingIndex, 2)
-        XCTAssertEqual(mockVideoPlayer.lastReplacedItem, items[2])
+        sut.nowPlayingIndex.verify(equals: 2)
+        try mockVideoPlayer.lastReplacedItem.assertUnwrap().isSame(as: items[2]).verifyTrue()
     }
 
     // MARK: - Skip to Specific Index
 
-    func test_skipToIndex_worksCorrectly() {
+    func test_skipToIndex_worksCorrectly() throws {
         let items = testItems(number: 8)
         let sut = makeSUT(withItems: items)
 
         sut.skipToItem(at: 3)
 
-        XCTAssertEqual(sut.nowPlayingIndex, 3)
-        XCTAssertEqual(mockVideoPlayer.lastReplacedItem, items[3])
+        sut.nowPlayingIndex.verify(equals: 3)
+        try mockVideoPlayer.lastReplacedItem.assertUnwrap().isSame(as: items[3]).verifyTrue()
     }
 
-    func test_skipToIndexWithNegative_defaultsTo0() {
+    func test_skipToIndexWithNegative_defaultsTo0() throws {
         let items = testItems(number: 3)
         let sut = makeSUT(withItems: items)
 
         sut.skipToItem(at: -1)
 
-        XCTAssertEqual(sut.nowPlayingIndex, 0)
-        XCTAssertEqual(mockVideoPlayer.lastReplacedItem, items[0])
+        sut.nowPlayingIndex.verify(equals: 0)
+        try mockVideoPlayer.lastReplacedItem.assertUnwrap().isSame(as: items[0]).verifyTrue()
     }
 
-    func test_skipToIndexWithNegative_defaultsToMax() {
+    func test_skipToIndexWithNegative_defaultsToMax() throws {
         let items = testItems(number: 3)
         let sut = makeSUT(withItems: items)
 
         sut.skipToItem(at: 5)
 
-        XCTAssertEqual(sut.nowPlayingIndex, 2)
-        XCTAssertEqual(mockVideoPlayer.lastReplacedItem, items[2])
+        sut.nowPlayingIndex.verify(equals: 2)
+        try mockVideoPlayer.lastReplacedItem.assertUnwrap().isSame(as: items[2]).verifyTrue()
     }
 
     // MARK: - Replacing Queue
@@ -271,17 +292,17 @@ final class VideoQueuePlayerTests: XCTestCase {
         let newItems = testItems(number: 3)
         sut.replaceQueue(with: newItems)
 
-        XCTAssertEqual(sut.nowPlayingIndex, 0)
+        sut.nowPlayingIndex.verify(equals: 0)
     }
 
     // MARK: - Seeking
 
-    func test_seekingCorrectlyPreservesMediaTime() {
+    func test_seekingCorrectlyPreservesMediaTime() throws {
         let sut = makeSUT(withItems: 1)
 
         sut.seek(to: MediaTime(seconds: 1.7653))
 
-        XCTAssertEqual(mockVideoPlayer.lastSeekedToTime, MediaTime(seconds: 1.7653))
+        try mockVideoPlayer.lastSeekedToTime.assertUnwrap().verify(equals: MediaTime(seconds: 1.7653))
     }
 
 
@@ -292,7 +313,7 @@ final class VideoQueuePlayerTests: XCTestCase {
 
         sut.play()
 
-        XCTAssertEqual(mockVideoPlayer.playCallCount, 0)
+        mockVideoPlayer.playCallCount.verify(equals: 0)
     }
 
     func test_callingPauseOnEmptyPlaylist_doesNothing() {
@@ -300,7 +321,7 @@ final class VideoQueuePlayerTests: XCTestCase {
 
         sut.pause()
 
-        XCTAssertEqual(mockVideoPlayer.playCallCount, 0)
+        mockVideoPlayer.playCallCount.verify(equals: 0)
     }
 
     func test_callingPlayNextOnEmptyPlaylist_doesNothing() {
@@ -308,7 +329,7 @@ final class VideoQueuePlayerTests: XCTestCase {
 
         sut.playNext()
 
-        XCTAssertNil(mockVideoPlayer.lastReplacedItem)
+        mockVideoPlayer.lastReplacedItem.verifyNil()
     }
 
     func test_callingPlayPreviousOnEmptyPlaylist_doesNothing() {
@@ -316,7 +337,7 @@ final class VideoQueuePlayerTests: XCTestCase {
 
         sut.playPrevious()
 
-        XCTAssertNil(mockVideoPlayer.lastReplacedItem)
+        mockVideoPlayer.lastReplacedItem.verifyNil()
     }
 
     func test_skipToItemOnEmptyPlaylist_doesNothing() {
@@ -324,7 +345,7 @@ final class VideoQueuePlayerTests: XCTestCase {
 
         sut.skipToItem(at: 3)
 
-        XCTAssertNil(mockVideoPlayer.lastReplacedItem)
+        mockVideoPlayer.lastReplacedItem.verifyNil()
     }
 
     // MARK: - Playback Rate
@@ -335,8 +356,8 @@ final class VideoQueuePlayerTests: XCTestCase {
 
         sut.playbackRate = 1.5
 
-        XCTAssertEqual(sut.playbackRate, 1.5)
-        XCTAssertEqual(mockVideoPlayer.playbackRate, 1.5)
+        sut.playbackRate.verify(equals: 1.5)
+        mockVideoPlayer.playbackRate.verify(equals: 1.5)
     }
 
     func test_playbackRate_isFetchedCorrectly() {
@@ -344,9 +365,8 @@ final class VideoQueuePlayerTests: XCTestCase {
         let sut = makeSUT(withItems: items)
         mockVideoPlayer.playbackRate = 1.75
 
-        XCTAssertEqual(sut.playbackRate, 1.75)
+        sut.playbackRate.verify(equals: 1.75)
     }
-
 }
 
 // MARK: - Helpers
@@ -361,28 +381,34 @@ extension VideoQueuePlayerTests {
         return VideoQueuePlayer(items: items, videoPlayer: mockVideoPlayer)
     }
 
-    @discardableResult private func makeSUT(withItems items: [AVPlayerItem]) -> VideoQueuePlayer {
+    @discardableResult private func makeSUT(withItems items: [MockPlayerItem]) -> VideoQueuePlayer {
         VideoQueuePlayer(items: items, videoPlayer: mockVideoPlayer)
     }
 
-    private func testItems(number: Int) -> [AVPlayerItem] {
-        assert(number < 9, "Expected a maximum of 8 items.")
-
+    private func testItems(number: Int) -> [MockPlayerItem] {
         guard number > 0 else { return [] }
+        
+        return (0...number - 1)
+            .compactMap { URL(string: "path/to/file/\($0).mov") }
+            .map { MockPlayerItem(url: $0) }
+    }
+}
 
-        let testBundle = Bundle(for: type(of: self))
+// MARK: - Types
 
-        let avItems = ["01", "02", "03", "04", "05", "06", "07", "08"]
-            .compactMap { testBundle.url(forResource: $0, withExtension: "mov") }
-            .map { AVPlayerItem(url: $0) }
-
-        assert(avItems.count == 8, "Expected 8 movs in bundle to correctly create test items.")
-
-        var itemsToReturn = [AVPlayerItem]()
-
-        for index in 0...number - 1 {
-            itemsToReturn.append(avItems[index])
-        }
-        return itemsToReturn
+private class MockPlayerItem: PlayerItem {
+    var url: URL
+    
+    init(url: URL) {
+        self.url = url
+    }
+    
+    var seekToWasCalled = false
+    func seek(to time: MediaTime) {
+        seekToWasCalled = true
+    }
+    
+    func isSame(as other: PlayerItem) -> Bool {
+        url == other.url
     }
 }

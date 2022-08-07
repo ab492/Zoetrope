@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AD404D58289FB60200FA9DD1 /* PlayerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD404D57289FB60200FA9DD1 /* PlayerItem.swift */; };
+		AD404D5A289FB66300FA9DD1 /* WrappedAVPlayerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD404D59289FB66300FA9DD1 /* WrappedAVPlayerItem.swift */; };
 		AD81C833289CDFF000CA7D55 /* VideoQueuePlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD81C82A289CDFF000CA7D55 /* VideoQueuePlayer.framework */; };
 		AD81C839289CDFF000CA7D55 /* VideoQueuePlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = AD81C82D289CDFF000CA7D55 /* VideoQueuePlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AD81C848289CE02800CA7D55 /* MediaTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD81C847289CE02800CA7D55 /* MediaTime.swift */; };
@@ -23,16 +25,6 @@
 		AD81C873289CE7AC00CA7D55 /* ABExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = AD81C872289CE7AC00CA7D55 /* ABExtensions */; };
 		AD81C875289CE98500CA7D55 /* VideoQueuePlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD81C874289CE98500CA7D55 /* VideoQueuePlayerTests.swift */; };
 		AD81C877289CE98B00CA7D55 /* MockVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD81C876289CE98B00CA7D55 /* MockVideoPlayer.swift */; };
-		AD81C881289CEA3100CA7D55 /* 01.mov in Resources */ = {isa = PBXBuildFile; fileRef = AD81C878289CE9DD00CA7D55 /* 01.mov */; };
-		AD81C882289CEA3400CA7D55 /* 02.mov in Resources */ = {isa = PBXBuildFile; fileRef = AD81C879289CE9DD00CA7D55 /* 02.mov */; };
-		AD81C883289CEA3700CA7D55 /* 03.mov in Resources */ = {isa = PBXBuildFile; fileRef = AD81C87A289CE9DD00CA7D55 /* 03.mov */; };
-		AD81C884289CEA3900CA7D55 /* 04.mov in Resources */ = {isa = PBXBuildFile; fileRef = AD81C87B289CE9DD00CA7D55 /* 04.mov */; };
-		AD81C885289CEA3B00CA7D55 /* 05.mov in Resources */ = {isa = PBXBuildFile; fileRef = AD81C87C289CE9DD00CA7D55 /* 05.mov */; };
-		AD81C886289CEA3D00CA7D55 /* 06.mov in Resources */ = {isa = PBXBuildFile; fileRef = AD81C87D289CE9DD00CA7D55 /* 06.mov */; };
-		AD81C887289CEA4000CA7D55 /* 07.mov in Resources */ = {isa = PBXBuildFile; fileRef = AD81C87E289CE9DD00CA7D55 /* 07.mov */; };
-		AD81C888289CEA4300CA7D55 /* 08.mov in Resources */ = {isa = PBXBuildFile; fileRef = AD81C87F289CE9DD00CA7D55 /* 08.mov */; };
-		AD81C88B289CEA8D00CA7D55 /* VideoQueuePlayer_AVPlayer_IntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD81C889289CEA8C00CA7D55 /* VideoQueuePlayer_AVPlayer_IntegrationTests.swift */; };
-		AD81C88C289CEA8D00CA7D55 /* SpyAVPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD81C88A289CEA8C00CA7D55 /* SpyAVPlayer.swift */; };
 		AD81C891289F876A00CA7D55 /* CMTime+CodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD81C890289F876A00CA7D55 /* CMTime+CodableTests.swift */; };
 		AD81C894289F886800CA7D55 /* LoopMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD81C893289F886800CA7D55 /* LoopMode.swift */; };
 /* End PBXBuildFile section */
@@ -48,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AD404D57289FB60200FA9DD1 /* PlayerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerItem.swift; sourceTree = "<group>"; };
+		AD404D59289FB66300FA9DD1 /* WrappedAVPlayerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrappedAVPlayerItem.swift; sourceTree = "<group>"; };
 		AD81C82A289CDFF000CA7D55 /* VideoQueuePlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = VideoQueuePlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD81C82D289CDFF000CA7D55 /* VideoQueuePlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoQueuePlayer.h; sourceTree = "<group>"; };
 		AD81C832289CDFF000CA7D55 /* VideoQueuePlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VideoQueuePlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,16 +58,6 @@
 		AD81C86F289CE6C100CA7D55 /* VideoQueuePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoQueuePlayer.swift; sourceTree = "<group>"; };
 		AD81C874289CE98500CA7D55 /* VideoQueuePlayerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoQueuePlayerTests.swift; sourceTree = "<group>"; };
 		AD81C876289CE98B00CA7D55 /* MockVideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockVideoPlayer.swift; sourceTree = "<group>"; };
-		AD81C878289CE9DD00CA7D55 /* 01.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = 01.mov; sourceTree = "<group>"; };
-		AD81C879289CE9DD00CA7D55 /* 02.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = 02.mov; sourceTree = "<group>"; };
-		AD81C87A289CE9DD00CA7D55 /* 03.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = 03.mov; sourceTree = "<group>"; };
-		AD81C87B289CE9DD00CA7D55 /* 04.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = 04.mov; sourceTree = "<group>"; };
-		AD81C87C289CE9DD00CA7D55 /* 05.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = 05.mov; sourceTree = "<group>"; };
-		AD81C87D289CE9DD00CA7D55 /* 06.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = 06.mov; sourceTree = "<group>"; };
-		AD81C87E289CE9DD00CA7D55 /* 07.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = 07.mov; sourceTree = "<group>"; };
-		AD81C87F289CE9DD00CA7D55 /* 08.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = 08.mov; sourceTree = "<group>"; };
-		AD81C889289CEA8C00CA7D55 /* VideoQueuePlayer_AVPlayer_IntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoQueuePlayer_AVPlayer_IntegrationTests.swift; sourceTree = "<group>"; };
-		AD81C88A289CEA8C00CA7D55 /* SpyAVPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpyAVPlayer.swift; sourceTree = "<group>"; };
 		AD81C890289F876A00CA7D55 /* CMTime+CodableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CMTime+CodableTests.swift"; sourceTree = "<group>"; };
 		AD81C893289F886800CA7D55 /* LoopMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoopMode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -123,7 +107,7 @@
 				AD81C86F289CE6C100CA7D55 /* VideoQueuePlayer.swift */,
 				AD81C86E289CE69000CA7D55 /* View */,
 				AD81C86B289CE5F300CA7D55 /* Video Players */,
-				AD81C84B289CE18500CA7D55 /* Models */,
+				AD81C84B289CE18500CA7D55 /* Models and Protocols */,
 				AD81C84C289CE18E00CA7D55 /* Extensions */,
 			);
 			path = VideoQueuePlayer;
@@ -135,21 +119,21 @@
 				AD81C874289CE98500CA7D55 /* VideoQueuePlayerTests.swift */,
 				AD81C85A289CE24300CA7D55 /* (T) Models */,
 				AD81C88F289F875E00CA7D55 /* (T) Extensions */,
-				AD81C88D289CEC0400CA7D55 /* Integration Tests */,
-				AD81C880289CE9DD00CA7D55 /* Test Media */,
-				AD81C88E289CEC3F00CA7D55 /* Mocks and Spies */,
+				AD81C88E289CEC3F00CA7D55 /* Mocks */,
 				AD81C859289CE23800CA7D55 /* Test Helpers */,
 			);
 			path = VideoQueuePlayerTests;
 			sourceTree = "<group>";
 		};
-		AD81C84B289CE18500CA7D55 /* Models */ = {
+		AD81C84B289CE18500CA7D55 /* Models and Protocols */ = {
 			isa = PBXGroup;
 			children = (
 				AD81C847289CE02800CA7D55 /* MediaTime.swift */,
 				AD81C893289F886800CA7D55 /* LoopMode.swift */,
+				AD404D57289FB60200FA9DD1 /* PlayerItem.swift */,
+				AD404D59289FB66300FA9DD1 /* WrappedAVPlayerItem.swift */,
 			);
-			path = Models;
+			path = "Models and Protocols";
 			sourceTree = "<group>";
 		};
 		AD81C84C289CE18E00CA7D55 /* Extensions */ = {
@@ -196,36 +180,12 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		AD81C880289CE9DD00CA7D55 /* Test Media */ = {
-			isa = PBXGroup;
-			children = (
-				AD81C878289CE9DD00CA7D55 /* 01.mov */,
-				AD81C879289CE9DD00CA7D55 /* 02.mov */,
-				AD81C87A289CE9DD00CA7D55 /* 03.mov */,
-				AD81C87B289CE9DD00CA7D55 /* 04.mov */,
-				AD81C87C289CE9DD00CA7D55 /* 05.mov */,
-				AD81C87D289CE9DD00CA7D55 /* 06.mov */,
-				AD81C87E289CE9DD00CA7D55 /* 07.mov */,
-				AD81C87F289CE9DD00CA7D55 /* 08.mov */,
-			);
-			path = "Test Media";
-			sourceTree = "<group>";
-		};
-		AD81C88D289CEC0400CA7D55 /* Integration Tests */ = {
-			isa = PBXGroup;
-			children = (
-				AD81C889289CEA8C00CA7D55 /* VideoQueuePlayer_AVPlayer_IntegrationTests.swift */,
-			);
-			path = "Integration Tests";
-			sourceTree = "<group>";
-		};
-		AD81C88E289CEC3F00CA7D55 /* Mocks and Spies */ = {
+		AD81C88E289CEC3F00CA7D55 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
 				AD81C876289CE98B00CA7D55 /* MockVideoPlayer.swift */,
-				AD81C88A289CEA8C00CA7D55 /* SpyAVPlayer.swift */,
 			);
-			path = "Mocks and Spies";
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		AD81C88F289F875E00CA7D55 /* (T) Extensions */ = {
@@ -342,14 +302,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD81C885289CEA3B00CA7D55 /* 05.mov in Resources */,
-				AD81C882289CEA3400CA7D55 /* 02.mov in Resources */,
-				AD81C886289CEA3D00CA7D55 /* 06.mov in Resources */,
-				AD81C881289CEA3100CA7D55 /* 01.mov in Resources */,
-				AD81C887289CEA4000CA7D55 /* 07.mov in Resources */,
-				AD81C884289CEA3900CA7D55 /* 04.mov in Resources */,
-				AD81C888289CEA4300CA7D55 /* 08.mov in Resources */,
-				AD81C883289CEA3700CA7D55 /* 03.mov in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,9 +316,11 @@
 				AD81C86D289CE60900CA7D55 /* VideoPlayerProtocol.swift in Sources */,
 				AD81C870289CE6C100CA7D55 /* VideoQueuePlayer.swift in Sources */,
 				AD81C894289F886800CA7D55 /* LoopMode.swift in Sources */,
+				AD404D5A289FB66300FA9DD1 /* WrappedAVPlayerItem.swift in Sources */,
 				AD81C848289CE02800CA7D55 /* MediaTime.swift in Sources */,
 				AD81C84A289CE06E00CA7D55 /* CMTime+Codable.swift in Sources */,
 				AD81C86A289CE39A00CA7D55 /* PlayerView.swift in Sources */,
+				AD404D58289FB60200FA9DD1 /* PlayerItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,8 +329,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD81C862289CE25200CA7D55 /* Optional+Verify.swift in Sources */,
-				AD81C88C289CEA8D00CA7D55 /* SpyAVPlayer.swift in Sources */,
-				AD81C88B289CEA8D00CA7D55 /* VideoQueuePlayer_AVPlayer_IntegrationTests.swift in Sources */,
 				AD81C861289CE25200CA7D55 /* Optional+Assertions.swift in Sources */,
 				AD81C875289CE98500CA7D55 /* VideoQueuePlayerTests.swift in Sources */,
 				AD81C85F289CE25200CA7D55 /* Bool+Verify.swift in Sources */,

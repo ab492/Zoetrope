@@ -161,8 +161,9 @@ final public class WrappedAVPlayer: VideoPlayerProtocol {
 extension WrappedAVPlayer {
 
     /// Calling this method with the player’s current player item has no effect.
-    public func replaceCurrentItem(with item: AVPlayerItem) {
-        player.replaceCurrentItem(with: item)
+    public func replaceCurrentItem(with item: PlayerItem) {
+        guard let wrappedItem = item as? WrappedAVPLayerItem else { return }
+        player.replaceCurrentItem(with: wrappedItem)
     }
 
     public func play() {

@@ -20,7 +20,6 @@ public enum ItemStatus {
     case unknown
 }
 
-/// A protocol to mirror `AVPlayer`.
 public protocol VideoPlayerProtocol {
     var observer: VideoPlayerObserver? { get set }
 
@@ -39,7 +38,7 @@ public protocol VideoPlayerProtocol {
     func pause()
     func cancelPendingSeeks()
     func seek(to time: MediaTime)
-    func replaceCurrentItem(with item: AVPlayerItem) // TODO: Fix AVPLAYERITEM
+    func replaceCurrentItem(with item: PlayerItem)
     func step(byFrames count: Int)
 
     // PlayerView
