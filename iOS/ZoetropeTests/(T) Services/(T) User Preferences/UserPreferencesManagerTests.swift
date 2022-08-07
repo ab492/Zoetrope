@@ -7,6 +7,7 @@
 
 import UIKit
 import XCTest
+import VideoQueuePlayer
 @testable import Zoetrope
 
 final class UserPreferencesManagerTests: XCTestCase {

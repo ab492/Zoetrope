@@ -4,4 +4,7 @@
    <FileRef
       location = "group:iOS/Zoetrope.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:VideoQueuePlayer/VideoQueuePlayer.xcodeproj">
+   </FileRef>
 </Workspace>

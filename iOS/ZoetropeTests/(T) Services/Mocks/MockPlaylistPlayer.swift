@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import VideoQueuePlayer
 @testable import Zoetrope
 
 final class MockPlaylistPlayer: PlaylistPlayer {

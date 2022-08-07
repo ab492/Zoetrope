@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import VideoQueuePlayer
 
 struct LoopButton: View {
 

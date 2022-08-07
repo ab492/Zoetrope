@@ -7,9 +7,14 @@
 
 import Foundation
 import AVFoundation
+import VideoQueuePlayer
 @testable import Zoetrope
 
 final class MockVideoQueuePlayer: VideoQueuePlayerProtocol {
+    
+    enum TestError: Error {
+        case playbackError
+    }
 
     var lastSelectedLoopMode: LoopMode?
     var loopMode: LoopMode = .playPlaylistOnce {

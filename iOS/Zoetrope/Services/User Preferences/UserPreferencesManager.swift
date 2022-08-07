@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import VideoQueuePlayer
 
 protocol UserPreferencesManager {
     var loopMode: LoopMode { get set }

@@ -7,6 +7,7 @@
 
 
 import XCTest
+import VideoQueuePlayer
 @testable import Zoetrope
 
 extension PlaylistPlayerTests {
@@ -50,7 +51,7 @@ extension PlaylistPlayerTests {
     func test_playbackStatusFailed_isReportedAsFalse() {
         makeSUT()
 
-        mockVideoQueuePlayer.observer?.playbackItemStatusDidChange(to: .failed(MockVideoPlayer.TestError.playbackError))
+        mockVideoQueuePlayer.observer?.playbackItemStatusDidChange(to: .failed(MockVideoQueuePlayer.TestError.playbackError))
 
         XCTAssertEqual(testObserver.lastReportedPlaybackReadiness, false)
     }

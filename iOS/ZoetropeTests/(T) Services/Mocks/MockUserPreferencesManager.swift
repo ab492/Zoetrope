@@ -7,6 +7,7 @@
 
 import UIKit
 import Foundation
+import VideoQueuePlayer
 @testable import Zoetrope
 
 final class MockUserPreferencesManager: UserPreferencesManager {

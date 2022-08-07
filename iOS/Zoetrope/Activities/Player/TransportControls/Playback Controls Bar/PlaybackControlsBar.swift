@@ -5,6 +5,7 @@
 //
 
 import SwiftUI
+import VideoQueuePlayer
 
 struct PlaybackControlsBar: View {
 

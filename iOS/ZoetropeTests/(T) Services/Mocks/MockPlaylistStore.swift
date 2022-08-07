@@ -16,7 +16,7 @@ final class MockPlaylistStore: PlaylistStore {
         lastSavedPlaylists = playlists
         saveCallCount += 1
     }
-
+    
     var playlistsToFetch: [Playlist] = []
     func fetchPlaylists() -> [Playlist] {
         playlistsToFetch

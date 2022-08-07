@@ -7,7 +7,7 @@
 
 import SwiftUI
 import Combine
-import PencilKit
+import VideoQueuePlayer
 
 struct VideoPlayerView: UIViewRepresentable {
 
