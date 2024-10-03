@@ -4,7 +4,7 @@
 
 # Zoetrope: Video Player for iPad
 > **Note:**  
-> *This project is from a few years ago and is no longer supported on the app store, but it was a fun project where I learned a lot so I wanted to showcase it.*
+> This project, though no longer supported on the App Store, was a fun learning experience that I want to showcase.”*
 
 I built Zoetrope for iPad using SwiftUI and AVFoundation. It allows users to create playlists of videos, reorder them, loop them, and navigate them frame by frame. I started working on it in 2021, so some of the SwiftUI code may contain workarounds for features not available in earlier versions.
 
