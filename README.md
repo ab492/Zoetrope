@@ -2,7 +2,7 @@
   <img src="assets/Zoetrope.png" alt="Zoetrope" width="200" />
 </p>
 
-# Zoetrope: Video Player for iPad
+# Zoetrope: The Missing Video Player for iPad
 > **Note:**  
 > *This project, though no longer supported on the App Store, was a fun learning experience that I want to showcase.*
 
@@ -25,6 +25,4 @@ Note: When using Fastlane commands, adding `bundle exec` beforehand means that y
 
 ### Support
 
-Here are the old support pages:
-[Project Repository](https://github.com/ab492/ZoetropePages)
-[Support Page](https://ab492.github.io/ZoetropePages)
+[Here](https://ab492.github.io/ZoetropePages) is the old support page.
